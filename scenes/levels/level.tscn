@@ -21,7 +21,7 @@ script = ExtResource("1_xb4v1")
 [node name="EnemyUnits" type="Node2D" parent="."]
 
 [node name="SkellyWarrior" parent="." instance=ExtResource("4_urvlt")]
-position = Vector2(465, 329)
+position = Vector2(439, 330)
 
 [node name="SkeletonWarrior" parent="." instance=ExtResource("4_urvlt")]
 position = Vector2(590, 329)
