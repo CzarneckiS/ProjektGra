@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqhi1muo3obss"]
+
+[ext_resource type="Script" uid="uid://cnxbm1xssa4ye" path="res://scenes/characters/unit.gd" id="1_38bh5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e0k25"]
+radius = 325.04153
+
+[node name="Unit" type="CharacterBody2D"]
+script = ExtResource("1_38bh5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3, 8)
+scale = Vector2(0.375, 0.375)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="VisionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
+shape = SubResource("CircleShape2D_e0k25")
+
+[node name="ClickArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]

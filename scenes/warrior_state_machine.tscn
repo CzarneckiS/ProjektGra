@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyst0xyeehbia"]
+
+[ext_resource type="Script" uid="uid://dxcp8ggiggmt2" path="res://scenes/warrior_state_machine.gd" id="1_rwbcw"]
+
+[node name="WarriorStateMachine" type="Node"]
+script = ExtResource("1_rwbcw")

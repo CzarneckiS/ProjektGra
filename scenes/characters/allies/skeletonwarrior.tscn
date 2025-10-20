@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://c6wxbv4ruot4l"]
+
+[ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_2674o"]
+[ext_resource type="Script" uid="uid://cwci7wyh3g6yl" path="res://scenes/characters/allies/skeletonwarrior.gd" id="2_f3pgp"]
+[ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/selection.png" id="3_xg2mg"]
+[ext_resource type="Texture2D" uid="uid://caykmhd348alg" path="res://sprites/placeholders/skelly_warrior.png" id="4_2674o"]
+[ext_resource type="PackedScene" uid="uid://dyst0xyeehbia" path="res://scenes/warrior_state_machine.tscn" id="5_x85af"]
+
+[sub_resource type="GDScript" id="GDScript_bluo0"]
+script/source = "extends Sprite2D
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bluo0"]
+radius = 45.01111
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w5s2j"]
+radius = 41.0
+height = 118.0
+
+[node name="SkeletonWarrior" groups=["Selectable"] instance=ExtResource("1_2674o")]
+y_sort_enabled = true
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("2_f3pgp")
+
+[node name="Selected" type="Sprite2D" parent="." index="0"]
+visible = false
+position = Vector2(0, 39.000004)
+scale = Vector2(0.30291972, 0.30291972)
+texture = ExtResource("3_xg2mg")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(19, -4)
+scale = Vector2(0.6675, 0.6675)
+texture = ExtResource("4_2674o")
+script = SubResource("GDScript_bluo0")
+
+[node name="CollisionShape2D" parent="." index="2"]
+visible = false
+shape = SubResource("CircleShape2D_bluo0")
+
+[node name="VisionArea" parent="." index="3"]
+visible = false
+
+[node name="ClickArea" parent="." index="4"]
+visible = false
+
+[node name="CollisionShape2D" parent="ClickArea" index="0"]
+position = Vector2(0, -15)
+shape = SubResource("CapsuleShape2D_w5s2j")
+
+[node name="Timers" type="Node" parent="." index="5"]
+
+[node name="MoveTimer" type="Timer" parent="Timers" index="0"]
+
+[node name="WarriorStateMachine" parent="." index="6" instance=ExtResource("5_x85af")]
+
+[connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
+[connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]
+[connection signal="timeout" from="Timers/MoveTimer" to="WarriorStateMachine" method="_on_move_timer_timeout"]

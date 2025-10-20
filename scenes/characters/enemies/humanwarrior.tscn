@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://crrf60xb54uea"]
+
+[ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_km2sc"]
+[ext_resource type="Script" uid="uid://178j0odpensc" path="res://scenes/characters/enemies/humanwarrior.gd" id="2_ds4t1"]
+[ext_resource type="Texture2D" uid="uid://bgl0jrfrds6ik" path="res://sprites/placeholders/human_warrior.png" id="3_6jboq"]
+[ext_resource type="Texture2D" uid="uid://btcfx5u0jfdq8" path="res://sprites/selection_enemy.png" id="3_v7f0p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f2e6v"]
+radius = 58.137768
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_21x0f"]
+radius = 463.2494
+
+[node name="HumanWarrior" instance=ExtResource("1_km2sc")]
+script = ExtResource("2_ds4t1")
+
+[node name="Selected" type="Sprite2D" parent="." index="0"]
+position = Vector2(0, 20)
+scale = Vector2(0.18826461, 0.18826461)
+texture = ExtResource("3_v7f0p")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(-5.999996, -29)
+scale = Vector2(0.6215, 0.6215)
+texture = ExtResource("3_6jboq")
+
+[node name="CollisionShape2D" parent="." index="2"]
+visible = false
+shape = SubResource("CircleShape2D_f2e6v")
+
+[node name="VisionArea" parent="." index="3"]
+visible = false
+
+[node name="CollisionShape2D" parent="VisionArea" index="0"]
+shape = SubResource("CircleShape2D_21x0f")
+
+[node name="ClickArea" parent="." index="4"]
+visible = false

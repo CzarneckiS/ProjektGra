@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://di31cuiaxvo7s"]
+
+[ext_resource type="PackedScene" uid="uid://cbodjjoib2qrn" path="res://scenes/characters/player.tscn" id="1_377w7"]
+[ext_resource type="Script" uid="uid://dek8k2fbphrnu" path="res://scenes/levels/level.gd" id="1_xb4v1"]
+[ext_resource type="PackedScene" uid="uid://c6wxbv4ruot4l" path="res://scenes/characters/allies/skeletonwarrior.tscn" id="4_urvlt"]
+[ext_resource type="Script" uid="uid://rkcfoq2ddkxw" path="res://scenes/levels/unit_selector.gd" id="4_xb4v1"]
+[ext_resource type="PackedScene" uid="uid://crrf60xb54uea" path="res://scenes/characters/enemies/humanwarrior.tscn" id="7_7pb6i"]
+
+[node name="Level" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_xb4v1")
+
+[node name="Ground" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_377w7")]
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="AlliedUnits" type="Node2D" parent="."]
+
+[node name="EnemyUnits" type="Node2D" parent="."]
+
+[node name="SkellyWarrior" parent="." instance=ExtResource("4_urvlt")]
+position = Vector2(465, 329)
+
+[node name="SkeletonWarrior" parent="." instance=ExtResource("4_urvlt")]
+position = Vector2(590, 329)
+
+[node name="SkeletonWarrior2" parent="." instance=ExtResource("4_urvlt")]
+position = Vector2(527, 200)
+
+[node name="SkeletonWarrior3" parent="." instance=ExtResource("4_urvlt")]
+position = Vector2(661, 207)
+
+[node name="SkeletonWarrior4" parent="." instance=ExtResource("4_urvlt")]
+position = Vector2(393, 196)
+
+[node name="UnitSelector" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("4_xb4v1")
+
+[node name="HumanWarrior" parent="." instance=ExtResource("7_7pb6i")]
+position = Vector2(274, 516)
+
+[connection signal="spawn" from="Player" to="." method="_on_player_spawn"]
