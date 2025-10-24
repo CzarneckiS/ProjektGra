@@ -9,7 +9,8 @@ var speed = 300
 
 #he be walkin' towards the player at the moment
 func _process(_delta: float) -> void:
-	var direction = (Globals.player_position - global_position).normalized()
-	velocity = direction * speed
-	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
-	move_and_slide()
+	if(!player_seen): #placeholder? tak zeby tymczasowo enemies sie nie ruszali, potem to bedzie jako state ig?
+		var direction = (Globals.player_position - global_position).normalized()
+		velocity = direction * speed
+		motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
+		move_and_slide()
