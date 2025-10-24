@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwyarkpn2hya8"
-path="res://.godot/imported/human_warrior_sword.png-6042ae956818bd4e48712771308c8740.ctex"
+uid="uid://bbjdsni1utjsy"
+path="res://.godot/imported/human_warrior_right_boot.png-9d51345fe7ca248ef07d502ed971327d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/human_paladin/human_warrior_sword.png"
-dest_files=["res://.godot/imported/human_warrior_sword.png-6042ae956818bd4e48712771308c8740.ctex"]
+source_file="res://sprites/human_warrior/human_warrior_right_boot.png"
+dest_files=["res://.godot/imported/human_warrior_right_boot.png-9d51345fe7ca248ef07d502ed971327d.ctex"]
 
 [params]
 

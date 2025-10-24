@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbjdsni1utjsy"
-path="res://.godot/imported/human_warrior_right_boot.png-f2628a96e134e523d4c43657dba3001a.ctex"
+uid="uid://cgai4a5o8b6sf"
+path="res://.godot/imported/human_warrior_shoulders.png-c77ad7b72dbac1d1eeea4d6d90740d5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/human_paladin/human_warrior_right_boot.png"
-dest_files=["res://.godot/imported/human_warrior_right_boot.png-f2628a96e134e523d4c43657dba3001a.ctex"]
+source_file="res://sprites/human_warrior/human_warrior_shoulders.png"
+dest_files=["res://.godot/imported/human_warrior_shoulders.png-c77ad7b72dbac1d1eeea4d6d90740d5e.ctex"]
 
 [params]
 
