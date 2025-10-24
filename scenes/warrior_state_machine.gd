@@ -23,7 +23,7 @@ func _state_logic(delta):
 			states.dying:
 				pass
 
-func _enter_state(new_state, previous_state):
+func _enter_state(_new_state, _previous_state):
 		match state:
 			states.idle:
 				pass
@@ -42,7 +42,7 @@ func _enter_state(new_state, previous_state):
 			states.dying:
 				pass
 
-func _get_transition(delta):
+func _get_transition(_delta):
 		match state:
 			states.idle:
 				pass
