@@ -72,6 +72,7 @@ tile_map_data = PackedByteArray("AADO/xsAAAAAAAAAAADO/+T/AAAAAAAAAAAxAOT/AAAAAAA
 tile_set = SubResource("TileSet_ouxo3")
 
 [node name="UnitSelector" type="Node2D" parent="."]
+z_index = 1
 script = ExtResource("4_xb4v1")
 
 [connection signal="spawn" from="Player" to="." method="_on_player_spawn"]
