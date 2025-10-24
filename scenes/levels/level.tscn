@@ -16,6 +16,28 @@ script = ExtResource("1_xb4v1")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
+<<<<<<< Updated upstream
+=======
+[node name="EnemySpawnArea" type="Path2D" parent="Player"]
+position = Vector2(8.406794, 6.915554)
+scale = Vector2(0.98756087, 0.9860853)
+curve = SubResource("Curve2D_urvlt")
+
+[node name="EnemySpawnFollow" type="PathFollow2D" parent="Player/EnemySpawnArea"]
+unique_name_in_owner = true
+position = Vector2(-980.6046, -588.09875)
+rotation = -0.005737672
+
+[node name="Timer" type="Timer" parent="Player/EnemySpawnArea"]
+wait_time = 0.4
+autostart = true
+
+[node name="UnitSelector" type="Control" parent="Player"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("4_xb4v1")
+
+>>>>>>> Stashed changes
 [node name="AlliedUnits" type="Node2D" parent="."]
 
 [node name="EnemyUnits" type="Node2D" parent="."]
@@ -34,11 +56,6 @@ position = Vector2(661, 207)
 
 [node name="SkeletonWarrior4" parent="." instance=ExtResource("4_urvlt")]
 position = Vector2(393, 196)
-
-[node name="UnitSelector" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("4_xb4v1")
 
 [node name="HumanWarrior" parent="." instance=ExtResource("7_7pb6i")]
 position = Vector2(274, 516)
