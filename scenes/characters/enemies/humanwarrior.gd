@@ -7,7 +7,7 @@ extends UnitParent
 var player_seen: bool = false
 var speed = 300
 
-
+#he be walkin' towards the player at the moment
 func _process(_delta: float) -> void:
 	var direction = (Globals.player_position - global_position).normalized()
 	velocity = direction * speed

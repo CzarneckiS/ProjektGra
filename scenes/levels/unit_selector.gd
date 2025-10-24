@@ -2,6 +2,8 @@ extends Control
 
 # DO POPRAWIENIA - KIEDY SIE RUSZAMY I SELECTUJEMY JEDNOCZESNIE ROBIA SIE DZIWNE RZECZY
 # PEWNIE TRZEBA UPDATOWAC ROZMIAR I REDRAWOWAC W PROCESIE NIE W INPUCIE
+# ogolnie ten selecting jest jakis kompletnie zjebany
+# trzeba bedzie go ostro poprawic, moze nawet napisac od zera
 
 var dragging: bool = false
 var drag_start = Vector2.ZERO
