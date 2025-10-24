@@ -1,5 +1,11 @@
 extends UnitParent
  
+
+#UUUUUUUUUGABUGA nw czemu ale Selected sprite mi sie jebal i wrzucilem Z index na -1
+#Jesli w przyszlosci nie bedzie go widac to dlatego <3 i bedzie wtedy trzeba poprawic
+#bo szczerze nw czemu teraz pokazuje sie na szkielecie a nie zanim mimo ze dobrze w drzewku lezy idk
+
+
 #shitass funkcjonalnosc widzenia przeciwnikow, trzeba bedzie zrobic POWERFUL
 #narazie rzucaja sie na pierwsza rzecz jaka zauwaza pozniej chce cool
 #shitass dodawanie przeciwnikow do listy
@@ -30,8 +36,12 @@ func _input(event: InputEvent) -> void:
 				move_target = get_global_mouse_position()
 				state_machine.set_state(state_machine.states.moving)
 
+func attack():
+	#arrrrrr it be a placeholder method, matey
+	print('skellington warrior attacked!')
+	
 
-func move_to_target(delta,targ):
+func move_to_target(_delta,targ):
 		#check out BOIDS (bird-oids)
 	velocity = position.direction_to(targ) * speed
 	if get_slide_collision_count() and $Timers/MoveTimer.is_stopped():

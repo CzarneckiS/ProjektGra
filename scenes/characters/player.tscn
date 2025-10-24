@@ -2,18 +2,18 @@
 
 [ext_resource type="Script" uid="uid://bi5nwihkqq2pp" path="res://scenes/characters/player.gd" id="1_rp718"]
 [ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/selection.png" id="2_d6tgn"]
-[ext_resource type="Texture2D" uid="uid://bf4kvbcpehan5" path="res://sprites/mimi/new_low_hair.png" id="3_d6tgn"]
+[ext_resource type="Texture2D" uid="uid://dhw3owys25v6j" path="res://sprites/mimi/mimi_low_hair3.png" id="3_d6tgn"]
 [ext_resource type="Texture2D" uid="uid://h63yoaumnbrl" path="res://sprites/oldmimi/mimi_lower_hair.png" id="3_qgnko"]
 [ext_resource type="Texture2D" uid="uid://b5m1qu00df4mp" path="res://sprites/mimi/new_body.png" id="4_3wg1y"]
 [ext_resource type="Texture2D" uid="uid://ds07jqcjf5g10" path="res://sprites/oldmimi/mimi_body.png" id="4_7vyk4"]
 [ext_resource type="Texture2D" uid="uid://l1pmg43lbiso" path="res://sprites/oldmimi/mimi_ahoge.png" id="5_2l4js"]
-[ext_resource type="Texture2D" uid="uid://cfor8m51hyeqm" path="res://sprites/mimi/new_head.png" id="5_kmyvj"]
+[ext_resource type="Texture2D" uid="uid://ddq0687b6xvwy" path="res://sprites/mimi/mimi_head3.png" id="5_3wg1y"]
 [ext_resource type="Texture2D" uid="uid://v251r1xeidh3" path="res://sprites/mimi/mimi_oko_open2.png" id="6_a2luo"]
 [ext_resource type="Texture2D" uid="uid://1pbg87sgd0wi" path="res://sprites/oldmimi/mimi_head.png" id="6_jk2m4"]
 [ext_resource type="Texture2D" uid="uid://bpc6yxqx75n7q" path="res://sprites/mimi/mimi_oko_closed2.png" id="7_eir2k"]
 [ext_resource type="Texture2D" uid="uid://7dx5qdcrveoy" path="res://sprites/oldmimi/mimi_eye_open.png" id="7_xhtjm"]
-[ext_resource type="Texture2D" uid="uid://dxw5chbkuuyky" path="res://sprites/mimi/mimi_ahoge2.png" id="8_inhyd"]
 [ext_resource type="Texture2D" uid="uid://di4w74nfdppyk" path="res://sprites/oldmimi/mimi_eye_closed.png" id="8_k4v7y"]
+[ext_resource type="Texture2D" uid="uid://br2gxw4fjvdyv" path="res://sprites/mimi/mimi_ahoge3.png" id="8_kmyvj"]
 [ext_resource type="Texture2D" uid="uid://b1p7mp6frf56h" path="res://sprites/oldmimi/mimi_left_hand.png" id="9_7vyk4"]
 [ext_resource type="Texture2D" uid="uid://dqr328wqveed2" path="res://sprites/mimi/new_left_arm.png" id="9_a2luo"]
 [ext_resource type="Texture2D" uid="uid://d2sb57islimab" path="res://sprites/oldmimi/mimi_right_hand.png" id="10_2l4js"]
@@ -309,7 +309,7 @@ position = Vector2(0, -10)
 texture = ExtResource("4_3wg1y")
 
 [node name="Head" type="Sprite2D" parent="SpriteRoot"]
-texture = ExtResource("5_kmyvj")
+texture = ExtResource("5_3wg1y")
 
 [node name="EyeOpen" type="Sprite2D" parent="SpriteRoot/Head"]
 texture = ExtResource("6_a2luo")
@@ -325,7 +325,7 @@ scale = Vector2(0.99999994, 0.99999994)
 [node name="Ahoge" type="Sprite2D" parent="SpriteRoot/AhogeRoot"]
 position = Vector2(-9.536743e-07, 169)
 scale = Vector2(0.9999999, 0.9999999)
-texture = ExtResource("8_inhyd")
+texture = ExtResource("8_kmyvj")
 
 [node name="Hands" type="Node2D" parent="SpriteRoot"]
 

@@ -1,9 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://crrf60xb54uea"]
+[gd_scene load_steps=17 format=3 uid="uid://crrf60xb54uea"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_km2sc"]
 [ext_resource type="Script" uid="uid://178j0odpensc" path="res://scenes/characters/enemies/humanwarrior.gd" id="2_ds4t1"]
-[ext_resource type="Texture2D" uid="uid://bgl0jrfrds6ik" path="res://sprites/placeholders/human_warrior.png" id="3_6jboq"]
 [ext_resource type="Texture2D" uid="uid://btcfx5u0jfdq8" path="res://sprites/selection_enemy.png" id="3_v7f0p"]
+[ext_resource type="Texture2D" uid="uid://b071t7rbiyi6y" path="res://sprites/human_paladin/human_warrior_left_boot.png" id="4_wdckd"]
+[ext_resource type="Texture2D" uid="uid://bbjdsni1utjsy" path="res://sprites/human_paladin/human_warrior_right_boot.png" id="5_o7qs6"]
+[ext_resource type="Texture2D" uid="uid://fkk8u7xgi46j" path="res://sprites/human_paladin/human_warrior_body.png" id="6_gj5gp"]
+[ext_resource type="Texture2D" uid="uid://cgai4a5o8b6sf" path="res://sprites/human_paladin/human_warrior_shoulders.png" id="7_vuace"]
+[ext_resource type="Texture2D" uid="uid://cy2g1dcu5ye10" path="res://sprites/human_paladin/human_warrior_head.png" id="8_du7wb"]
+[ext_resource type="Texture2D" uid="uid://bwyarkpn2hya8" path="res://sprites/human_paladin/human_warrior_sword.png" id="9_ru2nh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f2e6v"]
 radius = 58.137768
@@ -11,18 +16,131 @@ radius = 58.137768
 [sub_resource type="CircleShape2D" id="CircleShape2D_21x0f"]
 radius = 463.2494
 
+[sub_resource type="Animation" id="Animation_syyb6"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Shoulders:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Head:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 10), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/Sword:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 15)]
+}
+
+[sub_resource type="Animation" id="Animation_buw6p"]
+resource_name = "walk"
+
+[sub_resource type="Animation" id="Animation_yvs6w"]
+resource_name = "attack"
+
+[sub_resource type="Animation" id="Animation_dktg7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Head:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Shoulders:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/Sword:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x0uns"]
+_data = {
+&"RESET": SubResource("Animation_dktg7"),
+&"attack": SubResource("Animation_yvs6w"),
+&"idle": SubResource("Animation_syyb6"),
+&"walk": SubResource("Animation_buw6p")
+}
+
 [node name="HumanWarrior" instance=ExtResource("1_km2sc")]
 script = ExtResource("2_ds4t1")
 
 [node name="Selected" type="Sprite2D" parent="." index="0"]
+visible = false
 position = Vector2(0, 20)
 scale = Vector2(0.18826461, 0.18826461)
 texture = ExtResource("3_v7f0p")
 
 [node name="Sprite2D" parent="." index="1"]
-position = Vector2(-5.999996, -29)
-scale = Vector2(0.6215, 0.6215)
-texture = ExtResource("3_6jboq")
+position = Vector2(0, -23)
+scale = Vector2(0.15, 0.15)
+
+[node name="Boots" type="Sprite2D" parent="Sprite2D" index="0"]
+
+[node name="LeftBoot" type="Sprite2D" parent="Sprite2D/Boots" index="0"]
+texture = ExtResource("4_wdckd")
+
+[node name="RightBoot" type="Sprite2D" parent="Sprite2D/Boots" index="1"]
+texture = ExtResource("5_o7qs6")
+
+[node name="Body" type="Sprite2D" parent="Sprite2D" index="1"]
+texture = ExtResource("6_gj5gp")
+
+[node name="Shoulders" type="Sprite2D" parent="Sprite2D" index="2"]
+texture = ExtResource("7_vuace")
+
+[node name="Head" type="Sprite2D" parent="Sprite2D" index="3"]
+texture = ExtResource("8_du7wb")
+
+[node name="Sword" type="Sprite2D" parent="Sprite2D" index="4"]
+texture = ExtResource("9_ru2nh")
 
 [node name="CollisionShape2D" parent="." index="2"]
 visible = false
@@ -36,3 +154,9 @@ shape = SubResource("CircleShape2D_21x0f")
 
 [node name="ClickArea" parent="." index="4"]
 visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+libraries = {
+&"": SubResource("AnimationLibrary_x0uns")
+}
+autoplay = "idle"
