@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name UnitParent
 
-var health = 100
+var health
 
 func _process(_delta: float) -> void:
 	pass

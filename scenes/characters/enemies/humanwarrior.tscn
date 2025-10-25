@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bwyarkpn2hya8" path="res://sprites/human_warrior/human_warrior_sword.png" id="9_ru2nh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f2e6v"]
-radius = 58.137768
+radius = 30.413813
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_21x0f"]
 radius = 463.2494
@@ -288,7 +288,6 @@ texture = ExtResource("8_du7wb")
 texture = ExtResource("9_ru2nh")
 
 [node name="CollisionShape2D" parent="." index="2"]
-visible = false
 shape = SubResource("CircleShape2D_f2e6v")
 
 [node name="VisionArea" parent="." index="3"]
