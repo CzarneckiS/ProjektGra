@@ -29,6 +29,7 @@ script = ExtResource("1_xb4v1")
 [node name="Player" parent="." instance=ExtResource("1_377w7")]
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
 
 [node name="EnemySpawnArea" type="Path2D" parent="Player"]
 position = Vector2(8.406794, 6.915554)
@@ -48,17 +49,17 @@ autostart = true
 
 [node name="EnemyUnits" type="Node2D" parent="."]
 
-[node name="SkellyWarrior" parent="." instance=ExtResource("4_urvlt")]
-position = Vector2(439, 330)
+[node name="EnemySpawnFollow" type="PathFollow2D" parent="Player/EnemySpawnArea"]
+unique_name_in_owner = true
+position = Vector2(-980.6046, -588.09875)
+rotation = -0.005737672
 
-[node name="SkeletonWarrior" parent="." instance=ExtResource("4_urvlt")]
-position = Vector2(590, 329)
+[node name="Timer" type="Timer" parent="Player/EnemySpawnArea"]
+wait_time = 0.4
 
-[node name="SkeletonWarrior2" parent="." instance=ExtResource("4_urvlt")]
-position = Vector2(527, 200)
+[node name="AlliedUnits" type="Node2D" parent="."]
 
-[node name="SkeletonWarrior3" parent="." instance=ExtResource("4_urvlt")]
-position = Vector2(661, 207)
+[node name="EnemyUnits" type="Node2D" parent="."]
 
 [node name="SkeletonWarrior4" parent="." instance=ExtResource("4_urvlt")]
 position = Vector2(393, 196)

@@ -5,11 +5,13 @@ extends UnitParent
 #tylko dla coolnosci zrobic tak ze ida kawalek w mniej wiecej kierunku gracza
 #i sie zatrzymuja i nazwac ten stan wandering dla realizmu????? idk idk
 var player_seen: bool = false
-var speed = 300
-
+#JESLI CHCESZ ZEBY SIE NIE RUSZALI TO USTAW SPEED NA 0 :)
+var speed = 200
+func _ready() -> void:
+	health = 30
 #he be walkin' towards the player at the moment
 func _process(_delta: float) -> void:
-	if(player_seen): #placeholder? tak zeby tymczasowo enemies sie nie ruszali, potem to bedzie jako state ig?
+	if(!player_seen): #placeholder? tak zeby tymczasowo enemies sie nie ruszali, potem to bedzie jako state ig?
 		var direction = (Globals.player_position - global_position).normalized()
 		velocity = direction * speed
 		motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
