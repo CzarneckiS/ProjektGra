@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 
 # DO POPRAWIENIA - KIEDY SIE RUSZAMY I SELECTUJEMY JEDNOCZESNIE ROBIA SIE DZIWNE RZECZY
 # PEWNIE TRZEBA UPDATOWAC ROZMIAR I REDRAWOWAC W PROCESIE NIE W INPUCIE
@@ -16,6 +16,16 @@ var y_min
 	#zaznaczanie jednostek pojedynczo znajduje sie w scenach allied jednostek
 	#RYSOWANIE JEST ZJEBANE, OBOWIAZKOWO DO POPRAWY
 	#damn, jakis chujowy tutorial ogladalem, kompletnie sie to sypie  
+func _process(_delta: float) -> void:
+	if dragging:
+		x_min = min(drag_start.x, get_global_mouse_position().x)
+		y_min = min(drag_start.y, get_global_mouse_position().y)
+		select_box = Rect2(x_min, y_min,
+			max(drag_start.x, get_global_mouse_position().x) - x_min,
+			max(drag_start.y, get_global_mouse_position().y) - y_min)
+		update_selected_units()
+		queue_redraw()
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
@@ -27,14 +37,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				select_box = Rect2(get_global_mouse_position(), Vector2.ZERO)
 			update_selected_units() 
 			queue_redraw()
-	elif dragging and event is InputEventMouseMotion:
-		x_min = min(drag_start.x, get_global_mouse_position().x)
-		y_min = min(drag_start.y, get_global_mouse_position().y)
-		select_box = Rect2(x_min, y_min,
-			max(drag_start.x, get_global_mouse_position().x) - x_min,
-			max(drag_start.y, get_global_mouse_position().y) - y_min)
-		update_selected_units()
-		queue_redraw()
+	
 func _draw() -> void:
 	if dragging == false:
 		return

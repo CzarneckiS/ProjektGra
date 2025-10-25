@@ -5,6 +5,7 @@ extends UnitParent
 #tylko dla coolnosci zrobic tak ze ida kawalek w mniej wiecej kierunku gracza
 #i sie zatrzymuja i nazwac ten stan wandering dla realizmu????? idk idk
 var player_seen: bool = false
+#JESLI CHCESZ ZEBY SIE NIE RUSZALI TO USTAW SPEED NA 0 :)
 var speed = 200
 func _ready() -> void:
 	health = 30

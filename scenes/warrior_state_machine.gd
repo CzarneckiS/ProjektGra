@@ -29,7 +29,7 @@ func _state_logic(delta):
 			states.swinging:
 				pass
 
-func _enter_state(new_state, previous_state):
+func _enter_state(_new_state, _previous_state):
 		match state:
 			states.idle:
 				$"../AnimationPlayer".play("idle")
@@ -56,8 +56,6 @@ func _enter_state(new_state, previous_state):
 			states.dying:
 				pass
 
-#chyba trza stworzyc dodatkowy var w szkielecie - clicked_enemy i szkielet ma do niego isc i go bic
-#i jesli clicked_enemy != null nie rozgladaj sie za innymi pobliskimi przeciwnikami
 func _get_transition(delta):
 		match state:
 			states.idle:
