@@ -21,8 +21,7 @@ func _state_logic(delta):
 			states.moving:
 				parent.move_to_target(delta, parent.move_target)
 			states.engaging:
-				if parent.closest_enemy_within_attack_range() == null:
-					parent.move_to_target(delta, parent.attack_target.get_ref().global_position)
+				parent.move_to_target(delta, parent.attack_target.get_ref().global_position)
 			states.attacking:
 				$"../AnimationPlayer".play("attack")
 			states.dying:
