@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://bwwvia3so8b5l" path="res://sprites/mimi/new_right_arm.png" id="10_eir2k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yewv4"]
-radius = 37.01351
+radius = 27.018513
 
 [sub_resource type="Animation" id="Animation_d6tgn"]
 length = 0.001
@@ -300,8 +300,7 @@ scale = Vector2(0.24452555, 0.24452555)
 texture = ExtResource("2_d6tgn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, 28)
+position = Vector2(0, 37)
 shape = SubResource("CircleShape2D_yewv4")
 
 [node name="SpriteRoot" type="Sprite2D" parent="."]
@@ -400,7 +399,6 @@ libraries = {
 autoplay = "stand"
 
 [node name="ClickArea" type="Area2D" parent="."]
-visible = false
 collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]

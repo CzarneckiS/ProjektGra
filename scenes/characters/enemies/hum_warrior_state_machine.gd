@@ -55,8 +55,7 @@ func _enter_state(_new_state, _previous_state):
 			states.attacking:
 				pass
 			states.dying:
-				queue_free()
-				#$"../AnimationPlayer".play("dying")
+				$"../AnimationPlayer".play("dying")
 
 func _get_transition(delta):
 		match state:
@@ -65,6 +64,7 @@ func _get_transition(delta):
 					parent.attack_target = weakref(parent.closest_enemy())
 					set_state(states.engaging)
 				else:
+					parent.move_target = Globals.player_position
 					set_state(states.moving)
 			states.moving:
 				#jesli jednostka dojdzie do celu (a bardziej znajdzie sie w odleglosci mniejszej
@@ -72,10 +72,9 @@ func _get_transition(delta):
 				if parent.closest_enemy() != null:
 					parent.attack_target = weakref(parent.closest_enemy())
 					set_state(states.engaging)
-				#to jest kinda temporary raczej nasi przeciwnicy nie beda sie zatrzymywac
-				elif parent.global_position.distance_to(parent.move_target) < parent.stop_distance:
-					parent.move_target = parent.global_position
-					set_state(states.idle)
+				#elif parent.global_position.distance_to(parent.move_target) < parent.stop_distance:
+					#parent.move_target = parent.global_position
+					#set_state(states.idle)
 			states.engaging:
 				#Jesli nasz cel znajdzie sie w naszym zasiegu ataku zacznij atakowac
 				if parent.closest_enemy_within_attack_range() != null:
@@ -91,7 +90,7 @@ func _get_transition(delta):
 			states.dying:
 				if $"../AnimationPlayer".is_playing(): return
 				else:
-					queue_free()
+					parent.queue_free()
 			states.swinging:
 				if $"../AnimationPlayer".is_playing(): return 
 				else:

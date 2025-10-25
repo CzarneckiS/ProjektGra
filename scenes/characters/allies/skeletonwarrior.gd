@@ -32,14 +32,20 @@ func _input(event: InputEvent) -> void:
 				move_target = get_global_mouse_position()
 				state_machine.set_state(state_machine.states.moving)
 
-func hit(damage_taken) -> void:
+func hit(damage_taken) -> bool:
 	health -= damage_taken
 	if health <= 0:
-		queue_free()
-		#state_machine.set_state(state_machine.states.dying)
-
+		state_machine.set_state(state_machine.states.dying)
+		$CollisionShape2D.disabled = true
+		return false
+	else:
+		return true
 func attack():
-	attack_target.get_ref().hit(damage)
+	if attack_target.get_ref():
+		if attack_target.get_ref().hit(damage):
+			pass
+		else:
+			state_machine.set_state(state_machine.states.idle)
 	
 
 func move_to_target(_delta,targ):
@@ -100,7 +106,6 @@ func is_in_selection_box(select_box: Rect2):
 	return select_box.has_point(global_position)
 
 func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	print('im alive (dead)')
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_released:
 			select()

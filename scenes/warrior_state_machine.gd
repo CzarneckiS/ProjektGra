@@ -84,7 +84,7 @@ func _get_transition(delta):
 			states.dying:
 				if $"../AnimationPlayer".is_playing(): return
 				else:
-					queue_free()
+					parent.queue_free()
 			states.swinging:
 				if $"../AnimationPlayer".is_playing(): return 
 				else:

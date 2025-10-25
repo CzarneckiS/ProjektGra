@@ -63,4 +63,6 @@ tile_set = SubResource("TileSet_ouxo3")
 z_index = 1
 script = ExtResource("4_xb4v1")
 
+[node name="MoveCursor" type="Node2D" parent="."]
+
 [connection signal="timeout" from="Player/EnemySpawnArea/Timer" to="." method="_on_timer_timeout"]

@@ -29,16 +29,21 @@ func _process(_delta: float) -> void:
 	pass
 	#ten process jest do debugowania
 
-func hit(damage_taken) -> void:
+func hit(damage_taken) -> bool:
 	health -= damage_taken
 	if health <= 0:
-		queue_free()
-		#state_machine.set_state(state_machine.states.dying)
+		state_machine.set_state(state_machine.states.dying)
+		$CollisionShape2D.disabled = true
+		return false
+	else:
+		return true
 
 func attack():
-	attack_target.get_ref().hit(damage)
-	print('human warrior attacked')
-	print(attack_target.get_ref())
+	if attack_target.get_ref():
+		if attack_target.get_ref().hit(damage):
+			pass
+		else:
+			state_machine.set_state(state_machine.states.idle)
 
 func move_to_target(_delta,targ):
 		#check out BOIDS (bird-oids)
