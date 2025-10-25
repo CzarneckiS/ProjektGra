@@ -1,16 +1,14 @@
 extends UnitParent
  
 var speed = 300
-var moving: bool = false
 var selected: bool = false
-var enemy_seen: bool = false
 var move_target = Vector2.ZERO
 var stop_distance = 20
-#const move_treshold = 0.5
+const move_treshold = 0.5
 var last_position = Vector2.ZERO
 
 #combat
-var damage = 10
+var damage = 1
 #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var attack_target
 var possible_targets = []
@@ -24,7 +22,7 @@ var attack_range = 80
 
 
 func _ready() -> void:
-	health = 100
+	health = 30
 	move_target = global_position
 
 func _input(event: InputEvent) -> void:
@@ -33,6 +31,12 @@ func _input(event: InputEvent) -> void:
 			if event.is_released():
 				move_target = get_global_mouse_position()
 				state_machine.set_state(state_machine.states.moving)
+
+func hit(damage_taken) -> void:
+	health -= damage_taken
+	if health <= 0:
+		queue_free()
+		#state_machine.set_state(state_machine.states.dying)
 
 func attack():
 	attack_target.get_ref().hit(damage)
@@ -96,6 +100,7 @@ func is_in_selection_box(select_box: Rect2):
 	return select_box.has_point(global_position)
 
 func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	print('im alive (dead)')
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_released:
 			select()

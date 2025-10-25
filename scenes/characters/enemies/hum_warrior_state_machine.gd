@@ -15,7 +15,7 @@ func _ready():
 
 
 func _state_logic(delta):
-		match state:
+		match state: 
 			states.idle:
 				pass
 			states.moving:
@@ -55,7 +55,8 @@ func _enter_state(_new_state, _previous_state):
 			states.attacking:
 				pass
 			states.dying:
-				$"../AnimationPlayer".play("dying")
+				queue_free()
+				#$"../AnimationPlayer".play("dying")
 
 func _get_transition(delta):
 		match state:
@@ -63,10 +64,16 @@ func _get_transition(delta):
 				if parent.closest_enemy() != null:
 					parent.attack_target = weakref(parent.closest_enemy())
 					set_state(states.engaging)
+				else:
+					set_state(states.moving)
 			states.moving:
 				#jesli jednostka dojdzie do celu (a bardziej znajdzie sie w odleglosci mniejszej
 				#niz jakas tam wartosc stop distance) to sie zatrzyma i zacznie idlowac
-				if parent.global_position.distance_to(parent.move_target) < parent.stop_distance:
+				if parent.closest_enemy() != null:
+					parent.attack_target = weakref(parent.closest_enemy())
+					set_state(states.engaging)
+				#to jest kinda temporary raczej nasi przeciwnicy nie beda sie zatrzymywac
+				elif parent.global_position.distance_to(parent.move_target) < parent.stop_distance:
 					parent.move_target = parent.global_position
 					set_state(states.idle)
 			states.engaging:

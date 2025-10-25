@@ -11,7 +11,6 @@ var states = {}
 func _physics_process(delta: float) -> void:
 	if state != null:
 		_state_logic(delta)
-		print(state)
 		#genuinely nie mam pojecia czemu nie piszemy po prostu _get_transition(delta)
 		#ten print NIGDY nie printuje bo ta funkcja nic nie returnuje!!
 		#i nw po grzyba to jest zmienna, jak ktos umie wytlumaczyc to z checia poslucham

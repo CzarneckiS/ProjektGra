@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cbodjjoib2qrn"]
+[gd_scene load_steps=31 format=3 uid="uid://cbodjjoib2qrn"]
 
 [ext_resource type="Script" uid="uid://bi5nwihkqq2pp" path="res://scenes/characters/player.gd" id="1_rp718"]
 [ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/selection.png" id="2_d6tgn"]
@@ -284,7 +284,13 @@ _data = {
 &"stand": SubResource("Animation_jk2m4")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d6tgn"]
+radius = 31.0
+height = 118.0
+
+[node name="Player" type="CharacterBody2D" groups=["Selectable", "Unit"]]
+collision_layer = 2
+collision_mask = 14
 script = ExtResource("1_rp718")
 
 [node name="Selected" type="Sprite2D" parent="."]
@@ -392,3 +398,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_k4v7y")
 }
 autoplay = "stand"
+
+[node name="ClickArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
+position = Vector2(1, 7)
+shape = SubResource("CapsuleShape2D_d6tgn")

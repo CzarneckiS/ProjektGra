@@ -43,19 +43,6 @@ rotation = -0.005737672
 
 [node name="Timer" type="Timer" parent="Player/EnemySpawnArea"]
 wait_time = 0.4
-autostart = true
-
-[node name="AlliedUnits" type="Node2D" parent="."]
-
-[node name="EnemyUnits" type="Node2D" parent="."]
-
-[node name="EnemySpawnFollow" type="PathFollow2D" parent="Player/EnemySpawnArea"]
-unique_name_in_owner = true
-position = Vector2(-980.6046, -588.09875)
-rotation = -0.005737672
-
-[node name="Timer" type="Timer" parent="Player/EnemySpawnArea"]
-wait_time = 0.4
 
 [node name="AlliedUnits" type="Node2D" parent="."]
 
@@ -76,5 +63,4 @@ tile_set = SubResource("TileSet_ouxo3")
 z_index = 1
 script = ExtResource("4_xb4v1")
 
-[connection signal="spawn" from="Player" to="." method="_on_player_spawn"]
 [connection signal="timeout" from="Player/EnemySpawnArea/Timer" to="." method="_on_timer_timeout"]
