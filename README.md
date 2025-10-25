@@ -1,4 +1,7 @@
-TODO:
+big todo:
+selectowanie jednostek left clickiem nie dziala :C nie wiem nawet kiedy sie zepsulo
+
+small todo:
 animacje chodzenia sa zdecydowanie zbyt subtelne, w ogole nie widac - do poprawy
 state machine warriorow
 ui placeholdery
