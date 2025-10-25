@@ -1,16 +1,14 @@
 extends UnitParent
  
 var speed = 300
-var moving: bool = false
 var selected: bool = false
-var enemy_seen: bool = false
 var move_target = Vector2.ZERO
 var stop_distance = 20
-#const move_treshold = 0.5
+const move_treshold = 0.5
 var last_position = Vector2.ZERO
 
 #combat
-var damage = 10
+var damage = 1
 #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var attack_target
 var possible_targets = []
@@ -24,7 +22,7 @@ var attack_range = 80
 
 
 func _ready() -> void:
-	health = 100
+	health = 30
 	move_target = global_position
 
 func _input(event: InputEvent) -> void:
@@ -34,8 +32,20 @@ func _input(event: InputEvent) -> void:
 				move_target = get_global_mouse_position()
 				state_machine.set_state(state_machine.states.moving)
 
+func hit(damage_taken) -> bool:
+	health -= damage_taken
+	if health <= 0:
+		state_machine.set_state(state_machine.states.dying)
+		$CollisionShape2D.disabled = true
+		return false
+	else:
+		return true
 func attack():
-	attack_target.get_ref().hit(damage)
+	if attack_target.get_ref():
+		if attack_target.get_ref().hit(damage):
+			pass
+		else:
+			state_machine.set_state(state_machine.states.idle)
 	
 
 func move_to_target(_delta,targ):

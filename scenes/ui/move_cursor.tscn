@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://nf82r80gcr7s"]
+
+[ext_resource type="Texture2D" uid="uid://d4bi62p26k4lr" path="res://sprites/placeholders/KursorPlaceholder1.png" id="1_l2sfu"]
+[ext_resource type="Texture2D" uid="uid://x8h2kabp8ib7" path="res://sprites/placeholders/KursorPlaceholder2.png" id="2_gdtpw"]
+[ext_resource type="Texture2D" uid="uid://cqblxdf3ds5hb" path="res://sprites/placeholders/KursorPlaceholder3.png" id="3_cw3bi"]
+[ext_resource type="Texture2D" uid="uid://bjt6mtbcy12sx" path="res://sprites/placeholders/KursorPlaceholder4.png" id="4_xpepl"]
+[ext_resource type="Texture2D" uid="uid://63aew2frf60i" path="res://sprites/placeholders/KursorPlaceholder5.png" id="5_s3o8c"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l2sfu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_l2sfu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gdtpw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_cw3bi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xpepl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_s3o8c")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="MoveCursor" type="AnimatedSprite2D"]
+scale = Vector2(0.12, 0.12)
+sprite_frames = SubResource("SpriteFrames_l2sfu")
+frame = 5
+frame_progress = 1.0

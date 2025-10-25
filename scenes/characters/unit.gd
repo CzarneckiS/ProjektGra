@@ -7,6 +7,8 @@ var health
 func _process(_delta: float) -> void:
 	pass
 
-func hit(damage) -> void:
-	#le hit function, pobiera dane od tego co zaatakowalo zeby hp spadlo o dmg ;3
-	health -= damage
+func hit(_damage):
+	#soooorry T-T ciezko mi sie myslalo nad dziedziczeniem jak pierwszy raz widzialem
+	#te state machiny
+	#nastepnym razem ladnie zrobie
+	pass

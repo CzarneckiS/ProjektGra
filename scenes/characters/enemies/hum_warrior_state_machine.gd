@@ -15,7 +15,7 @@ func _ready():
 
 
 func _state_logic(delta):
-		match state:
+		match state: 
 			states.idle:
 				pass
 			states.moving:
@@ -63,12 +63,18 @@ func _get_transition(delta):
 				if parent.closest_enemy() != null:
 					parent.attack_target = weakref(parent.closest_enemy())
 					set_state(states.engaging)
+				else:
+					parent.move_target = Globals.player_position
+					set_state(states.moving)
 			states.moving:
 				#jesli jednostka dojdzie do celu (a bardziej znajdzie sie w odleglosci mniejszej
 				#niz jakas tam wartosc stop distance) to sie zatrzyma i zacznie idlowac
-				if parent.global_position.distance_to(parent.move_target) < parent.stop_distance:
-					parent.move_target = parent.global_position
-					set_state(states.idle)
+				if parent.closest_enemy() != null:
+					parent.attack_target = weakref(parent.closest_enemy())
+					set_state(states.engaging)
+				#elif parent.global_position.distance_to(parent.move_target) < parent.stop_distance:
+					#parent.move_target = parent.global_position
+					#set_state(states.idle)
 			states.engaging:
 				#Jesli nasz cel znajdzie sie w naszym zasiegu ataku zacznij atakowac
 				if parent.closest_enemy_within_attack_range() != null:
