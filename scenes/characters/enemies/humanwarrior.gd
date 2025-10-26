@@ -20,18 +20,46 @@ var attack_range = 80
 
 
 @onready var state_machine = $HumWarriorStateMachine
+@onready var health_bar: ProgressBar = $HealthBar 
+@onready var damage_bar: ProgressBar = $DamageBar
 
 func _ready() -> void:
-	health = 30
+	max_health  = 60
+	health = max_health
+	health_bar.max_value = max_health
+	health_bar.value = max_health
+	health_bar.visible = false
+	
+	damage_bar.max_value = max_health
+	damage_bar.value = max_health
+	damage_bar.visible = false
+	
+	bar_style.bg_color = Color("ef595cff")
+	bar_style.border_width_left = 2
+	bar_style.border_width_top = 2
+	bar_style.border_width_bottom = 2
+	bar_style.border_color = Color(0.0, 0.0, 0.0, 1.0)
+	health_bar.add_theme_stylebox_override("fill", bar_style)
+	
 	move_target = Globals.player_position
+	
 
 func _process(_delta: float) -> void:
 	pass
 	#ten process jest do debugowania
 
 func hit(damage_taken) -> bool:
+	health_bar.visible = true
+	damage_bar.visible = true
+	
 	health -= damage_taken
+	
+	damage_bar.value = health
+	health_bar.value = health
+	
 	if health <= 0:
+		health_bar.visible = false
+		damage_bar.visible = false
 		state_machine.set_state(state_machine.states.dying)
 		$CollisionShape2D.disabled = true
 		return false

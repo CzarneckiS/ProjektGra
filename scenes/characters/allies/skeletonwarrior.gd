@@ -8,7 +8,7 @@ const move_treshold = 0.5
 var last_position = Vector2.ZERO
 
 #combat
-var damage = 1
+var damage = 10
 #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var attack_target
 var possible_targets = []
@@ -16,13 +16,34 @@ var attack_range = 80
 
 
 @onready var state_machine = $WarriorStateMachine
+@onready var health_bar: ProgressBar = $HealthBar 
+@onready var damage_bar: ProgressBar = $DamageBar
 
 # stop_distance to odleglosc od celu na ktorej jednostka sie zatrzyma
 # mysle ze przy poruszaniu sie grupowym moznaby sie tym zabawic
 
 
 func _ready() -> void:
-	health = 30
+	max_health  = 60
+	health = max_health
+	health_bar.max_value = max_health
+	health_bar.value = max_health
+	health_bar.visible = false
+	
+	damage_bar.max_value = max_health
+	damage_bar.value = max_health
+	damage_bar.visible = false
+	
+	bar_style.bg_color = Color("#00f000")
+	bar_style.border_width_left = 2
+	bar_style.border_width_top = 2
+	bar_style.border_width_bottom = 2
+	bar_style.border_color = Color(0.0, 0.0, 0.0, 1.0)
+	health_bar.add_theme_stylebox_override("fill", bar_style)
+
+	
+	move_target = Globals.player_position
+	
 	move_target = global_position
 
 func _input(event: InputEvent) -> void:
@@ -32,14 +53,26 @@ func _input(event: InputEvent) -> void:
 				move_target = get_global_mouse_position()
 				state_machine.set_state(state_machine.states.moving)
 
+
 func hit(damage_taken) -> bool:
+	health_bar.visible = true
+	damage_bar.visible = true
+	
 	health -= damage_taken
+	
+	health_bar.value = health
+	damage_bar.value = health
+	
 	if health <= 0:
+		health_bar.visible = false
+		damage_bar.visible = false
+		
 		state_machine.set_state(state_machine.states.dying)
 		$CollisionShape2D.disabled = true
 		return false
 	else:
 		return true
+		
 func attack():
 	if attack_target.get_ref():
 		if attack_target.get_ref().hit(damage):
