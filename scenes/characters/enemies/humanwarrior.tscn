@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://csr4x6mrcrwjc" path="res://scenes/characters/enemies/hum_warrior_state_machine.gd" id="10_o7qs6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f2e6v"]
-radius = 30.413813
+radius = 25.179358
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_21x0f"]
 radius = 463.2494

@@ -43,8 +43,11 @@ func _on_timer_timeout() -> void:
 #	       ⠘⠻⠷⢿⡇⠀⠀⠀⣴⣶⣶⠶⠖⠀⢸⡟⠀
 #	       ⠀⠀⠀⢸⣇⠀⠀⠀⣿⡇⣿⡄⠀⢀⣿⠇⠀
 #	       ⠀⠀⠀⠘⣿⣤⣤⣴⡿⠃⠙⠛⠛⠛⠋⠀⠀
-	   
-#ROZKAZ RUCHU ANIMACJA
+	
+  
+#Tworzenie i odgrywanie animacji ze strzaleczkami kiedy wydajemy rozkaz ruchu
+#prawdopodobnie trzeba bedzie tu dodac ifa w przyszlosci kiedy dodamy targetowanie przeciwnika
+#right clickiem
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		if event.is_released():

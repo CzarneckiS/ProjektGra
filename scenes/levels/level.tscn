@@ -58,6 +58,12 @@ position = Vector2(225, -151)
 
 [node name="EnemyUnits" type="Node2D" parent="."]
 
+[node name="SkeletonWarrior5" parent="." instance=ExtResource("4_urvlt")]
+position = Vector2(479, 228)
+
+[node name="SkeletonWarrior6" parent="." instance=ExtResource("4_urvlt")]
+position = Vector2(562, 276)
+
 [node name="HumanWarrior" parent="." instance=ExtResource("7_7pb6i")]
 position = Vector2(502, 509)
 
