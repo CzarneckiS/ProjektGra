@@ -1,7 +1,6 @@
 extends Node2D
 
-
-
+@onready var move_cursor = $MoveCursor
 
 # EnemySpawnFollow bierzemy jako unique name
 func spawn_enemy():
@@ -14,10 +13,38 @@ func spawn_enemy():
 func _on_timer_timeout() -> void:
 	spawn_enemy()
 
+#func _unhandled_input(event: InputEvent) -> void:
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		#if event.pressed:
+			#for unit in get_tree().get_nodes_in_group('Selected'):
+				#unit.move_to(get_global_mouse_position())
+
+#	       ⠀⠀⠀⠀⢀⣴⣶⠿⠟⠻⠿⢷⣦⣄⠀⠀⠀
+#	⠀       ⠀⠀⠀⣾⠏⠀⠀⣠⣤⣤⣤⣬⣿⣷⣄⡀
+#	       ⠀⢀⣀⣸⡿⠀⠀⣼⡟⠁⠀⠀⠀⠀⠀⠙⣷
+#	       ⢸⡟⠉⣽⡇⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⢀⣿
+#	       ⣾⠇⠀⣿⡇⠀⠀⠘⠿⢶⣶⣤⣤⣶⡶⣿⠋
+#	       ⣿⠂⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠃
+#	       ⣿⡆⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀
+#	       ⢿⡇⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠀
+#	       ⠘⠻⠷⢿⡇⠀⠀⠀⣴⣶⣶⠶⠖⠀⢸⡟⠀
+#	       ⠀⠀⠀⢸⣇⠀⠀⠀⣿⡇⣿⡄⠀⢀⣿⠇⠀
+#	       ⠀⠀⠀⠘⣿⣤⣤⣴⡿⠃⠙⠛⠛⠛⠋⠀⠀
+	   
+#ROZKAZ RUCHU ANIMACJA
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.pressed:
-			for unit in get_tree().get_nodes_in_group('Selected'):
-				unit.move_to(get_global_mouse_position())
-	elif event.is_action_pressed("EscMenu"):
+		if event.is_released():
+			cursor_move_animation()
+  elif event.is_action_pressed("EscMenu"):
 		get_tree().change_scene_to_file("res://scenes/ui/esc_menu.tscn")
+
+func cursor_move_animation() -> void:
+	if get_tree().get_nodes_in_group("Selected"):
+		var new_move_cursor = preload("res://scenes/ui/move_cursor.tscn").instantiate()
+		new_move_cursor.global_position = get_global_mouse_position()
+		new_move_cursor.play("default")
+		$MoveCursor.add_child(new_move_cursor)
+		await new_move_cursor.animation_finished
+		new_move_cursor.queue_free()
+		

@@ -22,11 +22,13 @@ Globals="*res://scenes/globals/globals.gd"
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
+mouse_cursor/custom_image="uid://b8q1kxkvwqjmd"
 
 [global_group]
 
 Selectable=""
 Selected=""
+Unit=""
 
 [input]
 
@@ -71,3 +73,4 @@ EscMenu={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Units"
 2d_physics/layer_4="Projectiles"
+2d_physics/layer_5="Areas"

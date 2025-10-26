@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://crrf60xb54uea"]
+[gd_scene load_steps=19 format=3 uid="uid://crrf60xb54uea"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_km2sc"]
 [ext_resource type="Script" uid="uid://178j0odpensc" path="res://scenes/characters/enemies/humanwarrior.gd" id="2_ds4t1"]
@@ -9,9 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://cgai4a5o8b6sf" path="res://sprites/human_warrior/human_warrior_shoulders.png" id="7_vuace"]
 [ext_resource type="Texture2D" uid="uid://cy2g1dcu5ye10" path="res://sprites/human_warrior/human_warrior_head.png" id="8_du7wb"]
 [ext_resource type="Texture2D" uid="uid://bwyarkpn2hya8" path="res://sprites/human_warrior/human_warrior_sword.png" id="9_ru2nh"]
+[ext_resource type="Script" uid="uid://csr4x6mrcrwjc" path="res://scenes/characters/enemies/hum_warrior_state_machine.gd" id="10_o7qs6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f2e6v"]
-radius = 58.137768
+radius = 30.413813
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_21x0f"]
 radius = 463.2494
@@ -141,6 +142,20 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -15), Vector2(0, 15), Vector2(0, 0)]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_syyb6"]
 resource_name = "idle"
@@ -246,15 +261,33 @@ tracks/4/keys = {
 "values": [Vector2(0, -20), Vector2(0, 0), Vector2(0, -20), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_o7qs6"]
+resource_name = "dying"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Head:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.96666664),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -120)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x0uns"]
 _data = {
 &"RESET": SubResource("Animation_dktg7"),
 &"attack": SubResource("Animation_yvs6w"),
+&"dying": SubResource("Animation_o7qs6"),
 &"idle": SubResource("Animation_syyb6"),
 &"walk": SubResource("Animation_wdckd")
 }
 
 [node name="HumanWarrior" instance=ExtResource("1_km2sc")]
+collision_layer = 4
+collision_mask = 15
 script = ExtResource("2_ds4t1")
 
 [node name="Selected" type="Sprite2D" parent="." index="0"]
@@ -288,11 +321,12 @@ texture = ExtResource("8_du7wb")
 texture = ExtResource("9_ru2nh")
 
 [node name="CollisionShape2D" parent="." index="2"]
-visible = false
 shape = SubResource("CircleShape2D_f2e6v")
 
 [node name="VisionArea" parent="." index="3"]
 visible = false
+collision_layer = 16
+collision_mask = 6
 
 [node name="CollisionShape2D" parent="VisionArea" index="0"]
 shape = SubResource("CircleShape2D_21x0f")
@@ -306,3 +340,14 @@ libraries = {
 }
 autoplay = "idle"
 blend_times = [&"attack", &"idle", 0.5, &"attack", &"walk", 0.5, &"idle", &"attack", 0.5, &"idle", &"walk", 0.5, &"walk", &"attack", 0.5, &"walk", &"idle", 0.5]
+
+[node name="HumWarriorStateMachine" type="Node" parent="." index="6"]
+script = ExtResource("10_o7qs6")
+
+[node name="Timers" type="Node" parent="." index="7"]
+
+[node name="MoveTimer" type="Timer" parent="Timers" index="0"]
+
+[connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
+[connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]
+[connection signal="timeout" from="Timers/MoveTimer" to="HumWarriorStateMachine" method="_on_move_timer_timeout"]

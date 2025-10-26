@@ -6,8 +6,6 @@ var xp = 0
 var max_xp
 var level
 
-
-
 var player_position: Vector2
 var target = Vector2.ZERO
 

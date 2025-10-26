@@ -3,6 +3,7 @@ class_name StateMachine
 
 var state = null
 var previous_state = null
+#no fucking clue czemu to jest dictionary a nie array zwykly
 var states = {}
 
 @onready var parent = get_parent()
@@ -10,11 +11,16 @@ var states = {}
 func _physics_process(delta: float) -> void:
 	if state != null:
 		_state_logic(delta)
+		#genuinely nie mam pojecia czemu nie piszemy po prostu _get_transition(delta)
+		#ten print NIGDY nie printuje bo ta funkcja nic nie returnuje!!
+		#i nw po grzyba to jest zmienna, jak ktos umie wytlumaczyc to z checia poslucham
 		var transition = _get_transition(delta)
 		if transition != null:
+			print('hello!')
 			set_state(transition)
-
-func _state_logic(_delta):
+#TU BEZ PODLOGI CHYBA BO KORZYSTAMY W JEGO DZIECIACH Z DELTY ALE NIE WIEM CZY MUSIMY W NICH KORZYSTAC
+#i guess w przyszlosci sie zobaczy, tak po prostu bylo w tutorialu
+func _state_logic(delta):
 	pass
 
 func _get_transition(_delta):

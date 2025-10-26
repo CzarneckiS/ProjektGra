@@ -18,6 +18,9 @@ var y_min
 	#damn, jakis chujowy tutorial ogladalem, kompletnie sie to sypie  
 func _process(_delta: float) -> void:
 	if dragging:
+		if drag_start.is_equal_approx(get_global_mouse_position()):
+			select_box = Rect2(get_global_mouse_position(), Vector2.ZERO)
+			return
 		x_min = min(drag_start.x, get_global_mouse_position().x)
 		y_min = min(drag_start.y, get_global_mouse_position().y)
 		select_box = Rect2(x_min, y_min,

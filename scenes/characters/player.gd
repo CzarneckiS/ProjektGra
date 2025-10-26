@@ -3,9 +3,10 @@ extends CharacterBody2D
 var speed = 500
 var health = 100
 var standing: bool = true
+var selected = false
 
-#TEMPORARY ! ! ! ! !
-signal spawn (mouse_position)
+func _ready() -> void:
+	$ClickArea.input_event.connect(_on_click_area_input_event)
 
 func _process(_delta: float) -> void:
 	if standing:
@@ -24,15 +25,30 @@ func _process(_delta: float) -> void:
 		motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 		move_and_slide()
 	Globals.player_position = global_position
-	#if Input.is_action_pressed("left_click"):
-	#	spawn.emit(get_viewport().get_mouse_position())
 
 func hit(damage) -> void:
 	#le hit function, pobiera dane od tego co zaatakowalo zeby hp spadlo o dmg ;3
 	health -= damage
+		
+func select() -> void:
+	add_to_group("Selected")
+	selected = true
+	$Selected.visible = true
 	
+func deselect() -> void:
+	remove_from_group("Selected")
+	selected = false
+	$Selected.visible = false
 	
-#FIX : JEJ AHOGE BECAUSE I FUCKED UP BADLY ALE PORA SPAC
+func is_in_selection_box(select_box: Rect2):
+	return select_box.has_point(global_position)
+
+func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	print('im alive!')
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.is_released:
+			select()
+
 
 func flip() -> void:
 	if $SpriteRoot.scale.x > 0:
