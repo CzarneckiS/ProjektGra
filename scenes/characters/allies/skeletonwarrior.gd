@@ -14,20 +14,24 @@ var damage = 20
 var attack_target
 var possible_targets = []
 var attack_range = 80
+var state_machine
 
-@onready var state_machine = $WarriorStateMachine
+
+# stop_distance to odleglosc od celu na ktorej jednostka sie zatrzyma
+# mysle ze przy poruszaniu sie grupowym moznaby sie tym zabawic
 
 func _ready() -> void:
 	health = 100
 	move_target = global_position
-
-#Rozkaz ruchu right clickiem
-func _input(event: InputEvent) -> void:
-	if selected and  state_machine.state !=  state_machine.states.dying:
+	state_machine = $WarriorStateMachine
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if selected and state_machine.state != state_machine.states.dying:
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 			if event.is_released():
 				move_target = get_global_mouse_position()
 				state_machine.set_state(state_machine.states.moving)
+				print("skeletonwarrior chodzenie input")
 
 #Otrzymywanie obrażeń i umieranie
 #bool 
@@ -50,7 +54,6 @@ func attack():
 		else:
 			state_machine.set_state(state_machine.states.idle)
 	
-
 func move_to_target(_delta,targ):
 		#check out BOIDS (bird-oids)
 	velocity = global_position.direction_to(targ) * speed
@@ -86,8 +89,16 @@ func closest_enemy():
 	else:
 		return null
 
+func attack_target_within_attack_range():
+	if attack_target.get_ref() and attack_target.get_ref().global_position.distance_to(global_position) < \
+	attack_range:
+		return attack_target.get_ref()
+	else:
+		return null
+
 func closest_enemy_within_attack_range():
-	if closest_enemy() != null and closest_enemy().global_position.distance_to(global_position) < attack_range:
+	if closest_enemy() != null and closest_enemy().global_position.distance_to(global_position) < \
+	attack_range:
 		return closest_enemy()
 	else:
 		return null

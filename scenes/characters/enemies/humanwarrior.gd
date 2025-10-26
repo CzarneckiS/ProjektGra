@@ -18,12 +18,18 @@ var attack_target
 var possible_targets = []
 var attack_range = 80
 
+#clicking
+signal target_clicked(target_node: Node) #sygnał, który będzie wysyłany do naszych jednostek aby weszły w engaging state jeśli klikniemy na wroga
+var mouse_hovering : bool = false #sluzy do sprawdzania czy myszka jest w clickarea humanwarriora
 
 @onready var state_machine = $HumWarriorStateMachine
 
 func _ready() -> void:
 	health = 30
 	move_target = Globals.player_position
+	#łączymy sygnały, że myszka jest w naszym clickarea
+	$ClickArea.mouse_entered.connect(_on_click_area_mouse_entered)
+	$ClickArea.mouse_exited.connect(_on_click_area_mouse_exited)
 
 func _process(_delta: float) -> void:
 	pass
@@ -85,3 +91,28 @@ func closest_enemy_within_attack_range():
 		return closest_enemy()
 	else:
 		return null
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		if event.is_released():
+			if mouse_hovering: #jesli myszka znajduje sie w ClickArea humanwarriora
+				if get_tree().get_nodes_in_group("Selected"): #jesli humanwarrior jest selected
+					target_clicked.emit(self) #emitujemy sygnal, ze cel zostal klikniety
+					$AnimationPlayerSelected.play("clicked_enemy") #odgrywamy animacje zaznaczenia humanwarriora
+					get_viewport().set_input_as_handled()
+					print("humanwarrior byl klikniety") #debug
+
+#obsługa sygnału na rightclick, idzie do skeletonwarriora
+#func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		#if event.is_released():
+			#target_clicked.emit(self)
+			#get_viewport().set_input_as_handled()
+
+#sprawdzamy czy myszka znajduje się w Area2D naszego ClickArea
+func _on_click_area_mouse_entered() -> void:
+	mouse_hovering = true
+
+#sprawdzamy czy myszka znajduje się poza Area2D naszego ClickArea
+func _on_click_area_mouse_exited() -> void:
+	mouse_hovering = false
