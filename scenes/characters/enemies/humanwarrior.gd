@@ -18,12 +18,17 @@ var attack_target
 var possible_targets = []
 var attack_range = 80
 
+#clicking
+signal target_clicked(target_node: Node) #sygnał, który będzie wysyłany do naszych jednostek aby weszły w engaging state jeśli klikniemy na wroga
+var mouse_hovering : bool = false
 
 @onready var state_machine = $HumWarriorStateMachine
 
 func _ready() -> void:
 	health = 30
 	move_target = Globals.player_position
+	$ClickArea.mouse_entered.connect(_on_click_area_mouse_entered)
+	$ClickArea.mouse_exited.connect(_on_click_area_mouse_exited)
 
 func _process(_delta: float) -> void:
 	pass
@@ -85,3 +90,24 @@ func closest_enemy_within_attack_range():
 		return closest_enemy()
 	else:
 		return null
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		if event.is_released():
+			if mouse_hovering:
+				target_clicked.emit(self)
+				get_viewport().set_input_as_handled()
+				print("humanwarrior byl klikniety")
+
+#obsługa sygnału na rightclick, idzie do skeletonwarriora
+#func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		#if event.is_released():
+			#target_clicked.emit(self)
+			#get_viewport().set_input_as_handled()
+
+func _on_click_area_mouse_entered() -> void:
+	mouse_hovering = true
+
+func _on_click_area_mouse_exited() -> void:
+	mouse_hovering = false

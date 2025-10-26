@@ -71,10 +71,13 @@ func _get_transition(delta):
 					set_state(states.idle)
 			states.engaging:
 				#Jesli nasz cel znajdzie sie w naszym zasiegu ataku zacznij atakowac
-				if parent.closest_enemy_within_attack_range() != null:
+				parent.speed = 600
+				if parent.attack_target_within_attack_range() != null:
 					parent.attack_target = weakref(parent.closest_enemy())
+					parent.speed = 300
 					set_state(states.attacking)
 				if !parent.attack_target.get_ref():
+					parent.speed = 300
 					set_state(states.idle)
 			states.attacking:
 				if $"../AnimationPlayer".get_current_animation() == "attack":

@@ -13,24 +13,24 @@ var damage = 1
 var attack_target
 var possible_targets = []
 var attack_range = 80
+var state_machine
 
-
-@onready var state_machine = $WarriorStateMachine
 
 # stop_distance to odleglosc od celu na ktorej jednostka sie zatrzyma
 # mysle ze przy poruszaniu sie grupowym moznaby sie tym zabawic
 
-
 func _ready() -> void:
 	health = 30
 	move_target = global_position
-
-func _input(event: InputEvent) -> void:
-	if selected and  state_machine.state !=  state_machine.states.dying:
+	state_machine = $WarriorStateMachine
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if selected and state_machine.state != state_machine.states.dying:
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 			if event.is_released():
 				move_target = get_global_mouse_position()
 				state_machine.set_state(state_machine.states.moving)
+				print("skeletonwarrior chodzenie input")
 
 func hit(damage_taken) -> bool:
 	health -= damage_taken
@@ -80,6 +80,13 @@ func closest_enemy():
 	if possible_targets.size() > 0:
 		possible_targets.sort_custom(_compare_distance)
 		return possible_targets[0]
+	else:
+		return null
+
+func attack_target_within_attack_range():
+	if attack_target.get_ref() and attack_target.get_ref().global_position.distance_to(global_position) < \
+	attack_range:
+		return attack_target.get_ref()
 	else:
 		return null
 

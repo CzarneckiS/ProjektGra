@@ -44,11 +44,10 @@ func is_in_selection_box(select_box: Rect2):
 	return select_box.has_point(global_position)
 
 func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	print('im alive!')
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_released:
+			print("selekcik gracza")
 			select()
-
 
 func flip() -> void:
 	if $SpriteRoot.scale.x > 0:
