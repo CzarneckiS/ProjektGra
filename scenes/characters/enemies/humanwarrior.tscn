@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://crrf60xb54uea"]
+[gd_scene load_steps=20 format=3 uid="uid://crrf60xb54uea"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_km2sc"]
 [ext_resource type="Script" uid="uid://178j0odpensc" path="res://scenes/characters/enemies/humanwarrior.gd" id="2_ds4t1"]
@@ -16,6 +16,10 @@ radius = 30.413813
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_21x0f"]
 radius = 463.2494
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o7qs6"]
+radius = 34.0
+height = 102.0
 
 [sub_resource type="Animation" id="Animation_dktg7"]
 length = 0.001
@@ -321,6 +325,7 @@ texture = ExtResource("8_du7wb")
 texture = ExtResource("9_ru2nh")
 
 [node name="CollisionShape2D" parent="." index="2"]
+visible = false
 shape = SubResource("CircleShape2D_f2e6v")
 
 [node name="VisionArea" parent="." index="3"]
@@ -331,8 +336,9 @@ collision_mask = 6
 [node name="CollisionShape2D" parent="VisionArea" index="0"]
 shape = SubResource("CircleShape2D_21x0f")
 
-[node name="ClickArea" parent="." index="4"]
-visible = false
+[node name="CollisionShape2D" parent="ClickArea" index="0"]
+position = Vector2(0, -23)
+shape = SubResource("CapsuleShape2D_o7qs6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
 libraries = {
