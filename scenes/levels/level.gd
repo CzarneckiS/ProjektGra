@@ -11,6 +11,7 @@ func spawn_enemy():
 	add_child(new_enemy)
 
 func _ready():
+	#musimy dla kazdej instancji warriora laczyc sygnal _on_target_clicked, pozniej bedzie to w spawn_enemy()
 	$HumanWarrior.connect("target_clicked", _on_target_clicked)
 	$HumanWarrior2.connect("target_clicked", _on_target_clicked)
 	$HumanWarrior3.connect("target_clicked", _on_target_clicked)

@@ -46,7 +46,7 @@ func is_in_selection_box(select_box: Rect2):
 func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_released:
-			print("selekcik gracza")
+			print("selekcik gracza") #debug print 
 			select()
 
 func flip() -> void:

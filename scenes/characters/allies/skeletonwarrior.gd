@@ -47,7 +47,6 @@ func attack():
 		else:
 			state_machine.set_state(state_machine.states.idle)
 	
-
 func move_to_target(_delta,targ):
 		#check out BOIDS (bird-oids)
 	velocity = global_position.direction_to(targ) * speed
@@ -91,7 +90,8 @@ func attack_target_within_attack_range():
 		return null
 
 func closest_enemy_within_attack_range():
-	if closest_enemy() != null and closest_enemy().global_position.distance_to(global_position) < attack_range:
+	if closest_enemy() != null and closest_enemy().global_position.distance_to(global_position) < \
+	attack_range:
 		return closest_enemy()
 	else:
 		return null
