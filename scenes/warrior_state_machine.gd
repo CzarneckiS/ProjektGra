@@ -6,14 +6,14 @@ func _ready():
 	add_state("engaging")
 	add_state("attacking")
 	add_state("dying")
-	add_state("swinging")
+	add_state("mid_animation")
 	#to po prostu oznacza ze startujemy ze statem idle jak cos, call deferred wywoluje sie jako ostatni
 	#kiedy juz inne states sie ladnie dodadza do list i wglaaa
 	call_deferred("set_state", states.idle)
 	#trzeba bedzie dodac kolejny stan - returning; kiedy jednostka odejdzie za daleko od glownej postaci
 	#to niewazne co robila wraca do nas
 
-
+#co jednostka robi - sprawdzane w kazdym physics frame
 func _state_logic(delta):
 		match state:
 			states.idle:
@@ -27,7 +27,7 @@ func _state_logic(delta):
 				$"../AnimationPlayer".play("attack")
 			states.dying:
 				pass
-			states.swinging:
+			states.mid_animation:
 				pass
 
 func _enter_state(_new_state, _previous_state):
@@ -56,6 +56,8 @@ func _enter_state(_new_state, _previous_state):
 				pass
 			states.dying:
 				$"../AnimationPlayer".play("dying")
+			states.mid_animation:
+				pass
 
 func _get_transition(delta):
 		match state:
@@ -78,17 +80,18 @@ func _get_transition(delta):
 					set_state(states.idle)
 			states.attacking:
 				if $"../AnimationPlayer".get_current_animation() == "attack":
-					set_state(states.swinging)
+					set_state(states.mid_animation)
 				#elif parent.closest_enemy_within_attack_range() == null:
 					#set_state(states.engaging)
 			states.dying:
 				if $"../AnimationPlayer".is_playing(): return
 				else:
 					parent.queue_free()
-			states.swinging:
+			states.mid_animation:
 				if $"../AnimationPlayer".is_playing(): return 
 				else:
 					#set_state(states.engaging)
+					#!sprawdzic czy attack target jest w zasiegu
 					if parent.closest_enemy_within_attack_range() != null:
 						parent.attack_target = weakref(parent.closest_enemy())
 						set_state(states.attacking)

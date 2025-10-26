@@ -1,30 +1,27 @@
 extends UnitParent
  
-var speed = 300
 var selected: bool = false
+
+#movement
+var speed = 300
 var move_target = Vector2.ZERO
-var stop_distance = 20
 const move_treshold = 0.5
 var last_position = Vector2.ZERO
 
 #combat
-var damage = 1
 #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
+var damage = 20
 var attack_target
 var possible_targets = []
 var attack_range = 80
 
-
 @onready var state_machine = $WarriorStateMachine
 
-# stop_distance to odleglosc od celu na ktorej jednostka sie zatrzyma
-# mysle ze przy poruszaniu sie grupowym moznaby sie tym zabawic
-
-
 func _ready() -> void:
-	health = 30
+	health = 100
 	move_target = global_position
 
+#Rozkaz ruchu right clickiem
 func _input(event: InputEvent) -> void:
 	if selected and  state_machine.state !=  state_machine.states.dying:
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
@@ -32,6 +29,8 @@ func _input(event: InputEvent) -> void:
 				move_target = get_global_mouse_position()
 				state_machine.set_state(state_machine.states.moving)
 
+#Otrzymywanie obrażeń i umieranie
+#bool 
 func hit(damage_taken) -> bool:
 	health -= damage_taken
 	if health <= 0:
@@ -40,6 +39,10 @@ func hit(damage_taken) -> bool:
 		return false
 	else:
 		return true
+
+#funkcja atakowania wywoływana w animacji ataku jednostki
+#jesli przeciwnik jest żywy (funkcja hit returnuje true) to nic nie robimy, dalej atak
+#jesli jest martwy (funkcja hit returnuje false) po zaatakowaniu, przejdź w stan idle
 func attack():
 	if attack_target.get_ref():
 		if attack_target.get_ref().hit(damage):

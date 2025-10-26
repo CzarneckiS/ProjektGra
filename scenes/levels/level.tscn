@@ -51,8 +51,20 @@ wait_time = 0.4
 [node name="SkeletonWarrior4" parent="." instance=ExtResource("4_urvlt")]
 position = Vector2(393, 196)
 
+[node name="SkeletonWarrior5" parent="." instance=ExtResource("4_urvlt")]
+position = Vector2(479, 228)
+
+[node name="SkeletonWarrior6" parent="." instance=ExtResource("4_urvlt")]
+position = Vector2(562, 276)
+
 [node name="HumanWarrior" parent="." instance=ExtResource("7_7pb6i")]
 position = Vector2(274, 516)
+
+[node name="HumanWarrior2" parent="." instance=ExtResource("7_7pb6i")]
+position = Vector2(384, 512)
+
+[node name="HumanWarrior3" parent="." instance=ExtResource("7_7pb6i")]
+position = Vector2(213, 411)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -5

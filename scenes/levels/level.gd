@@ -24,13 +24,16 @@ func _on_timer_timeout() -> void:
 #	       ⠘⠻⠷⢿⡇⠀⠀⠀⣴⣶⣶⠶⠖⠀⢸⡟⠀
 #	       ⠀⠀⠀⢸⣇⠀⠀⠀⣿⡇⣿⡄⠀⢀⣿⠇⠀
 #	       ⠀⠀⠀⠘⣿⣤⣤⣴⡿⠃⠙⠛⠛⠛⠋⠀⠀
-	   
-#ROZKAZ RUCHU
+	
+  
+#Tworzenie i odgrywanie animacji ze strzaleczkami kiedy wydajemy rozkaz ruchu
+#prawdopodobnie trzeba bedzie tu dodac ifa w przyszlosci kiedy dodamy targetowanie przeciwnika
+#right clickiem
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		if event.is_released():
 			cursor_move_animation()
-
+#animacja do powyzszego inputu
 func cursor_move_animation() -> void:
 	if get_tree().get_nodes_in_group("Selected"):
 		var new_move_cursor = preload("res://scenes/ui/move_cursor.tscn").instantiate()
