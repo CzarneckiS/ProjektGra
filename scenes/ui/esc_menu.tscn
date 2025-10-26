@@ -40,7 +40,3 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "EXIT
 "
-
-[connection signal="pressed" from="VBoxContainer/ButtonContinue" to="." method="_on_button_continue_pressed"]
-[connection signal="pressed" from="VBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
-[connection signal="pressed" from="VBoxContainer/ButtonExit" to="." method="_on_button_exit_pressed"]

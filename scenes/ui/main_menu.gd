@@ -3,7 +3,7 @@ extends Control
 
 func _ready() -> void:
 	$VBoxContainer/ButtonStart.pressed.connect(_on_start_start_pressed)
-
+	$VBoxContainer/ButtonExit.pressed.connect(_on_button_exit_pressed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

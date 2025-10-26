@@ -1,10 +1,7 @@
 extends Node2D
 
 
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("EscMenu"):
-		get_tree().change_scene_to_file("res://scenes/ui/esc_menu.tscn")
-	
+
 
 # EnemySpawnFollow bierzemy jako unique name
 func spawn_enemy():
@@ -17,9 +14,10 @@ func spawn_enemy():
 func _on_timer_timeout() -> void:
 	spawn_enemy()
 
-#ROZKAZ RUCHU
-#func _unhandled_input(event: InputEvent) -> void:
-	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		#if event.pressed:
-			#for unit in get_tree().get_nodes_in_group('Selected'):
-				#unit.move_to(get_global_mouse_position())
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		if event.pressed:
+			for unit in get_tree().get_nodes_in_group('Selected'):
+				unit.move_to(get_global_mouse_position())
+	elif event.is_action_pressed("EscMenu"):
+		get_tree().change_scene_to_file("res://scenes/ui/esc_menu.tscn")
