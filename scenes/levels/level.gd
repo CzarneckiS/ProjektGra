@@ -36,8 +36,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		if event.is_released():
 			cursor_move_animation()
-  elif event.is_action_pressed("EscMenu"):
-		get_tree().change_scene_to_file("res://scenes/ui/esc_menu.tscn")
+		elif event.is_action_pressed("EscMenu"):
+			get_tree().change_scene_to_file("res://scenes/ui/esc_menu.tscn")
 
 func cursor_move_animation() -> void:
 	if get_tree().get_nodes_in_group("Selected"):
