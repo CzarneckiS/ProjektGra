@@ -1,5 +1,11 @@
 extends Node2D
 
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("EscMenu"):
+		get_tree().change_scene_to_file("res://scenes/ui/esc_menu.tscn")
+	
+
 # EnemySpawnFollow bierzemy jako unique name
 func spawn_enemy():
 	var new_enemy = preload("res://scenes/characters/enemies/humanwarrior.tscn").instantiate()
