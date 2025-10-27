@@ -14,6 +14,7 @@ movementy) tylko dopiero kiedy bedzie jakis treshold
 np kiedy odleglosc miedzy jednostka a targetem jest ponad 100 pixeli wtedy zacznij
 sie ruszac
 
+Player moze przepychac jednostki?? - jesli jednostka jest w idle i wykryje kolizje z graczem to odsuwa sie w kierunku przeciwnym od gracza????
 
 
 
