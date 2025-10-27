@@ -10,6 +10,21 @@ var xp = 0
 var max_xp
 var level
 
+#podswietlanie kursora
+var overlapping_units = 0 #sprawdzamy na ile jednostek najechaliśmy myszką
+var neutral_cursor = load("res://sprites/placeholders/KursorRekaSmallNeutral.png")
+var evil_cursor = load("res://sprites/placeholders/KursorRekaSmallEvil.png")
+
+func add_overlapping_units(): #kiedy najedziemy myszka na przeciwnika to wywoluje tą funkcję
+	overlapping_units += 1
+	Input.set_custom_mouse_cursor(evil_cursor)
+
+func remove_overlapping_units(): #kiedy zjedziemy myszką z przeciwnika lub umrze to wywołuje
+	if overlapping_units > 0:
+		overlapping_units -= 1
+	if overlapping_units <= 0:
+		Input.set_custom_mouse_cursor(neutral_cursor)
+
 #mr oskar jak cos to sa STARE placeholdery z tym level up, rob tutaj jak uwazasz
 func level_up():
 	max_health += 20

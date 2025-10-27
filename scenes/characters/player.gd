@@ -8,8 +8,8 @@ var health = 100
 var standing: bool = true
 var selected = false
 
-func _ready() -> void:
-	$ClickArea.input_event.connect(_on_click_area_input_event)
+#func _ready() -> void:
+	#$ClickArea.input_event.connect(_on_click_area_input_event)
 
 func _process(_delta: float) -> void:
 	if standing:
@@ -33,24 +33,24 @@ func hit(damage) -> void:
 	#le hit function, pobiera dane od tego co zaatakowalo zeby hp spadlo o dmg ;3
 	health -= damage
 		
-func select() -> void:
-	add_to_group("Selected")
-	selected = true
-	$Selected.visible = true
-	
-func deselect() -> void:
-	remove_from_group("Selected")
-	selected = false
-	$Selected.visible = false
-	
-func is_in_selection_box(select_box: Rect2):
-	return select_box.has_point(global_position)
-
-func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.is_released:
-			print("selekcik gracza") #debug print 
-			select()
+#func select() -> void:
+	#add_to_group("Selected")
+	#selected = true
+	#$Selected.visible = true
+	#
+#func deselect() -> void:
+	#remove_from_group("Selected")
+	#selected = false
+	#$Selected.visible = false
+	#
+#func is_in_selection_box(select_box: Rect2):
+	#return select_box.has_point(global_position)
+#
+#func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		#if event.is_released:
+			#print("selekcik gracza") #debug print 
+			#select()
 
 func flip() -> void:
 	if $SpriteRoot.scale.x > 0:
