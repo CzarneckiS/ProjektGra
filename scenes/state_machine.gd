@@ -1,6 +1,7 @@
 extends Node
 class_name StateMachine
 
+#Mała definicja dla przypomnienia, później sie wywali
 #State - stan, w którym znajduje się jednostka (np przemieszcza się, atakuje coś)
 #State Machine to system, który przypisuje jednostkom odpowiedni state,
 #i sprawia, że jednostki wykonują rozkazy przypisane do danego state

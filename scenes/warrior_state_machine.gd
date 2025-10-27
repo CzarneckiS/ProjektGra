@@ -1,5 +1,8 @@
 extends StateMachine
 
+@onready var sprite_root = $"../Sprite2D" #root sprite'ów jednostki do obracania jej
+@onready var animation_player = $"../AnimationPlayer"
+
 func _ready():
 	#dodawanie naszych stanów do słownika
 	add_state("idle")
@@ -25,7 +28,7 @@ func _state_logic(delta):
 				if parent.attack_target.get_ref(): #jeśli cel (jednostka) istnieje, idź do niego
 					parent.move_to_target(delta, parent.attack_target.get_ref().global_position)
 			states.attacking:
-				$"../AnimationPlayer".play("attack") #Jeśli zaczniesz atakować, zagraj animacje ataku
+				animation_player.play("attack") #Jeśli zaczniesz atakować, zagraj animacje ataku
 			states.dying:
 				pass
 			states.mid_animation:
@@ -39,29 +42,29 @@ func _state_logic(delta):
 func _enter_state(_new_state, _previous_state):
 		match state:
 			states.idle:
-				$"../AnimationPlayer".play("idle")
+				animation_player.play("idle")
 			states.moving:
 				#placeholder zmieniania animacji - troche zwalone jest bo trzeba 2 razy kliknac?
 				#jak ktos wie czemu to feel free poprawic
-				$"../AnimationPlayer".play("walk")
+				animation_player.play("walk")
 				if parent.velocity.x > 0:
-					if $"../Sprite2D".scale.x > 0:
-						$"../Sprite2D".scale.x *= -1
+					if sprite_root.scale.x > 0:
+						sprite_root.scale.x *= -1
 				elif parent.velocity.x < 0:
-					if $"../Sprite2D".scale.x < 0:
-						$"../Sprite2D".scale.x *= -1
+					if sprite_root.scale.x < 0:
+						sprite_root.scale.x *= -1
 			states.engaging:
-				$"../AnimationPlayer".play("walk")
+				animation_player.play("walk")
 				if parent.velocity.x > 0:
-					if $"../Sprite2D".scale.x > 0:
-						$"../Sprite2D".scale.x *= -1
+					if sprite_root.scale.x > 0:
+						sprite_root.scale.x *= -1
 				elif parent.velocity.x < 0:
-					if $"../Sprite2D".scale.x < 0:
-						$"../Sprite2D".scale.x *= -1
+					if sprite_root.scale.x < 0:
+						sprite_root.scale.x *= -1
 			states.attacking:
 				pass
 			states.dying:
-				$"../AnimationPlayer".play("dying") #Kiedy wejdziesz w state, rozpocznij animację
+				animation_player.play("dying") #Kiedy wejdziesz w state, rozpocznij animację
 			states.mid_animation:
 				pass
 
@@ -89,14 +92,14 @@ func _get_transition(_delta):
 					set_state(states.idle) #zacznij idlować
 			states.attacking:
 				#jeśli uda ci się zacząć atak przejdź w stan wykonywania animacji
-				if $"../AnimationPlayer".get_current_animation() == "attack":
+				if animation_player.get_current_animation() == "attack":
 					set_state(states.mid_animation)
 			states.dying: #Dopóki odgrywasz animację umierania, nic nie rób
-				if $"../AnimationPlayer".is_playing(): return
+				if animation_player.is_playing(): return
 				else: #kiedy się skończy, przestań istnieć
 					parent.queue_free()
 			states.mid_animation: #Dopóki odgrywasz animację atakowania, nic nie rób
-				if $"../AnimationPlayer".is_playing(): return 
+				if animation_player.is_playing(): return 
 				else: #kiedy skończysz sprawdź czy cel wciąż jest w zasięgu ataku
 					if parent.attack_target_within_attack_range() != null:
 						set_state(states.attacking) #jeśli jest to go atakuj
