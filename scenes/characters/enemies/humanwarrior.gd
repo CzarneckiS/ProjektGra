@@ -23,9 +23,27 @@ signal target_clicked(target_node: Node) #sygnał, który będzie wysyłany do n
 var mouse_hovering : bool = false #sluzy do sprawdzania czy myszka jest w clickarea humanwarriora
 
 @onready var state_machine = $HumWarriorStateMachine
+@onready var health_bar: ProgressBar = $HealthBar 
+@onready var damage_bar: ProgressBar = $DamageBar
 
 func _ready() -> void:
-	health = 30
+	max_health  = 60
+	health = max_health
+	health_bar.max_value = max_health
+	health_bar.value = max_health
+	health_bar.visible = false
+	
+	damage_bar.max_value = max_health
+	damage_bar.value = max_health
+	damage_bar.visible = false
+	
+	bar_style.bg_color = Color("ef595cff")
+	bar_style.border_width_left = 2
+	bar_style.border_width_top = 2
+	bar_style.border_width_bottom = 2
+	bar_style.border_color = Color(0.0, 0.0, 0.0, 1.0)
+	health_bar.add_theme_stylebox_override("fill", bar_style)
+	
 	move_target = Globals.player_position
 	#łączymy sygnały, że myszka jest w naszym clickarea
 	$ClickArea.mouse_entered.connect(_on_click_area_mouse_entered)
@@ -36,8 +54,21 @@ func _process(_delta: float) -> void:
 	#ten process jest do debugowania
 
 func hit(damage_taken) -> bool:
+	health_bar.visible = true
+	damage_bar.visible = true
+	
 	health -= damage_taken
+	health_bar.value = health
+	
+	var tween = create_tween()
+	tween.tween_property(damage_bar, "value", health, 0.5) 
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+	
+	
 	if health <= 0:
+		health_bar.visible = false
+		damage_bar.visible = false
 		state_machine.set_state(state_machine.states.dying)
 		$CollisionShape2D.disabled = true
 		return false
