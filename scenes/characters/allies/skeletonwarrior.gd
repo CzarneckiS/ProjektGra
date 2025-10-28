@@ -1,28 +1,30 @@
 extends UnitParent
-
+ 
 var selected: bool = false
 
 #movement
 var speed = 300
 var move_target = Vector2.ZERO
-var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
-const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
-var last_position = Vector2.ZERO #temporary, bedzie wymienione przy pathfindingu
+const move_treshold = 0.5
+var last_position = Vector2.ZERO
 
 #combat
+#ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var damage = 20
-var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
-var possible_targets = [] #jednostki ktore wejda w VisionArea
+var attack_target
+var possible_targets = []
 var attack_range = 80
 var state_machine
 
 
-
+@onready var state_machine = $WarriorStateMachine
 @onready var health_bar: ProgressBar = $HealthBar 
 @onready var damage_bar: ProgressBar = $DamageBar
 
+# stop_distance to odleglosc od celu na ktorej jednostka sie zatrzyma
+# mysle ze przy poruszaniu sie grupowym moznaby sie tym zabawic
+
 func _ready() -> void:
-  state_machine = $WarriorStateMachine
 	max_health  = 60
 	health = max_health
 	health_bar.max_value = max_health
@@ -45,20 +47,51 @@ func _ready() -> void:
 	
 	move_target = global_position
 	state_machine = $WarriorStateMachine
-
-#MOVEMENT ===============================================================================
+	
 func _unhandled_input(event: InputEvent) -> void:
-	if state_machine.state == state_machine.states.dying:
-		return #jeśli jednostka umiera to nie możemy jej wydać rozkazów
-	if !selected:
-		return #sprawdzamy czy jednostka jest selectowana
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.is_released(): #kiedy right clickujemy każemy jednostce iść do punktu na ziemi
-			move_target = get_global_mouse_position()
-			state_machine.set_state(state_machine.states.moving)
-			print("skeletonwarrior chodzenie input")
+	if selected and state_machine.state != state_machine.states.dying:
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+			if event.is_released():
+				move_target = get_global_mouse_position()
+				state_machine.set_state(state_machine.states.moving)
+				print("skeletonwarrior chodzenie input")
 
-func move_to_target(_delta,targ): #this shii temporary yo
+#Otrzymywanie obrażeń i umieranie
+#bool 
+func hit(damage_taken) -> bool:
+	health_bar.visible = true
+	damage_bar.visible = true
+	
+	health -= damage_taken
+	health_bar.value = health
+	
+	var tween = create_tween()
+	tween.tween_property(damage_bar, "value", health, 0.5) 
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+	
+	
+	if health <= 0:
+		health_bar.visible = false
+		damage_bar.visible = false
+		
+		state_machine.set_state(state_machine.states.dying)
+		$CollisionShape2D.disabled = true
+		return false
+	else:
+		return true
+
+#funkcja atakowania wywoływana w animacji ataku jednostki
+#jesli przeciwnik jest żywy (funkcja hit returnuje true) to nic nie robimy, dalej atak
+#jesli jest martwy (funkcja hit returnuje false) po zaatakowaniu, przejdź w stan idle
+func attack():
+	if attack_target.get_ref():
+		if attack_target.get_ref().hit(damage):
+			pass
+		else:
+			state_machine.set_state(state_machine.states.idle)
+	
+func move_to_target(_delta,targ):
 		#check out BOIDS (bird-oids)
 	velocity = global_position.direction_to(targ) * speed
 	if get_slide_collision_count() and $Timers/MoveTimer.is_stopped():
@@ -67,32 +100,17 @@ func move_to_target(_delta,targ): #this shii temporary yo
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	move_and_slide()
 
-#COMBAT ===============================================================================
-func hit(damage_taken) -> bool:
-	health -= damage_taken #otrzymywanie obrażeń
-	if health <= 0: #hp poniżej 0 - umieranie
-		state_machine.set_state(state_machine.states.dying)
-		$CollisionShape2D.disabled = true #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
-		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
-	else:
-		return true #jednostka ma ponad 0hp więc wciąż żyje
-
-func attack():
-	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
-		if attack_target.get_ref().hit(damage): #wysyła hit do celu
-			pass #jeśli cel zwrócił true - czyli żyje - kontynuuj atakowanie
-		else:
-			state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle
-
 func _on_vision_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Unit"): #sprawdza czy jednostka, która weszła w vision range to valid target
-		if not body.is_in_group("Selectable"): #Selectable to synonim allied jednostki
-			possible_targets.append(body) #dodajemy target do listy
-
+	#przeszukuje wszystkie jednostki i patrzy czy jednostka NIE JEST w selectable
+	#selectable to synonim allied jednostki
+	if body.is_in_group("Unit"):
+		if not body.is_in_group("Selectable"):
+			possible_targets.append(body)
+			
 func _on_vision_area_body_exited(body: Node2D) -> void:
-	if possible_targets.has(body): #jednostka z listy targetów wyszła z wizji
+	if possible_targets.has(body):
 		possible_targets.erase(body)
-
+		
 #to jest funkcja do sortowania, jesli target a jest blizej targeta b to jest przesuwany blizej
 #pozycji 0 w arrayu; a pozycja 0 w arrayu possible_target to najblizszy cel :D
 func _compare_distance(target_a, target_b):
@@ -101,45 +119,43 @@ func _compare_distance(target_a, target_b):
 	else:
 		return false
 
-func closest_enemy(): #sprawdza, który cel jest najbliżej
+func closest_enemy():
 	if possible_targets.size() > 0:
-		possible_targets.sort_custom(_compare_distance) # <- to powyższy algorytm sortujący
+		possible_targets.sort_custom(_compare_distance)
 		return possible_targets[0]
 	else:
 		return null
 
-func attack_target_within_attack_range(): #sprawdź czy attack_target znajduje się w attack_range
+func attack_target_within_attack_range():
 	if attack_target.get_ref() and attack_target.get_ref().global_position.distance_to(global_position) < \
 	attack_range:
-		return attack_target.get_ref() #jeśli jest to go zwróć
+		return attack_target.get_ref()
 	else:
 		return null
 
-#stara funkcja, ale niech zostanie
-#func closest_enemy_within_attack_range():
-	#if closest_enemy() != null and closest_enemy().global_position.distance_to(global_position) < \
-	#attack_range:
-		#return closest_enemy()
-	#else:
-		#return null
-#SELECTING ===============================================================================
-#dodawanie i usuwanie z grupy Selected, wywoływane albo w scenie unit selector w levelu
-#albo poprzez left click
+func closest_enemy_within_attack_range():
+	if closest_enemy() != null and closest_enemy().global_position.distance_to(global_position) < \
+	attack_range:
+		return closest_enemy()
+	else:
+		return null
+
+#func move_to(target):
+	#move_target = target
+		
 func select() -> void:
 	add_to_group("Selected")
 	selected = true
 	$Selected.visible = true
-
+	
 func deselect() -> void:
 	remove_from_group("Selected")
 	selected = false
 	$Selected.visible = false
-
-#do sprawdzania czy znajduje się w selection boxie w unit selectorze w scenie Level
+	
 func is_in_selection_box(select_box: Rect2):
 	return select_box.has_point(global_position)
 
-#Selectowanie jednostki left clickiem na nią
 func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_released:

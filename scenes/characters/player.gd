@@ -1,8 +1,5 @@
 extends CharacterBody2D
 
-#! ! ! 90% rzeczy tutaj jest temporary ! ! ! 
-#wiec nie bede tego komentować 
-
 var speed = 500
 var health = 100
 var standing: bool = true
