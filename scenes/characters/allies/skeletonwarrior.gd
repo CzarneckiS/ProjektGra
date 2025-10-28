@@ -16,8 +16,34 @@ var possible_targets = [] #jednostki ktore wejda w VisionArea
 var attack_range = 80
 var state_machine
 
+
+
+@onready var health_bar: ProgressBar = $HealthBar 
+@onready var damage_bar: ProgressBar = $DamageBar
+
+
 func _ready() -> void:
-	health = 100
+  state_machine = $WarriorStateMachine
+	max_health  = 60
+	health = max_health
+	health_bar.max_value = max_health
+	health_bar.value = max_health
+	health_bar.visible = false
+	
+	damage_bar.max_value = max_health
+	damage_bar.value = max_health
+	damage_bar.visible = false
+	
+	bar_style.bg_color = Color("10bf00ff")
+	bar_style.border_width_left = 2
+	bar_style.border_width_top = 2
+	bar_style.border_width_bottom = 2
+	bar_style.border_color = Color(0.0, 0.0, 0.0, 1.0)
+	health_bar.add_theme_stylebox_override("fill", bar_style)
+
+	
+	move_target = Globals.player_position
+	
 	move_target = global_position
 	state_machine = $WarriorStateMachine
 
@@ -44,8 +70,19 @@ func move_to_target(_delta,targ): #this shii temporary yo
 
 #COMBAT ===============================================================================
 func hit(damage_taken) -> bool:
-	health -= damage_taken #otrzymywanie obrażeń
+	health_bar.visible = true
+	damage_bar.visible = true
+	
+	health -= damage_taken
+	health_bar.value = health
+	
+	var tween = create_tween()
+	tween.tween_property(damage_bar, "value", health, 0.5) 
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
 	if health <= 0: #hp poniżej 0 - umieranie
+    health_bar.visible = false
+		damage_bar.visible = false
 		state_machine.set_state(state_machine.states.dying)
 		$CollisionShape2D.disabled = true #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
