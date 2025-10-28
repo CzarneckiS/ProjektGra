@@ -23,7 +23,7 @@ var state_machine
 
 
 func _ready() -> void:
-  state_machine = $WarriorStateMachine
+	state_machine = $WarriorStateMachine
 	max_health  = 60
 	health = max_health
 	health_bar.max_value = max_health
@@ -81,7 +81,7 @@ func hit(damage_taken) -> bool:
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_OUT)
 	if health <= 0: #hp poniżej 0 - umieranie
-    health_bar.visible = false
+		health_bar.visible = false
 		damage_bar.visible = false
 		state_machine.set_state(state_machine.states.dying)
 		$CollisionShape2D.disabled = true #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
