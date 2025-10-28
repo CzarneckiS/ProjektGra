@@ -1,9 +1,11 @@
 extends UnitParent
 
-
 #thought - nie robic tak, ze mobki ida PROSTO na gracza od razu
 #tylko dla coolnosci zrobic tak ze ida kawalek w mniej wiecej kierunku gracza
 #i sie zatrzymuja i nazwac ten stan wandering dla realizmu????? idk idk
+
+#exp ktory daje warrior, wykorzystywany przekazywany do fsm w dying state
+const warrior_exp = 15
 
 #movement
 var speed = 300
@@ -24,10 +26,28 @@ signal target_clicked(target_node: Node) #sygnał, który będzie wysyłany do n
 var mouse_hovering : bool = false #sluzy do sprawdzania czy myszka jest w clickarea humanwarriora
 
 @onready var state_machine = $HumWarriorStateMachine
+@onready var health_bar: ProgressBar = $HealthBar 
+@onready var damage_bar: ProgressBar = $DamageBar
 
 func _ready() -> void:
-	health = 30
-	move_target = Globals.player_position #przeciwnik zaczyna swój żywot i idzie w stronę gracza
+	max_health  = 60
+	health = max_health
+	health_bar.max_value = max_health
+	health_bar.value = max_health
+	health_bar.visible = false
+	
+	damage_bar.max_value = max_health
+	damage_bar.value = max_health
+	damage_bar.visible = false
+	
+	bar_style.bg_color = Color("ef595cff")
+	bar_style.border_width_left = 2
+	bar_style.border_width_top = 2
+	bar_style.border_width_bottom = 2
+	bar_style.border_color = Color(0.0, 0.0, 0.0, 1.0)
+	health_bar.add_theme_stylebox_override("fill", bar_style)
+	
+	move_target = Globals.player_position
 	#łączymy sygnały, że myszka jest w naszym clickarea
 	$ClickArea.mouse_entered.connect(_on_click_area_mouse_entered)
 	$ClickArea.mouse_exited.connect(_on_click_area_mouse_exited)
@@ -44,8 +64,19 @@ func move_to_target(_delta,targ): #this shii temporary yo
 
 #COMBAT ===============================================================================
 func hit(damage_taken) -> bool:
-	health -= damage_taken #otrzymywanie obrażeń
+	health_bar.visible = true
+	damage_bar.visible = true
+	
+	health -= damage_taken
+	health_bar.value = health
+	
+	var tween = create_tween()
+	tween.tween_property(damage_bar, "value", health, 0.5) 
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
 	if health <= 0: #hp poniżej 0 - umieranie
+		health_bar.visible = false
+		damage_bar.visible = false
 		state_machine.set_state(state_machine.states.dying)
 		$CollisionShape2D.disabled = true #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
