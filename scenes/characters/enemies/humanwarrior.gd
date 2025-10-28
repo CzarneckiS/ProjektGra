@@ -1,11 +1,9 @@
 extends UnitParent
 
+
 #thought - nie robic tak, ze mobki ida PROSTO na gracza od razu
 #tylko dla coolnosci zrobic tak ze ida kawalek w mniej wiecej kierunku gracza
 #i sie zatrzymuja i nazwac ten stan wandering dla realizmu????? idk idk
-
-#exp ktory daje warrior, wykorzystywany przekazywany do fsm w dying state
-const warrior_exp = 15
 
 #movement
 var speed = 300
@@ -26,6 +24,8 @@ signal target_clicked(target_node: Node) #sygnał, który będzie wysyłany do n
 var mouse_hovering : bool = false #sluzy do sprawdzania czy myszka jest w clickarea humanwarriora
 
 @onready var state_machine = $HumWarriorStateMachine
+@onready var health_bar: ProgressBar = $HealthBar 
+@onready var damage_bar: ProgressBar = $DamageBar
 
 func _ready() -> void:
 	max_health  = 60

@@ -1,6 +1,8 @@
 extends Node2D
 
 @onready var move_cursor = $MoveCursor
+ 
+
 
 func _ready():
 	#musimy dla kazdej instancji warriora laczyc sygnal _on_target_clicked, pozniej bedzie to w spawn_enemy()
@@ -27,8 +29,16 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 		if get_tree().get_nodes_in_group("Selected"): #sprawdza czy zselectowaliśmy jakąś jednostkę
 			cursor_move_animation()  #Odegraj animację
-	elif event.is_action_pressed("EscMenu"): #Przejście do menu
-		get_tree().change_scene_to_file("res://scenes/ui/esc_menu.tscn")
+	elif event.is_action_pressed("EscMenu"):
+		#JAK COS TO TRZEBA TU VAR BO USUWAMY TE ZMIENNE 
+		#PO TYM JAK WCISKAMY CONTINUE W ESCMENU
+		if not $EscMenuLayer.has_node("EscMenu"):
+			var esc_menu_scene = load("res://scenes/ui/esc_menu.tscn")
+			var esc_menu = esc_menu_scene.instantiate()
+			esc_menu.name = "EscMenu"               
+			esc_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+			$EscMenuLayer.add_child(esc_menu)
+			get_tree().paused = true
 
 func _on_target_clicked(body): #Sygnał od human warriora, czy został kliknięty
 	print("przyjalem sygnal od warriora")
