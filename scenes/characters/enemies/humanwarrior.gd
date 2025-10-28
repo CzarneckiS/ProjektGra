@@ -1,9 +1,11 @@
 extends UnitParent
 
-
 #thought - nie robic tak, ze mobki ida PROSTO na gracza od razu
 #tylko dla coolnosci zrobic tak ze ida kawalek w mniej wiecej kierunku gracza
 #i sie zatrzymuja i nazwac ten stan wandering dla realizmu????? idk idk
+
+#exp ktory daje warrior, wykorzystywany przekazywany do fsm w dying state
+const warrior_exp = 15
 
 #movement
 var speed = 300
