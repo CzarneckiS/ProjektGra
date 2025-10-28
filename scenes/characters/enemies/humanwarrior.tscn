@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cgai4a5o8b6sf" path="res://sprites/human_warrior/human_warrior_shoulders.png" id="7_vuace"]
 [ext_resource type="Texture2D" uid="uid://cy2g1dcu5ye10" path="res://sprites/human_warrior/human_warrior_head.png" id="8_du7wb"]
 [ext_resource type="Texture2D" uid="uid://bwyarkpn2hya8" path="res://sprites/human_warrior/human_warrior_sword.png" id="9_ru2nh"]
-[ext_resource type="Script" path="res://scenes/characters/enemies/hum_warrior_state_machine.gd" id="10_o7qs6"]
+[ext_resource type="Script" uid="uid://csr4x6mrcrwjc" path="res://scenes/characters/enemies/hum_warrior_state_machine.gd" id="10_o7qs6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f2e6v"]
 radius = 25.179358
@@ -390,15 +390,6 @@ script = ExtResource("10_o7qs6")
 
 [node name="MoveTimer" type="Timer" parent="Timers" index="0"]
 
-[node name="DamageBar" parent="." index="8"]
-offset_top = -78.0
-offset_bottom = -72.0
-
-[node name="HealthBar" parent="." index="9"]
-offset_left = -24.0
-offset_top = -78.0
-offset_right = 24.0
-offset_bottom = -72.0
 [node name="AnimationPlayerSelected" type="AnimationPlayer" parent="." index="8"]
 libraries = {
 &"": SubResource("AnimationLibrary_du7wb")
