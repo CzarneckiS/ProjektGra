@@ -1,0 +1,121 @@
+[gd_scene load_steps=2 format=3 uid="uid://oi7udmkhy0cl"]
+
+[ext_resource type="Script" uid="uid://dyqgocxdri5va" path="res://scenes/ui/lvlup_menu.gd" id="1_ra1c2"]
+
+[node name="LvlupMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ra1c2")
+
+[node name="Background" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 0.39215687)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Choice1" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -550.0
+offset_top = -250.0
+offset_right = -250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4857033, 0.4857036, 0.48570347, 1)
+
+[node name="Choice2" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -250.0
+offset_right = 150.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4857033, 0.4857036, 0.48570347, 1)
+
+[node name="Choice3" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 250.0
+offset_top = -250.0
+offset_right = 550.0
+offset_bottom = 249.99988
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4857033, 0.4857036, 0.48570347, 1)
+
+[node name="Description1" type="Label" parent="."]
+layout_mode = 0
+offset_left = 283.0
+offset_top = 223.0
+offset_right = 512.0
+offset_bottom = 272.0
+text = "PRZYKŁADOWY TEKST OPISU1
+"
+
+[node name="Description2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 689.0
+offset_top = 223.0
+offset_right = 918.0
+offset_bottom = 272.0
+text = "PRZYKŁADOWY TEKST OPISU1
+"
+
+[node name="Description3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1084.0
+offset_top = 223.0
+offset_right = 1313.0
+offset_bottom = 272.0
+text = "PRZYKŁADOWY TEKST OPISU1
+"
+
+[node name="Option1" type="Button" parent="."]
+layout_mode = 0
+offset_left = 289.0
+offset_top = 620.0
+offset_right = 517.0
+offset_bottom = 681.0
+text = "@_@"
+
+[node name="Option2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 685.0
+offset_top = 620.0
+offset_right = 913.0
+offset_bottom = 681.0
+text = "^_^"
+
+[node name="Option3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1090.0
+offset_top = 620.0
+offset_right = 1318.0
+offset_bottom = 681.0
+text = "-_-"
+
+[connection signal="pressed" from="Option1" to="." method="_on_option_1_pressed"]
+[connection signal="pressed" from="Option2" to="." method="_on_option_2_pressed"]
+[connection signal="pressed" from="Option3" to="." method="_on_option_3_pressed"]
