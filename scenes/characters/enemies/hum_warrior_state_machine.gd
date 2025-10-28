@@ -28,7 +28,7 @@ func _state_logic(delta):
 			states.attacking:
 				animation_player.play("attack") #Jeśli zaczniesz atakować, zagraj animacje ataku
 			states.dying:
-				pass
+				pass #aktualizujemy expa gracza gdy enemy umrze
 			states.mid_animation:
 				pass
 
@@ -95,6 +95,7 @@ func _get_transition(_delta):
 			states.dying: #Dopóki odgrywasz animację umierania, nic nie rób
 				if animation_player.is_playing(): return
 				else: #kiedy się skończy, przestań istnieć
+					Globals.update_player_exp(parent.warrior_exp) #wywolujemy funkcje z globalsow aby zaktualizowac exp gracza i przekazujemy zmeinna warrior_exp zdefiniowana w samym human warriorze
 					parent.queue_free()
 			states.mid_animation: #Dopóki odgrywasz animację atakowania, nic nie rób
 				if animation_player.is_playing(): return 
