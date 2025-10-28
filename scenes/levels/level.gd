@@ -42,12 +42,21 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("EscMenu"):
 		#JAK COS TO TRZEBA TU VAR BO USUWAMY TE ZMIENNE 
 		#PO TYM JAK WCISKAMY CONTINUE W ESCMENU
-		if not $EscMenuLayer.has_node("EscMenu"):
+		if not $MenuLayer.has_node("EscMenu"):
 			var esc_menu_scene = load("res://scenes/ui/esc_menu.tscn")
 			var esc_menu = esc_menu_scene.instantiate()
 			esc_menu.name = "EscMenu"               
 			esc_menu.process_mode = Node.PROCESS_MODE_ALWAYS
-			$EscMenuLayer.add_child(esc_menu)
+			$MenuLayer.add_child(esc_menu)
+			get_tree().paused = true
+	
+	elif event.is_action_pressed("tmpLvlUp"):
+		if not $MenuLayer.has_node("LvlUpMenu"):
+			var lvlup_scene = load("res://scenes/ui/lvlup_menu.tscn")
+			var lvlup_menu = lvlup_scene.instantiate()
+			lvlup_menu.name = "LvlUpMenu"               
+			lvlup_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+			$MenuLayer.add_child(lvlup_menu)
 			get_tree().paused = true
 
 
