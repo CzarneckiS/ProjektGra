@@ -34,7 +34,7 @@ func _ready() -> void:
 	damage_bar.value = max_health
 	damage_bar.visible = false
 	
-	bar_style.bg_color = Color("#00f000")
+	bar_style.bg_color = Color("10bf00ff")
 	bar_style.border_width_left = 2
 	bar_style.border_width_top = 2
 	bar_style.border_width_bottom = 2
@@ -59,9 +59,13 @@ func hit(damage_taken) -> bool:
 	damage_bar.visible = true
 	
 	health -= damage_taken
-	
 	health_bar.value = health
-	damage_bar.value = health
+	
+	var tween = create_tween()
+	tween.tween_property(damage_bar, "value", health, 0.5) 
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+	
 	
 	if health <= 0:
 		health_bar.visible = false

@@ -1,6 +1,8 @@
 extends Node2D
 
 @onready var move_cursor = $MoveCursor
+ 
+
 
 # EnemySpawnFollow bierzemy jako unique name
 func spawn_enemy():
@@ -37,10 +39,24 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_released():
 			cursor_move_animation()
 
-
 	elif event.is_action_pressed("EscMenu"):
-		get_tree().change_scene_to_file("res://scenes/ui/esc_menu.tscn")
+		#JAK COS TO TRZEBA TU VAR BO USUWAMY TE ZMIENNE 
+		#PO TYM JAK WCISKAMY CONTINUE W ESCMENU
+		if not $EscMenuLayer.has_node("EscMenu"):
+			var esc_menu_scene = load("res://scenes/ui/esc_menu.tscn")
+			var esc_menu = esc_menu_scene.instantiate()
+			esc_menu.name = "EscMenu"               
+			esc_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+			$EscMenuLayer.add_child(esc_menu)
+			get_tree().paused = true
 
+
+
+
+
+
+
+	
 func cursor_move_animation() -> void:
 	if get_tree().get_nodes_in_group("Selected"):
 		var new_move_cursor = preload("res://scenes/ui/move_cursor.tscn").instantiate()

@@ -53,9 +53,13 @@ func hit(damage_taken) -> bool:
 	damage_bar.visible = true
 	
 	health -= damage_taken
-	
-	damage_bar.value = health
 	health_bar.value = health
+	
+	var tween = create_tween()
+	tween.tween_property(damage_bar, "value", health, 0.5) 
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+	
 	
 	if health <= 0:
 		health_bar.visible = false

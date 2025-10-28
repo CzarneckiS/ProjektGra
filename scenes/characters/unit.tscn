@@ -13,7 +13,7 @@ border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ldd6"]
-bg_color = Color(0.2340788, 0.5234681, 0.2787448, 1)
+bg_color = Color(0.61745477, 0.61745477, 0.6174547, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_bottom = 1
@@ -51,14 +51,13 @@ offset_right = 24.0
 offset_bottom = 6.0
 theme_override_styles/background = SubResource("StyleBoxFlat_e0k25")
 theme_override_styles/fill = SubResource("StyleBoxFlat_7ldd6")
-value = 70.0
+value = 95.0
 show_percentage = false
 
 [node name="HealthBar" type="ProgressBar" parent="."]
-offset_left = -23.0
-offset_top = 1.0
+offset_left = -24.0
 offset_right = 23.0
-offset_bottom = 5.0
+offset_bottom = 6.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_e0k25")
 theme_override_styles/fill = SubResource("StyleBoxFlat_38bh5")
 value = 90.0
