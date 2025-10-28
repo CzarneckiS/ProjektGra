@@ -22,13 +22,14 @@ Globals="*res://scenes/globals/globals.gd"
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
-mouse_cursor/custom_image="uid://b8q1kxkvwqjmd"
+mouse_cursor/custom_image="uid://d1t2bxeqi8pwh"
 
 [global_group]
 
 Selectable=""
 Selected=""
 Unit=""
+Allied=""
 
 [input]
 

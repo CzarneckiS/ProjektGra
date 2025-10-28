@@ -10,6 +10,20 @@ var xp_to_level : int = 5 #limit, ktory musimy dobic aby wbic lvl. placeholder v
 var level : int = 1 #startowy lvl
 var accumulated_xp : int = 0 #zebrany przez nas exp, startujemy bez expa
 
+#podswietlanie kursora
+var overlapping_units = 0 #sprawdzamy na ile jednostek najechaliśmy myszką
+var neutral_cursor = load("res://sprites/placeholders/KursorRekaSmallNeutral.png")
+var evil_cursor = load("res://sprites/placeholders/KursorRekaSmallEvil.png")
+
+func add_overlapping_units(): #kiedy najedziemy myszka na przeciwnika to wywoluje tą funkcję
+	overlapping_units += 1
+	Input.set_custom_mouse_cursor(evil_cursor)
+
+func remove_overlapping_units(): #kiedy zjedziemy myszką z przeciwnika lub umrze to wywołuje
+	if overlapping_units > 0:
+		overlapping_units -= 1
+	if overlapping_units <= 0:
+		Input.set_custom_mouse_cursor(neutral_cursor)
 #funkcja, ktora obsluguje to, co sie dzieje z postacia po lvl upie
 func level_up():
 	max_health += 20 #placeholder wartosc na zwiekszanie max hp

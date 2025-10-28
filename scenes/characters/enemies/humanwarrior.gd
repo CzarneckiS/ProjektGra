@@ -92,7 +92,7 @@ func attack():
 
 func _on_vision_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Unit"): #sprawdza czy jednostka, która weszła w vision range to valid target
-		if body.is_in_group("Selectable"): #Selectable to synonim allied jednostki
+		if body.is_in_group("Allied"): #Sprawdza czy jest to sojusznik głownego gracza
 			possible_targets.append(body) #dodajemy target do listy
 
 func _on_vision_area_body_exited(body: Node2D) -> void:
@@ -138,7 +138,13 @@ func _input(event: InputEvent) -> void:
 #sprawdzamy czy myszka znajduje się w Area2D naszego ClickArea
 func _on_click_area_mouse_entered() -> void:
 	mouse_hovering = true
+	#male testy do feedbacku dla gracza
+	$Highlighted.visible = true
+	Globals.add_overlapping_units()
 
 #sprawdzamy czy myszka znajduje się poza Area2D naszego ClickArea
 func _on_click_area_mouse_exited() -> void:
 	mouse_hovering = false
+	#male testy do feedbacku dla gracza
+	$Highlighted.visible = false
+	Globals.remove_overlapping_units()

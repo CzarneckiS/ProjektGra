@@ -98,7 +98,7 @@ func attack():
 
 func _on_vision_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Unit"): #sprawdza czy jednostka, która weszła w vision range to valid target
-		if not body.is_in_group("Selectable"): #Selectable to synonim allied jednostki
+		if not body.is_in_group("Allied"): #Sprawdza czy nie jest sojusznikiem
 			possible_targets.append(body) #dodajemy target do listy
 
 func _on_vision_area_body_exited(body: Node2D) -> void:

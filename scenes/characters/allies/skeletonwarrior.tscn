@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://c6wxbv4ruot4l"]
+[gd_scene load_steps=21 format=3 uid="uid://c6wxbv4ruot4l"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_2674o"]
 [ext_resource type="Script" uid="uid://cwci7wyh3g6yl" path="res://scenes/characters/allies/skeletonwarrior.gd" id="2_f3pgp"]
+[ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/shadow.png" id="3_p5k3i"]
 [ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/selection.png" id="3_xg2mg"]
 [ext_resource type="Texture2D" uid="uid://bbkf2tlyficf6" path="res://sprites/skeleton_warrior/skellington_warrior_body.png" id="4_mfyro"]
 [ext_resource type="Texture2D" uid="uid://ymu8vxktg2t7" path="res://sprites/skeleton_warrior/skellington_warrior_shield.png" id="5_p5k3i"]
@@ -19,7 +20,7 @@ script/source = "extends Sprite2D
 radius = 24.083189
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w5s2j"]
-radius = 41.0
+radius = 43.0
 height = 118.0
 
 [sub_resource type="Animation" id="Animation_kwpy4"]
@@ -375,20 +376,25 @@ _data = {
 &"walk": SubResource("Animation_mfyro")
 }
 
-[node name="SkeletonWarrior" groups=["Selectable"] instance=ExtResource("1_2674o")]
-y_sort_enabled = true
+[node name="SkeletonWarrior" groups=["Allied", "Selectable"] instance=ExtResource("1_2674o")]
 collision_layer = 4
 collision_mask = 15
 script = ExtResource("2_f3pgp")
 
-[node name="Selected" type="Sprite2D" parent="." index="0"]
+[node name="Shadow" type="Sprite2D" parent="." index="0"]
+modulate = Color(1, 1, 1, 0.5529412)
+position = Vector2(0, 33)
+scale = Vector2(0.092, 0.092)
+texture = ExtResource("3_p5k3i")
+
+[node name="Selected" type="Sprite2D" parent="." index="1"]
 visible = false
 z_index = -1
 position = Vector2(0, 37)
 scale = Vector2(0.14781019, 0.14781019)
 texture = ExtResource("3_xg2mg")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, -11)
 scale = Vector2(0.15, 0.15)
 script = SubResource("GDScript_bluo0")
@@ -416,12 +422,12 @@ position = Vector2(0, 10)
 scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("9_ksuwf")
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="3"]
 visible = false
 position = Vector2(0, 14)
 shape = SubResource("CircleShape2D_bluo0")
 
-[node name="VisionArea" parent="." index="3"]
+[node name="VisionArea" parent="." index="4"]
 visible = false
 collision_layer = 16
 collision_mask = 6
@@ -435,13 +441,13 @@ visible = false
 position = Vector2(0, -15)
 shape = SubResource("CapsuleShape2D_w5s2j")
 
-[node name="Timers" type="Node" parent="." index="5"]
+[node name="Timers" type="Node" parent="." index="6"]
 
 [node name="MoveTimer" type="Timer" parent="Timers" index="0"]
 
-[node name="WarriorStateMachine" parent="." index="6" instance=ExtResource("5_x85af")]
+[node name="WarriorStateMachine" parent="." index="7" instance=ExtResource("5_x85af")]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
 libraries = {
 &"": SubResource("AnimationLibrary_cm8ef")
 }
