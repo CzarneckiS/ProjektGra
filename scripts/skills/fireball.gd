@@ -1,0 +1,2 @@
+extends SkillRangeBased
+class_name Fireball

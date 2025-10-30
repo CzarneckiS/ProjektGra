@@ -6,5 +6,5 @@ class_name Skill
 @export var visual_effect : PackedScene
 @export var effects : Array[Effect]
 
-func use(_player: CharacterBody2D, _target: UnitParent) -> void:
+func use(_player: CharacterBody2D, _target) -> void:
 	print("Skill use() invoked.")

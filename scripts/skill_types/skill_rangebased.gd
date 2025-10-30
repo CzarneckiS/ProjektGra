@@ -1,7 +1,9 @@
 extends Skill
-class_name SkillTarget
+class_name SkillRangeBased
+
+@export var max_range : float = 250.0
 
 func use(_player: CharacterBody2D, target: UnitParent) -> void:
-	print("SkillTarget use() invoked.")
+	print("SkillRangeBased use() invoked.")
 	for effect in effects:
 		effect.apply(target)
