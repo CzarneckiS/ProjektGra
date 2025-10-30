@@ -387,14 +387,22 @@ position = Vector2(0, 33)
 scale = Vector2(0.092, 0.092)
 texture = ExtResource("3_p5k3i")
 
-[node name="Selected" type="Sprite2D" parent="." index="1"]
+[node name="Highlighted" type="Sprite2D" parent="." index="1"]
+visible = false
+modulate = Color(1, 1, 1, 0.4509804)
+z_index = -1
+position = Vector2(0, 37)
+scale = Vector2(0.14781019, 0.14781019)
+texture = ExtResource("3_xg2mg")
+
+[node name="Selected" type="Sprite2D" parent="." index="2"]
 visible = false
 z_index = -1
 position = Vector2(0, 37)
 scale = Vector2(0.14781019, 0.14781019)
 texture = ExtResource("3_xg2mg")
 
-[node name="Sprite2D" parent="." index="2"]
+[node name="Sprite2D" parent="." index="3"]
 position = Vector2(0, -11)
 scale = Vector2(0.15, 0.15)
 script = SubResource("GDScript_bluo0")
@@ -422,44 +430,41 @@ position = Vector2(0, 10)
 scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("9_ksuwf")
 
-[node name="CollisionShape2D" parent="." index="3"]
+[node name="CollisionShape2D" parent="." index="4"]
 visible = false
 position = Vector2(0, 14)
 shape = SubResource("CircleShape2D_bluo0")
 
-[node name="VisionArea" parent="." index="4"]
+[node name="VisionArea" parent="." index="5"]
 visible = false
 collision_layer = 16
 collision_mask = 6
 
 [node name="CollisionShape2D" parent="VisionArea" index="0"]
 position = Vector2(0, 0)
-[node name="ClickArea" parent="." index="4"]
-visible = false
 
 [node name="CollisionShape2D" parent="ClickArea" index="0"]
 position = Vector2(0, -15)
 shape = SubResource("CapsuleShape2D_w5s2j")
 
-[node name="Timers" type="Node" parent="." index="6"]
+[node name="Timers" type="Node" parent="." index="7"]
 
 [node name="MoveTimer" type="Timer" parent="Timers" index="0"]
 
-[node name="WarriorStateMachine" parent="." index="7" instance=ExtResource("5_x85af")]
+[node name="WarriorStateMachine" parent="." index="8" instance=ExtResource("5_x85af")]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 libraries = {
 &"": SubResource("AnimationLibrary_cm8ef")
 }
 autoplay = "idle"
 blend_times = [&"attack", &"idle", 0.5, &"attack", &"walk", 0.5, &"idle", &"attack", 0.5, &"idle", &"walk", 0.5, &"walk", &"attack", 0.5, &"walk", &"idle", 0.5]
 
-[node name="DamageBar" parent="." index="8"]
+[node name="DamageBar" parent="." index="10"]
 offset_top = -69.0
 offset_bottom = -63.0
 
-[node name="HealthBar" parent="." index="9"]
-offset_left = -24.0
+[node name="HealthBar" parent="." index="11"]
 offset_top = -69.0
 offset_bottom = -63.0
 

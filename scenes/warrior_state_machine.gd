@@ -97,6 +97,8 @@ func _get_transition(_delta):
 			states.dying: #Dopóki odgrywasz animację umierania, nic nie rób
 				if animation_player.is_playing(): return
 				else: #kiedy się skończy, przestań istnieć
+					if parent.mouse_hovering: #jeśli wciąż mamy kursor na przeciwniku
+						Globals.remove_overlapping_enemies() #to przestań highlightować kursor
 					parent.queue_free()
 			states.mid_animation: #Dopóki odgrywasz animację atakowania, nic nie rób
 				if animation_player.is_playing(): return 

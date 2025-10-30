@@ -2,13 +2,17 @@ extends Node2D
 
 @onready var move_cursor = $MoveCursor
  
-
+var test = 0
 
 func _ready():
 	#musimy dla kazdej instancji warriora laczyc sygnal _on_target_clicked, pozniej bedzie to w spawn_enemy()
 	$HumanWarrior.connect("target_clicked", _on_target_clicked)
 	$HumanWarrior2.connect("target_clicked", _on_target_clicked)
 	$HumanWarrior3.connect("target_clicked", _on_target_clicked)
+
+func _process(_delta: float) -> void:
+	pass #do testow
+	#print(Engine.get_frames_per_second())
 
 #SPAWNING PRZECIWNIKÓW ================================================================
 func spawn_enemy(): # EnemySpawnFollow bierzemy jako unique name
@@ -21,6 +25,8 @@ func spawn_enemy(): # EnemySpawnFollow bierzemy jako unique name
 #timer okresla co jaki czas bedzie respiony mob, feel free to change
 func _on_timer_timeout() -> void:
 	spawn_enemy()
+	test += 1
+	print(test)
 
 #INPUTS ==========================================================================
 func _unhandled_input(event: InputEvent) -> void:

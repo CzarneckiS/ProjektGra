@@ -13,12 +13,14 @@ var move_target = Vector2.ZERO
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position = Vector2.ZERO #temporary, bedzie wymienione przy pathfindingu
+var wait_frames = 5 #ustawiac na 5 kiedy narzucamy jednostce zmiane celu (engaging)??
+var next_path_position
 
 #combat
 var damage = 10
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UŻYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
-var attack_range = 80
+var attack_range = 100
 
 #clicking
 signal target_clicked(target_node: Node) #sygnał, który będzie wysyłany do naszych jednostek
@@ -28,6 +30,7 @@ var mouse_hovering : bool = false #sluzy do sprawdzania czy myszka jest w clicka
 @onready var state_machine = $HumWarriorStateMachine
 @onready var health_bar: ProgressBar = $HealthBar 
 @onready var damage_bar: ProgressBar = $DamageBar
+@onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
 
 func _ready() -> void:
 	max_health  = 60
@@ -48,19 +51,41 @@ func _ready() -> void:
 	health_bar.add_theme_stylebox_override("fill", bar_style)
 	
 	move_target = Globals.player_position
-	#łączymy sygnały, że myszka jest w naszym clickarea
+	navigation_agent_2d.max_speed = 300 #to jest prawdziwy speed teraz
+	$CollisionShape2D.disabled = true
+	
+	navigation_agent_2d.velocity_computed.connect(_on_navigation_agent_2d_velocity_computed)
 	$ClickArea.mouse_entered.connect(_on_click_area_mouse_entered)
 	$ClickArea.mouse_exited.connect(_on_click_area_mouse_exited)
 
 #MOVEMENT ===============================================================================
-func move_to_target(_delta,targ): #this shii temporary yo
-		#check out BOIDS (bird-oids)
-	velocity = global_position.direction_to(targ) * speed
-	if get_slide_collision_count() and $Timers/MoveTimer.is_stopped():
-		$Timers/MoveTimer.start()
-		last_position = global_position
+func move_to_target(delta,target_position): #DO TESTÓW
+	velocity = global_position.direction_to(target_position) * speed
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
+	global_position += velocity * delta
+func _move_to_target(_delta,target_position): #this shii temporary yo
+		#check out BOIDS (bird-oids)
+	if wait_frames >= 5: #czeka jednego frame'a przed kalkulacją ścieżki
+		calculate_new_path(target_position)
+		#if get_slide_collision_count() and $Timers/MoveTimer.is_stopped():
+			#$Timers/MoveTimer.start()
+			#last_position = global_position
+		motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
+		wait_frames = 0
+	else:
+		wait_frames += 1
+	var new_velocity = global_position.direction_to(next_path_position) * speed
+	navigation_agent_2d.set_velocity(new_velocity)
 	move_and_slide()
+
+func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
+	velocity = safe_velocity
+	
+
+func calculate_new_path(target_position):
+	navigation_agent_2d.target_position = target_position
+	next_path_position = navigation_agent_2d.get_next_path_position()
+
 
 #COMBAT ===============================================================================
 func hit(damage_taken) -> bool:
@@ -140,11 +165,11 @@ func _on_click_area_mouse_entered() -> void:
 	mouse_hovering = true
 	#male testy do feedbacku dla gracza
 	$Highlighted.visible = true
-	Globals.add_overlapping_units()
+	Globals.add_overlapping_enemies()
 
 #sprawdzamy czy myszka znajduje się poza Area2D naszego ClickArea
 func _on_click_area_mouse_exited() -> void:
 	mouse_hovering = false
 	#male testy do feedbacku dla gracza
 	$Highlighted.visible = false
-	Globals.remove_overlapping_units()
+	Globals.remove_overlapping_enemies()

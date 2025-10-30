@@ -13,10 +13,10 @@ var last_position = Vector2.ZERO #temporary, bedzie wymienione przy pathfindingu
 var damage = 20
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
-var attack_range = 80
+var attack_range = 100
 var state_machine
 
-
+var mouse_hovering:bool = false
 
 @onready var health_bar: ProgressBar = $HealthBar 
 @onready var damage_bar: ProgressBar = $DamageBar
@@ -41,11 +41,12 @@ func _ready() -> void:
 	bar_style.border_color = Color(0.0, 0.0, 0.0, 1.0)
 	health_bar.add_theme_stylebox_override("fill", bar_style)
 
-	
 	move_target = Globals.player_position
-	
 	move_target = global_position
 	state_machine = $WarriorStateMachine
+	
+	$ClickArea.mouse_entered.connect(_on_click_area_mouse_entered)
+	$ClickArea.mouse_exited.connect(_on_click_area_mouse_exited)
 
 #MOVEMENT ===============================================================================
 func _unhandled_input(event: InputEvent) -> void:
@@ -156,3 +157,17 @@ func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_released:
 			select()
+
+#sprawdzamy czy myszka znajduje się w Area2D naszego ClickArea
+func _on_click_area_mouse_entered() -> void:
+	mouse_hovering = true
+	#male testy do feedbacku dla gracza
+	$Highlighted.visible = true
+	Globals.add_overlapping_allies()
+
+#sprawdzamy czy myszka znajduje się poza Area2D naszego ClickArea
+func _on_click_area_mouse_exited() -> void:
+	mouse_hovering = false
+	#male testy do feedbacku dla gracza
+	$Highlighted.visible = false
+	Globals.remove_overlapping_allies()
