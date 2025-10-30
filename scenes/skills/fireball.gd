@@ -33,3 +33,4 @@ func _on_body_entered(body: UnitParent):
 		for effect in skill_resource.effects:
 			if effect is EffectDamage:
 				body.hit(effect.base_damage)
+				call_deferred("queue_free")

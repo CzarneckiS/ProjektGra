@@ -37,7 +37,7 @@ script = ExtResource("1_cj314")
 [node name="fireball_animation" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_lrya3")
-frame_progress = 0.64829785
+frame_progress = 0.008558472
 
 [node name="fireball_collision" type="CollisionShape2D" parent="."]
 position = Vector2(20, 0)
