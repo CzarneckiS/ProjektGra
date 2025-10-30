@@ -10,6 +10,18 @@ var selected = false
 
 #func _ready() -> void:
 	#$ClickArea.input_event.connect(_on_click_area_input_event)
+	
+func _unhandled_input(event):
+	if event.is_action_pressed("fireball_input"):
+		cast_fireball()
+
+@export var fireball_skill: Resource = preload("res://resources/fireball.tres")
+
+func cast_fireball():
+	var target_pos: Vector2 = get_global_mouse_position()
+	
+	if fireball_skill is SkillRangeBased:
+		fireball_skill.shoot(self, target_pos)
 
 func _process(_delta: float) -> void:
 	if standing:

@@ -434,7 +434,8 @@ collision_mask = 6
 
 [node name="CollisionShape2D" parent="VisionArea" index="0"]
 position = Vector2(0, 0)
-[node name="ClickArea" parent="." index="4"]
+
+[node name="ClickArea" parent="." index="5"]
 visible = false
 
 [node name="CollisionShape2D" parent="ClickArea" index="0"]
@@ -454,12 +455,11 @@ libraries = {
 autoplay = "idle"
 blend_times = [&"attack", &"idle", 0.5, &"attack", &"walk", 0.5, &"idle", &"attack", 0.5, &"idle", &"walk", 0.5, &"walk", &"attack", 0.5, &"walk", &"idle", 0.5]
 
-[node name="DamageBar" parent="." index="8"]
+[node name="DamageBar" parent="." index="9"]
 offset_top = -69.0
 offset_bottom = -63.0
 
-[node name="HealthBar" parent="." index="9"]
-offset_left = -24.0
+[node name="HealthBar" parent="." index="10"]
 offset_top = -69.0
 offset_bottom = -63.0
 
