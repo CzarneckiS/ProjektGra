@@ -3,5 +3,7 @@ Player moze przepychac jednostki?? - jesli jednostka jest w idle i wykryje koliz
 DO UMIERANIA TIMER ! ! ! ! ! ! 
 
 po zabiciu przeciwnika szkielety wciaz machaja lapka
+
 PRELOAD IS EVIL ! !
+
 main menu z gry -> przyciski przestaja dzialac
