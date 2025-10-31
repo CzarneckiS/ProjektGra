@@ -6,22 +6,39 @@ extends Node2D
 
 func _ready():
 	#musimy dla kazdej instancji warriora laczyc sygnal _on_target_clicked, pozniej bedzie to w spawn_enemy()
-	$HumanWarrior.connect("target_clicked", _on_target_clicked)
-	$HumanWarrior2.connect("target_clicked", _on_target_clicked)
-	$HumanWarrior3.connect("target_clicked", _on_target_clicked)
+	$EnemyUnits/HumanWarrior.connect("target_clicked", _on_target_clicked)
+	#$HumanWarrior2.connect("target_clicked", _on_target_clicked)
+	#$HumanWarrior3.connect("target_clicked", _on_target_clicked)
+
+func _process(_delta: float) -> void:
+	pass #do testow
+	#print(Engine.get_frames_per_second())
 
 #SPAWNING PRZECIWNIKÓW ================================================================
 func spawn_enemy(): # EnemySpawnFollow bierzemy jako unique name
 	var new_enemy = preload("res://scenes/characters/enemies/humanwarrior.tscn").instantiate()
 	%EnemySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
+	while !is_point_on_map(%EnemySpawnFollow.global_position):
+		%EnemySpawnFollow.progress_ratio = randf()
 	new_enemy.global_position = %EnemySpawnFollow.global_position
-	#new_enemy.connect("target_clicked", _on_target_clicked)
 	add_child(new_enemy)
-
+	
+var test = 0
 #timer okresla co jaki czas bedzie respiony mob, feel free to change
 func _on_timer_timeout() -> void:
-	spawn_enemy()
+	if test <= 300: #temporary, spawni mobki az nie bedzie ich 300
+		spawn_enemy()
+		test += 1
+		print(test)
 
+func is_point_on_map(target_point: Vector2) -> bool:
+	var map := get_world_2d().navigation_map
+	var closest_point := NavigationServer2D.map_get_closest_point(map, target_point)
+	var difference := closest_point - target_point
+	if difference.is_zero_approx():
+		return true
+	else:
+		return false
 #INPUTS ==========================================================================
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
@@ -62,13 +79,7 @@ func cursor_move_animation() -> void: #Animacja przy right clickowaniu na ziemi�
 		$MoveCursor.add_child(new_move_cursor)
 		await new_move_cursor.animation_finished
 		new_move_cursor.queue_free()
-		
-#To niech zostanie, może w przyszłości tutaj będziemy wydawać rozkazy movementu jednostkom
-#func _unhandled_input(event: InputEvent) -> void:
-	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		#if event.pressed:
-			#for unit in get_tree().get_nodes_in_group('Selected'):
-				#unit.move_to(get_global_mouse_position())
+
 
 #	       ⠀⠀⠀⠀⢀⣴⣶⠿⠟⠻⠿⢷⣦⣄⠀⠀⠀
 #	⠀       ⠀⠀⠀⣾⠏⠀⠀⣠⣤⣤⣤⣬⣿⣷⣄⡀
