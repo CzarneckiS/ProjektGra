@@ -14,14 +14,21 @@ var selected = false
 func _unhandled_input(event):
 	if event.is_action_pressed("fireball_input"):
 		cast_fireball()
+	if event.is_action_pressed("thunderbolt_input"):
+		cast_thunderbolt()
 
-@export var fireball_skill: Resource = preload("res://resources/fireball.tres")
+var fireball_skill: Resource = preload("res://resources/fireball.tres")
+var thunderbolt_skill: Resource = preload("res://resources/thunderbolt.tres")
 
 func cast_fireball():
 	var target_pos: Vector2 = get_global_mouse_position()
-	
-	if fireball_skill is SkillRangeBased:
-		fireball_skill.shoot(self, target_pos)
+	if fireball_skill is Fireball:
+		fireball_skill.use(self, target_pos)
+
+func cast_thunderbolt():
+	var target_pos: Vector2 = get_global_mouse_position()
+	if thunderbolt_skill is Thunderbolt:
+		thunderbolt_skill.use(self, target_pos)
 
 func _process(_delta: float) -> void:
 	if standing:

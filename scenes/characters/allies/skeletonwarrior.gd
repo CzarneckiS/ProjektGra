@@ -83,8 +83,8 @@ func hit(damage_taken) -> bool:
 	if health <= 0: #hp poniżej 0 - umieranie
 		health_bar.visible = false
 		damage_bar.visible = false
-		state_machine.set_state(state_machine.states.dying)
-		$CollisionShape2D.disabled = true #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
+		state_machine.call_deferred("set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
+		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje

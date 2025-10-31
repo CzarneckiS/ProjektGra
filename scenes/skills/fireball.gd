@@ -1,11 +1,11 @@
 extends Area2D
 
-var skill_resource: SkillRangeBased
+var skill_resource: Fireball
 
 var start_position: Vector2
 var direction: Vector2
 
-func initialize(start_pos: Vector2, target_pos: Vector2, skill_res: SkillRangeBased):
+func initialize(start_pos: Vector2, target_pos: Vector2, skill_res: Fireball):
 	skill_resource = skill_res
 	
 	start_position = start_pos
@@ -32,5 +32,5 @@ func _on_body_entered(body: UnitParent):
 	if body.is_in_group("Unit"):
 		for effect in skill_resource.effects:
 			if effect is EffectDamage:
-				body.hit(effect.base_damage)
+				body.hit(skill_resource.skill_effect_data.base_damage*skill_resource.skill_effect_data.damage_multiplier)
 				call_deferred("queue_free")
