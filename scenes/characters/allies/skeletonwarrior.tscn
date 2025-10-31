@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c6wxbv4ruot4l"]
+[gd_scene load_steps=22 format=3 uid="uid://c6wxbv4ruot4l"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_2674o"]
 [ext_resource type="Script" uid="uid://cwci7wyh3g6yl" path="res://scenes/characters/allies/skeletonwarrior.gd" id="2_f3pgp"]
@@ -18,6 +18,9 @@ script/source = "extends Sprite2D
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bluo0"]
 radius = 24.083189
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e0k25"]
+radius = 325.04153
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w5s2j"]
 radius = 43.0
@@ -378,7 +381,7 @@ _data = {
 
 [node name="SkeletonWarrior" groups=["Allied", "Selectable"] instance=ExtResource("1_2674o")]
 collision_layer = 4
-collision_mask = 15
+collision_mask = 11
 script = ExtResource("2_f3pgp")
 
 [node name="Shadow" type="Sprite2D" parent="." index="0"]
@@ -431,44 +434,57 @@ scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("9_ksuwf")
 
 [node name="CollisionShape2D" parent="." index="4"]
-visible = false
 position = Vector2(0, 14)
 shape = SubResource("CircleShape2D_bluo0")
 
-[node name="VisionArea" parent="." index="5"]
-visible = false
+[node name="VisionArea" type="Area2D" parent="." index="5"]
 collision_layer = 16
 collision_mask = 6
 
-[node name="CollisionShape2D" parent="VisionArea" index="0"]
-position = Vector2(0, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea" index="0"]
+shape = SubResource("CircleShape2D_e0k25")
+
+[node name="ClickArea" parent="." index="6"]
+collision_layer = 16
+collision_mask = 0
 
 [node name="CollisionShape2D" parent="ClickArea" index="0"]
 position = Vector2(0, -15)
 shape = SubResource("CapsuleShape2D_w5s2j")
 
-[node name="Timers" type="Node" parent="." index="7"]
+[node name="DamageBar" parent="." index="7"]
+offset_top = -69.0
+offset_bottom = -63.0
+
+[node name="Timers" type="Node" parent="." index="8"]
 
 [node name="MoveTimer" type="Timer" parent="Timers" index="0"]
 
-[node name="WarriorStateMachine" parent="." index="8" instance=ExtResource("5_x85af")]
+[node name="NavigationTimer" type="Timer" parent="Timers" index="1"]
+wait_time = 0.05
+one_shot = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
+[node name="UnstickTimer" type="Timer" parent="Timers" index="2"]
+one_shot = true
+
+[node name="WarriorStateMachine" parent="." index="9" instance=ExtResource("5_x85af")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
 libraries = {
 &"": SubResource("AnimationLibrary_cm8ef")
 }
 autoplay = "idle"
 blend_times = [&"attack", &"idle", 0.5, &"attack", &"walk", 0.5, &"idle", &"attack", 0.5, &"idle", &"walk", 0.5, &"walk", &"attack", 0.5, &"walk", &"idle", 0.5]
 
-[node name="DamageBar" parent="." index="10"]
-offset_top = -69.0
-offset_bottom = -63.0
-
 [node name="HealthBar" parent="." index="11"]
 offset_top = -69.0
 offset_bottom = -63.0
 
-[connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
-[connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="12"]
+path_max_distance = 200.0
+avoidance_enabled = true
+radius = 20.0
+neighbor_distance = 100.0
+
 [connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]
 [connection signal="timeout" from="Timers/MoveTimer" to="WarriorStateMachine" method="_on_move_timer_timeout"]

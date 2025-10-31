@@ -1,347 +1,16 @@
-[gd_scene load_steps=40 format=4 uid="uid://di31cuiaxvo7s"]
+[gd_scene load_steps=18 format=4 uid="uid://di31cuiaxvo7s"]
 
 [ext_resource type="PackedScene" uid="uid://cbodjjoib2qrn" path="res://scenes/characters/player.tscn" id="1_377w7"]
 [ext_resource type="Script" uid="uid://dek8k2fbphrnu" path="res://scenes/levels/level.gd" id="1_xb4v1"]
 [ext_resource type="Texture2D" uid="uid://bhf8r5as37ld0" path="res://sprites/Tileset.png" id="3_mbbpy"]
-[ext_resource type="PackedScene" uid="uid://c6wxbv4ruot4l" path="res://scenes/characters/allies/skeletonwarrior.tscn" id="4_urvlt"]
+[ext_resource type="PackedScene" uid="uid://c6wxbv4ruot4l" path="res://scenes/characters/allies/skeletonwarrior.tscn" id="4_d4w6o"]
 [ext_resource type="Script" uid="uid://rkcfoq2ddkxw" path="res://scenes/levels/unit_selector.gd" id="4_xb4v1"]
 [ext_resource type="PackedScene" uid="uid://crrf60xb54uea" path="res://scenes/characters/enemies/humanwarrior.tscn" id="7_7pb6i"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mbbpy"]
-texture = ExtResource("3_mbbpy")
-texture_region_size = Vector2i(80, 80)
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-4:0/0 = 0
-5:0/0 = 0
-6:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
-2:1/0 = 0
-3:1/0 = 0
-4:1/0 = 0
-5:1/0 = 0
-6:1/0 = 0
-7:1/0 = 0
-8:1/0 = 0
-9:1/0 = 0
-10:1/0 = 0
-11:1/0 = 0
-12:1/0 = 0
-13:1/0 = 0
-14:1/0 = 0
-16:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-4:2/0 = 0
-6:2/0 = 0
-7:2/0 = 0
-11:2/0 = 0
-13:2/0 = 0
-3:3/0 = 0
-4:3/0 = 0
-5:3/0 = 0
-6:3/0 = 0
-7:3/0 = 0
-11:3/0 = 0
-12:3/0 = 0
-13:3/0 = 0
-14:3/0 = 0
-16:3/0 = 0
-4:4/0 = 0
-5:4/0 = 0
-6:4/0 = 0
-0:5/0 = 0
-1:5/0 = 0
-2:5/0 = 0
-0:6/0 = 0
-1:6/0 = 0
-2:6/0 = 0
-0:7/0 = 0
-1:7/0 = 0
-2:7/0 = 0
-0:8/0 = 0
-1:8/0 = 0
-2:8/0 = 0
-3:8/0 = 0
-4:8/0 = 0
-5:8/0 = 0
-6:8/0 = 0
-7:8/0 = 0
-8:8/0 = 0
-9:8/0 = 0
-0:9/0 = 0
-1:9/0 = 0
-2:9/0 = 0
-3:9/0 = 0
-4:9/0 = 0
-5:9/0 = 0
-6:9/0 = 0
-7:9/0 = 0
-8:9/0 = 0
-9:9/0 = 0
-0:10/0 = 0
-1:10/0 = 0
-2:10/0 = 0
-3:10/0 = 0
-4:10/0 = 0
-5:10/0 = 0
-6:10/0 = 0
-7:10/0 = 0
-8:10/0 = 0
-9:10/0 = 0
-18:10/0 = 0
-0:11/0 = 0
-1:11/0 = 0
-2:11/0 = 0
-3:11/0 = 0
-4:11/0 = 0
-5:11/0 = 0
-6:11/0 = 0
-7:11/0 = 0
-8:11/0 = 0
-9:11/0 = 0
-0:12/0 = 0
-1:12/0 = 0
-2:12/0 = 0
-3:12/0 = 0
-4:12/0 = 0
-5:12/0 = 0
-6:12/0 = 0
-7:12/0 = 0
-8:12/0 = 0
-9:12/0 = 0
-10:12/0 = 0
-11:12/0 = 0
-12:12/0 = 0
-13:12/0 = 0
-0:13/0 = 0
-1:13/0 = 0
-2:13/0 = 0
-3:13/0 = 0
-4:13/0 = 0
-5:13/0 = 0
-6:13/0 = 0
-7:13/0 = 0
-8:13/0 = 0
-9:13/0 = 0
-10:13/0 = 0
-11:13/0 = 0
-12:13/0 = 0
-13:13/0 = 0
-0:14/0 = 0
-1:14/0 = 0
-2:14/0 = 0
-3:14/0 = 0
-4:14/0 = 0
-5:14/0 = 0
-6:14/0 = 0
-7:14/0 = 0
-8:14/0 = 0
-9:14/0 = 0
-10:14/0 = 0
-11:14/0 = 0
-12:14/0 = 0
-13:14/0 = 0
-0:15/0 = 0
-1:15/0 = 0
-2:15/0 = 0
-3:15/0 = 0
-4:15/0 = 0
-5:15/0 = 0
-6:15/0 = 0
-7:15/0 = 0
-8:15/0 = 0
-9:15/0 = 0
-10:15/0 = 0
-11:15/0 = 0
-12:15/0 = 0
-13:15/0 = 0
-14:15/0 = 0
-15:15/0 = 0
-1:16/0 = 0
-2:16/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_ouxo3"]
-tile_size = Vector2i(80, 80)
-sources/0 = SubResource("TileSetAtlasSource_mbbpy")
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7pb6i"]
-texture = ExtResource("3_mbbpy")
-texture_region_size = Vector2i(80, 80)
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-4:0/0 = 0
-5:0/0 = 0
-6:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
-2:1/0 = 0
-3:1/0 = 0
-4:1/0 = 0
-5:1/0 = 0
-6:1/0 = 0
-7:1/0 = 0
-8:1/0 = 0
-9:1/0 = 0
-10:1/0 = 0
-11:1/0 = 0
-12:1/0 = 0
-13:1/0 = 0
-14:1/0 = 0
-16:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-4:2/0 = 0
-6:2/0 = 0
-7:2/0 = 0
-11:2/0 = 0
-13:2/0 = 0
-3:3/0 = 0
-4:3/0 = 0
-5:3/0 = 0
-6:3/0 = 0
-7:3/0 = 0
-11:3/0 = 0
-12:3/0 = 0
-13:3/0 = 0
-14:3/0 = 0
-16:3/0 = 0
-4:4/0 = 0
-5:4/0 = 0
-6:4/0 = 0
-0:5/0 = 0
-1:5/0 = 0
-2:5/0 = 0
-0:6/0 = 0
-1:6/0 = 0
-2:6/0 = 0
-0:7/0 = 0
-1:7/0 = 0
-2:7/0 = 0
-0:8/0 = 0
-1:8/0 = 0
-2:8/0 = 0
-3:8/0 = 0
-4:8/0 = 0
-5:8/0 = 0
-6:8/0 = 0
-7:8/0 = 0
-8:8/0 = 0
-9:8/0 = 0
-0:9/0 = 0
-1:9/0 = 0
-2:9/0 = 0
-3:9/0 = 0
-4:9/0 = 0
-5:9/0 = 0
-6:9/0 = 0
-7:9/0 = 0
-8:9/0 = 0
-9:9/0 = 0
-0:10/0 = 0
-1:10/0 = 0
-2:10/0 = 0
-3:10/0 = 0
-4:10/0 = 0
-5:10/0 = 0
-6:10/0 = 0
-7:10/0 = 0
-8:10/0 = 0
-9:10/0 = 0
-18:10/0 = 0
-0:11/0 = 0
-1:11/0 = 0
-2:11/0 = 0
-3:11/0 = 0
-4:11/0 = 0
-5:11/0 = 0
-6:11/0 = 0
-7:11/0 = 0
-8:11/0 = 0
-9:11/0 = 0
-0:12/0 = 0
-1:12/0 = 0
-2:12/0 = 0
-3:12/0 = 0
-4:12/0 = 0
-5:12/0 = 0
-6:12/0 = 0
-7:12/0 = 0
-8:12/0 = 0
-9:12/0 = 0
-10:12/0 = 0
-11:12/0 = 0
-12:12/0 = 0
-13:12/0 = 0
-0:13/0 = 0
-1:13/0 = 0
-2:13/0 = 0
-3:13/0 = 0
-4:13/0 = 0
-5:13/0 = 0
-6:13/0 = 0
-7:13/0 = 0
-8:13/0 = 0
-9:13/0 = 0
-10:13/0 = 0
-11:13/0 = 0
-12:13/0 = 0
-13:13/0 = 0
-0:14/0 = 0
-1:14/0 = 0
-2:14/0 = 0
-3:14/0 = 0
-4:14/0 = 0
-5:14/0 = 0
-6:14/0 = 0
-7:14/0 = 0
-8:14/0 = 0
-9:14/0 = 0
-10:14/0 = 0
-11:14/0 = 0
-12:14/0 = 0
-13:14/0 = 0
-0:15/0 = 0
-1:15/0 = 0
-2:15/0 = 0
-3:15/0 = 0
-4:15/0 = 0
-5:15/0 = 0
-6:15/0 = 0
-7:15/0 = 0
-8:15/0 = 0
-9:15/0 = 0
-10:15/0 = 0
-11:15/0 = 0
-12:15/0 = 0
-13:15/0 = 0
-14:15/0 = 0
-15:15/0 = 0
-1:16/0 = 0
-2:16/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_xfk5q"]
-tile_size = Vector2i(80, 80)
-sources/0 = SubResource("TileSetAtlasSource_7pb6i")
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_c3o0d"]
-vertices = PackedVector2Array(40, 40, -40, 40, -40, -40, 40, -40)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-40, -40, 40, -40, 40, 40, -40, 40)])
-agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d4w6o"]
 texture = ExtResource("3_mbbpy")
 texture_region_size = Vector2i(80, 80)
 8:1/0 = 0
-8:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_c3o0d")
 9:1/animation_columns = 2
 9:1/animation_frame_0/duration = 1.0
 9:1/animation_frame_1/duration = 1.0
@@ -349,100 +18,41 @@ texture_region_size = Vector2i(80, 80)
 
 [sub_resource type="TileSet" id="TileSet_mbbpy"]
 tile_size = Vector2i(80, 80)
-navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_d4w6o")
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_mbbpy"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_ouxo3"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_icy5c"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_7pb6i"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_rmjfq"]
-vertices = PackedVector2Array(40, 40, -40, 40, -40, -40, 40, -40)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-40, -40, 40, -40, 40, 40, -40, 40)])
-agent_radius = 0.0
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_xfk5q"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_qogh7"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_8iyoh"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_mq31s"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_5mi6g"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_b8j7q"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_qhnmj"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_jyre1"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_lp2ca"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_4ab0e"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_p62il"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_c8ctg"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_xog87"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ouxo3"]
 texture = ExtResource("3_mbbpy")
 texture_region_size = Vector2i(80, 80)
 use_texture_padding = false
 0:0/0 = 0
-0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_mbbpy")
 1:0/0 = 0
-1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_7pb6i")
 0:1/0 = 0
-0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ouxo3")
 1:1/0 = 0
-1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_rmjfq")
 2:0/0 = 0
-2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_qogh7")
 1:4/0 = 0
 0:4/0 = 0
 4:5/0 = 0
 5:5/0 = 0
 4:3/0 = 0
-4:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_qhnmj")
 5:3/0 = 0
-5:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4ab0e")
 4:2/0 = 0
-4:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_b8j7q")
 5:2/0 = 0
-5:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_lp2ca")
 6:5/0 = 0
 7:5/0 = 0
 6:3/0 = 0
-6:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_xog87")
 6:2/0 = 0
-6:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_c8ctg")
 8:5/0 = 0
 9:5/0 = 0
 10:5/0 = 0
 8:7/0 = 0
 9:7/0 = 0
 1:2/0 = 0
-1:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_xfk5q")
 2:1/0 = 0
-2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_8iyoh")
 0:2/0 = 0
-0:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_icy5c")
 2:2/0 = 0
-2:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_mq31s")
 5:1/0 = 0
-5:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jyre1")
 4:1/0 = 0
-4:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_5mi6g")
 6:1/0 = 0
-6:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_p62il")
 8:1/0 = 0
 10:1/0 = 0
 9:1/0 = 0
@@ -462,7 +72,6 @@ use_texture_padding = false
 [sub_resource type="TileSet" id="TileSet_icy5c"]
 tile_size = Vector2i(80, 80)
 terrain_set_0/mode = 0
-navigation_layer_0/layers = 1
 sources/2 = SubResource("TileSetAtlasSource_ouxo3")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_icy5c"]
@@ -655,20 +264,21 @@ _data = {
 }
 point_count = 5
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_urvlt"]
+vertices = PackedVector2Array(420, -300, 420, -900, 2339.2734, -1282.1797, 2374.711, 1270.9531, -1847.9297, -1322.7969, -420, -900, -1839.0625, 1261.0391, -420, -300)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 2, 1, 5), PackedInt32Array(0, 3, 6, 7), PackedInt32Array(7, 6, 4, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1868, -1343, 2359, -1302, 2395, 1291, -1859, 1281)])
+source_geometry_mode = 1
+source_geometry_group_name = &"navigation"
+cell_size = 10.0
+agent_radius = 20.0
+
 [node name="Level" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_xb4v1")
 
 [node name="Ground" type="Node2D" parent="."]
 z_index = -5
-
-[node name="NonNavigableDirt" type="TileMapLayer" parent="Ground"]
-tile_map_data = PackedByteArray("AAD9//j/AAAIAAEAAAD9//n/AAAIAAEAAAD9//r/AAAIAAEAAAD9//v/AAAIAAEAAAD+//j/AAAIAAEAAAD+//n/AAAIAAEAAAD+//r/AAAIAAEAAAD+//v/AAAIAAEAAAD///j/AAAIAAEAAAD///n/AAAIAAEAAAD///r/AAAIAAEAAAD///v/AAAIAAEAAAA=")
-tile_set = SubResource("TileSet_ouxo3")
-
-[node name="NonNavigableGrass" type="TileMapLayer" parent="Ground"]
-tile_map_data = PackedByteArray("AAD8//j/AAABAAEAAAD8//n/AAABAAEAAAD7//n/AAABAAEAAAD7//r/AAABAAEAAAD8//r/AAABAAEAAAD8//v/AAABAAEAAAD7//v/AAABAAEAAAD7//j/AAABAAEAAAD7//f/AAABAAEAAAD7//b/AAABAAEAAAD7//X/AAABAAEAAAD8//X/AAABAAEAAAD9//X/AAABAAEAAAD+//X/AAABAAEAAAD///X/AAABAAEAAAAAAPX/AAABAAEAAAABAPX/AAABAAEAAAACAPX/AAABAAEAAAADAPX/AAABAAEAAAADAPb/AAABAAEAAAACAPb/AAABAAEAAAABAPb/AAABAAEAAAAAAPb/AAABAAEAAAD///b/AAABAAEAAAD+//b/AAABAAEAAAD9//b/AAABAAEAAAD8//b/AAABAAEAAAD9//f/AAABAAEAAAD8//f/AAABAAEAAAD+//f/AAABAAEAAAD///f/AAABAAEAAAAAAPf/AAABAAEAAAABAPf/AAABAAEAAAACAPf/AAABAAEAAAADAPf/AAABAAEAAAAEAPb/AAABAAEAAAAEAPX/AAABAAEAAAAEAPf/AAABAAEAAAAEAPj/AAABAAEAAAAEAPn/AAABAAEAAAAEAPr/AAABAAEAAAAEAPv/AAABAAEAAAADAPv/AAABAAEAAAACAPv/AAABAAEAAAABAPv/AAABAAEAAAAAAPv/AAABAAEAAAAAAPr/AAABAAEAAAAAAPn/AAABAAEAAAAAAPj/AAABAAEAAAABAPj/AAABAAEAAAACAPj/AAABAAEAAAACAPn/AAABAAEAAAADAPn/AAABAAEAAAADAPr/AAABAAEAAAACAPr/AAABAAEAAAADAPj/AAABAAEAAAABAPn/AAABAAEAAAABAPr/AAABAAEAAAD///v/AAAGAAIAAAD///r/AAAGAAIAAAD///n/AAAGAAIAAAD///j/AAAGAAIAAAD9//v/AAAEAAIAAAD9//r/AAAEAAIAAAD9//n/AAAEAAIAAAD9//j/AAAEAAIAAAA=")
-tile_set = SubResource("TileSet_xfk5q")
 
 [node name="DirtLayer" type="TileMapLayer" parent="Ground"]
 tile_map_data = PackedByteArray("AAD+//z/AAAIAAEAAAD+//3/AAAIAAEAAAD+//7/AAAIAAEAAAD+////AAAIAAEAAAD+/wAAAAAIAAEAAAD+/wEAAAAIAAEAAAD+/wIAAAAIAAEAAAD+/wMAAAAIAAEAAAD+/wQAAAAIAAEAAAD+/wUAAAAIAAEAAAD9/wIAAAAIAAEAAAD9/wEAAAAIAAEAAAD9/wAAAAAIAAEAAAD9////AAAIAAEAAAD9//7/AAAIAAEAAAD9//3/AAAIAAEAAAD9/wMAAAAIAAEAAAD9/wQAAAAIAAEAAAD9/wUAAAAIAAEAAAD//wUAAAAIAAEAAAD//wQAAAAIAAEAAAD//wMAAAAIAAEAAAD9//z/AAAIAAEAAAD///z/AAAIAAEAAAD///3/AAAIAAEAAAD///7/AAAIAAEAAAD/////AAAIAAEAAAD//wAAAAAIAAEAAAD//wEAAAAIAAEAAAD//wIAAAAIAAEAAAANAPj/AAAJAAEAAAANAPn/AAAJAAEAAAANAPr/AAAJAAEAAAAOAPj/AAAJAAEAAAAOAPn/AAAJAAEAAAAOAPr/AAAJAAEAAAAOAPv/AAAJAAEAAAAOAPz/AAAJAAEAAAAPAPf/AAAJAAEAAAAPAPj/AAAJAAEAAAAPAPn/AAAJAAEAAAAPAPr/AAAJAAEAAAAPAPv/AAAJAAEAAAAPAPz/AAAJAAEAAAAPAP3/AAAJAAEAAAAQAPf/AAAJAAEAAAAQAPj/AAAJAAEAAAAQAPn/AAAJAAEAAAAQAPr/AAAJAAEAAAAQAPv/AAAJAAEAAAAQAPz/AAAJAAEAAAAQAP3/AAAJAAEAAAAQAP7/AAAJAAEAAAAQAP//AAAJAAEAAAARAPf/AAAJAAEAAAARAPj/AAAJAAEAAAARAPn/AAAJAAEAAAARAPr/AAAJAAEAAAARAPv/AAAJAAEAAAARAPz/AAAJAAEAAAARAP3/AAAJAAEAAAARAP7/AAAJAAEAAAARAP//AAAJAAEAAAASAPf/AAAJAAEAAAASAPj/AAAJAAEAAAASAPn/AAAJAAEAAAASAPr/AAAJAAEAAAASAPv/AAAJAAEAAAASAPz/AAAJAAEAAAASAP3/AAAJAAEAAAASAP7/AAAJAAEAAAASAP//AAAJAAEAAAATAPj/AAAJAAEAAAATAPn/AAAJAAEAAAATAPr/AAAJAAEAAAATAPv/AAAJAAEAAAATAPz/AAAJAAEAAAATAP3/AAAJAAEAAAATAP7/AAAJAAEAAAATAP//AAAJAAEAAAATAAAAAAAJAAEAAAAUAPj/AAAJAAEAAAAUAPn/AAAJAAEAAAAUAPr/AAAJAAEAAAAUAPv/AAAJAAEAAAAUAPz/AAAJAAEAAAAUAP3/AAAJAAEAAAAUAP7/AAAJAAEAAAAUAP//AAAJAAEAAAAUAAAAAAAJAAEAAAAVAPj/AAAJAAEAAAAVAPn/AAAJAAEAAAAVAPr/AAAJAAEAAAAVAPv/AAAJAAEAAAAVAPz/AAAJAAEAAAAVAP3/AAAJAAEAAAAVAP7/AAAJAAEAAAAVAP//AAAJAAEAAAAVAAAAAAAJAAEAAAAWAPj/AAAJAAEAAAAWAPn/AAAJAAEAAAAWAPr/AAAJAAEAAAAWAPv/AAAJAAEAAAAWAPz/AAAJAAEAAAAWAP3/AAAJAAEAAAAWAP7/AAAJAAEAAAAWAP//AAAJAAEAAAAWAAAAAAAJAAEAAAAXAPr/AAAJAAEAAAAXAPv/AAAJAAEAAAAXAPz/AAAJAAEAAAAXAP3/AAAJAAEAAAAXAP7/AAAJAAEAAAAXAP//AAAJAAEAAAAXAAAAAAAJAAEAAAAYAPr/AAAJAAEAAAAYAPv/AAAJAAEAAAAYAPz/AAAJAAEAAAAYAP3/AAAJAAEAAAAYAP7/AAAJAAEAAAAYAP//AAAJAAEAAAAYAAAAAAAJAAEAAAAZAPv/AAAJAAEAAAAZAPz/AAAJAAEAAAAZAP7/AAAJAAEAAAAZAP//AAAJAAEAAAA=")
@@ -683,7 +293,7 @@ tile_set = SubResource("TileSet_icy5c")
 tile_map_data = PackedByteArray("AAAYAP3/AQALAAIAAAAWAPn/AQALAAIAAAANAPn/AQANAAIAAAAOAPv/AQANAAIAAAAQAP7/AQANAAIAAAAUAAAAAQAMAAEAAAAVAAAAAQAMAAEAAAAWAAAAAQAMAAEAAAAXAAAAAQAMAAEAAAAQAPf/AQAMAAMAAAARAPf/AQAMAAMAAAATAPj/AQAMAAMAAAAUAPj/AQAMAAMAAAAVAPj/AQAMAAMAAAAXAPr/AQAMAAMAAAARAP//AQAMAAEAAAASAP//AQAMAAEAAAAOAPj/AQAMAAMAAAAPAPj/AQANAAMAAAAYAP//AQALAAEAAAAYAPz/AQALAAEAAAAWAPr/AQALAAMAAAAYAP7/AQALAAMAAAASAPj/AQALAAMAAAAYAPv/AQALAAMAAAAZAPv/AQAQAAEAAAAZAPz/AQAQAAMAAAAZAP//AQAQAAMAAAAZAP7/AQAQAAEAAAAYAAAAAQAQAAMAAAATAAAAAQAOAAMAAAATAP//AQANAAEAAAAQAP//AQAOAAMAAAAQAP3/AQANAAEAAAAPAPz/AQANAAEAAAAOAPr/AQANAAEAAAANAPj/AQAOAAEAAAAPAP3/AQAOAAMAAAAOAPz/AQAOAAMAAAANAPr/AQAOAAMAAAAYAPr/AQAQAAEAAAAWAPj/AQAQAAEAAAASAPf/AQAQAAEAAAAPAPf/AQAOAAEAAAA=")
 tile_set = SubResource("TileSet_rmjfq")
 
-[node name="ObstacleLayer" type="TileMapLayer" parent="."]
+[node name="ObstacleLayer" type="TileMapLayer" parent="." groups=["navigation"]]
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAD7//T/AQAAAAgAAAD7//X/AQAAAAkAAAD7//b/AQAAAAoAAAD7//f/AQAAAAsAAAD7//j/AQAAAAwAAAD7//n/AQAAAA0AAAD7//r/AQAAAA4AAAD7//v/AQAAAA8AAAD8//T/AQABAAgAAAD8//X/AQABAAkAAAD8//b/AQABAAoAAAD8//f/AQABAAsAAAD8//j/AQABAAwAAAD8//n/AQABAA0AAAD8//r/AQABAA4AAAD8//v/AQABAA8AAAD9//T/AQACAAgAAAD9//X/AQACAAkAAAD9//b/AQACAAoAAAD9//f/AQACAAsAAAD9//j/AQACAAwAAAD+//T/AQADAAgAAAD+//X/AQADAAkAAAD+//b/AQADAAoAAAD+//f/AQADAAsAAAD+//j/AQADAAwAAAD///T/AQAEAAgAAAD///X/AQAEAAkAAAD///b/AQAEAAoAAAD///f/AQAEAAsAAAD///j/AQAEAAwAAAAAAPT/AQAFAAgAAAAAAPX/AQAFAAkAAAAAAPb/AQAFAAoAAAAAAPf/AQAFAAsAAAAAAPj/AQAFAAwAAAAAAPn/AQAFAA0AAAAAAPr/AQAFAA4AAAAAAPv/AQAFAA8AAAABAPT/AQAGAAgAAAABAPX/AQAGAAkAAAABAPb/AQAGAAoAAAABAPf/AQAGAAsAAAABAPj/AQAGAAwAAAABAPn/AQAGAA0AAAABAPr/AQAGAA4AAAABAPv/AQAGAA8AAAACAPT/AQAHAAgAAAACAPX/AQAHAAkAAAACAPb/AQAHAAoAAAACAPf/AQAHAAsAAAACAPj/AQAHAAwAAAACAPn/AQAHAA0AAAACAPr/AQAHAA4AAAACAPv/AQAHAA8AAAADAPT/AQAIAAgAAAADAPX/AQAIAAkAAAADAPb/AQAIAAoAAAADAPf/AQAIAAsAAAADAPj/AQAIAAwAAAADAPn/AQAIAA0AAAADAPr/AQAIAA4AAAADAPv/AQAIAA8AAAAEAPT/AQAJAAgAAAAEAPX/AQAJAAkAAAAEAPb/AQAJAAoAAAAEAPf/AQAJAAsAAAAEAPj/AQAJAAwAAAAEAPn/AQAJAA0AAAAEAPr/AQAJAA4AAAAEAPv/AQAJAA8AAAD9//n/AQACAA0AAAD9//r/AQACAA4AAAD9//v/AQACAA8AAAD+//n/AQADAA0AAAD+//r/AQADAA4AAAD+//v/AQADAA8AAAD///n/AQAEAA0AAAD///r/AQAEAA4AAAD///v/AQAEAA8AAAA=")
 tile_set = SubResource("TileSet_7pb6i")
@@ -691,6 +301,7 @@ tile_set = SubResource("TileSet_7pb6i")
 [node name="Player" parent="." instance=ExtResource("1_377w7")]
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(0.545, 0.545)
 position_smoothing_enabled = true
 
 [node name="EnemySpawnArea" type="Path2D" parent="Player"]
@@ -711,31 +322,13 @@ autostart = true
 y_sort_enabled = true
 position = Vector2(19, -181)
 
-[node name="SkeletonWarrior4" parent="AlliedUnits" instance=ExtResource("4_urvlt")]
-position = Vector2(498, -160)
-
-[node name="SkeletonWarrior5" parent="AlliedUnits" instance=ExtResource("4_urvlt")]
-position = Vector2(354, -166)
-
-[node name="SkeletonWarrior6" parent="AlliedUnits" instance=ExtResource("4_urvlt")]
-position = Vector2(225, -151)
-
-[node name="SkeletonWarrior7" parent="AlliedUnits" instance=ExtResource("4_urvlt")]
-position = Vector2(460, 409)
-
-[node name="SkeletonWarrior8" parent="AlliedUnits" instance=ExtResource("4_urvlt")]
-position = Vector2(543, 457)
+[node name="SkeletonWarrior" parent="AlliedUnits" instance=ExtResource("4_d4w6o")]
+position = Vector2(-508, 355)
 
 [node name="EnemyUnits" type="Node2D" parent="."]
 
-[node name="HumanWarrior" parent="." instance=ExtResource("7_7pb6i")]
+[node name="HumanWarrior" parent="EnemyUnits" instance=ExtResource("7_7pb6i")]
 position = Vector2(502, 509)
-
-[node name="HumanWarrior2" parent="." instance=ExtResource("7_7pb6i")]
-position = Vector2(274, 516)
-
-[node name="HumanWarrior3" parent="." instance=ExtResource("7_7pb6i")]
-position = Vector2(63, 509)
 
 [node name="UnitSelector" type="Node2D" parent="."]
 z_index = 1
@@ -749,5 +342,8 @@ color = Color(0.96197957, 0.6363589, 0.5854872, 1)
 energy = 0.05
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_urvlt")
 
 [connection signal="timeout" from="Player/EnemySpawnArea/Timer" to="." method="_on_timer_timeout"]
