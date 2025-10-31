@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var move_cursor = $MoveCursor
  
-var test = 0
+
 
 func _ready():
 	#musimy dla kazdej instancji warriora laczyc sygnal _on_target_clicked, pozniej bedzie to w spawn_enemy()
@@ -22,13 +22,14 @@ func spawn_enemy(): # EnemySpawnFollow bierzemy jako unique name
 		%EnemySpawnFollow.progress_ratio = randf()
 	new_enemy.global_position = %EnemySpawnFollow.global_position
 	add_child(new_enemy)
-
+	
+var test = 0
 #timer okresla co jaki czas bedzie respiony mob, feel free to change
 func _on_timer_timeout() -> void:
-	#if test <= 300:
-	spawn_enemy()
-	test += 1
-	print(test)
+	if test <= 300: #temporary, spawni mobki az nie bedzie ich 300
+		spawn_enemy()
+		test += 1
+		print(test)
 
 func is_point_on_map(target_point: Vector2) -> bool:
 	var map := get_world_2d().navigation_map
@@ -78,13 +79,7 @@ func cursor_move_animation() -> void: #Animacja przy right clickowaniu na ziemi�
 		$MoveCursor.add_child(new_move_cursor)
 		await new_move_cursor.animation_finished
 		new_move_cursor.queue_free()
-		
-#To niech zostanie, może w przyszłości tutaj będziemy wydawać rozkazy movementu jednostkom
-#func _unhandled_input(event: InputEvent) -> void:
-	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		#if event.pressed:
-			#for unit in get_tree().get_nodes_in_group('Selected'):
-				#unit.move_to(get_global_mouse_position())
+
 
 #	       ⠀⠀⠀⠀⢀⣴⣶⠿⠟⠻⠿⢷⣦⣄⠀⠀⠀
 #	⠀       ⠀⠀⠀⣾⠏⠀⠀⣠⣤⣤⣤⣬⣿⣷⣄⡀

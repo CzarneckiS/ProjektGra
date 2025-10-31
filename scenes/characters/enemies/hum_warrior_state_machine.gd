@@ -77,10 +77,6 @@ func _get_transition(_delta):
 				if parent.closest_enemy() != null: #ale znajdziesz przeciwnika
 					parent.attack_target = weakref(parent.closest_enemy()) #obierz go za cel
 					set_state(states.engaging) #i idź w jego stronę
-				#narazie niech zostanie to poniższe
-				#elif parent.global_position.distance_to(parent.move_target) < parent.stop_distance:
-					#parent.move_target = parent.global_position
-					#set_state(states.idle)
 			states.engaging: #jeśli idziesz w stronę przeciwnika
 				#Jesli jakiś znajdzie się w naszym zasiegu ataku
 				if parent.closest_enemy_within_attack_range() != null:
