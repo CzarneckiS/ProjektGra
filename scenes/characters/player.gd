@@ -19,13 +19,37 @@ func _unhandled_input(event):
 
 var fireball_skill: Resource = preload("res://resources/fireball.tres")
 var thunderbolt_skill: Resource = preload("res://resources/thunderbolt.tres")
+var skill_cooldowns: Dictionary = {}
 
+func can_cast(skill: Resource) -> bool:
+	var key = skill.resource_path
+	
+	if !skill_cooldowns.has(key):
+		return true
+	return Time.get_ticks_msec() / 1000.0 >= skill_cooldowns[key]
+
+func set_cooldown(skill: Resource):
+	var key = skill.resource_path
+	
+	var current_time = Time.get_ticks_msec() / 1000.0
+	skill_cooldowns[key] = current_time + skill.cooldown
+	
 func cast_fireball():
+	if !can_cast(fireball_skill):
+		return
+	
+	set_cooldown(fireball_skill)
+	
 	var target_pos: Vector2 = get_global_mouse_position()
 	if fireball_skill is Fireball:
 		fireball_skill.use(self, target_pos)
 
 func cast_thunderbolt():
+	if !can_cast(thunderbolt_skill):
+		return
+	
+	set_cooldown(thunderbolt_skill)
+	
 	var target_pos: Vector2 = get_global_mouse_position()
 	if thunderbolt_skill is Thunderbolt:
 		thunderbolt_skill.use(self, target_pos)
@@ -48,7 +72,7 @@ func _process(_delta: float) -> void:
 		move_and_slide()
 	Globals.player_position = global_position
 
-func hit(damage) -> void:
+func hit(damage, _damage_source) -> void:
 	#le hit function, pobiera dane od tego co zaatakowalo zeby hp spadlo o dmg ;3
 	health -= damage
 		

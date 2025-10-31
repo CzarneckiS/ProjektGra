@@ -69,7 +69,7 @@ func move_to_target(_delta,targ): #this shii temporary yo
 	move_and_slide()
 
 #COMBAT ===============================================================================
-func hit(damage_taken) -> bool:
+func hit(damage_taken, _damage_source) -> bool:
 	health_bar.visible = true
 	damage_bar.visible = true
 	
@@ -91,7 +91,7 @@ func hit(damage_taken) -> bool:
 
 func attack():
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
-		if attack_target.get_ref().hit(damage): #wysyła hit do celu
+		if attack_target.get_ref().hit(damage, self): #wysyła hit do celu
 			pass #jeśli cel zwrócił true - czyli żyje - kontynuuj atakowanie
 		else:
 			state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle

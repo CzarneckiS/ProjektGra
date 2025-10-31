@@ -1,4 +1,5 @@
 extends Area2D
+class_name FireballSpell
 
 var skill_resource: Fireball
 
@@ -29,8 +30,8 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 	
 func _on_body_entered(body: UnitParent):
-	if body.is_in_group("Unit"):
+	if !body.is_in_group("Allied"):
 		for effect in skill_resource.effects:
 			if effect is EffectDamage:
-				body.hit(skill_resource.skill_effect_data.base_damage*skill_resource.skill_effect_data.damage_multiplier)
+				body.hit(skill_resource.skill_effect_data.base_damage*skill_resource.skill_effect_data.damage_multiplier, self)
 				call_deferred("queue_free")

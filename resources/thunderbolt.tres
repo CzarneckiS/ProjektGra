@@ -20,6 +20,8 @@ metadata/_custom_type_script = "uid://dnv5i0eq6rlp7"
 
 [sub_resource type="Resource" id="Resource_8g4b0"]
 script = ExtResource("3_f2p8b")
+radius = 100.0
+radius_multiplier = 2.0
 metadata/_custom_type_script = "uid://8g2g4sl8jw6l"
 
 [resource]
