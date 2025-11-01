@@ -1,10 +1,8 @@
 extends Node2D
 
 @onready var move_cursor = $MoveCursor
- 
 
 
-# EnemySpawnFollow bierzemy jako unique name
 func spawn_enemy():
 	var new_enemy = preload("res://scenes/characters/enemies/humanwarrior.tscn").instantiate()
 	%EnemySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
@@ -17,6 +15,12 @@ func _ready():
 	$HumanWarrior.connect("target_clicked", _on_target_clicked)
 	$HumanWarrior2.connect("target_clicked", _on_target_clicked)
 	$HumanWarrior3.connect("target_clicked", _on_target_clicked)
+	
+	var hud = load("res://scenes/ui/hud.tscn").instantiate()
+	hud.name = "HUDtmp"               
+	hud.process_mode = Node.PROCESS_MODE_ALWAYS
+	$HudLayer.add_child(hud)
+	
 
 func _on_target_clicked(body):
 	print("przyjalem sygnal od warriora")
