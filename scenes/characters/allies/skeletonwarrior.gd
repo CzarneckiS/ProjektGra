@@ -14,8 +14,6 @@ var damage = 20
 var attack_target
 var possible_targets = []
 var attack_range = 80
-var state_machine
-
 
 @onready var state_machine = $WarriorStateMachine
 @onready var health_bar: ProgressBar = $HealthBar 
