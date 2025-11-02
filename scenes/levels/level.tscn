@@ -348,13 +348,4 @@ navigation_polygon = SubResource("NavigationPolygon_urvlt")
 
 [node name="HudLayer" type="CanvasLayer" parent="."]
 
-[node name="HUD" type="Control" parent="HudLayer"]
-z_index = 100
-layout_mode = 3
-anchors_preset = 0
-offset_left = -801.0
-offset_top = 356.0
-offset_right = -372.0
-offset_bottom = 450.0
-
 [connection signal="timeout" from="Player/EnemySpawnArea/Timer" to="." method="_on_timer_timeout"]
