@@ -1,10 +1,40 @@
 extends Node
 
-#statystyki głównej jednostki
-var health : int = 100
-var max_health : int = health
-var player_position: Vector2
 
+signal stats_changed
+
+var health = 100:
+	get():
+		return health
+	set(value):
+		health = value
+		stats_changed.emit()
+		
+var max_health = 100:
+	get():
+		return max_health
+	set(value):
+		max_health = value
+		stats_changed.emit()
+		
+#var xp = 0:
+	#get():
+		#return xp
+	#set(value):
+		#xp = value
+		#stats_changed.emit()
+
+#var xp_to_level : int = 5:
+	#get():
+		#return xp_to_level
+	#set(value):
+		#xp_to_level = value
+		#stats_changed.emit()
+		
+		
+var level
+var player_position: Vector2
+	
 #exp i levelowanie
 var xp_to_level : int = 5 #limit, ktory musimy dobic aby wbic lvl. placeholder value
 var level : int = 1 #startowy lvl

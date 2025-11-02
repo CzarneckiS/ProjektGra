@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cbodjjoib2qrn"]
+[gd_scene load_steps=35 format=3 uid="uid://cbodjjoib2qrn"]
 
 [ext_resource type="Script" uid="uid://bi5nwihkqq2pp" path="res://scenes/characters/player.gd" id="1_rp718"]
 [ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/shadow.png" id="2_3wg1y"]
@@ -289,6 +289,27 @@ _data = {
 radius = 31.0
 height = 118.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d6tgn"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3wg1y"]
+bg_color = Color(0.94579977, 0.9417809, 0.9419589, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kmyvj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2luo"]
+bg_color = Color(0.84003437, 0.0008719367, 0.8898385, 1)
+border_color = Color(0, 0, 0, 1)
+corner_detail = 4
+
 [node name="Player" type="CharacterBody2D" groups=["Allied", "Unit"]]
 collision_layer = 2
 collision_mask = 15
@@ -412,3 +433,25 @@ collision_layer = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
 position = Vector2(1, 7)
 shape = SubResource("CapsuleShape2D_d6tgn")
+
+[node name="DamageBar" type="ProgressBar" parent="."]
+z_index = 5
+offset_left = -25.0
+offset_top = -78.0
+offset_right = 25.0
+offset_bottom = -70.0
+theme_override_styles/background = SubResource("StyleBoxFlat_d6tgn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3wg1y")
+value = 95.0
+show_percentage = false
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+z_index = 5
+offset_left = -25.0
+offset_top = -78.0
+offset_right = 25.0
+offset_bottom = -70.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_kmyvj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_a2luo")
+value = 90.0
+show_percentage = false

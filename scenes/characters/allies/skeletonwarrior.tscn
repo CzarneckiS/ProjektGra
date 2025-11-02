@@ -476,10 +476,19 @@ libraries = {
 autoplay = "idle"
 blend_times = [&"attack", &"idle", 0.5, &"attack", &"walk", 0.5, &"idle", &"attack", 0.5, &"idle", &"walk", 0.5, &"walk", &"attack", 0.5, &"walk", &"idle", 0.5]
 
-[node name="HealthBar" parent="." index="11"]
+[node name="DamageBar" parent="." index="8"]
+z_index = 5
+offset_left = -25.0
 offset_top = -69.0
-offset_bottom = -63.0
+offset_right = 25.0
+offset_bottom = -61.0
 
+[node name="HealthBar" parent="." index="9"]
+z_index = 5
+offset_left = -25.0
+offset_top = -69.0
+offset_right = 25.0
+offset_bottom = -61.0
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="12"]
 path_max_distance = 200.0
 avoidance_enabled = true
