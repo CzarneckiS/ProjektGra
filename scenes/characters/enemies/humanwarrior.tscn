@@ -379,8 +379,10 @@ position = Vector2(0, -23)
 shape = SubResource("CapsuleShape2D_o7qs6")
 
 [node name="DamageBar" parent="." index="6"]
+offset_left = -25.0
 offset_top = -78.0
-offset_bottom = -72.0
+offset_right = 25.0
+offset_bottom = -70.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 libraries = {
@@ -401,25 +403,6 @@ script = ExtResource("10_o7qs6")
 
 [node name="MoveTimer" type="Timer" parent="Timers" index="0"]
 
-[node name="AnimationPlayerSelected" type="AnimationPlayer" parent="." index="8"]
-libraries = {
-&"": SubResource("AnimationLibrary_du7wb")
-}
-
-[node name="DamageBar" parent="." index="9"]
-offset_left = -25.0
-offset_top = -78.0
-offset_right = 25.0
-offset_bottom = -70.0
-
-[node name="HealthBar" parent="." index="10"]
-offset_left = -25.0
-offset_top = -78.0
-offset_right = 25.0
-offset_bottom = -70.0
-
-[connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
-[connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]
 [node name="NavigationTimer" type="Timer" parent="Timers" index="1"]
 wait_time = 0.1
 one_shot = true
@@ -427,10 +410,16 @@ one_shot = true
 [node name="UnstickTimer" type="Timer" parent="Timers" index="2"]
 one_shot = true
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="12"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="11"]
 path_max_distance = 200.0
 avoidance_enabled = true
 radius = 20.0
 neighbor_distance = 100.0
+
+[node name="HealthBar" parent="." index="12"]
+offset_left = -25.0
+offset_top = -78.0
+offset_right = 25.0
+offset_bottom = -70.0
 
 [connection signal="timeout" from="Timers/MoveTimer" to="HumWarriorStateMachine" method="_on_move_timer_timeout"]

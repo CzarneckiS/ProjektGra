@@ -3,16 +3,10 @@ extends Node2D
 @onready var move_cursor = $MoveCursor
 
 
-func spawn_enemy():
-	var new_enemy = preload("res://scenes/characters/enemies/humanwarrior.tscn").instantiate()
-	%EnemySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
-	new_enemy.global_position = %EnemySpawnFollow.global_position
-	#new_enemy.connect("target_clicked", _on_target_clicked)
-	add_child(new_enemy)
 
 func _ready():
 	#musimy dla kazdej instancji warriora laczyc sygnal _on_target_clicked, pozniej bedzie to w spawn_enemy()
-	$HumanWarrior.connect("target_clicked", _on_target_clicked)
+	$EnemyUnits/HumanWarrior.connect("target_clicked", _on_target_clicked)
 	#$HumanWarrior2.connect("target_clicked", _on_target_clicked)
 	#$HumanWarrior3.connect("target_clicked", _on_target_clicked)
 	

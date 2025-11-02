@@ -17,22 +17,21 @@ var max_health = 100:
 		max_health = value
 		stats_changed.emit()
 		
-#var xp = 0:
-	#get():
-		#return xp
-	#set(value):
-		#xp = value
-		#stats_changed.emit()
+var xp = 0:
+	get():
+		return xp
+	set(value):
+		xp = value
+		stats_changed.emit()
 
-#var xp_to_level : int = 5:
-	#get():
-		#return xp_to_level
-	#set(value):
-		#xp_to_level = value
-		#stats_changed.emit()
+var max_xp : int = 5:
+	get():
+		return max_xp
+	set(value):
+		max_xp = value
+		stats_changed.emit()
 		
 		
-var level
 var player_position: Vector2
 	
 #exp i levelowanie
