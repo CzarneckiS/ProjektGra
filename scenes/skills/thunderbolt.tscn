@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://loqryqxp6f73"]
+
+[ext_resource type="Texture2D" uid="uid://b1v454ivfxv4h" path="res://sprites/thunderbolt/thunderbolt_0.png" id="1_1aqtv"]
+[ext_resource type="Script" uid="uid://ckel3qrcfaaek" path="res://scenes/skills/thunderbolt.gd" id="1_oumkm"]
+[ext_resource type="Texture2D" uid="uid://b613mrakkrxun" path="res://sprites/thunderbolt/thunderbolt_1.png" id="2_oumkm"]
+[ext_resource type="Texture2D" uid="uid://cxkb82gcnchur" path="res://sprites/thunderbolt/thunderbolt_2.png" id="3_8r461"]
+[ext_resource type="Texture2D" uid="uid://dhrxhw8to8r5m" path="res://sprites/thunderbolt/thunderbolt_3.png" id="4_lfvv3"]
+[ext_resource type="Shape2D" uid="uid://csuftt5wts1y5" path="res://resources/thunderbolt_shape.tres" id="6_8r461"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gva5k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1aqtv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_oumkm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8r461")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_lfvv3")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8r461"]
+radius = 262.1221
+
+[node name="Thunderbolt" type="Area2D"]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_oumkm")
+
+[node name="thunderbolt_animation" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -256)
+sprite_frames = SubResource("SpriteFrames_gva5k")
+frame = 3
+frame_progress = 1.0
+
+[node name="thunderbolt_collision" type="CollisionShape2D" parent="."]
+shape = ExtResource("6_8r461")
+
+[node name="thunderbolt_pushback" type="StaticBody2D" parent="."]
+
+[node name="thunderbolt_pushback_collision" type="CollisionShape2D" parent="thunderbolt_pushback"]
+shape = SubResource("CircleShape2D_8r461")

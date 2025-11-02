@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://sd5b0lkh7u0b"]
+
+[ext_resource type="Script" uid="uid://bgvkjyasjxmxk" path="res://scenes/skills/fireball.gd" id="1_cj314"]
+[ext_resource type="Texture2D" uid="uid://b5gtmodqaeerf" path="res://sprites/fireball/fireball_0.png" id="1_lrya3"]
+[ext_resource type="Texture2D" uid="uid://dlaepbxfr4tvs" path="res://sprites/fireball/fireball_1.png" id="2_cj314"]
+[ext_resource type="Texture2D" uid="uid://b3k2fpgrstngs" path="res://sprites/fireball/fireball_2.png" id="3_5r70c"]
+[ext_resource type="Texture2D" uid="uid://5v11skqle7ui" path="res://sprites/fireball/fireball_3.png" id="4_634hc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lrya3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_lrya3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_cj314")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5r70c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_634hc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cj314"]
+radius = 119.01681
+
+[node name="fireball" type="Area2D"]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_cj314")
+
+[node name="fireball_animation" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_lrya3")
+frame_progress = 0.008558472
+
+[node name="fireball_collision" type="CollisionShape2D" parent="."]
+position = Vector2(20, 0)
+scale = Vector2(0.25, 0.25)
+shape = SubResource("CircleShape2D_cj314")
