@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_km2sc"]
 [ext_resource type="Script" uid="uid://178j0odpensc" path="res://scenes/characters/enemies/humanwarrior.gd" id="2_ds4t1"]
+[ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/shadow.png" id="3_gj5gp"]
 [ext_resource type="Texture2D" uid="uid://btcfx5u0jfdq8" path="res://sprites/selection_enemy.png" id="3_v7f0p"]
 [ext_resource type="Texture2D" uid="uid://b071t7rbiyi6y" path="res://sprites/human_warrior/human_warrior_left_boot.png" id="4_wdckd"]
 [ext_resource type="Texture2D" uid="uid://bbjdsni1utjsy" path="res://sprites/human_warrior/human_warrior_right_boot.png" id="5_o7qs6"]
@@ -11,15 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://bwyarkpn2hya8" path="res://sprites/human_warrior/human_warrior_sword.png" id="9_ru2nh"]
 [ext_resource type="Script" uid="uid://csr4x6mrcrwjc" path="res://scenes/characters/enemies/hum_warrior_state_machine.gd" id="10_o7qs6"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_f2e6v"]
-radius = 25.179358
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_21x0f"]
-radius = 463.2494
+[sub_resource type="CircleShape2D" id="CircleShape2D_gj5gp"]
+radius = 30.066593
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o7qs6"]
-radius = 34.0
-height = 102.0
+radius = 53.0
+height = 122.0
 
 [sub_resource type="Animation" id="Animation_dktg7"]
 length = 0.001
@@ -330,13 +328,26 @@ collision_layer = 4
 collision_mask = 15
 script = ExtResource("2_ds4t1")
 
-[node name="Selected" type="Sprite2D" parent="." index="0"]
+[node name="Shadow" type="Sprite2D" parent="." index="0"]
+modulate = Color(1, 1, 1, 0.5529412)
+position = Vector2(0, 20)
+scale = Vector2(0.132, 0.132)
+texture = ExtResource("3_gj5gp")
+
+[node name="Highlighted" type="Sprite2D" parent="." index="1"]
+visible = false
+modulate = Color(1, 1, 1, 0.4509804)
+position = Vector2(0, 20)
+scale = Vector2(0.18826461, 0.18826461)
+texture = ExtResource("3_v7f0p")
+
+[node name="Selected" type="Sprite2D" parent="." index="2"]
 visible = false
 position = Vector2(0, 20)
 scale = Vector2(0.18826461, 0.18826461)
 texture = ExtResource("3_v7f0p")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="3"]
 position = Vector2(0, -23)
 scale = Vector2(0.15, 0.15)
 
@@ -360,33 +371,33 @@ texture = ExtResource("8_du7wb")
 [node name="Sword" type="Sprite2D" parent="Sprite2D" index="4"]
 texture = ExtResource("9_ru2nh")
 
-[node name="CollisionShape2D" parent="." index="2"]
-visible = false
-shape = SubResource("CircleShape2D_f2e6v")
-
-[node name="VisionArea" parent="." index="3"]
-visible = false
-collision_layer = 16
-collision_mask = 6
-
-[node name="CollisionShape2D" parent="VisionArea" index="0"]
-shape = SubResource("CircleShape2D_21x0f")
+[node name="CollisionShape2D" parent="." index="4"]
+shape = SubResource("CircleShape2D_gj5gp")
 
 [node name="CollisionShape2D" parent="ClickArea" index="0"]
 position = Vector2(0, -23)
 shape = SubResource("CapsuleShape2D_o7qs6")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+[node name="DamageBar" parent="." index="6"]
+offset_top = -78.0
+offset_bottom = -72.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 libraries = {
 &"": SubResource("AnimationLibrary_x0uns")
 }
 autoplay = "idle"
 blend_times = [&"attack", &"idle", 0.5, &"attack", &"walk", 0.5, &"idle", &"attack", 0.5, &"idle", &"walk", 0.5, &"walk", &"attack", 0.5, &"walk", &"idle", 0.5]
 
-[node name="HumWarriorStateMachine" type="Node" parent="." index="6"]
+[node name="AnimationPlayerSelected" type="AnimationPlayer" parent="." index="8"]
+libraries = {
+&"": SubResource("AnimationLibrary_du7wb")
+}
+
+[node name="HumWarriorStateMachine" type="Node" parent="." index="9"]
 script = ExtResource("10_o7qs6")
 
-[node name="Timers" type="Node" parent="." index="7"]
+[node name="Timers" type="Node" parent="." index="10"]
 
 [node name="MoveTimer" type="Timer" parent="Timers" index="0"]
 
@@ -409,4 +420,17 @@ offset_bottom = -70.0
 
 [connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
 [connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]
+[node name="NavigationTimer" type="Timer" parent="Timers" index="1"]
+wait_time = 0.1
+one_shot = true
+
+[node name="UnstickTimer" type="Timer" parent="Timers" index="2"]
+one_shot = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="12"]
+path_max_distance = 200.0
+avoidance_enabled = true
+radius = 20.0
+neighbor_distance = 100.0
+
 [connection signal="timeout" from="Timers/MoveTimer" to="HumWarriorStateMachine" method="_on_move_timer_timeout"]

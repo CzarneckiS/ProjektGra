@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+#! ! ! 90% rzeczy tutaj jest temporary ! ! ! 
+#wiec nie bede tego komentować 
+
 var speed = 500
 var standing: bool = true
 var selected = false
@@ -12,7 +15,6 @@ var hp_bar_style = StyleBoxFlat.new()
 
 
 func _ready() -> void:
-	$ClickArea.input_event.connect(_on_click_area_input_event)
 	
 	Globals.health = 200
 	Globals.max_health = 200
@@ -73,24 +75,24 @@ func hit(damage_taken) -> void:
 	#	damage_bar.visible = false
 	#	animacja_smierci() + menu_ze_przegrales()
 		
-func select() -> void:
-	add_to_group("Selected")
-	selected = true
-	$Selected.visible = true
-	
-func deselect() -> void:
-	remove_from_group("Selected")
-	selected = false
-	$Selected.visible = false
-	
-func is_in_selection_box(select_box: Rect2):
-	return select_box.has_point(global_position)
-
-func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.is_released:
-			print("selekcik gracza") #debug print 
-			select()
+#func select() -> void:
+	#add_to_group("Selected")
+	#selected = true
+	#$Selected.visible = true
+	#
+#func deselect() -> void:
+	#remove_from_group("Selected")
+	#selected = false
+	#$Selected.visible = false
+	#
+#func is_in_selection_box(select_box: Rect2):
+	#return select_box.has_point(global_position)
+#
+#func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		#if event.is_released:
+			#print("selekcik gracza") #debug print 
+			#select()
 
 func flip() -> void:
 	if $SpriteRoot.scale.x > 0:
