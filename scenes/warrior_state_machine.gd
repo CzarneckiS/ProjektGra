@@ -23,7 +23,7 @@ func _state_logic(delta):
 			states.idle:
 				pass #jeśli jesteś idle to nic nie robisz
 			states.moving:
-				parent.move_to_target(delta, parent.move_target) #idź do celu (nie przeciwnik)
+				parent.navigate_to_target(delta, parent.move_target) #idź do celu (nie przeciwnik)
 			states.engaging:
 				if parent.attack_target.get_ref(): #jeśli cel (jednostka) istnieje, idź do niego
 					parent.move_to_target(delta, parent.attack_target.get_ref().global_position)
@@ -97,6 +97,8 @@ func _get_transition(_delta):
 			states.dying: #Dopóki odgrywasz animację umierania, nic nie rób
 				if animation_player.is_playing(): return
 				else: #kiedy się skończy, przestań istnieć
+					if parent.mouse_hovering: #jeśli wciąż mamy kursor na przeciwniku
+						Globals.remove_overlapping_enemies() #to przestań highlightować kursor
 					parent.queue_free()
 			states.mid_animation: #Dopóki odgrywasz animację atakowania, nic nie rób
 				if animation_player.is_playing(): return 
@@ -107,10 +109,10 @@ func _get_transition(_delta):
 						set_state(states.engaging) #jeśli nie to go goń
 						#jeśli cel umarł to w stanie engaging to sprawdzi i przejdzie do idle
 
-#temporary do movementu
-func _on_move_timer_timeout() -> void:
-	if parent.get_slide_collision_count():
-		if abs(parent.last_position.distance_to(parent.move_target)) < \
-		abs(parent.global_position.distance_to(parent.move_target) + parent.move_treshold):
-			parent.move_target = parent.global_position
-			set_state(states.idle)
+##temporary do movementu
+#func _on_move_timer_timeout() -> void:
+	#if parent.get_slide_collision_count():
+		#if abs(parent.last_position.distance_to(parent.move_target)) < \
+		#abs(parent.global_position.distance_to(parent.move_target) + parent.move_treshold):
+			#parent.move_target = parent.global_position
+			#set_state(states.idle)

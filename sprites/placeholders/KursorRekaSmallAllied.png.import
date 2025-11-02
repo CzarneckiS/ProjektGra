@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhf8r5as37ld0"
-path="res://.godot/imported/Tileset.png-a8ffc1a35ac4cb02efe4276169135695.ctex"
+uid="uid://nidyboax02ud"
+path="res://.godot/imported/KursorRekaSmallAllied.png-ae7fbe0bc86032030841fb77b068a611.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Tileset.png"
-dest_files=["res://.godot/imported/Tileset.png-a8ffc1a35ac4cb02efe4276169135695.ctex"]
+source_file="res://sprites/placeholders/KursorRekaSmallAllied.png"
+dest_files=["res://.godot/imported/KursorRekaSmallAllied.png-ae7fbe0bc86032030841fb77b068a611.ctex"]
 
 [params]
 

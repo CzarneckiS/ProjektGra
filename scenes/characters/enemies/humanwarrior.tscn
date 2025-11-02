@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://crrf60xb54uea"]
+[gd_scene load_steps=23 format=3 uid="uid://crrf60xb54uea"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_km2sc"]
 [ext_resource type="Script" uid="uid://178j0odpensc" path="res://scenes/characters/enemies/humanwarrior.gd" id="2_ds4t1"]
@@ -12,11 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://bwyarkpn2hya8" path="res://sprites/human_warrior/human_warrior_sword.png" id="9_ru2nh"]
 [ext_resource type="Script" uid="uid://csr4x6mrcrwjc" path="res://scenes/characters/enemies/hum_warrior_state_machine.gd" id="10_o7qs6"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_f2e6v"]
-radius = 25.179358
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_21x0f"]
-radius = 463.2494
+[sub_resource type="CircleShape2D" id="CircleShape2D_gj5gp"]
+radius = 30.066593
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o7qs6"]
 radius = 53.0
@@ -375,20 +372,17 @@ texture = ExtResource("8_du7wb")
 texture = ExtResource("9_ru2nh")
 
 [node name="CollisionShape2D" parent="." index="4"]
-visible = false
-shape = SubResource("CircleShape2D_f2e6v")
-
-[node name="VisionArea" parent="." index="5"]
-visible = false
-collision_layer = 16
-collision_mask = 6
-
-[node name="CollisionShape2D" parent="VisionArea" index="0"]
-shape = SubResource("CircleShape2D_21x0f")
+shape = SubResource("CircleShape2D_gj5gp")
 
 [node name="CollisionShape2D" parent="ClickArea" index="0"]
 position = Vector2(0, -23)
 shape = SubResource("CapsuleShape2D_o7qs6")
+
+[node name="DamageBar" parent="." index="6"]
+offset_left = -25.0
+offset_top = -78.0
+offset_right = 25.0
+offset_bottom = -70.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 libraries = {
@@ -409,15 +403,23 @@ script = ExtResource("10_o7qs6")
 
 [node name="MoveTimer" type="Timer" parent="Timers" index="0"]
 
-[node name="DamageBar" parent="." index="11"]
-offset_top = -78.0
-offset_bottom = -72.0
+[node name="NavigationTimer" type="Timer" parent="Timers" index="1"]
+wait_time = 0.1
+one_shot = true
+
+[node name="UnstickTimer" type="Timer" parent="Timers" index="2"]
+one_shot = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="11"]
+path_max_distance = 200.0
+avoidance_enabled = true
+radius = 20.0
+neighbor_distance = 100.0
 
 [node name="HealthBar" parent="." index="12"]
+offset_left = -25.0
 offset_top = -78.0
-offset_right = 24.0
-offset_bottom = -72.0
+offset_right = 25.0
+offset_bottom = -70.0
 
-[connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
-[connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]
 [connection signal="timeout" from="Timers/MoveTimer" to="HumWarriorStateMachine" method="_on_move_timer_timeout"]
