@@ -23,15 +23,13 @@ var xp = 0:
 	set(value):
 		xp = value
 		stats_changed.emit()
-
 var max_xp : int = 5:
 	get():
 		return max_xp
 	set(value):
 		max_xp = value
 		stats_changed.emit()
-		
-		
+
 var player_position: Vector2
 	
 #exp i levelowanie
@@ -40,30 +38,51 @@ var level : int = 1 #startowy lvl
 var accumulated_xp : int = 0 #zebrany przez nas exp, startujemy bez expa
 
 #podswietlanie kursora
-var overlapping_enemies = 0 #sprawdzamy na ile jednostek najechaliśmy myszką
-var overlapping_allies = 0
-var neutral_cursor = load("res://sprites/placeholders/KursorRekaSmallNeutral.png")
-var evil_cursor = load("res://sprites/placeholders/KursorRekaSmallEvil.png")
-var allied_cursor = load("res://sprites/placeholders/KursorRekaSmallAllied.png")
+var overlapping_enemies : int = 0 #sprawdzamy na ile jednostek najechaliśmy myszką
+var overlapping_allies : int = 0
+const neutral_cursor = preload("res://sprites/placeholders/KursorRekaSmallNeutral.png")
+const evil_cursor = preload("res://sprites/placeholders/KursorRekaSmallEvil.png")
+const allied_cursor = preload("res://sprites/placeholders/KursorRekaSmallAllied.png")
+const target_cursor = preload("res://sprites/placeholders/KursorTarget.png")
+var attack_move_input : bool = false
 
+func attack_move_input_pressed():
+	Input.set_custom_mouse_cursor(target_cursor, Input.CURSOR_ARROW, Vector2(20,20))
+	attack_move_input = true
+func attack_move_input_ended():
+	attack_move_input = false
+	if overlapping_allies <= 0 and overlapping_enemies <= 0:
+		Input.set_custom_mouse_cursor(neutral_cursor, Input.CURSOR_ARROW, Vector2(0,0))
+	elif overlapping_enemies <= 0:
+		Input.set_custom_mouse_cursor(allied_cursor, Input.CURSOR_ARROW, Vector2(0,0))
+	elif overlapping_allies <= 0:
+		Input.set_custom_mouse_cursor(evil_cursor, Input.CURSOR_ARROW, Vector2(0,0))
 func add_overlapping_enemies(): #kiedy najedziemy myszka na przeciwnika to wywoluje tą funkcję
 	overlapping_enemies += 1
+	if attack_move_input:
+		return
 	Input.set_custom_mouse_cursor(evil_cursor)
 
 func remove_overlapping_enemies(): #kiedy zjedziemy myszką z przeciwnika lub umrze to wywołuje
 	if overlapping_enemies > 0:
 		overlapping_enemies -= 1
+	if attack_move_input:
+		return
 	if overlapping_enemies <= 0 and overlapping_allies <= 0: #jesli na nikogo nie wskazujemy kursorem
 		Input.set_custom_mouse_cursor(neutral_cursor) #neutralny kursor
 
 func add_overlapping_allies():
 	overlapping_allies += 1
+	if attack_move_input:
+		return
 	if overlapping_enemies <= 0:
 		Input.set_custom_mouse_cursor(allied_cursor)
 
 func remove_overlapping_allies():
 	if overlapping_allies > 0:
 		overlapping_allies -= 1
+	if attack_move_input:
+		return
 	if overlapping_allies <= 0 and overlapping_enemies <= 0:
 		Input.set_custom_mouse_cursor(neutral_cursor)
 #funkcja, ktora obsluguje to, co sie dzieje z postacia po lvl upie

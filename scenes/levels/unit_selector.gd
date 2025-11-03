@@ -1,5 +1,6 @@
 extends Node2D
 
+var attack_move_input: bool = false
 var dragging: bool = false #czy trzymamy lewy przycisk myszy
 var drag_start = Vector2.ZERO #pozycja startowa rysowania selection box
 var select_box: Rect2 #prostokąt, którym zaznaczamy jednostki
@@ -17,9 +18,12 @@ func _process(_delta: float) -> void:
 			max(drag_start.x, get_global_mouse_position().x) - x_min,
 			max(drag_start.y, get_global_mouse_position().y) - y_min)
 		update_selected_units() #aktualizuj selectowane jednostki
+		print('updatuje jednostki')
 		queue_redraw() #Odśwież grafikę prostokąta
 
 func _unhandled_input(event: InputEvent) -> void: #sprawdza left click
+	if attack_move_input:
+		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed: #kiedy zaczniesz trzymać left click
 			dragging = true
@@ -28,6 +32,8 @@ func _unhandled_input(event: InputEvent) -> void: #sprawdza left click
 			dragging = false
 			if drag_start.is_equal_approx(get_global_mouse_position()): #jeśli nie ruszyłeś myszką
 				select_box = Rect2(get_global_mouse_position(), Vector2.ZERO) #nie rysuj prostokąta
+				return
+			print('updatuje jednostki')
 			update_selected_units() #kiedy puścisz left click zaktualizuj selectowane jednostki
 			queue_redraw() #Odśwież grafikę prostokąta
 
@@ -40,6 +46,8 @@ func _draw() -> void:
 	
 #Funkcja selectowania jednostek
 func update_selected_units():
+	#nie podoba mi sie juz ta funkcja, nie chce dodawac jednostek W TRAKCIE rysowania selection boxa
+	#do zmiany na przyszlosc - w trakcie rysowania tylko highlightuj, select przy puszczeniu LMB
 	for unit in get_tree().get_nodes_in_group('Selectable'): #przeszukaj wszystkie sojusznicze jednostki
 		if unit.is_in_selection_box(select_box): #sprawdź czy są w selection box
 			unit.select() #zaznacz je

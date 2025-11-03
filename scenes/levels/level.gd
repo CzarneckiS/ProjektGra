@@ -1,7 +1,9 @@
 extends Node2D
 
 @onready var move_cursor = $MoveCursor
+@onready var unit_selector: Node2D = $UnitSelector
 
+var attack_move_input: bool = false
 
 
 func _ready():
@@ -9,7 +11,6 @@ func _ready():
 	$EnemyUnits/HumanWarrior.connect("target_clicked", _on_target_clicked)
 	#$HumanWarrior2.connect("target_clicked", _on_target_clicked)
 	#$HumanWarrior3.connect("target_clicked", _on_target_clicked)
-	
 	var hud = load("res://scenes/ui/hud.tscn").instantiate()
 	hud.name = "HUDtmp"               
 	hud.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -18,7 +19,7 @@ func _ready():
 
 func _process(_delta: float) -> void:
 	pass #do testow
-	#print(Engine.get_frames_per_second())
+	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
 
 #SPAWNING PRZECIWNIKÓW ================================================================
 func spawn_enemy(): # EnemySpawnFollow bierzemy jako unique name
@@ -47,11 +48,43 @@ func is_point_on_map(target_point: Vector2) -> bool:
 		return false
 #INPUTS ==========================================================================
 func _unhandled_input(event: InputEvent) -> void:
+	#ROZKAZY DLA JEDNOSTEK ==================
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		if !event.is_released(): #Jeśli right clickujesz
 			return
 		if get_tree().get_nodes_in_group("Selected"): #sprawdza czy zselectowaliśmy jakąś jednostkę
 			cursor_move_animation()  #Odegraj animację
+			for unit in get_tree().get_nodes_in_group("Selected"):
+				unit.handle_inputs("right_click")
+		if attack_move_input:
+			attack_move_input = false
+			unit_selector.attack_move_input = false
+			Globals.attack_move_input_ended()
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if !event.is_released():
+			return
+		if attack_move_input:
+			attack_move_input = false
+			unit_selector.attack_move_input = false
+			Globals.attack_move_input_ended()
+			if Globals.overlapping_enemies <= 0:
+				if get_tree().get_nodes_in_group("Selected"): #sprawdza czy zselectowaliśmy jakąś jednostkę
+					cursor_move_animation()
+					for unit in get_tree().get_nodes_in_group("Selected"):
+						unit.handle_inputs("left_click")
+	elif event.is_action_pressed("attack_move"):
+		Globals.attack_move_input_pressed()
+		unit_selector.attack_move_input = true
+		attack_move_input = true
+		for unit in get_tree().get_nodes_in_group("Selected"):
+			unit.handle_inputs("attack_move")
+	elif event.is_action_pressed("stop"):
+		for unit in get_tree().get_nodes_in_group("Selected"):
+				unit.handle_inputs("stop")
+	elif event.is_action_pressed("hold"):
+		for unit in get_tree().get_nodes_in_group("Selected"):
+				unit.handle_inputs("hold")
+		#INPUTY DO UI ==================
 	elif event.is_action_pressed("EscMenu"):
 		#JAK COS TO TRZEBA TU VAR BO USUWAMY TE ZMIENNE 
 		#PO TYM JAK WCISKAMY CONTINUE W ESCMENU
@@ -62,7 +95,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			esc_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 			$MenuLayer.add_child(esc_menu)
 			get_tree().paused = true
-	
+		#TEMPORARY INPUTY ==================
 	elif event.is_action_pressed("tmpLvlUp"):
 		if not $MenuLayer.has_node("LvlUpMenu"):
 			var lvlup_scene = load("res://scenes/ui/lvlup_menu.tscn")
@@ -71,6 +104,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			lvlup_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 			$MenuLayer.add_child(lvlup_menu)
 			get_tree().paused = true
+	elif event.is_action_pressed("tmpSpawnAlly"):
+		var new_ally = preload("res://scenes/characters/allies/skeletonwarrior.tscn").instantiate()
+		new_ally.global_position = get_global_mouse_position()
+		add_child(new_ally)
+	elif event.is_action_pressed("tmpSpawnEnemy"):
+		spawn_enemy()
 
 func _on_target_clicked(body): #Sygnał od human warriora, czy został kliknięty
 	print("przyjalem sygnal od warriora")
