@@ -63,6 +63,21 @@ func _ready() -> void:
 	$ClickArea.mouse_exited.connect(_on_click_area_mouse_exited)
 	$Timers/NavigationTimer.timeout.connect(_on_navigation_timer_timeout)
 
+#VISUALSY ===============================================================================
+func start_hit_flash(damage_source):
+	var original_color = Color.WHITE
+	var hit_color: Color = Color.WHITE * 2.0
+	var flash_tween = create_tween()
+	
+	if damage_source is FireballSpell:
+		hit_color = Color.GREEN_YELLOW * 2.0
+	if damage_source is ThunderboltSpell:
+		hit_color = Color("6c92fbff") * 2.0
+	flash_tween.tween_property(self, "modulate", hit_color, 0.05)
+	flash_tween.tween_property(self, "modulate", original_color, 0.2)
+	
+	flash_tween.set_ease(Tween.EASE_OUT)
+
 func _physics_process(_delta: float) -> void:
 	seek_enemies()
 #MOVEMENT ===============================================================================
@@ -102,12 +117,15 @@ func _on_navigation_timer_timeout() -> void:
 	can_navigate = true
 
 #COMBAT ===============================================================================
-func hit(damage_taken) -> bool:
+func hit(damage_taken, damage_source) -> bool:
 	health_bar.visible = true
 	damage_bar.visible = true
 	
 	health -= damage_taken
 	health_bar.value = health
+	
+	if damage_source is Area2D:
+		start_hit_flash(damage_source)
 	
 	var tween = create_tween()
 	tween.tween_property(damage_bar, "value", health, 0.5) 
@@ -116,15 +134,15 @@ func hit(damage_taken) -> bool:
 	if health <= 0: #hp poniżej 0 - umieranie
 		health_bar.visible = false
 		damage_bar.visible = false
-		state_machine.set_state(state_machine.states.dying)
-		$CollisionShape2D.disabled = true #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
+		state_machine.call_deferred("set_state", state_machine.states.dying) #zmiana na call_deferred bo przy spellach powodowało, że debugger nie był happy (przez sygnał _on_body_entered w fireball gdzie wywołujemy hit())
+		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów. Zmiana na call_deferred by debugger był happy, patrz wyżej.
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
 
 func attack():
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
-		if attack_target.get_ref().hit(damage): #wysyła hit do celu
+		if attack_target.get_ref().hit(damage, self): #wysyła hit do celu
 			pass #jeśli cel zwrócił true - czyli żyje - kontynuuj atakowanie
 		else:
 			state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle

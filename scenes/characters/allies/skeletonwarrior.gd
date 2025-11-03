@@ -173,7 +173,7 @@ func follow_player() -> void:
 		move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
 
 #COMBAT ===============================================================================
-func hit(damage_taken) -> bool:
+func hit(damage_taken, _damage_source) -> bool:
 	health_bar.visible = true
 	damage_bar.visible = true
 	
@@ -187,15 +187,15 @@ func hit(damage_taken) -> bool:
 	if health <= 0: #hp poniżej 0 - umieranie
 		health_bar.visible = false
 		damage_bar.visible = false
-		state_machine.set_state(state_machine.states.dying)
-		$CollisionShape2D.disabled = true #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
+		state_machine.call_deferred("set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
+		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
 
 func attack():
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
-		if attack_target.get_ref().hit(damage): #wysyła hit do celu
+		if attack_target.get_ref().hit(damage, self): #wysyła hit do celu
 			pass #jeśli cel zwrócił true - czyli żyje - kontynuuj atakowanie
 		else:
 			state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle

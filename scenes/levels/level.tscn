@@ -336,7 +336,6 @@ script = ExtResource("4_xb4v1")
 [node name="MoveCursor" type="Node2D" parent="."]
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-visible = false
 color = Color(0.96197957, 0.6363589, 0.5854872, 1)
 energy = 0.05
 
@@ -370,8 +369,8 @@ grow_vertical = 2
 text = "Z + left click = attack move
 X = stop
 C = hold position
-Q = spawn ally
-E = spawn enemy"
+R = spawn ally
+F = spawn enemy"
 
 [node name="Label2" type="Label" parent="HudLayer"]
 anchors_preset = 1

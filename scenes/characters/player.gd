@@ -7,6 +7,48 @@ var speed = 500
 var standing: bool = true
 var selected = false
 
+func _unhandled_input(event):
+	if event.is_action_pressed("fireball_input"):
+		cast_fireball()
+	if event.is_action_pressed("thunderbolt_input"):
+		cast_thunderbolt()
+
+var fireball_skill: Resource = preload("res://resources/fireball.tres")
+var thunderbolt_skill: Resource = preload("res://resources/thunderbolt.tres")
+var skill_cooldowns: Dictionary = {}
+
+func can_cast(skill: Resource) -> bool:
+	var key = skill.resource_path
+	
+	if !skill_cooldowns.has(key):
+		return true
+	return Time.get_ticks_msec() / 1000.0 >= skill_cooldowns[key]
+
+func set_cooldown(skill: Resource):
+	var key = skill.resource_path
+	
+	var current_time = Time.get_ticks_msec() / 1000.0
+	skill_cooldowns[key] = current_time + skill.cooldown
+	
+func cast_fireball():
+	if !can_cast(fireball_skill):
+		return
+	
+	set_cooldown(fireball_skill)
+	
+	var target_pos: Vector2 = get_global_mouse_position()
+	if fireball_skill is Fireball:
+		fireball_skill.use(self, target_pos)
+
+func cast_thunderbolt():
+	if !can_cast(thunderbolt_skill):
+		return
+	
+	set_cooldown(thunderbolt_skill)
+	
+	var target_pos: Vector2 = get_global_mouse_position()
+	if thunderbolt_skill is Thunderbolt:
+		thunderbolt_skill.use(self, target_pos)
 
 var hp_bar_style = StyleBoxFlat.new()
 
@@ -15,12 +57,6 @@ var hp_bar_style = StyleBoxFlat.new()
 
 
 func _ready() -> void:
-	
-	Globals.health = 200
-	Globals.max_health = 200
-	Globals.xp = 25
-	Globals.max_xp = 100
-	
 	health_bar.max_value = Globals.health
 	health_bar.value = Globals.health
 	health_bar.visible = false
@@ -55,25 +91,21 @@ func _process(_delta: float) -> void:
 		move_and_slide()
 	Globals.player_position = global_position
 
-
-
-func hit(damage_taken) -> void:
-	health_bar.visible = true
-	damage_bar.visible = true
-
-	Globals.health -= damage_taken
-	health_bar.value = Globals.health
-	var health_tween = create_tween()
-	health_tween.tween_property(damage_bar, "value", Globals.health, 0.5) 
-	health_tween.set_trans(Tween.TRANS_SINE)
-	health_tween.set_ease(Tween.EASE_OUT)
-	
-	Globals.xp += 5
-	
 	#if Globals.health <= 0:
 	#	health_bar.visible = false
 	#	damage_bar.visible = false
 	#	animacja_smierci() + menu_ze_przegrales()
+
+func hit(damage_taken, _damage_source) -> void:
+	health_bar.visible = true
+	damage_bar.visible = true
+	health_bar.value = Globals.health
+	var health_tween = create_tween()
+	health_tween.tween_property(damage_bar, "value", Globals.health, 0.5)
+	health_tween.set_trans(Tween.TRANS_SINE)
+	health_tween.set_ease(Tween.EASE_OUT)
+	Globals.update_player_hp(damage_taken)
+
 		
 #func select() -> void:
 	#add_to_group("Selected")
