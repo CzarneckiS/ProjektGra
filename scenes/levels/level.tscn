@@ -301,7 +301,7 @@ tile_set = SubResource("TileSet_7pb6i")
 [node name="Player" parent="." instance=ExtResource("1_377w7")]
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.545, 0.545)
+zoom = Vector2(0.73, 0.73)
 position_smoothing_enabled = true
 
 [node name="EnemySpawnArea" type="Path2D" parent="Player"]
@@ -316,7 +316,6 @@ rotation = -0.005737672
 
 [node name="Timer" type="Timer" parent="Player/EnemySpawnArea"]
 wait_time = 0.1
-autostart = true
 
 [node name="AlliedUnits" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -346,5 +345,39 @@ energy = 0.05
 navigation_polygon = SubResource("NavigationPolygon_urvlt")
 
 [node name="HudLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="HudLayer"]
+z_index = 100
+layout_mode = 3
+anchors_preset = 0
+offset_left = -801.0
+offset_top = 356.0
+offset_right = -372.0
+offset_bottom = 450.0
+
+[node name="Label" type="Label" parent="HudLayer"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -204.0
+offset_top = -63.5
+offset_bottom = 63.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "Z + left click = attack move
+X = stop
+C = hold position
+R = spawn ally
+F = spawn enemy"
+
+[node name="Label2" type="Label" parent="HudLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
 
 [connection signal="timeout" from="Player/EnemySpawnArea/Timer" to="." method="_on_timer_timeout"]

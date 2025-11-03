@@ -148,6 +148,9 @@ func attack():
 			state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle
 
 func seek_enemies():
+	for unit in possible_targets:
+		if unit == null:
+			possible_targets.erase(unit)
 	for enemy in get_tree().get_nodes_in_group("Allied"):
 		if global_position.distance_to(enemy.global_position) > vision_range:
 			if possible_targets.has(enemy):
@@ -191,18 +194,23 @@ func closest_enemy_within_attack_range(): #sprawdza czy najbliższy przeciwnik j
 
 #TARGETOWANIE POPRZEZ KLIKANIE MYSZKĄ ==========================================================
 func _input(event: InputEvent) -> void:
+	if state_machine.state == state_machine.states.dying: #sprawdzamy czy przeciwnik nie umiera
+		return
+	if !mouse_hovering: #sprawdzamy czy myszka znajduje sie w ClickArea humanwarriora
+		return
+	if !event.is_released(): #sprawdzamy czy puściliśmy przycisk myszy
+		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if !event.is_released(): #sprawdzamy czy puściliśmy prawy przycisk myszy
-			return
-		if state_machine.state == state_machine.states.dying: #sprawdzamy czy przeciwnik nie umiera
-			return
-		if !mouse_hovering: #sprawdzamy czy myszka znajduje sie w ClickArea humanwarriora
-			return
 		if get_tree().get_nodes_in_group("Selected"): #jesli zselectowaliśmy jakąś allied jednostke
 			target_clicked.emit(self) #emitujemy sygnal, ze cel zostal klikniety
 			$AnimationPlayerSelected.play("clicked_enemy") #odgrywamy animacje zaznaczenia humanwarriora
 			get_viewport().set_input_as_handled()
-			print("humanwarrior byl klikniety") #debug
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if !Globals.attack_move_input:
+			return
+		if get_tree().get_nodes_in_group("Selected"):
+			target_clicked.emit(self)
+			$AnimationPlayerSelected.play("clicked_enemy")
 
 #sprawdzamy czy myszka znajduje się w Area2D naszego ClickArea
 func _on_click_area_mouse_entered() -> void:

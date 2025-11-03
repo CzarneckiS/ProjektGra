@@ -80,7 +80,7 @@ func _get_transition(_delta):
 			states.engaging: #jeśli idziesz w stronę przeciwnika
 				#Jesli jakiś znajdzie się w naszym zasiegu ataku
 				if parent.closest_enemy_within_attack_range() != null:
-					parent.attack_target = weakref(parent.closest_enemy())
+					#parent.attack_target = weakref(parent.closest_enemy())
 					set_state(states.attacking) # zacznij atakowac
 				if !parent.attack_target.get_ref(): #jeśli nie masz celu
 					set_state(states.idle) #zacznij idlować
