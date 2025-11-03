@@ -193,6 +193,26 @@ func hit(damage_taken, _damage_source) -> bool:
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
 
+func heal(heal_amount):
+	health_bar.visible = true
+	damage_bar.visible = true
+	
+	health += heal_amount
+	health_bar.value = health
+	
+	var tween = create_tween()
+	tween.tween_property(damage_bar, "value", health, 0.5) 
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+	if health <= 0: #hp poniżej 0 - umieranie
+		health_bar.visible = false
+		damage_bar.visible = false
+		state_machine.call_deferred("set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
+		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
+		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
+	else:
+		return true #jednostka ma ponad 0hp więc wciąż żyje
+
 func attack():
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		if attack_target.get_ref().hit(damage, self): #wysyła hit do celu

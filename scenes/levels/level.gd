@@ -35,7 +35,7 @@ func _on_timer_timeout() -> void:
 	if test <= 300: #temporary, spawni mobki az nie bedzie ich 300
 		spawn_enemy()
 		test += 1
-		print(test)
+		#print(test)
 
 func is_point_on_map(target_point: Vector2) -> bool:
 	var map := get_world_2d().navigation_map

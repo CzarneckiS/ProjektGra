@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://ddcurnxnbq083"]
+
+[ext_resource type="Script" uid="uid://xdq4c5vncvr4" path="res://scenes/skills/heal_vfx.gd" id="1_3tis6"]
+[ext_resource type="Texture2D" uid="uid://bni3mreiwwfwy" path="res://sprites/heal/heal_0.png" id="2_f6wrr"]
+[ext_resource type="Texture2D" uid="uid://ut22hpemoqt5" path="res://sprites/heal/heal_1.png" id="3_b0s8q"]
+[ext_resource type="Texture2D" uid="uid://dwress0a2npo1" path="res://sprites/heal/heal_2.png" id="4_wkng5"]
+[ext_resource type="Texture2D" uid="uid://brhvotngjwd0j" path="res://sprites/heal/heal_3.png" id="5_5rq33"]
+[ext_resource type="Texture2D" uid="uid://j6dpju3isou0" path="res://sprites/heal/heal_4.png" id="6_nlfrw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_awawy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_f6wrr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_b0s8q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wkng5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_5rq33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_f6wrr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_b0s8q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wkng5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_5rq33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_nlfrw")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="HealVfx" type="Node2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_3tis6")
+
+[node name="heal_animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_awawy")
