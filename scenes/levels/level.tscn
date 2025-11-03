@@ -370,7 +370,9 @@ text = "Z + left click = attack move
 X = stop
 C = hold position
 R = spawn ally
-F = spawn enemy"
+F = spawn enemy
+Q = fireball
+E = lightning bolt"
 
 [node name="Label2" type="Label" parent="HudLayer"]
 anchors_preset = 1
