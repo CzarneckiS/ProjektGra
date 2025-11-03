@@ -3,6 +3,21 @@ extends StateMachine
 @onready var sprite_root = $"../Sprite2D" #root sprite'ów jednostki do obracania jej
 @onready var animation_player = $"../AnimationPlayer"
 
+enum commands { #Komendy dla jednostek
+	NONE,
+	MOVE,
+	ATTACK_MOVE,
+	HOLD,
+	FOLLOW_PLAYER
+}
+var command = commands.NONE
+
+enum command_keys { #Sprawdza czy trzymamy przycisk attack move
+	NONE,
+	ATTACK_MOVE
+}
+var command_key = command_keys.NONE
+
 func _ready():
 	#dodawanie naszych stanów do słownika
 	add_state("idle")
@@ -72,19 +87,37 @@ func _enter_state(_new_state, _previous_state):
 func _get_transition(_delta):
 		match state:
 			states.idle: #kiedy nic nie robisz
-				if parent.closest_enemy() != null: #jeśli jest jakiś przeciwnik w wizji
-					parent.attack_target = weakref(parent.closest_enemy()) #obierz go za cel
-					set_state(states.engaging) #zacznij do niego iść
+				if command == commands.HOLD:
+					if parent.closest_enemy_within_attack_range():
+						parent.attack_target = weakref(parent.closest_enemy())
+						set_state(states.attacking)
+				else:
+					if parent.closest_enemy() != null: #jeśli jest jakiś przeciwnik w wizji
+						parent.attack_target = weakref(parent.closest_enemy()) #obierz go za cel
+						set_state(states.engaging) #zacznij do niego iść
 			states.moving: #przemieszczanie się do celu na ziemi
 				#jesli jednostka dojdzie do celu (a bardziej znajdzie sie w odleglosci mniejszej
 				#niz jakas tam wartosc stop distance) to sie zatrzyma i zacznie idlowac
+				if command == commands.ATTACK_MOVE:
+					if parent.closest_enemy() != null: #jeśli jest jakiś przeciwnik w wizji
+						parent.attack_target = weakref(parent.closest_enemy()) #obierz go za cel
+						set_state(states.engaging) #zacznij do niego iść
+				elif command == commands.FOLLOW_PLAYER:
+					if parent.closest_enemy() != null: #jeśli jest jakiś przeciwnik w wizji
+						parent.attack_target = weakref(parent.closest_enemy()) #obierz go za cel
+						set_state(states.engaging) #zacznij do niego iść
+						if parent.global_position.distance_to(parent.move_target) < parent.stop_distance:
+							parent.move_target = parent.global_position
+							set_state(states.idle)
+							command = commands.NONE
+							return
 				if parent.global_position.distance_to(parent.move_target) < parent.stop_distance:
 					parent.move_target = parent.global_position
 					set_state(states.idle)
 			states.engaging: #przemieszczanie się w stronę przeciwnika
 				#parent.speed = 600 #do debugowania rightclicka, cos na wysokim speedzie sie wali i jednoski przenikaja przez inne?
 				if parent.attack_target_within_attack_range() != null: #Jesli cel znajdzie sie w zasiegu ataku
-					parent.attack_target = weakref(parent.closest_enemy()) #obierz go za cel
+					#parent.attack_target = weakref(parent.closest_enemy()) #obierz go za cel
 					#parent.speed = 300 #debug
 					set_state(states.attacking) #zacznij atakować
 				if !parent.attack_target.get_ref(): #jeśli nie masz celu
@@ -106,7 +139,10 @@ func _get_transition(_delta):
 					if parent.attack_target_within_attack_range() != null:
 						set_state(states.attacking) #jeśli jest to go atakuj
 					else:
-						set_state(states.engaging) #jeśli nie to go goń
+						if command == commands.HOLD:
+							set_state(states.idle)
+						else:
+							set_state(states.engaging) #jeśli nie to go goń
 						#jeśli cel umarł to w stanie engaging to sprawdzi i przejdzie do idle
 
 ##temporary do movementu

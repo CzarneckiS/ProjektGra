@@ -10,13 +10,14 @@ const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position = Vector2.ZERO #temporary, bedzie wymienione przy pathfindingu
 var next_path_position
 var can_navigate:bool = true
-
+var follow_distance_idle:int = 400
+var follow_distance_absolute:int = 1000
 #combat
 var damage = 20
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
-var attack_range = 100
-var vision_range = 500
+const attack_range = 100
+const vision_range = 500
 
 var mouse_hovering:bool = false
 
@@ -57,19 +58,67 @@ func _ready() -> void:
 	
 func _physics_process(_delta: float) -> void:
 	seek_enemies()
-
-#MOVEMENT ===============================================================================
-func _unhandled_input(event: InputEvent) -> void:
+	follow_player()
+	print(state_machine.state)
+#INPUT ===============================================================================
+func handle_inputs(event):
 	if state_machine.state == state_machine.states.dying:
 		return #jeśli jednostka umiera to nie możemy jej wydać rozkazów
-	if !selected:
-		return #sprawdzamy czy jednostka jest selectowana
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.is_released(): #kiedy right clickujemy każemy jednostce iść do punktu na ziemi
+	match event:
+		"left_click":
+			if !state_machine.command_key == state_machine.command_keys.ATTACK_MOVE:
+				return
+			state_machine.command_key = state_machine.command_keys.NONE
+			state_machine.command = state_machine.commands.ATTACK_MOVE
 			move_target = get_global_mouse_position()
 			state_machine.set_state(state_machine.states.moving)
-			print("skeletonwarrior chodzenie input")
+		"right_click":
+			state_machine.command = state_machine.commands.MOVE
+			state_machine.command_key = state_machine.command_keys.NONE
+			move_target = get_global_mouse_position()
+			state_machine.set_state(state_machine.states.moving)
+		"attack_move":
+			state_machine.command_key = state_machine.command_keys.ATTACK_MOVE
+		"stop":
+			state_machine.command = state_machine.commands.NONE
+			state_machine.command_key = state_machine.command_keys.NONE
+			state_machine.set_state(state_machine.states.idle)
+		"hold":
+			state_machine.command = state_machine.commands.HOLD
+			state_machine.command_key = state_machine.command_keys.NONE
+			state_machine.set_state(state_machine.states.idle)
 
+#DO NOT TOUCH, MOZE SIE PRZYDA W PRZYSZLOSCI
+#func _TEMPunhandled_input(event: InputEvent) -> void:
+	#if state_machine.state == state_machine.states.dying:
+		#return #jeśli jednostka umiera to nie możemy jej wydać rozkazów
+	#if !selected:
+		#return #sprawdzamy czy jednostka jest selectowana
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		#if event.is_released(): #kiedy right clickujemy każemy jednostce iść do punktu na ziemi
+			#state_machine.command = state_machine.commands.MOVE
+			#state_machine.command_key = state_machine.command_keys.NONE
+			#move_target = get_global_mouse_position()
+			#state_machine.set_state(state_machine.states.moving)
+	#elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		#if !state_machine.command_key == state_machine.command_keys.ATTACK_MOVE:
+			#return
+		#if event.is_released():
+			#state_machine.command_key = state_machine.command_keys.NONE
+			#state_machine.command = state_machine.commands.ATTACK_MOVE
+			#move_target = get_global_mouse_position()
+			#state_machine.set_state(state_machine.states.moving)
+	#elif event.is_action_pressed("attack_move"): #domyslny hotkey - Z
+		#state_machine.command_key = state_machine.command_keys.ATTACK_MOVE
+	#elif event.is_action_pressed("stop"): #domyslny hotkey - X
+		#state_machine.command = state_machine.commands.NONE
+		#state_machine.command_key = state_machine.command_keys.NONE
+		#state_machine.set_state(state_machine.states.idle)
+	#elif event.is_action_pressed("hold"): #domyslny hotkey - C
+		#state_machine.command = state_machine.commands.HOLD
+		#state_machine.command_key = state_machine.command_keys.NONE
+		#state_machine.set_state(state_machine.states.idle)
+#MOVEMENT ===============================================================================
 func _move_to_target(_delta,target_position):
 	velocity = global_position.direction_to(target_position) * speed
 	move_and_slide()
@@ -89,19 +138,18 @@ func move_to_target(_delta,target_position): #CLOSE RANGE MOVEMENT
 			can_navigate = false
 			$Timers/NavigationTimer.start()
 	move_and_slide()
+
 func navigate_to_target(_delta,target_position): #A* MOVEMENT
 	if can_navigate:
 		calculate_new_path(target_position)
 		can_navigate = false
 		$Timers/NavigationTimer.start()
 	var new_velocity = global_position.direction_to(next_path_position) * speed
-	print(new_velocity)
 	navigation_agent_2d.set_velocity(new_velocity)
 	move_and_slide()
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
-	
 
 func calculate_new_path(target_position):
 	navigation_agent_2d.target_position = target_position
@@ -109,6 +157,21 @@ func calculate_new_path(target_position):
 
 func _on_navigation_timer_timeout() -> void:
 	can_navigate = true
+
+func follow_player() -> void:
+	if global_position.distance_to(Globals.player_position) > follow_distance_absolute:
+		state_machine.command = state_machine.commands.NONE
+		move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
+		state_machine.state = state_machine.states.moving
+		return
+	if state_machine.state == state_machine.states.idle: #powrót nawet podczas walki
+		if global_position.distance_to(Globals.player_position) > follow_distance_idle:
+			state_machine.command = state_machine.commands.FOLLOW_PLAYER
+			move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
+			state_machine.state = state_machine.states.moving
+	elif state_machine.command == state_machine.commands.FOLLOW_PLAYER:
+		move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
+
 #COMBAT ===============================================================================
 func hit(damage_taken, _damage_source) -> bool:
 	health_bar.visible = true
@@ -158,6 +221,9 @@ func attack():
 			state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle
 
 func seek_enemies():
+	for unit in possible_targets:
+		if unit == null:
+			possible_targets.erase(unit)
 	for enemy in get_tree().get_nodes_in_group("Unit"):
 		if enemy not in get_tree().get_nodes_in_group("Allied"):
 			if global_position.distance_to(enemy.global_position) > vision_range:
@@ -187,7 +253,8 @@ func _compare_distance(target_a, target_b):
 
 func closest_enemy(): #sprawdza, który cel jest najbliżej
 	if possible_targets.size() > 0:
-		possible_targets.sort_custom(_compare_distance) # <- to powyższy algorytm sortujący
+		if possible_targets.size() > 1:
+			possible_targets.sort_custom(_compare_distance) # <- to powyższy algorytm sortujący
 		return possible_targets[0]
 	else:
 		return null
@@ -199,13 +266,12 @@ func attack_target_within_attack_range(): #sprawdź czy attack_target znajduje s
 	else:
 		return null
 
-#stara funkcja, ale niech zostanie
-#func closest_enemy_within_attack_range():
-	#if closest_enemy() != null and closest_enemy().global_position.distance_to(global_position) < \
-	#attack_range:
-		#return closest_enemy()
-	#else:
-		#return null
+func closest_enemy_within_attack_range():
+	if closest_enemy() != null and closest_enemy().global_position.distance_to(global_position) < \
+	attack_range:
+		return closest_enemy()
+	else:
+		return null
 #SELECTING ===============================================================================
 #dodawanie i usuwanie z grupy Selected, wywoływane albo w scenie unit selector w levelu
 #albo poprzez left click
@@ -215,9 +281,10 @@ func select() -> void:
 	$Selected.visible = true
 
 func deselect() -> void:
-	remove_from_group("Selected")
-	selected = false
-	$Selected.visible = false
+	if !state_machine.command_key == state_machine.command_keys.ATTACK_MOVE:
+		remove_from_group("Selected")
+		selected = false
+		$Selected.visible = false
 
 #do sprawdzania czy znajduje się w selection boxie w unit selectorze w scenie Level
 func is_in_selection_box(select_box: Rect2):
@@ -226,6 +293,8 @@ func is_in_selection_box(select_box: Rect2):
 #Selectowanie jednostki left clickiem na nią
 func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if state_machine.command_key == state_machine.command_keys.ATTACK_MOVE:
+			return #jesli chcemy zrobic attack move to nie selectujemy jednostki left clickowanej
 		if event.is_released:
 			select()
 

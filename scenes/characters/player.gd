@@ -70,12 +70,6 @@ var hp_bar_style = StyleBoxFlat.new()
 
 
 func _ready() -> void:
-	
-	Globals.health = 200
-	Globals.max_health = 200
-	Globals.xp = 25
-	Globals.max_xp = 100
-	
 	health_bar.max_value = Globals.health
 	health_bar.value = Globals.health
 	health_bar.visible = false
@@ -110,25 +104,21 @@ func _process(_delta: float) -> void:
 		move_and_slide()
 	Globals.player_position = global_position
 
-
-
-func hit(damage_taken, _damage_source) -> void:
-	health_bar.visible = true
-	damage_bar.visible = true
-
-	Globals.health -= damage_taken
-	health_bar.value = Globals.health
-	var health_tween = create_tween()
-	health_tween.tween_property(damage_bar, "value", Globals.health, 0.5) 
-	health_tween.set_trans(Tween.TRANS_SINE)
-	health_tween.set_ease(Tween.EASE_OUT)
-	
-	Globals.xp += 5
-	
 	#if Globals.health <= 0:
 	#	health_bar.visible = false
 	#	damage_bar.visible = false
 	#	animacja_smierci() + menu_ze_przegrales()
+
+func hit(damage_taken, _damage_source) -> void:
+	health_bar.visible = true
+	damage_bar.visible = true
+	health_bar.value = Globals.health
+	var health_tween = create_tween()
+	health_tween.tween_property(damage_bar, "value", Globals.health, 0.5)
+	health_tween.set_trans(Tween.TRANS_SINE)
+	health_tween.set_ease(Tween.EASE_OUT)
+	Globals.update_player_hp(damage_taken)
+
 		
 #func select() -> void:
 	#add_to_group("Selected")

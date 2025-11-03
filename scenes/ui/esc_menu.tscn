@@ -5,6 +5,7 @@
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_guea3"]
 
 [node name="EscMenu" type="Control"]
+z_index = 101
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,7 +16,7 @@ script = ExtResource("1_guea3")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 modulate = Color(0, 0, 0, 1)
-self_modulate = Color(0.28627452, 0.47058824, 0.26666668, 0.3254902)
+self_modulate = Color(0.2382136, 0.39851362, 0.22120544, 0.3254902)
 material = SubResource("CanvasItemMaterial_guea3")
 layout_mode = 1
 anchors_preset = 15
