@@ -82,3 +82,4 @@ func update_player_exp(xp_given): #funkcja przyjmuje wartosc expa, zaleznie od j
 		accumulated_xp -= xp_to_level #jesli mamy wiecej expa niz trzeba to odejmujemy aktualny limit i zostawiamy reszte
 		level_up() #wywolujemy lvl up tyle razy na ile mielismy expa
 		#tutaj daj update_ui()
+		
