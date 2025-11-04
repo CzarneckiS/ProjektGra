@@ -66,15 +66,15 @@ func _ready() -> void:
 #VISUALSY ===============================================================================
 func start_hit_flash(damage_source):
 	var original_color = Color.WHITE
-	var hit_color: Color = Color.WHITE * 2.0
+	var hit_color: Color = Color.WHITE * 8.0
 	var flash_tween = create_tween()
 	
 	if damage_source is FireballSpell:
-		hit_color = Color.GREEN_YELLOW * 2.0
+		hit_color = Color("39db9dff") * 8.0
 	if damage_source is ThunderboltSpell:
-		hit_color = Color("6c92fbff") * 2.0
-	flash_tween.tween_property(self, "modulate", hit_color, 0.05)
-	flash_tween.tween_property(self, "modulate", original_color, 0.2)
+		hit_color = Color("375cedff") * 8.0
+	flash_tween.tween_property($Sprite2D, "modulate", hit_color, 0.05)
+	flash_tween.tween_property($Sprite2D, "modulate", original_color, 0.2)
 	
 	flash_tween.set_ease(Tween.EASE_OUT)
 
