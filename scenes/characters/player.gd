@@ -15,10 +15,13 @@ func _unhandled_input(event):
 		cast_thunderbolt()
 	if event.is_action_pressed("heal_input"):
 		cast_heal()
+	if event.is_action_pressed("iceblock_input"):
+		cast_iceblock()
 
 var fireball_skill: Resource = preload("res://resources/fireball.tres")
 var thunderbolt_skill: Resource = preload("res://resources/thunderbolt.tres")
 var heal_skill: Resource = preload("res://resources/heal.tres")
+var iceblock_skill: Resource = preload("res://resources/iceblock.tres")
 var skill_cooldowns: Dictionary = {}
 
 func can_cast(skill: Resource) -> bool:
@@ -63,6 +66,16 @@ func cast_heal():
 	var player_pos: Vector2 = global_position
 	if heal_skill is Heal:
 		heal_skill.use(self, player_pos)
+		
+func cast_iceblock():
+	if !can_cast(iceblock_skill):
+		return
+	
+	set_cooldown(iceblock_skill)
+	
+	var target_pos: Vector2 = get_global_mouse_position()
+	if iceblock_skill is Iceblock:
+		iceblock_skill.use(self, target_pos)
 
 var hp_bar_style = StyleBoxFlat.new()
 
