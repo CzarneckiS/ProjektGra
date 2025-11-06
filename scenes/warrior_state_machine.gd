@@ -39,11 +39,29 @@ func _state_logic(delta):
 				pass #jeśli jesteś idle to nic nie robisz
 			states.moving:
 				parent.navigate_to_target(delta, parent.move_target) #idź do celu (nie przeciwnik)
+				if parent.velocity.x > 0:
+					if sprite_root.scale.x > 0:
+						sprite_root.scale.x *= -1
+				elif parent.velocity.x < 0:
+					if sprite_root.scale.x < 0:
+						sprite_root.scale.x *= -1
 			states.engaging:
-				if parent.attack_target.get_ref(): #jeśli cel (jednostka) istnieje, idź do niego
-					parent.move_to_target(delta, parent.attack_target.get_ref().global_position)
+				if parent.attack_target: #jeśli cel (jednostka) istnieje, idź do niego
+					parent.move_to_target(delta, parent.attack_target.global_position)
+					if parent.velocity.x > 0:
+						if sprite_root.scale.x > 0:
+							sprite_root.scale.x *= -1
+					elif parent.velocity.x < 0:
+						if sprite_root.scale.x < 0:
+							sprite_root.scale.x *= -1
 			states.attacking:
-				animation_player.play("attack") #Jeśli zaczniesz atakować, zagraj animacje ataku
+				if parent.attack_target:
+					if parent.global_position.x - parent.attack_target.global_position.x < 0:
+						if sprite_root.scale.x > 0:
+							sprite_root.scale.x *= -1
+					elif parent.global_position.x - parent.attack_target.global_position.x > 0:
+						if sprite_root.scale.x < 0:
+							sprite_root.scale.x *= -1
 			states.dying:
 				pass
 			states.mid_animation:
@@ -59,23 +77,9 @@ func _enter_state(_new_state, _previous_state):
 			states.idle:
 				animation_player.play("idle")
 			states.moving:
-				#placeholder zmieniania animacji - troche zwalone jest bo trzeba 2 razy kliknac?
-				#jak ktos wie czemu to feel free poprawic
 				animation_player.play("walk")
-				if parent.velocity.x > 0:
-					if sprite_root.scale.x > 0:
-						sprite_root.scale.x *= -1
-				elif parent.velocity.x < 0:
-					if sprite_root.scale.x < 0:
-						sprite_root.scale.x *= -1
 			states.engaging:
 				animation_player.play("walk")
-				if parent.velocity.x > 0:
-					if sprite_root.scale.x > 0:
-						sprite_root.scale.x *= -1
-				elif parent.velocity.x < 0:
-					if sprite_root.scale.x < 0:
-						sprite_root.scale.x *= -1
 			states.attacking:
 				pass
 			states.dying:
@@ -89,22 +93,22 @@ func _get_transition(_delta):
 			states.idle: #kiedy nic nie robisz
 				if command == commands.HOLD:
 					if parent.closest_enemy_within_attack_range():
-						parent.attack_target = weakref(parent.closest_enemy())
+						parent.attack_target = (parent.closest_enemy())
 						set_state(states.attacking)
 				else:
 					if parent.closest_enemy() != null: #jeśli jest jakiś przeciwnik w wizji
-						parent.attack_target = weakref(parent.closest_enemy()) #obierz go za cel
+						parent.attack_target = (parent.closest_enemy()) #obierz go za cel
 						set_state(states.engaging) #zacznij do niego iść
 			states.moving: #przemieszczanie się do celu na ziemi
 				#jesli jednostka dojdzie do celu (a bardziej znajdzie sie w odleglosci mniejszej
 				#niz jakas tam wartosc stop distance) to sie zatrzyma i zacznie idlowac
 				if command == commands.ATTACK_MOVE:
 					if parent.closest_enemy() != null: #jeśli jest jakiś przeciwnik w wizji
-						parent.attack_target = weakref(parent.closest_enemy()) #obierz go za cel
+						parent.attack_target = (parent.closest_enemy()) #obierz go za cel
 						set_state(states.engaging) #zacznij do niego iść
 				elif command == commands.FOLLOW_PLAYER:
 					if parent.closest_enemy() != null: #jeśli jest jakiś przeciwnik w wizji
-						parent.attack_target = weakref(parent.closest_enemy()) #obierz go za cel
+						parent.attack_target = (parent.closest_enemy()) #obierz go za cel
 						set_state(states.engaging) #zacznij do niego iść
 						if parent.global_position.distance_to(parent.move_target) < parent.stop_distance:
 							parent.move_target = parent.global_position
@@ -115,26 +119,36 @@ func _get_transition(_delta):
 					parent.move_target = parent.global_position
 					set_state(states.idle)
 			states.engaging: #przemieszczanie się w stronę przeciwnika
-				#parent.speed = 600 #do debugowania rightclicka, cos na wysokim speedzie sie wali i jednoski przenikaja przez inne?
+				if parent.attack_target:
+					if parent.attack_target.dying:
+						parent.possible_targets.erase(parent.attack_target)
+						set_state(states.idle)
 				if parent.attack_target_within_attack_range() != null: #Jesli cel znajdzie sie w zasiegu ataku
 					#parent.attack_target = weakref(parent.closest_enemy()) #obierz go za cel
 					#parent.speed = 300 #debug
 					set_state(states.attacking) #zacznij atakować
-				if !parent.attack_target.get_ref(): #jeśli nie masz celu
+				if !parent.attack_target: #jeśli nie masz celu
 					#parent.speed = 300 #debug
 					set_state(states.idle) #zacznij idlować
 			states.attacking:
 				#jeśli uda ci się zacząć atak przejdź w stan wykonywania animacji
-				if animation_player.get_current_animation() == "attack":
-					set_state(states.mid_animation)
+				if parent.attack_target:
+					if !parent.attack_target.dying:
+						animation_player.play("attack") #Jeśli zaczniesz atakować, zagraj animacje ataku
+						set_state(states.mid_animation)
+					else:
+						parent.possible_targets.erase(parent.attack_target)
+						set_state(states.idle)
+				else:
+					set_state(states.idle)
 			states.dying: #Dopóki odgrywasz animację umierania, nic nie rób
 				if animation_player.is_playing(): return
 				else: #kiedy się skończy, przestań istnieć
 					if parent.mouse_hovering: #jeśli wciąż mamy kursor na przeciwniku
-						Globals.remove_overlapping_enemies() #to przestań highlightować kursor
+						Globals.remove_overlapping_allies() #to przestań highlightować kursor
 					parent.queue_free()
 			states.mid_animation: #Dopóki odgrywasz animację atakowania, nic nie rób
-				if animation_player.is_playing(): return 
+				if animation_player.is_playing(): return
 				else: #kiedy skończysz sprawdź czy cel wciąż jest w zasięgu ataku
 					if parent.attack_target_within_attack_range() != null:
 						set_state(states.attacking) #jeśli jest to go atakuj

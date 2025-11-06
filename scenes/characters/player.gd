@@ -6,6 +6,7 @@ extends CharacterBody2D
 var speed = 500
 var standing: bool = true
 var selected = false
+var dying : bool = false
 
 func _unhandled_input(event):
 	if event.is_action_pressed("fireball_input"):

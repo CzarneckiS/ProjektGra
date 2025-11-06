@@ -104,7 +104,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			$MenuLayer.add_child(lvlup_menu)
 			get_tree().paused = true
 	elif event.is_action_pressed("tmpSpawnAlly"):
-		var new_ally = preload("res://scenes/characters/allies/skeletonwarrior.tscn").instantiate()
+		var new_ally = preload("res://scenes/characters/allies/skeletonmage.tscn").instantiate()
 		new_ally.global_position = get_global_mouse_position()
 		add_child(new_ally)
 	elif event.is_action_pressed("tmpSpawnEnemy"):
