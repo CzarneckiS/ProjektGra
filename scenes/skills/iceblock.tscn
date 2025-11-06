@@ -27,8 +27,8 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nn1yf"]
-size = Vector2(105, 128)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a6g3u"]
+size = Vector2(99.5, 124)
 
 [node name="Iceblock" type="Area2D"]
 z_index = -2
@@ -45,8 +45,8 @@ frame_progress = 1.0
 [node name="iceblock_collision" type="CollisionShape2D" parent="."]
 shape = ExtResource("6_a6g3u")
 
-[node name="iceblock_block" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 
-[node name="iceblock_block_collision" type="CollisionShape2D" parent="iceblock_block"]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_nn1yf")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1, 1.75)
+shape = SubResource("RectangleShape2D_a6g3u")

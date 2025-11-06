@@ -59,7 +59,8 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	seek_enemies()
 	follow_player()
-	print(state_machine.state)
+	#print(state_machine.state)
+	
 #INPUT ===============================================================================
 func handle_inputs(event):
 	if state_machine.state == state_machine.states.dying:

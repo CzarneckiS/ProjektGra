@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="Field" load_steps=9 format=3 uid="uid://bd7n362crrca7"]
+
+[ext_resource type="Script" uid="uid://8g2g4sl8jw6l" path="res://scripts/skill_effects/effect_aoe.gd" id="1_jioq5"]
+[ext_resource type="Script" uid="uid://eb2n0krmxsn8" path="res://scripts/skill_effects/effect_dot.gd" id="1_v83ye"]
+[ext_resource type="Script" uid="uid://chkhmaji4l68m" path="res://scripts/skills_for_resources/field_for_resource.gd" id="1_wle43"]
+[ext_resource type="Script" uid="uid://b8hvxjgf4wq4l" path="res://scripts/skill_effects/effect_pull.gd" id="2_215y7"]
+[ext_resource type="PackedScene" uid="uid://33qbkro5dgyq" path="res://scenes/skills/field.tscn" id="4_215y7"]
+
+[sub_resource type="Resource" id="Resource_l03n4"]
+script = ExtResource("1_jioq5")
+radius = 200.0
+metadata/_custom_type_script = "uid://8g2g4sl8jw6l"
+
+[sub_resource type="Resource" id="Resource_jioq5"]
+script = ExtResource("1_v83ye")
+ticks_per_second = 2.0
+duration = 3.0
+metadata/_custom_type_script = "uid://eb2n0krmxsn8"
+
+[sub_resource type="Resource" id="Resource_v0y4w"]
+script = ExtResource("2_215y7")
+pull_friction = 7.0
+pull_speed = 2000.0
+metadata/_custom_type_script = "uid://b8hvxjgf4wq4l"
+
+[resource]
+script = ExtResource("1_wle43")
+push_effect = SubResource("Resource_v0y4w")
+aoe_effect = SubResource("Resource_l03n4")
+dot_effect = SubResource("Resource_jioq5")
+skill_name = "dot_field"
+skill_desc = "dotsowe pole brr"
+cooldown = 0.1
+visual_effect = ExtResource("4_215y7")
+metadata/_custom_type_script = "uid://chkhmaji4l68m"
