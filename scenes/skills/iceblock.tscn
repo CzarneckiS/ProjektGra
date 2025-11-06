@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://ca7j2rmm5tryu"]
+
+[ext_resource type="Script" uid="uid://816i57r10wir" path="res://scenes/skills/iceblock.gd" id="1_1rhpg"]
+[ext_resource type="Texture2D" uid="uid://q48jg8atsgu3" path="res://sprites/iceblock/ice_wall_0.png" id="1_nn1yf"]
+[ext_resource type="Texture2D" uid="uid://dyprbgi2mgxn8" path="res://sprites/iceblock/ice_wall_1.png" id="2_1rhpg"]
+[ext_resource type="Texture2D" uid="uid://it57gh4w16eh" path="res://sprites/iceblock/ice_wall_2.png" id="3_a6g3u"]
+[ext_resource type="Texture2D" uid="uid://nlr7gr48413" path="res://sprites/iceblock/ice_wall_3.png" id="4_yje8c"]
+[ext_resource type="Shape2D" uid="uid://dnjokiyqw5epv" path="res://resources/iceblock_shape.tres" id="6_a6g3u"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0e8mw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_nn1yf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1rhpg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_a6g3u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_yje8c")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nn1yf"]
+size = Vector2(105, 128)
+
+[node name="Iceblock" type="Area2D"]
+z_index = -2
+scale = Vector2(4, 4)
+collision_layer = 8
+collision_mask = 14
+script = ExtResource("1_1rhpg")
+
+[node name="iceblock_animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0e8mw")
+frame = 3
+frame_progress = 1.0
+
+[node name="iceblock_collision" type="CollisionShape2D" parent="."]
+shape = ExtResource("6_a6g3u")
+
+[node name="iceblock_block" type="StaticBody2D" parent="."]
+
+[node name="iceblock_block_collision" type="CollisionShape2D" parent="iceblock_block"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_nn1yf")

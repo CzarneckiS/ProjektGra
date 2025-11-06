@@ -1,4 +1,5 @@
 extends UnitParent
+class_name HumanWarrior
 
 #thought - nie robic tak, ze mobki ida PROSTO na gracza od razu
 #tylko dla coolnosci zrobic tak ze ida kawalek w mniej wiecej kierunku gracza
@@ -70,9 +71,11 @@ func start_hit_flash(damage_source):
 	var flash_tween = create_tween()
 	
 	if damage_source is FireballSpell:
-		hit_color = Color("39db9dff") * 8.0
+		hit_color = Color("39db9dff") * 5.0
 	if damage_source is ThunderboltSpell:
-		hit_color = Color("375cedff") * 8.0
+		hit_color = Color("375cedff") * 3.0
+	if damage_source is IceblockSpell:
+		hit_color = Color("837cffff") * 3.0
 	flash_tween.tween_property($Sprite2D, "modulate", hit_color, 0.05)
 	flash_tween.tween_property($Sprite2D, "modulate", original_color, 0.2)
 	
