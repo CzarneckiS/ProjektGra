@@ -1,10 +1,12 @@
 extends UnitParent
 
+var projectile = preload("res://resources/skeleton_mage_projectile.tres")
+
 var skills_stat_up = {}
 var skills_passive = {}
-var skills_on_hit = {}
+var skills_on_hit = {projectile:1}
 var skills_on_death = {}
-var tags : Array[String] = ["SkeletonWarrior", "Unit", "Allied"]
+var tags : Array[String] = ["SkeletonMage", "Unit", "Allied"]
 #movement
 var speed = 300
 var move_target = Vector2.ZERO
@@ -19,7 +21,7 @@ var follow_distance_absolute:int = 1000
 var damage = 20
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
-const attack_range = 100
+const attack_range = 400
 const vision_range = 500
 var dying : bool = false
 #selecting
@@ -70,6 +72,7 @@ func _physics_process(_delta: float) -> void:
 		if unit == null:
 			possible_targets.erase(unit)
 #SKILLS
+
 func handle_skills():
 	#dodaj do odpowiednich list umiejetnosci odblokowane
 	for skill in Skills.unlocked_skills:
@@ -218,7 +221,6 @@ func attack():
 			pass #jeśli cel zwrócił true - czyli żyje - kontynuuj atakowanie
 	else:
 		state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle
-
 func _attack():
 	if attack_target: #jeśli nasz cel wciąż istnieje:
 		if attack_target.hit(damage, self): #wysyła hit do celu

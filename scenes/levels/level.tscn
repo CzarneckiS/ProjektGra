@@ -301,7 +301,7 @@ tile_set = SubResource("TileSet_7pb6i")
 [node name="Player" parent="." instance=ExtResource("1_377w7")]
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.73, 0.73)
+zoom = Vector2(0.765, 0.765)
 position_smoothing_enabled = true
 
 [node name="EnemySpawnArea" type="Path2D" parent="Player"]
@@ -328,6 +328,8 @@ position = Vector2(-508, 355)
 
 [node name="HumanWarrior" parent="EnemyUnits" instance=ExtResource("7_7pb6i")]
 position = Vector2(502, 509)
+
+[node name="Projectiles" type="Node2D" parent="."]
 
 [node name="UnitSelector" type="Node2D" parent="."]
 z_index = 1

@@ -1,33 +1,41 @@
 extends Node
-
-var all_spells: Dictionary = {}
-var unlocked_spells: Dictionary = {}
+#SKILL - DOWOLNA UMIEJETNOSC / BUFF DLA JEDNOSTKI
+#SPELL - TO CO CASTUJE NASZA POSTAC
+#ALL SPELLS = SKILLS BUT ALL SKILLS =/= SPELLS
+var all_skills: Dictionary = {}
+var unlocked_skills: Dictionary = {}
 
 var fireball = preload("res://resources/fireball.tres")
 var heal = preload("res://resources/heal.tres")
 var thunderbolt = preload("res://resources/thunderbolt.tres")
+var unit_on_hit_poison = preload("res://resources/unit_on_hit_poison.tres")
 
 func _ready():
-	add_spell(fireball)
-	add_spell(heal)
-	add_spell(thunderbolt)
-	unlock_spell(fireball)
+	add_skill(fireball)
+	add_skill(heal)
+	add_skill(thunderbolt)
+	add_skill(unit_on_hit_poison)
+	unlock_skill(fireball)
+	unlock_skill(unit_on_hit_poison)
 	
-func add_spell(spell):
-	all_spells[spell] = all_spells.size()
+func add_skill(skill):
+	all_skills[skill] = all_skills.size()
 
-func unlock_spell(spell_name):
-	if !(spell_name in unlocked_spells):
-		unlocked_spells[spell_name] = unlocked_spells.size()
+func unlock_skill(skill):
+	if !(skill in unlocked_skills):
+		unlocked_skills[skill] = unlocked_skills.size()
+	else:
+		skill.skill_level += 1
 
-func get_spell() -> Array:
-	var available_spells: Array = []
-	var spells_to_show: Array = []
-	for spell in all_spells:
-		if spell not in unlocked_spells:
-			available_spells.append(spell)
-	for spell in available_spells:
-		if spell not in spells_to_show:
-			spells_to_show.append(spell)
-	return spells_to_show
-			
+#DODAC BOOL = CZY OSIAGNELISMY LIMIT SPELL SLOTOW ! ! ! 
+func get_skill() -> Array:
+	var available_skills: Array = []
+	var skills_to_show: Array = []
+	for skill in all_skills:
+		available_skills.append(skill)
+	available_skills.shuffle()
+	for i in available_skills.size():
+		if i >=3:
+			break
+		skills_to_show.append(available_skills[i])
+	return skills_to_show

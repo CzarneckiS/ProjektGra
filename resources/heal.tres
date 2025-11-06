@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="Heal" load_steps=10 format=3 uid="uid://dvy8sgfr5rojt"]
+[gd_resource type="Resource" script_class="Heal" load_steps=11 format=3 uid="uid://dvy8sgfr5rojt"]
 
 [ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_cefjl"]
-[ext_resource type="Script" uid="uid://02kqq8hqw2mm" path="res://scripts/skill_effects/effect_heal.gd" id="2_1wtui"]
-[ext_resource type="Script" uid="uid://bi8kmec45hfuq" path="res://scripts/skills_for_resources/heal_for_resource.gd" id="2_cpcm7"]
+[ext_resource type="Script" path="res://scripts/skill_effects/effect_heal.gd" id="2_1wtui"]
+[ext_resource type="Script" path="res://scripts/skills_for_resources/heal_for_resource.gd" id="2_cpcm7"]
 [ext_resource type="Script" uid="uid://8g2g4sl8jw6l" path="res://scripts/skill_effects/effect_aoe.gd" id="3_t64mn"]
+[ext_resource type="Texture2D" uid="uid://bdtq2tpws5nnm" path="res://sprites/Important.png" id="4_t64mn"]
 [ext_resource type="PackedScene" uid="uid://cfvsv4vtqn30m" path="res://scenes/skills/heal.tscn" id="5_xcos8"]
 
 [sub_resource type="Resource" id="Resource_spjag"]
@@ -32,4 +33,4 @@ skill_desc = "it healzzz"
 cooldown = 0.0
 visual_effect = ExtResource("5_xcos8")
 effects = Array[ExtResource("1_cefjl")]([SubResource("Resource_spjag"), SubResource("Resource_r7v8x")])
-metadata/_custom_type_script = "uid://bi8kmec45hfuq"
+icon = ExtResource("4_t64mn")
