@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://q48jg8atsgu3"
-path="res://.godot/imported/ice_wall_0.png-9a08332e9ef6b0c738b4921f9ea152cd.ctex"
+uid="uid://d0f4bgq43i0vx"
+path="res://.godot/imported/fireball_splash_6.png-df935a3abf64973a2aa02c68921fd5b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/iceblock/ice_wall_0.png"
-dest_files=["res://.godot/imported/ice_wall_0.png-9a08332e9ef6b0c738b4921f9ea152cd.ctex"]
+source_file="res://sprites/fireball/fireball_splash/fireball_splash_6.png"
+dest_files=["res://.godot/imported/fireball_splash_6.png-df935a3abf64973a2aa02c68921fd5b2.ctex"]
 
 [params]
 
