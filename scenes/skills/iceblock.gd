@@ -1,37 +1,89 @@
-extends Area2D
+extends Node2D
 class_name IceblockSpell
 
 var skill_resource: Iceblock
+const diagonal_threshold = 0.6
 var lifespan: Timer = Timer.new()
+@onready var damage_area: Area2D = $pivotpoint/damage_area
+@onready var knockback_area: Area2D = $pivotpoint/knockback_area
+@onready var diagonal_damage_area: Area2D = $pivotpoint/diagonal_damage_area
+@onready var diagonal_knockback_area: Area2D = $pivotpoint/diagonal_knockback_area
+@onready var iceblock_animation: AnimationPlayer = $pivotpoint/iceblock_animation
+@onready var navigation_region_2d: NavigationRegion2D = get_node("../Level/NavigationRegion2D")
+@onready var pivotpoint: Node2D = $pivotpoint
 
 func initialize(spawn_position: Vector2, skill_res: Iceblock):
 	skill_resource = skill_res
-	
 	global_position = spawn_position
 	
 	add_child(lifespan)
 	lifespan.one_shot = true
 	lifespan.autostart = false
-	lifespan.wait_time = 2.0
+	lifespan.wait_time = 4.0
 	lifespan.timeout.connect(_on_lifespan_timeout)
-	
-	#if skill_resource.skill_effect_data2 != null:
-		#if $iceblock_collision.shape:
-			#var base_radius = skill_resource.skill_effect_data2.radius
-			#var shape_duplicate = $iceblock_collision.shape.duplicate()
-			#$iceblock_collision.shape = shape_duplicate
-			#
-			#shape_duplicate.radius = base_radius * skill_resource.skill_effect_data2.radius_multiplier
-	
 func _ready():
 	lifespan.call_deferred("start")
-	
-	$iceblock_animation.play("ice_wall_diagonal")
-	body_entered.connect(_on_body_entered)
+	_get_iceblock_animation()
+	damage_area.body_entered.connect(_on_damage_area_entered)
+	knockback_area.body_entered.connect(_on_knockback_area_entered)
+	diagonal_damage_area.body_entered.connect(_on_damage_area_entered)
+	diagonal_knockback_area.body_entered.connect(_on_knockback_area_entered)
+	navigation_region_2d.call_deferred("bake_navigation_polygon")
 
 func _on_lifespan_timeout():
 	call_deferred("queue_free")
 	
-func _on_body_entered(body):
+func _on_damage_area_entered(body: UnitParent):
 	if !body.is_in_group("Allied"):
 		body.hit(skill_resource.effect_damage.base_damage*skill_resource.effect_damage.damage_multiplier, self)
+		
+func _on_knockback_area_entered(body: UnitParent):
+	if !body.is_in_group("Allied"):
+		skill_resource.effect_knockback.apply_push(global_position, body)
+
+func get_screen_region() -> String:
+	var mouse_pos = get_viewport().get_mouse_position()
+	var screen_size = get_viewport_rect().size
+	var half_screen_size = screen_size / 2.0
+	var region: String = ""
+	
+	if mouse_pos.x < half_screen_size.x:
+		region += "Left"
+	else:
+		region += "Right"
+	if mouse_pos.y < half_screen_size.y:
+		region += "Up"
+	else:
+		region += "Down"
+	
+	var offset = mouse_pos - half_screen_size
+	var abs_x = abs(offset.x)
+	var abs_y = abs(offset.y)
+	
+	if abs_x > abs_y * (1.0 + diagonal_threshold):
+		return region.replace("Up", "").replace("Down", "")
+	if abs_y > abs_x * (1.0 + diagonal_threshold):
+		return region.replace("Right", "").replace("Left", "")
+	
+	return region
+	
+func _get_iceblock_animation():
+	match get_screen_region():
+		"Up":
+			iceblock_animation.play("ice_wall_front")
+		"Down":
+			iceblock_animation.play("ice_wall_front")
+		"Left":
+			iceblock_animation.play("ice_wall_side")
+		"Right":
+			iceblock_animation.play("ice_wall_side")
+		"RightUp":
+			pivotpoint.scale.x = -1
+			iceblock_animation.play("ice_wall_diagonal")
+		"LeftUp":
+			iceblock_animation.play("ice_wall_diagonal")
+		"RightDown":
+			iceblock_animation.play("ice_wall_diagonal")
+		"LeftDown":
+			pivotpoint.scale.x = -1
+			iceblock_animation.play("ice_wall_diagonal")

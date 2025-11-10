@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ca7j2rmm5tryu"]
+[gd_scene load_steps=10 format=3 uid="uid://ca7j2rmm5tryu"]
 
 [ext_resource type="Script" uid="uid://816i57r10wir" path="res://scenes/skills/iceblock.gd" id="1_1rhpg"]
 [ext_resource type="Texture2D" uid="uid://dno12f5cx80dm" path="res://sprites/iceblock/ice_wall.png" id="2_5oucj"]
@@ -8,7 +8,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("iceblock_sprites:frame")
+tracks/0/path = NodePath("pivotpoint/iceblock_sprites:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -20,7 +20,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("iceblock_collision:polygon")
+tracks/1/path = NodePath("pivotpoint/iceblock_wall/iceblock_collision:polygon")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -28,6 +28,138 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [PackedVector2Array(-129.75, 420.25, 210.5, 80.25, 213.25, -22.5, 68, -23.25, -281, 272.75, -280.25, 409.25)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pivotpoint/damage_area/damage_collision:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.875, 16.125)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("pivotpoint/damage_area/damage_collision:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("pivotpoint/knockback_area/knockback_collision:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1.625, 19.875)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("pivotpoint/damage_area/damage_collision:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("pivotpoint/knockback_area/knockback_collision:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("pivotpoint/knockback_area/knockback_collision:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("pivotpoint/diagonal_knockback_area/diagonal_knockback_area_collision:polygon")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-16, 65.75, 33.75, 12.75, 33.25, -6, 9.25, -6, -43.75, 38.25, -43.75, 65.75)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("pivotpoint/diagonal_damage_area/diagonal_damage_area_collision:polygon")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-14.25, 69.25, 36.25, 15.25, 35.5, -9.25, 7, -8.75, -46.75, 36.25, -46, 69.25)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("pivotpoint/diagonal_knockback_area/diagonal_knockback_area_collision:disabled")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("pivotpoint/diagonal_damage_area/diagonal_damage_area_collision:disabled")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("pivotpoint:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-12, 28.75)]
 }
 
 [sub_resource type="Animation" id="Animation_nn1yf"]
@@ -37,7 +169,7 @@ step = 0.0625
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("iceblock_sprites:frame")
+tracks/0/path = NodePath("pivotpoint/iceblock_sprites:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -49,7 +181,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("iceblock_collision:polygon")
+tracks/1/path = NodePath("pivotpoint/iceblock_wall/iceblock_collision:polygon")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -57,6 +189,78 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [PackedVector2Array(-129.75, 420.25, 210.5, 80.25, 213.25, -22.5, 68, -23.25, -281, 272.75, -280.25, 409.25), PackedVector2Array(-103.25, 422.75, 237, 82.75, 239.75, -20, 94.5, -20.75, -254.5, 275.25, -253.75, 411.75), PackedVector2Array(-113.25, 421.5, 227, 81.5, 229.75, -21.25, 84.5, -22, -264.5, 274, -263.75, 410.5), PackedVector2Array(-142.25, 419, 198, 79, 200.75, -72, 60.5, -73.25, -293.5, 228.75, -292.75, 408), PackedVector2Array(-94.25, 417.75, 246, 77.75, 248.75, -73.25, 108.5, -74.5, -245.5, 227.5, -244.75, 406.75), PackedVector2Array(-113.25, 419, 227, 79, 229.75, -72, 89.5, -73.25, -264.5, 228.75, -263.75, 408), PackedVector2Array(-124, 417.5, 216.25, 77.5, 218, -422.5, 74.25, -424, -274.25, -129, -274.5, 406.5), PackedVector2Array(-108.75, 416, 231.5, 76, 233.25, -424, 89.5, -425.5, -264.25, -128, -259.75, 403)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pivotpoint/damage_area/damage_collision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("pivotpoint/knockback_area/knockback_collision:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("pivotpoint/diagonal_damage_area/diagonal_damage_area_collision:polygon")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(-14.25, 69.25, 36.25, 15.25, 35.5, -9.25, 7, -8.75, -46.75, 36.25, -46, 69.25), PackedVector2Array(-11.75, 68, 39.25, 15.5, 40.25, -6.5, 10.75, -6.75, -41.75, 36.5, -41.75, 68), PackedVector2Array(-14.75, 66.5, 36.75, 15.25, 37.5, -7.5, 10, -7.25, -44, 37, -44, 66.25), PackedVector2Array(-19, 66, 33.25, 14.75, 34.5, -13.25, 3.75, -13.5, -48.75, 31, -47.25, 65.25)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("pivotpoint/diagonal_knockback_area/diagonal_knockback_area_collision:polygon")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(-16, 65.75, 33.75, 12.75, 33.25, -6, 9.25, -6, -43.75, 38.25, -43.75, 65.75), PackedVector2Array(-12.75, 65.5, 37.25, 13.75, 38, -4.75, 12.5, -4.5, -38.75, 38.25, -38.75, 65), PackedVector2Array(-14.5, 64.25, 35.25, 13.25, 35.75, -5.25, 9.25, -4.75, -41.5, 38.25, -41.75, 64), PackedVector2Array(-18.75, 64.5, 30.5, 14, 31.75, -11.75, 5.25, -12.5, -46, 32, -45.25, 63)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("pivotpoint/diagonal_knockback_area/diagonal_knockback_area_collision:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("pivotpoint/diagonal_damage_area/diagonal_damage_area_collision:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_a6g3u"]
@@ -66,7 +270,7 @@ step = 0.0625
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("iceblock_sprites:frame")
+tracks/0/path = NodePath("pivotpoint/iceblock_sprites:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -78,7 +282,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("iceblock_collision:polygon")
+tracks/1/path = NodePath("pivotpoint/iceblock_wall/iceblock_collision:polygon")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -86,6 +290,90 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [PackedVector2Array(-323.25, 233.25, 288.5, 231.75, 288.5, 113, 257.75, 80, -275.75, 80.5, -320, 118.75), PackedVector2Array(-264, 234.75, 347, 234.75, 344, 110.75, 315, 78.75, -216, 78.75, -265, 121.75), PackedVector2Array(-285, 237.75, 324, 230.75, 322, 107.75, 295, 77.75, -237, 78.75, -286, 124.75), PackedVector2Array(-323.25, 233.25, 288.5, 231.75, 291, 30.75, 260, -1.25, -267, -0.25, -319, 38.75), PackedVector2Array(-264, 233.75, 350, 234.75, 345, 31.75, 316, -1.25, -215, -0.25, -264, 39.75), PackedVector2Array(-286, 231.75, 328, 230.75, 324, 28.75, 292, -1.25, -237, -1.25, -285, 39.75), PackedVector2Array(-302, 233.75, 305, 231.75, 305, -249.25, 272, -282.25, -256, -282.25, -302, -243.25), PackedVector2Array(-287, 233.75, 324, 230.75, 320, -254.25, 292, -281.25, -238, -281.25, -286, -245.25)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pivotpoint/damage_area/damage_collision:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0.875, 16.125), Vector2(0.875, 16.125), Vector2(5.195, 16.125), Vector2(0.135, 16.125), Vector2(7.8, 16.125), Vector2(3.43, 16.125), Vector2(3.43, -6.505), Vector2(4.75, -6.5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("pivotpoint/damage_area/damage_collision:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3125, 0.375),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1, 2.18)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("pivotpoint/knockback_area/knockback_collision:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-1.75, 16.25), Vector2(8, 16.25), Vector2(5.25, 16), Vector2(0.13499999, 15.875), Vector2(6.9000006, 16.3125), Vector2(3.43, 16.125), Vector2(1.25, -6.5), Vector2(3.5, -6.5)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("pivotpoint/knockback_area/knockback_collision:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3125, 0.375),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1, 2.18)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("pivotpoint/knockback_area/knockback_collision:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("pivotpoint/damage_area/damage_collision:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("pivotpoint:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_yje8c"]
@@ -95,7 +383,7 @@ step = 0.0625
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("iceblock_sprites:frame")
+tracks/0/path = NodePath("pivotpoint/iceblock_sprites:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -107,7 +395,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("iceblock_collision:polygon")
+tracks/1/path = NodePath("pivotpoint/iceblock_wall/iceblock_collision:polygon")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -115,6 +403,78 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [PackedVector2Array(81.5, 425.25, 79.75, 276.25, 68.5, -29, -122, -27.25, -133.25, 280, -131.25, 426), PackedVector2Array(122.75, 422.5, 120.5, 284.5, 106.75, -26.75, -77.25, -25.5, -94.25, 282.25, -86.25, 424.75), PackedVector2Array(104.25, 423.5, 103.25, 283.5, 88.25, -29, -99, -25.5, -114, 275.5, -111.5, 422.5), PackedVector2Array(73.25, 422.5, 71, 204.25, 55.5, -108.5, -126, -108.5, -142.5, 204.25, -139.25, 422.5), PackedVector2Array(134.75, 424.5, 129, 199.25, 113, -108.5, -68.5, -112, -85.75, 190, -80, 424.5), PackedVector2Array(104.75, 422, 103.75, 201.5, 86.5, -109.75, -98.5, -108.5, -113.5, 198, -107.75, 423.25), PackedVector2Array(86.5, 422, 83.75, -65, 68.5, -376.5, -113.75, -374.5, -129.5, -67.25, -130.75, 422), PackedVector2Array(109.25, 425.5, 100.25, -62, 88.25, -378.5, -96.25, -377, -111.25, -65, -111.25, 424)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pivotpoint/damage_area/damage_collision:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-3.71, 27.545), Vector2(2.115, 28.525), Vector2(-0.365, 28.525), Vector2(-5.245, 22.91)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("pivotpoint/damage_area/damage_collision:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.1875),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0.36, 1.705), Vector2(0.36, 1.705), Vector2(0.36, 1.945)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("pivotpoint/damage_area/damage_collision:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("pivotpoint/knockback_area/knockback_collision:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-3.25, 29.195), Vector2(2.5, 29.195), Vector2(-0.59, 29.195), Vector2(-5.18, 23.13)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("pivotpoint/knockback_area/knockback_collision:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.1875),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0.375, 1.825), Vector2(0.375, 1.825), Vector2(0.375, 2.18)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("pivotpoint/knockback_area/knockback_collision:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0e8mw"]
@@ -125,26 +485,73 @@ _data = {
 &"ice_wall_side": SubResource("Animation_yje8c")
 }
 
-[node name="Iceblock" type="Area2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5oucj"]
+size = Vector2(126.75, 45.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7xcy8"]
+size = Vector2(104.3, 38.875)
+
+[node name="Iceblock" type="Node2D"]
 z_index = -2
 scale = Vector2(4, 4)
-collision_layer = 8
-collision_mask = 14
 script = ExtResource("1_1rhpg")
 
-[node name="iceblock_sprites" type="Sprite2D" parent="."]
-position = Vector2(0.25, 0)
+[node name="pivotpoint" type="Node2D" parent="."]
+position = Vector2(-12, 28.75)
+
+[node name="iceblock_sprites" type="Sprite2D" parent="pivotpoint"]
+position = Vector2(-1.75, -22)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("2_5oucj")
 hframes = 8
 vframes = 3
 
-[node name="iceblock_animation" type="AnimationPlayer" parent="."]
+[node name="iceblock_animation" type="AnimationPlayer" parent="pivotpoint"]
+root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_0e8mw")
 }
 
-[node name="iceblock_collision" type="CollisionPolygon2D" parent="."]
+[node name="iceblock_wall" type="StaticBody2D" parent="pivotpoint"]
+position = Vector2(-2, -22)
+collision_mask = 15
+
+[node name="iceblock_collision" type="CollisionPolygon2D" parent="pivotpoint/iceblock_wall"]
 position = Vector2(0.5, 0)
 scale = Vector2(0.15, 0.15)
 polygon = PackedVector2Array(-129.75, 420.25, 210.5, 80.25, 213.25, -22.5, 68, -23.25, -281, 272.75, -280.25, 409.25)
+
+[node name="damage_area" type="Area2D" parent="pivotpoint"]
+position = Vector2(-2, -22)
+collision_layer = 8
+collision_mask = 4
+
+[node name="damage_collision" type="CollisionShape2D" parent="pivotpoint/damage_area"]
+position = Vector2(0.875, 16.125)
+shape = SubResource("RectangleShape2D_5oucj")
+
+[node name="knockback_area" type="Area2D" parent="pivotpoint"]
+position = Vector2(-2, -22)
+collision_layer = 8
+collision_mask = 4
+
+[node name="knockback_collision" type="CollisionShape2D" parent="pivotpoint/knockback_area"]
+position = Vector2(-1.625, 19.875)
+shape = SubResource("RectangleShape2D_7xcy8")
+debug_color = Color(0, 0.8352941, 0.35686275, 0.41960785)
+
+[node name="diagonal_damage_area" type="Area2D" parent="pivotpoint"]
+position = Vector2(-2, -22)
+collision_layer = 8
+collision_mask = 4
+
+[node name="diagonal_damage_area_collision" type="CollisionPolygon2D" parent="pivotpoint/diagonal_damage_area"]
+polygon = PackedVector2Array(-14.25, 69.25, 36.25, 15.25, 35.5, -9.25, 7, -8.75, -46.75, 36.25, -46, 69.25)
+
+[node name="diagonal_knockback_area" type="Area2D" parent="pivotpoint"]
+position = Vector2(-2, -22)
+collision_layer = 8
+collision_mask = 4
+
+[node name="diagonal_knockback_area_collision" type="CollisionPolygon2D" parent="pivotpoint/diagonal_knockback_area"]
+polygon = PackedVector2Array(-16, 65.75, 33.75, 12.75, 33.25, -6, 9.25, -6, -43.75, 38.25, -43.75, 65.75)
