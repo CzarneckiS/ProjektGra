@@ -8,6 +8,10 @@ var standing: bool = true
 var selected = false
 var dying : bool = false
 
+#Unit spawning
+var skeleton_warrior_count = 0
+var skeleton_mage_count = 0
+
 func _unhandled_input(event):
 	if event.is_action_pressed("fireball_input"):
 		cast_fireball()
@@ -122,7 +126,8 @@ func _process(_delta: float) -> void:
 	#	health_bar.visible = false
 	#	damage_bar.visible = false
 	#	animacja_smierci() + menu_ze_przegrales()
-
+func handle_skill_update(skill):
+	pass
 func hit(damage_taken, _damage_source) -> void:
 	health_bar.visible = true
 	damage_bar.visible = true

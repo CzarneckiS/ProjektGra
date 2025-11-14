@@ -4,7 +4,7 @@ var skills_stat_up = {}
 var skills_passive = {}
 var skills_on_hit = {}
 var skills_on_death = {}
-var tags : Array[String] = ["SkeletonWarrior", "Unit", "Allied"]
+var own_tags : Array[String] = ["Unit", "Allied","SkeletonWarrior"]
 #movement
 var speed = 300
 var move_target = Vector2.ZERO
@@ -16,7 +16,8 @@ var can_navigate:bool = true
 var follow_distance_idle:int = 400
 var follow_distance_absolute:int = 1000
 #combat
-var damage = 20
+var base_damage = 20
+var damage = base_damage
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
 const attack_range = 100
@@ -34,6 +35,7 @@ var state_machine
 
 func _ready() -> void:
 	handle_skills()
+	handle_stats_up()
 	max_health  = 60
 	health = max_health
 	health_bar.max_value = max_health
@@ -69,12 +71,12 @@ func _physics_process(_delta: float) -> void:
 	for unit in possible_targets:
 		if unit == null:
 			possible_targets.erase(unit)
-#SKILLS
+#SKILLS ===============================================================================
 func handle_skills():
 	#dodaj do odpowiednich list umiejetnosci odblokowane
 	for skill in Skills.unlocked_skills:
-		for i in range(tags.size()):
-			if skill.tags.has(tags[i]):
+		for i in range(own_tags.size()):
+			if skill.tags.has(own_tags[i]):
 				if skill.tags.has("StatUp"):
 					skills_stat_up[skill] = skills_stat_up.size()
 				if skill.tags.has("Passive"):
@@ -85,9 +87,22 @@ func handle_skills():
 					skills_on_death[skill] = skills_on_death.size()
 				break
 
-func handle_skill_update():
-	pass
-	#
+func handle_skill_update(skill):
+	for i in range(own_tags.size()):
+		if skill.tags.has(own_tags[i]):
+			if skill.tags.has("StatUp"):
+				skills_stat_up[skill] = skills_stat_up.size()
+				handle_stats_up()
+			if skill.tags.has("Passive"):
+				skills_passive[skill] = skills_passive.size()
+			if skill.tags.has("OnHit"):
+				skills_on_hit[skill] = skills_on_hit.size()
+			if skill.tags.has("OnDeath"):
+				skills_on_death[skill] = skills_on_death.size()
+			break
+func handle_stats_up():
+	for skill in skills_stat_up:
+		skill.use(self)
 #INPUT ===============================================================================
 func handle_inputs(event):
 	if state_machine.state == state_machine.states.dying:
@@ -213,6 +228,7 @@ func heal(heal_amount):
 		return true #jednostka ma ponad 0hp więc wciąż żyje
 func attack():
 	if attack_target: #jeśli nasz cel wciąż istnieje:
+		attack_target.hit(damage, self)
 		for skill in skills_on_hit:
 			skill.use(self, attack_target)
 			pass #jeśli cel zwrócił true - czyli żyje - kontynuuj atakowanie

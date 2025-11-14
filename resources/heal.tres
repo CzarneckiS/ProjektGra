@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/skill_effects/effect_heal.gd" id="2_1wtui"]
 [ext_resource type="Script" path="res://scripts/skills_for_resources/heal_for_resource.gd" id="2_cpcm7"]
 [ext_resource type="Script" uid="uid://8g2g4sl8jw6l" path="res://scripts/skill_effects/effect_aoe.gd" id="3_t64mn"]
-[ext_resource type="Texture2D" uid="uid://bdtq2tpws5nnm" path="res://sprites/Important.png" id="4_t64mn"]
+[ext_resource type="Texture2D" uid="uid://cp1doehp16wic" path="res://sprites/icons/heal icon.png" id="4_t64mn"]
 [ext_resource type="PackedScene" uid="uid://cfvsv4vtqn30m" path="res://scenes/skills/heal.tscn" id="5_xcos8"]
 
 [sub_resource type="Resource" id="Resource_spjag"]

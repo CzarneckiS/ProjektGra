@@ -28,6 +28,7 @@ func spawn_enemy(): # EnemySpawnFollow bierzemy jako unique name
 		%EnemySpawnFollow.progress_ratio = randf()
 	new_enemy.global_position = %EnemySpawnFollow.global_position
 	add_child(new_enemy)
+	new_enemy.connect("target_clicked", _on_target_clicked)
 	
 var test = 0
 #timer okresla co jaki czas bedzie respiony mob, feel free to change
@@ -38,9 +39,9 @@ func _on_timer_timeout() -> void:
 		#print(test)
 
 func is_point_on_map(target_point: Vector2) -> bool:
-	var map := get_world_2d().navigation_map
-	var closest_point := NavigationServer2D.map_get_closest_point(map, target_point)
-	var difference := closest_point - target_point
+	var map = get_world_2d().navigation_map
+	var closest_point = NavigationServer2D.map_get_closest_point(map, target_point)
+	var difference = closest_point - target_point
 	if difference.is_zero_approx():
 		return true
 	else:
@@ -113,7 +114,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_target_clicked(body): #Sygnał od human warriora, czy został kliknięty
 	print("przyjalem sygnal od warriora")
 	for unit in get_tree().get_nodes_in_group("Selected"): #Jeśli jednostka jest zaznaczona
-		unit.attack_target = weakref(body) #wyślij do niej human warriora jako cel ataku
+		unit.attack_target = body #wyślij do niej human warriora jako cel ataku
 		unit.state_machine.set_state(unit.state_machine.states.engaging)
 
 func cursor_move_animation() -> void: #Animacja przy right clickowaniu na ziemię

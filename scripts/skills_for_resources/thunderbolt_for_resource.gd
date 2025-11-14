@@ -1,6 +1,7 @@
 extends SkillInstant
 class_name Thunderbolt
 
+@export var tags : Dictionary = {}
 @export var skill_effect_data: EffectDamage
 @export var skill_effect_data2: EffectAreaOfEffect
 

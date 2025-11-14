@@ -6,7 +6,7 @@ var skills_stat_up = {}
 var skills_passive = {}
 var skills_on_hit = {projectile:1}
 var skills_on_death = {}
-var tags : Array[String] = ["SkeletonMage", "Unit", "Allied"]
+var own_tags : Array[String] = ["Unit", "Allied","SkeletonMage"]
 #movement
 var speed = 300
 var move_target = Vector2.ZERO
@@ -18,7 +18,8 @@ var can_navigate:bool = true
 var follow_distance_idle:int = 400
 var follow_distance_absolute:int = 1000
 #combat
-var damage = 20
+var base_damage = 20
+var damage = base_damage
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
 const attack_range = 400
@@ -36,6 +37,7 @@ var state_machine
 
 func _ready() -> void:
 	handle_skills()
+	handle_stats_up()
 	max_health  = 60
 	health = max_health
 	health_bar.max_value = max_health
@@ -71,13 +73,12 @@ func _physics_process(_delta: float) -> void:
 	for unit in possible_targets:
 		if unit == null:
 			possible_targets.erase(unit)
-#SKILLS
-
+#SKILLS ===============================================================================
 func handle_skills():
 	#dodaj do odpowiednich list umiejetnosci odblokowane
 	for skill in Skills.unlocked_skills:
-		for i in range(tags.size()):
-			if skill.tags.has(tags[i]):
+		for i in range(own_tags.size()):
+			if skill.tags.has(own_tags[i]):
 				if skill.tags.has("StatUp"):
 					skills_stat_up[skill] = skills_stat_up.size()
 				if skill.tags.has("Passive"):
@@ -90,7 +91,9 @@ func handle_skills():
 
 func handle_skill_update():
 	pass
-	#
+func handle_stats_up():
+	for skill in skills_stat_up:
+		skill.use(self)
 #INPUT ===============================================================================
 func handle_inputs(event):
 	if state_machine.state == state_machine.states.dying:
