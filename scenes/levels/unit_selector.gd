@@ -17,7 +17,7 @@ func _process(_delta: float) -> void:
 		select_box = Rect2(x_min, y_min,
 			max(drag_start.x, get_global_mouse_position().x) - x_min,
 			max(drag_start.y, get_global_mouse_position().y) - y_min)
-		update_selected_units() #aktualizuj selectowane jednostki
+		#update_selected_units() #aktualizuj selectowane jednostki
 		print('updatuje jednostki')
 		queue_redraw() #Odśwież grafikę prostokąta
 
@@ -48,8 +48,32 @@ func _draw() -> void:
 func update_selected_units():
 	#nie podoba mi sie juz ta funkcja, nie chce dodawac jednostek W TRAKCIE rysowania selection boxa
 	#do zmiany na przyszlosc - w trakcie rysowania tylko highlightuj, select przy puszczeniu LMB
+	var selected := []
 	for unit in get_tree().get_nodes_in_group('Selectable'): #przeszukaj wszystkie sojusznicze jednostki
 		if unit.is_in_selection_box(select_box): #sprawdź czy są w selection box
 			unit.select() #zaznacz je
+			selected.append(unit)
 		else:
 			unit.deselect() #jak nie są to je odznacz
+	Globals.units_selection_changed.emit(selected)
+	#
+#func update_selected_units():
+	#var selected: Array = []
+#
+	#for unit in get_tree().get_nodes_in_group("Selectable"):
+		#if unit.is_in_selection_box(select_box):
+			## znajdź główny node jednostki (np. SkeletonWarrior) — czyli taki, który ma metodę select()
+			#var root_unit = unit
+			#while root_unit.get_parent() and not root_unit.has_method("select") and root_unit.get_parent() != get_tree().root:
+				#root_unit = root_unit.get_parent()
+#
+			#if root_unit.has_method("select"):
+				#root_unit.select()
+#
+				#if root_unit not in selected:
+					#selected.append(root_unit)
+		#else:
+			#if unit.has_method("deselect"):
+				#unit.deselect()
+#
+	#Globals.units_selection_changed.emit(selected)

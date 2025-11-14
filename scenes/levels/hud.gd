@@ -5,15 +5,28 @@ extends Control
 @onready var xp_bar: ProgressBar = $ExpBar
 @onready var xp_gain_bar: ProgressBar = $ExpGainBar
 @onready var player_level: Label = $LabelPlayerLevel
+@onready var units_panel: GridContainer = $UnitsPanel
 
 var hp_bar_style = StyleBoxFlat.new()
 var xp_bar_style = StyleBoxFlat.new()
+var unit_slots: Array = []
+var selected_units: Array = []
+var groups_in_selection: Array = []
+#był dodatkowy plik globals ? dodać te var w ten plik : nie zmieniać
+var current_group_index: int = -1
+var unique_orders_in_selection: Array = []
+
 
 func _ready() -> void:
 	Globals.ui_hp_update_requested.connect(update_hp_bar)
 	Globals.ui_exp_update_requested.connect(update_exp_bar)
+	Globals.unit_died.connect(_on_unit_died)
+	Globals.units_selection_changed.connect(update_units_panel)
 	
-	
+	for child in units_panel.get_children():
+		if child is TextureButton:
+			unit_slots.append(child)
+			
 	main_health_bar.max_value = Globals.health
 	main_health_bar.value = Globals.health
 	main_health_bar.visible = false
@@ -22,10 +35,10 @@ func _ready() -> void:
 	main_damage_bar.visible = false
 	
 	hp_bar_style.bg_color = Color("ff45edff")
-	hp_bar_style.border_width_left = 4
+	hp_bar_style.border_width_left = 3
 	hp_bar_style.border_width_top = 4
 	hp_bar_style.border_width_bottom = 4
-	hp_bar_style.border_width_right = 5
+	hp_bar_style.border_width_right = 3
 	hp_bar_style.border_color = Color(0.0, 0.0, 0.0, 1.0)
 	main_health_bar.add_theme_stylebox_override("fill", hp_bar_style)
 	
@@ -49,7 +62,11 @@ func _ready() -> void:
 	xp_bar.visible = true
 	xp_gain_bar.visible = true
 	
-	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_select_next_group"):
+		_cycle_unit_group()
+		
+		
 func update_hp_bar():
 	print(Globals.health)
 	main_health_bar.value = Globals.health
@@ -67,3 +84,123 @@ func update_exp_bar():
 	
 	player_level.text = "LVL: %d" % Globals.level
 	
+func update_units_panel(new_units: Array) -> void:
+	selected_units = new_units
+	selected_units.sort_custom(func(a, b): return a.unit_hud_order < b.unit_hud_order)
+	
+	for slot in unit_slots:
+		slot.texture_normal = preload("res://sprites/UnitEmptyIcon.png")
+		if slot.is_connected("pressed", Callable(self, "_on_unit_slot_pressed")):
+			slot.disconnect("pressed", Callable(self, "_on_unit_slot_pressed"))
+		slot.set_meta("unit_ref", null)
+		
+		var border = slot.get_node_or_null("Border")
+		if border:
+			border.visible = false
+			
+	for i in range(min(selected_units.size(), unit_slots.size())):
+		var unit = selected_units[i]
+		var slot = unit_slots[i]
+		var icon: Texture2D
+		if unit.icon_texture != "" and ResourceLoader.exists(unit.icon_texture):
+			icon = load(unit.icon_texture)
+		else:
+			icon = preload("res://sprites/UnitDoesntLinkedIcon.png")
+		slot.texture_normal = icon
+		slot.set_meta("unit_ref", unit)
+		slot.connect("pressed", Callable(self, "_on_unit_slot_pressed").bind(slot))
+
+		var border = slot.get_node_or_null("Border")
+		if border:
+			border.visible = true
+			
+			
+	unique_orders_in_selection = []
+	for unit in selected_units:
+		if not unique_orders_in_selection.has(unit.unit_hud_order):
+			unique_orders_in_selection.append(unit.unit_hud_order)
+
+	unique_orders_in_selection.sort()
+	current_group_index = -1 
+	
+func selection_change():	
+	if groups_in_selection.is_empty():
+		return
+		
+	for unit in selected_units:
+		if unit in groups_in_selection:
+			unit.select()
+		else:
+			unit.deselect()
+#BUGGED
+func _on_unit_slot_pressed(slot: TextureButton) -> void:
+	if slot.get_meta("unit_ref") == null:
+		return
+
+	var units_buffer: Array = []
+	for u in selected_units:
+		if u.unit_hud_order == slot.get_meta("unit_ref").unit_hud_order:
+			units_buffer.append(u)
+
+	if groups_in_selection != units_buffer:
+		groups_in_selection = units_buffer.duplicate()
+		for i in range(selected_units.size()):
+			var border = unit_slots[i].get_node_or_null("Border")
+			if border:
+				border.visible = (selected_units[i] in groups_in_selection)
+		return
+
+	if unique_orders_in_selection.size() >= 2:
+		selected_units = units_buffer.duplicate()
+		groups_in_selection = units_buffer.duplicate()
+		update_units_panel(selected_units)
+		
+		selection_change()
+		return
+
+	if groups_in_selection.size() > 1:
+		selected_units = [slot.get_meta("unit_ref")]
+		groups_in_selection = [slot.get_meta("unit_ref")]
+		update_units_panel(selected_units)
+		
+		selection_change()
+		return
+	
+	selection_change()
+	return
+			
+
+func _on_unit_died(unit):
+	if unit in selected_units:
+		selected_units.erase(unit)
+		update_units_panel(selected_units)
+
+
+func _cycle_unit_group() -> void:
+	if unique_orders_in_selection.is_empty():
+		return
+
+	current_group_index += 1
+
+	if current_group_index >= unique_orders_in_selection.size():
+		current_group_index = -1
+		groups_in_selection = selected_units.duplicate()
+
+		for i in range(selected_units.size()):
+			var border = unit_slots[i].get_node_or_null("Border")
+			if border:
+				border.visible = true
+		return
+
+	var active_order = unique_orders_in_selection[current_group_index]
+	groups_in_selection.clear()
+
+	for i in range(selected_units.size()):
+		var unit = selected_units[i]
+		var border = unit_slots[i].get_node_or_null("Border")
+
+		if unit.unit_hud_order == active_order:
+			groups_in_selection.append(unit)
+	
+		if border:
+			border.visible = (unit.unit_hud_order == active_order)

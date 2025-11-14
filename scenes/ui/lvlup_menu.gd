@@ -12,8 +12,8 @@ func _process(delta: float) -> void:
 
 
 func _on_option_1_pressed() -> void:
-	get_tree().paused = false 
-	queue_free()   
+	get_tree().paused = false
+	queue_free()
 
 
 func _on_option_2_pressed() -> void:

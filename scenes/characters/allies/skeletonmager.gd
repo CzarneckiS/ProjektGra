@@ -28,8 +28,8 @@ var state_machine
 @onready var unstick_timer: Timer = $Timers/UnstickTimer
 
 func _ready() -> void:
-	unit_hud_order = 1
-	icon_texture = "res://sprites/skeleton warrior icon.png"
+	unit_hud_order = 3
+	icon_texture = "res://sprites/skeleton mage icon.png"
 	max_health  = 60
 	health = max_health
 	health_bar.max_value = max_health
@@ -190,7 +190,6 @@ func hit(damage_taken, _damage_source) -> bool:
 		Globals.unit_died.emit(self)
 		health_bar.visible = false
 		damage_bar.visible = false
-		
 		state_machine.call_deferred("set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
 		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje

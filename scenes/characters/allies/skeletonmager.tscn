@@ -1,16 +1,16 @@
-[gd_scene load_steps=22 format=3 uid="uid://c6wxbv4ruot4l"]
+[gd_scene load_steps=22 format=3 uid="uid://dqywmbkm1khxg"]
 
-[ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_2674o"]
-[ext_resource type="Script" uid="uid://cwci7wyh3g6yl" path="res://scenes/characters/allies/skeletonwarrior.gd" id="2_f3pgp"]
-[ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/shadow.png" id="3_p5k3i"]
-[ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/selection.png" id="3_xg2mg"]
-[ext_resource type="Texture2D" uid="uid://bbkf2tlyficf6" path="res://sprites/skeleton_warrior/skellington_warrior_body.png" id="4_mfyro"]
-[ext_resource type="Texture2D" uid="uid://ymu8vxktg2t7" path="res://sprites/skeleton_warrior/skellington_warrior_shield.png" id="5_p5k3i"]
-[ext_resource type="PackedScene" uid="uid://dyst0xyeehbia" path="res://scenes/warrior_state_machine.tscn" id="5_x85af"]
-[ext_resource type="Texture2D" uid="uid://ceoj7ghhpw2mq" path="res://sprites/skeleton_warrior/skellington_warrior_sword.png" id="6_152ed"]
-[ext_resource type="Texture2D" uid="uid://chk2x4f7c6xvb" path="res://sprites/skeleton_warrior/skellington_warrior_left_boot.png" id="7_24fhp"]
-[ext_resource type="Texture2D" uid="uid://dd80gild66mgj" path="res://sprites/skeleton_warrior/skellington_warrior_right_boot.png" id="8_6bcrf"]
-[ext_resource type="Texture2D" uid="uid://c5guqovle2c50" path="res://sprites/skeleton_warrior/skellington_warrior_head.png" id="9_ksuwf"]
+[ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_3i8mp"]
+[ext_resource type="Script" uid="uid://q8esw0egkprq" path="res://scenes/characters/allies/skeletonmager.gd" id="2_3i8mp"]
+[ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/shadow.png" id="3_pwyi4"]
+[ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/selection.png" id="4_ctsox"]
+[ext_resource type="Texture2D" uid="uid://bbkf2tlyficf6" path="res://sprites/skeleton_warrior/skellington_warrior_body.png" id="5_vjdtb"]
+[ext_resource type="Texture2D" uid="uid://ymu8vxktg2t7" path="res://sprites/skeleton_warrior/skellington_warrior_shield.png" id="6_vtdhx"]
+[ext_resource type="Texture2D" uid="uid://chk2x4f7c6xvb" path="res://sprites/skeleton_warrior/skellington_warrior_left_boot.png" id="7_c0tc4"]
+[ext_resource type="Texture2D" uid="uid://dd80gild66mgj" path="res://sprites/skeleton_warrior/skellington_warrior_right_boot.png" id="8_i1bis"]
+[ext_resource type="Texture2D" uid="uid://ceoj7ghhpw2mq" path="res://sprites/skeleton_warrior/skellington_warrior_sword.png" id="9_1lmvd"]
+[ext_resource type="Texture2D" uid="uid://c5guqovle2c50" path="res://sprites/skeleton_warrior/skellington_warrior_head.png" id="10_ttf1s"]
+[ext_resource type="PackedScene" uid="uid://dyst0xyeehbia" path="res://scenes/warrior_state_machine.tscn" id="11_ss8ps"]
 
 [sub_resource type="GDScript" id="GDScript_bluo0"]
 script/source = "extends Sprite2D
@@ -379,16 +379,16 @@ _data = {
 &"walk": SubResource("Animation_mfyro")
 }
 
-[node name="SkeletonWarrior" groups=["Allied", "Selectable"] instance=ExtResource("1_2674o")]
+[node name="SkeletonMager" groups=["Allied", "Selectable"] instance=ExtResource("1_3i8mp")]
 collision_layer = 4
 collision_mask = 11
-script = ExtResource("2_f3pgp")
+script = ExtResource("2_3i8mp")
 
 [node name="Shadow" type="Sprite2D" parent="." index="0"]
 modulate = Color(1, 1, 1, 0.5529412)
 position = Vector2(0, 33)
 scale = Vector2(0.092, 0.092)
-texture = ExtResource("3_p5k3i")
+texture = ExtResource("3_pwyi4")
 
 [node name="Highlighted" type="Sprite2D" parent="." index="1"]
 visible = false
@@ -396,14 +396,14 @@ modulate = Color(1, 1, 1, 0.4509804)
 z_index = -1
 position = Vector2(0, 37)
 scale = Vector2(0.14781019, 0.14781019)
-texture = ExtResource("3_xg2mg")
+texture = ExtResource("4_ctsox")
 
 [node name="Selected" type="Sprite2D" parent="." index="2"]
 visible = false
 z_index = -1
 position = Vector2(0, 37)
 scale = Vector2(0.14781019, 0.14781019)
-texture = ExtResource("3_xg2mg")
+texture = ExtResource("4_ctsox")
 
 [node name="Sprite2D" parent="." index="3"]
 position = Vector2(0, -11)
@@ -411,27 +411,27 @@ scale = Vector2(0.15, 0.15)
 script = SubResource("GDScript_bluo0")
 
 [node name="Body" type="Sprite2D" parent="Sprite2D" index="0"]
-texture = ExtResource("4_mfyro")
+texture = ExtResource("5_vjdtb")
 
 [node name="Shield" type="Sprite2D" parent="Sprite2D" index="1"]
-texture = ExtResource("5_p5k3i")
+texture = ExtResource("6_vtdhx")
 
 [node name="Legs" type="Sprite2D" parent="Sprite2D" index="2"]
 
 [node name="LeftLeg" type="Sprite2D" parent="Sprite2D/Legs" index="0"]
-texture = ExtResource("7_24fhp")
+texture = ExtResource("7_c0tc4")
 
 [node name="RightLeg" type="Sprite2D" parent="Sprite2D/Legs" index="1"]
-texture = ExtResource("8_6bcrf")
+texture = ExtResource("8_i1bis")
 
 [node name="Sword" type="Sprite2D" parent="Sprite2D" index="3"]
 position = Vector2(0, 20)
-texture = ExtResource("6_152ed")
+texture = ExtResource("9_1lmvd")
 
 [node name="Head" type="Sprite2D" parent="Sprite2D" index="4"]
 position = Vector2(0, 10)
 scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("9_ksuwf")
+texture = ExtResource("10_ttf1s")
 
 [node name="CollisionShape2D" parent="." index="4"]
 position = Vector2(0, 14)
@@ -469,7 +469,7 @@ one_shot = true
 [node name="UnstickTimer" type="Timer" parent="Timers" index="2"]
 one_shot = true
 
-[node name="WarriorStateMachine" parent="." index="9" instance=ExtResource("5_x85af")]
+[node name="WarriorStateMachine" parent="." index="9" instance=ExtResource("11_ss8ps")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
 libraries = {

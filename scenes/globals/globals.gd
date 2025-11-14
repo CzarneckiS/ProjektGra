@@ -3,6 +3,11 @@ extends Node
 # nie wiem czy jest sens rozbić na 2 różne sygnały dla hp/xp
 signal ui_hp_update_requested
 signal ui_exp_update_requested
+signal lvl_up_menu_requested
+signal units_selection_changed(new_units)
+signal unit_died(unit)
+
+
 
 #statystyki głównej jednostki
 var health : int = 100
@@ -70,14 +75,12 @@ func level_up():
 	xp_to_level += 5 #placeholder wartosc na zwiekszanie limitu do uzyskania kolejnego lvla
 	level += 1 #nie było tego, dodałem, nie wiem czy coś innego myśleliście
 	
-	
 	ui_hp_update_requested.emit()
-
+	lvl_up_menu_requested.emit()
 
 func update_player_hp(damage_taken):
 	health -= damage_taken
 	ui_hp_update_requested.emit()
-	
 	if health <= 0:
 		pass # play death()
 	

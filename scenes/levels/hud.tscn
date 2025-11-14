@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dow75ifqnaejo"]
+[gd_scene load_steps=8 format=3 uid="uid://dow75ifqnaejo"]
 
 [ext_resource type="Script" uid="uid://bh80at3wk5jxc" path="res://scenes/levels/hud.gd" id="1_h1s5m"]
+[ext_resource type="Texture2D" uid="uid://dyc55ux1x0ab4" path="res://sprites/UnitEmptyIcon.png" id="2_icbpb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyfml"]
 bg_color = Color(0, 0, 0, 1)
@@ -9,7 +10,7 @@ border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1s5m"]
-bg_color = Color(0.6872153, 0.6872149, 0.6872149, 1)
+bg_color = Color(0.82606, 0.82606006, 0.82606, 1)
 border_width_top = 3
 border_width_bottom = 3
 border_color = Color(0, 0, 0, 1)
@@ -21,16 +22,24 @@ bg_color = Color(0.84003437, 0.0008719367, 0.8898385, 1)
 border_color = Color(0, 0, 0, 1)
 corner_detail = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_icbpb"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
 [node name="Hud" type="Control"]
 z_index = 100
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 49.0
-offset_top = 781.0
-offset_right = -1551.0
-offset_bottom = -77.0
+offset_left = 590.0
+offset_top = 792.0
+offset_right = -920.0
+offset_bottom = -66.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_h1s5m")
@@ -57,10 +66,10 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.44966444
 anchor_top = 1.6190476
-anchor_right = 0.50140727
+anchor_right = 0.6075253
 anchor_bottom = 1.6240602
 offset_left = -24.0
-offset_right = 356.0
+offset_right = 340.32272
 offset_bottom = 25.789474
 theme_override_styles/background = SubResource("StyleBoxEmpty_icbpb")
 theme_override_styles/fill = SubResource("StyleBoxFlat_16vcj")
@@ -102,9 +111,168 @@ metadata/_edit_use_anchors_ = true
 
 [node name="LabelPlayerLevel" type="Label" parent="."]
 layout_mode = 0
-offset_left = -24.0
+offset_left = 17.0
 offset_top = -8.0
-offset_right = 77.0
+offset_right = 118.0
 offset_bottom = 42.0
 theme_override_font_sizes/font_size = 36
 text = "LVL: 0"
+
+[node name="UnitsPanel" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.53300005
+anchor_top = -0.21400002
+anchor_right = -0.53300005
+anchor_bottom = -0.21400002
+offset_left = -468.03
+offset_top = -7.011999
+offset_right = -145.03
+offset_bottom = 96.988
+grow_horizontal = 0
+columns = 6
+
+[node name="Slot1" type="TextureButton" parent="UnitsPanel"]
+layout_mode = 2
+texture_normal = ExtResource("2_icbpb")
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot1"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot2" type="TextureButton" parent="UnitsPanel"]
+layout_mode = 2
+texture_normal = ExtResource("2_icbpb")
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot2"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot3" type="TextureButton" parent="UnitsPanel"]
+layout_mode = 2
+texture_normal = ExtResource("2_icbpb")
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot3"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot4" type="TextureButton" parent="UnitsPanel"]
+layout_mode = 2
+texture_normal = ExtResource("2_icbpb")
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot4"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot5" type="TextureButton" parent="UnitsPanel"]
+layout_mode = 2
+texture_normal = ExtResource("2_icbpb")
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot5"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot6" type="TextureButton" parent="UnitsPanel"]
+layout_mode = 2
+texture_normal = ExtResource("2_icbpb")
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot6"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot7" type="TextureButton" parent="UnitsPanel"]
+layout_mode = 2
+texture_normal = ExtResource("2_icbpb")
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot7"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot8" type="TextureButton" parent="UnitsPanel"]
+layout_mode = 2
+texture_normal = ExtResource("2_icbpb")
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot8"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot9" type="TextureButton" parent="UnitsPanel"]
+layout_mode = 2
+texture_normal = ExtResource("2_icbpb")
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot9"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot10" type="TextureButton" parent="UnitsPanel"]
+layout_mode = 2
+texture_normal = ExtResource("2_icbpb")
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot10"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot11" type="TextureButton" parent="UnitsPanel"]
+layout_mode = 2
+texture_normal = ExtResource("2_icbpb")
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot11"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot12" type="TextureButton" parent="UnitsPanel"]
+layout_mode = 2
+texture_normal = ExtResource("2_icbpb")
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot12"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
