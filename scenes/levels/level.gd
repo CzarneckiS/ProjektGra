@@ -122,9 +122,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var new_ally = preload("res://scenes/characters/allies/skeletonwarrior.tscn").instantiate()
 		new_ally.global_position = get_global_mouse_position()
 		add_child(new_ally)
-		var new_ally1 = preload("res://scenes/characters/allies/skeletonmager.tscn").instantiate()
-		new_ally1.global_position = get_global_mouse_position()
-		add_child(new_ally1)
+
 		
 	elif event.is_action_pressed("tmpSpawnEnemy"):
 		spawn_enemy()
