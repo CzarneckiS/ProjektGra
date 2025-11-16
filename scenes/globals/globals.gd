@@ -5,7 +5,7 @@ signal ui_hp_update_requested
 signal ui_exp_update_requested
 signal lvl_up_menu_requested
 signal units_selection_changed(new_units)
-signal unit_died(unit)
+signal ui_unit_died(unit)
 
 
 
@@ -15,7 +15,7 @@ var max_health : int = health
 var player_position: Vector2
 
 #exp i levelowanie
-var xp_to_level : int = 5 #limit, ktory musimy dobic aby wbic lvl. placeholder value
+var xp_to_level : int = 200 #limit, ktory musimy dobic aby wbic lvl. placeholder value
 var level : int = 1 #startowy lvl
 var accumulated_xp : int = 0 #zebrany przez nas exp, startujemy bez expa
 

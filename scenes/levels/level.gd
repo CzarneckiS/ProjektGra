@@ -171,7 +171,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			lvlup_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 			$MenuLayer.add_child(lvlup_menu)
 			get_tree().paused = true
-	elif event.is_action_pressed("tmpSpawnAlly"):
+	elif event.is_action_pressed("tmpSpawnAlly1"):
+		summon_skeleton_warrior()
+	elif event.is_action_pressed("tmpSpawnAlly2"):
 		summon_skeleton_mage()
 	elif event.is_action_pressed("tmpSpawnEnemy"):
 		spawn_enemy()

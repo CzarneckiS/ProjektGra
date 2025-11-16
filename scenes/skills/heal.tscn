@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cfvsv4vtqn30m"]
 
 [ext_resource type="Texture2D" uid="uid://bni3mreiwwfwy" path="res://sprites/heal/heal_0.png" id="1_0krdl"]
-[ext_resource type="Script" uid="uid://dv65krrfrjqcj" path="res://scenes/skills/heal.gd" id="1_yp8rh"]
+[ext_resource type="Script" path="res://scenes/skills/heal.gd" id="1_yp8rh"]
 [ext_resource type="Texture2D" uid="uid://ut22hpemoqt5" path="res://sprites/heal/heal_1.png" id="2_yp8rh"]
 [ext_resource type="Texture2D" uid="uid://dwress0a2npo1" path="res://sprites/heal/heal_2.png" id="3_7hnho"]
 [ext_resource type="Texture2D" uid="uid://brhvotngjwd0j" path="res://sprites/heal/heal_3.png" id="4_6fwmb"]
@@ -46,7 +46,7 @@ animations = [{
 [node name="Heal" type="Area2D"]
 scale = Vector2(3, 3)
 collision_layer = 8
-collision_mask = 4
+collision_mask = 32
 script = ExtResource("1_yp8rh")
 
 [node name="heal_collision" type="CollisionShape2D" parent="."]

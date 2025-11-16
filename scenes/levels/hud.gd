@@ -19,7 +19,7 @@ var ctrl_active  = false
 func _ready() -> void:
 	Globals.ui_hp_update_requested.connect(update_hp_bar)
 	Globals.ui_exp_update_requested.connect(update_exp_bar)
-	Globals.unit_died.connect(_on_unit_died)
+	Globals.ui_unit_died.connect(_on_unit_died)
 	Globals.units_selection_changed.connect(update_units_panel)
 	
 	for child in units_panel.get_children():
@@ -40,6 +40,8 @@ func _ready() -> void:
 	xp_bar.visible = true
 	xp_gain_bar.visible = true
 	
+	player_level.text = "LVL: %d" % Globals.level
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select_next_group"):
 		_cycle_unit_group()
@@ -74,7 +76,7 @@ func update_hp_bar():
 	
 func update_exp_bar():
 	var xp_tween = create_tween()
-	xp_tween.tween_property(xp_gain_bar, "value", Globals.accumulated_xp, 0.7)
+	xp_tween.tween_property(xp_bar, "value", Globals.accumulated_xp, 0.2)
 	xp_tween.set_trans(Tween.TRANS_SINE)
 	xp_tween.set_ease(Tween.EASE_OUT)
 	
@@ -182,7 +184,7 @@ func _on_unit_slot_pressed(slot: TextureButton) -> void:
 func _on_unit_died(unit):
 	if unit in selected_units:
 		selected_units.erase(unit)
-		update_units_panel(selected_units)
+	update_units_panel(selected_units)
 
 func _cycle_unit_group() -> void:
 	if unique_orders_in_selection.is_empty():

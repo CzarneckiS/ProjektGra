@@ -266,9 +266,9 @@ point_count = 5
 
 [sub_resource type="Curve2D" id="Curve2D_d4w6o"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 234, -45, 0, 0, 0, 0, 172, 189, 0, 0, 0, 0, -187, 186, 0, 0, 0, 0, -277, -74, 0, 0, 0, 0, -22, -211)
+"points": PackedVector2Array(0, 0, 0, 0, 234, -45, 0, 0, 0, 0, 172, 189, 0, 0, 0, 0, -187, 186, 0, 0, 0, 0, -277, -74, 0, 0, 0, 0, -22, -211, 0, 0, 0, 0, 234, -45)
 }
-point_count = 5
+point_count = 6
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_urvlt"]
 vertices = PackedVector2Array(420, -300, 420, -900, 2339.2734, -1282.1797, 2374.711, 1270.9531, -1847.9297, -1322.7969, -420, -900, -1839.0625, 1261.0391, -420, -300)
@@ -324,6 +324,7 @@ rotation = -0.005737672
 wait_time = 0.1
 
 [node name="AllySpawnArea" type="Path2D" parent="Player"]
+position = Vector2(8, 213)
 curve = SubResource("Curve2D_d4w6o")
 
 [node name="AllySpawnFollow" type="PathFollow2D" parent="Player/AllySpawnArea"]
@@ -356,9 +357,8 @@ script = ExtResource("4_xb4v1")
 color = Color(0.96197957, 0.6363589, 0.5854872, 1)
 energy = 0.05
 
-[node name="MenuLayer" type="CanvasLayer" parent="."]
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(-8, -7)
 navigation_polygon = SubResource("NavigationPolygon_urvlt")
 
 [node name="HudLayer" type="CanvasLayer" parent="."]
@@ -373,23 +373,26 @@ offset_right = -372.0
 offset_bottom = 450.0
 
 [node name="Label" type="Label" parent="HudLayer"]
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
+anchors_preset = -1
+anchor_left = 0.84800005
+anchor_top = 0.34100002
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -204.0
-offset_top = -63.5
-offset_bottom = 63.5
+anchor_bottom = 0.48800004
+offset_left = 39.19995
+offset_top = -75.900024
+offset_bottom = 113.29996
 grow_horizontal = 0
 grow_vertical = 2
 text = "Z + left click = attack move
 X = stop
 C = hold position
-R = spawn ally
-F = spawn enemy
+J = Spawn Warrior
+K = Spawn Mage
+L = Spawn Enemy
+P = Level up
 Q = fireball
-E = lightning bolt"
+E = lightning bolt
+R = Heal"
 
 [node name="Label2" type="Label" parent="HudLayer"]
 anchors_preset = 1
@@ -399,7 +402,10 @@ offset_left = -40.0
 offset_bottom = 23.0
 grow_horizontal = 0
 
+[node name="MenuLayer" type="CanvasLayer" parent="."]
+
 [node name="UnitRespawnTimers" type="Node" parent="."]
+
 [node name="LvlUpUpgradesLayer" type="CanvasLayer" parent="."]
 
 [connection signal="timeout" from="Player/EnemySpawnArea/Timer" to="." method="_on_timer_timeout"]

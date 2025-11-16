@@ -207,7 +207,7 @@ func hit(damage_taken, _damage_source) -> bool:
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_OUT)
 	if health <= 0: #hp poniżej 0 - umieranie
-		Globals.unit_died.emit(self)
+		Globals.ui_unit_died.emit(self)
 		dying = true
 		health_bar.visible = false
 		damage_bar.visible = false
@@ -329,7 +329,11 @@ func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 		if state_machine.command_key == state_machine.command_keys.ATTACK_MOVE:
 			return #jesli chcemy zrobic attack move to nie selectujemy jednostki left clickowanej
 		if event.is_released:
+			#troche nasty style, potencjalnie do poprawy
+			for unit in get_tree().get_nodes_in_group("Selected"):
+				unit.deselect()
 			select()
+			Globals.units_selection_changed.emit(get_tree().get_nodes_in_group("Selected"))
 
 #sprawdzamy czy myszka znajduje się w Area2D naszego ClickArea
 func _on_click_area_mouse_entered() -> void:
