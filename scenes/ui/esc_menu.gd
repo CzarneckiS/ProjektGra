@@ -13,7 +13,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		queue_free() 
 		
 func _on_button_continue_pressed() -> void:
-	get_tree().paused = false 
+	get_tree().paused = false
 	queue_free()               
 
 

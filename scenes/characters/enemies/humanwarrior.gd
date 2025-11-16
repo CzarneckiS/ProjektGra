@@ -1,4 +1,5 @@
 extends UnitParent
+class_name HumanWarrior
 
 #thought - nie robic tak, ze mobki ida PROSTO na gracza od razu
 #tylko dla coolnosci zrobic tak ze ida kawalek w mniej wiecej kierunku gracza
@@ -22,7 +23,7 @@ var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UŻYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
 var attack_range = 100
 var vision_range = 500
-
+var dying : bool = false
 #clicking
 signal target_clicked(target_node: Node) #sygnał, który będzie wysyłany do naszych jednostek
 # aby weszły w engaging state jeśli klikniemy na wroga
@@ -40,7 +41,6 @@ func _ready() -> void:
 	health_bar.max_value = max_health
 	health_bar.value = max_health
 	health_bar.visible = false
-	
 	damage_bar.max_value = max_health
 	damage_bar.value = max_health
 	damage_bar.visible = false
@@ -55,31 +55,36 @@ func _ready() -> void:
 	move_target = Globals.player_position
 	navigation_agent_2d.max_speed = speed
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
-	#$CollisionShape2D.disabled = true #DO TESTÓW
-	#$ClickArea/CollisionShape2D.disabled = true #DO TESTÓW
 	
 	navigation_agent_2d.velocity_computed.connect(_on_navigation_agent_2d_velocity_computed)
 	$ClickArea.mouse_entered.connect(_on_click_area_mouse_entered)
 	$ClickArea.mouse_exited.connect(_on_click_area_mouse_exited)
+	$VisionArea.body_entered.connect(_on_vision_area_body_entered)
+	$VisionArea.body_exited.connect(_on_vision_area_body_exited)
 	$Timers/NavigationTimer.timeout.connect(_on_navigation_timer_timeout)
 
 #VISUALSY ===============================================================================
 func start_hit_flash(damage_source):
 	var original_color = Color.WHITE
-	var hit_color: Color = Color.WHITE * 2.0
+	var hit_color: Color = Color.WHITE * 8.0
 	var flash_tween = create_tween()
 	
 	if damage_source is FireballSpell:
-		hit_color = Color.GREEN_YELLOW * 2.0
+		hit_color = Color("39db9dff") * 5.0
 	if damage_source is ThunderboltSpell:
-		hit_color = Color("6c92fbff") * 2.0
-	flash_tween.tween_property(self, "modulate", hit_color, 0.05)
-	flash_tween.tween_property(self, "modulate", original_color, 0.2)
+		hit_color = Color("375cedff") * 3.0
+	if damage_source is IceblockSpell:
+		hit_color = Color("837cffff") * 3.0
+	flash_tween.tween_property($Sprite2D, "modulate", hit_color, 0.05)
+	flash_tween.tween_property($Sprite2D, "modulate", original_color, 0.2)
 	
 	flash_tween.set_ease(Tween.EASE_OUT)
 
 func _physics_process(_delta: float) -> void:
-	seek_enemies()
+	for unit in possible_targets:
+		if unit == null:
+			possible_targets.erase(unit)
+	#seek_enemies()
 #MOVEMENT ===============================================================================
 func move_to_target(_delta,target_position): #CLOSE RANGE MOVEMENT
 	if !get_slide_collision_count() and unstick_timer.is_stopped():
@@ -132,6 +137,7 @@ func hit(damage_taken, damage_source) -> bool:
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_OUT)
 	if health <= 0: #hp poniżej 0 - umieranie
+		dying = true
 		health_bar.visible = false
 		damage_bar.visible = false
 		state_machine.call_deferred("set_state", state_machine.states.dying) #zmiana na call_deferred bo przy spellach powodowało, że debugger nie był happy (przez sygnał _on_body_entered w fireball gdzie wywołujemy hit())
@@ -141,8 +147,8 @@ func hit(damage_taken, damage_source) -> bool:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
 
 func attack():
-	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
-		if attack_target.get_ref().hit(damage, self): #wysyła hit do celu
+	if attack_target: #jeśli nasz cel wciąż istnieje:
+		if attack_target.hit(damage, self): #wysyła hit do celu
 			pass #jeśli cel zwrócił true - czyli żyje - kontynuuj atakowanie
 		else:
 			state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle
@@ -159,15 +165,15 @@ func seek_enemies():
 			if !possible_targets.has(enemy):
 				possible_targets.append(enemy)
 				
-#potrzebne polaczenie jesli chcemy przywrocic
-#func _on_vision_area_body_entered(body: Node2D) -> void:
-	#if body.is_in_group("Unit"): #sprawdza czy jednostka, która weszła w vision range to valid target
-		#if body.is_in_group("Allied"): #Sprawdza czy jest to sojusznik głownego gracza
-			#possible_targets.append(body) #dodajemy target do listy
-#
-#func _on_vision_area_body_exited(body: Node2D) -> void:
-	#if possible_targets.has(body): #jednostka z listy targetów wyszła z wizji
-		#possible_targets.erase(body)
+
+func _on_vision_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Unit"): #sprawdza czy jednostka, która weszła w vision range to valid target
+		if body.is_in_group("Allied"): #Sprawdza czy jest to sojusznik głownego gracza
+			possible_targets.append(body) #dodajemy target do listy
+
+func _on_vision_area_body_exited(body: Node2D) -> void:
+	if possible_targets.has(body): #jednostka z listy targetów wyszła z wizji
+		possible_targets.erase(body)
 
 #to jest funkcja do sortowania, jesli target a jest blizej targeta b to jest przesuwany blizej
 #pozycji 0 w arrayu; a pozycja 0 w arrayu possible_target to najblizszy cel :D

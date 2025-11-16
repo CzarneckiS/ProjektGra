@@ -50,7 +50,7 @@ func _on_timer_timeout() -> void:
 	if test <= 300: #temporary, spawni mobki az nie bedzie ich 300
 		spawn_enemy()
 		test += 1
-		print(test)
+		#print(test)
 
 func is_point_on_map(target_point: Vector2) -> bool:
 	var map := get_world_2d().navigation_map
@@ -119,7 +119,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			$MenuLayer.add_child(lvlup_menu)
 			get_tree().paused = true
 	elif event.is_action_pressed("tmpSpawnAlly"):
-		var new_ally = preload("res://scenes/characters/allies/skeletonwarrior.tscn").instantiate()
+		var new_ally = preload("res://scenes/characters/allies/skeletonmage.tscn").instantiate()
 		new_ally.global_position = get_global_mouse_position()
 		add_child(new_ally)
 

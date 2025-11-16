@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c6wxbv4ruot4l"]
+[gd_scene load_steps=21 format=3 uid="uid://c6wxbv4ruot4l"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_2674o"]
 [ext_resource type="Script" uid="uid://cwci7wyh3g6yl" path="res://scenes/characters/allies/skeletonwarrior.gd" id="2_f3pgp"]
@@ -12,15 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://dd80gild66mgj" path="res://sprites/skeleton_warrior/skellington_warrior_right_boot.png" id="8_6bcrf"]
 [ext_resource type="Texture2D" uid="uid://c5guqovle2c50" path="res://sprites/skeleton_warrior/skellington_warrior_head.png" id="9_ksuwf"]
 
-[sub_resource type="GDScript" id="GDScript_bluo0"]
-script/source = "extends Sprite2D
-"
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_bluo0"]
 radius = 24.083189
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_e0k25"]
-radius = 325.04153
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w5s2j"]
 radius = 43.0
@@ -379,8 +372,11 @@ _data = {
 &"walk": SubResource("Animation_mfyro")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_p5k3i"]
+radius = 316.2673
+
 [node name="SkeletonWarrior" groups=["Allied", "Selectable"] instance=ExtResource("1_2674o")]
-collision_layer = 4
+collision_layer = 32
 collision_mask = 11
 script = ExtResource("2_f3pgp")
 
@@ -408,7 +404,6 @@ texture = ExtResource("3_xg2mg")
 [node name="Sprite2D" parent="." index="3"]
 position = Vector2(0, -11)
 scale = Vector2(0.15, 0.15)
-script = SubResource("GDScript_bluo0")
 
 [node name="Body" type="Sprite2D" parent="Sprite2D" index="0"]
 texture = ExtResource("4_mfyro")
@@ -437,14 +432,7 @@ texture = ExtResource("9_ksuwf")
 position = Vector2(0, 14)
 shape = SubResource("CircleShape2D_bluo0")
 
-[node name="VisionArea" type="Area2D" parent="." index="5"]
-collision_layer = 16
-collision_mask = 6
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea" index="0"]
-shape = SubResource("CircleShape2D_e0k25")
-
-[node name="ClickArea" parent="." index="6"]
+[node name="ClickArea" parent="." index="5"]
 collision_layer = 16
 collision_mask = 0
 
@@ -452,13 +440,13 @@ collision_mask = 0
 position = Vector2(0, -15)
 shape = SubResource("CapsuleShape2D_w5s2j")
 
-[node name="DamageBar" parent="." index="7"]
+[node name="DamageBar" parent="." index="6"]
 offset_left = -25.0
 offset_top = -69.0
 offset_right = 25.0
 offset_bottom = -61.0
 
-[node name="Timers" type="Node" parent="." index="8"]
+[node name="Timers" type="Node" parent="." index="7"]
 
 [node name="MoveTimer" type="Timer" parent="Timers" index="0"]
 
@@ -469,26 +457,33 @@ one_shot = true
 [node name="UnstickTimer" type="Timer" parent="Timers" index="2"]
 one_shot = true
 
-[node name="WarriorStateMachine" parent="." index="9" instance=ExtResource("5_x85af")]
+[node name="WarriorStateMachine" parent="." index="8" instance=ExtResource("5_x85af")]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 libraries = {
 &"": SubResource("AnimationLibrary_cm8ef")
 }
 autoplay = "idle"
 blend_times = [&"attack", &"idle", 0.5, &"attack", &"walk", 0.5, &"idle", &"attack", 0.5, &"idle", &"walk", 0.5, &"walk", &"attack", 0.5, &"walk", &"idle", 0.5]
 
-[node name="HealthBar" parent="." index="11"]
+[node name="HealthBar" parent="." index="10"]
 offset_left = -25.0
 offset_top = -69.0
 offset_right = 25.0
 offset_bottom = -61.0
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="12"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="11"]
 path_max_distance = 200.0
 avoidance_enabled = true
 radius = 20.0
 neighbor_distance = 100.0
+
+[node name="VisionArea" type="Area2D" parent="." index="12"]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea" index="0"]
+shape = SubResource("CircleShape2D_p5k3i")
 
 [connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]
 [connection signal="timeout" from="Timers/MoveTimer" to="WarriorStateMachine" method="_on_move_timer_timeout"]

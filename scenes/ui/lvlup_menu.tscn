@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://oi7udmkhy0cl"]
+[gd_scene load_steps=5 format=3 uid="uid://dotamse356ppo"]
 
 [ext_resource type="Script" uid="uid://dyqgocxdri5va" path="res://scenes/ui/lvlup_menu.gd" id="1_ra1c2"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ra1c2"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6pxxg"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tj1gx"]
 
 [node name="LvlupMenu" type="Control"]
 layout_mode = 3
@@ -115,6 +121,33 @@ offset_top = 620.0
 offset_right = 1318.0
 offset_bottom = 681.0
 text = "-_-"
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1103.0
+offset_top = 312.0
+offset_right = 1288.0
+offset_bottom = 502.0
+texture = SubResource("CompressedTexture2D_ra1c2")
+expand_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 715.0
+offset_top = 308.0
+offset_right = 897.0
+offset_bottom = 519.0
+texture = SubResource("CompressedTexture2D_6pxxg")
+expand_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 303.0
+offset_top = 293.0
+offset_right = 493.0
+offset_bottom = 478.0
+texture = SubResource("CompressedTexture2D_tj1gx")
+expand_mode = 3
 
 [connection signal="pressed" from="Option1" to="." method="_on_option_1_pressed"]
 [connection signal="pressed" from="Option2" to="." method="_on_option_2_pressed"]
