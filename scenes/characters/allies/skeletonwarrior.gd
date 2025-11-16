@@ -4,7 +4,7 @@ var skills_stat_up = {}
 var skills_passive = {}
 var skills_on_hit = {}
 var skills_on_death = {}
-var own_tags : Array[String] = ["Unit", "Allied","SkeletonWarrior"]
+var own_tags : Array[String] = ["Unit", "AlliedUnit","SkeletonWarrior"]
 #movement
 var speed = 300
 var move_target = Vector2.ZERO
@@ -27,6 +27,8 @@ var dying : bool = false
 var selected: bool = false
 var mouse_hovering:bool = false
 
+signal unit_died()
+
 var state_machine
 @onready var health_bar: ProgressBar = $HealthBar 
 @onready var damage_bar: ProgressBar = $DamageBar
@@ -35,7 +37,7 @@ var state_machine
 
 func _ready() -> void:
 	handle_skills()
-	handle_stats_up()
+	handle_starting_skills()
 	max_health  = 60
 	health = max_health
 	health_bar.max_value = max_health
@@ -86,22 +88,25 @@ func handle_skills():
 				if skill.tags.has("OnDeath"):
 					skills_on_death[skill] = skills_on_death.size()
 				break
-
+#NASTY STYLE updatujemy wszystkie skille mimo ze wiemy ktory sie zmienil, do poprawy
 func handle_skill_update(skill):
 	for i in range(own_tags.size()):
 		if skill.tags.has(own_tags[i]):
 			if skill.tags.has("StatUp"):
 				skills_stat_up[skill] = skills_stat_up.size()
-				handle_stats_up()
+				skill.use(self)
 			if skill.tags.has("Passive"):
 				skills_passive[skill] = skills_passive.size()
+				skill.use(self)
 			if skill.tags.has("OnHit"):
 				skills_on_hit[skill] = skills_on_hit.size()
 			if skill.tags.has("OnDeath"):
 				skills_on_death[skill] = skills_on_death.size()
 			break
-func handle_stats_up():
+func handle_starting_skills():
 	for skill in skills_stat_up:
+		skill.use(self)
+	for skill in skills_passive:
 		skill.use(self)
 #INPUT ===============================================================================
 func handle_inputs(event):
@@ -197,6 +202,7 @@ func hit(damage_taken, _damage_source) -> bool:
 	tween.tween_property(damage_bar, "value", health, 0.5) 
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_OUT)
+	#zmienic to ponizej na funkcje start_dying() kiedy bd robic death timer
 	if health <= 0: #hp poniżej 0 - umieranie
 		dying = true
 		health_bar.visible = false
@@ -206,7 +212,10 @@ func hit(damage_taken, _damage_source) -> bool:
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
-
+func death():
+	unit_died.emit("SkeletonWarrior")
+	for skill in skills_on_death:
+		skill.use(self)
 func heal(heal_amount):
 	health_bar.visible = true
 	damage_bar.visible = true

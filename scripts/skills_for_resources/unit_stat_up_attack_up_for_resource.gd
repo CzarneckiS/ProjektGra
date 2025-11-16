@@ -7,5 +7,5 @@ class_name UnitStatUpAttackUp
 func use(unit: CharacterBody2D):
 	unit.damage = unit.base_damage + (damage_bonus * skill_level)
 func _init() -> void:
-	tags["Allied"] = tags.size()
+	tags["AlliedUnit"] = tags.size()
 	tags["StatUp"] = tags.size()

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UnitOnHitPoison" load_steps=3 format=3 uid="uid://8osyg23ujdx1"]
 
 [ext_resource type="Texture2D" uid="uid://caw8ayj7hlgtj" path="res://sprites/placeholders/unit_on_hit_poison.png" id="2_iltax"]
-[ext_resource type="Script" uid="uid://b05uq8rj8osfu" path="res://scripts/skills_for_resources/unit_on_hit_poison_for_resource.gd" id="2_mwhl6"]
+[ext_resource type="Script" path="res://scripts/skills_for_resources/unit_on_hit_poison_for_resource.gd" id="2_mwhl6"]
 
 [resource]
 script = ExtResource("2_mwhl6")

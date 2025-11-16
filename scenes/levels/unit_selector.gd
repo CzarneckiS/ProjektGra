@@ -18,7 +18,6 @@ func _process(_delta: float) -> void:
 			max(drag_start.x, get_global_mouse_position().x) - x_min,
 			max(drag_start.y, get_global_mouse_position().y) - y_min)
 		update_selected_units() #aktualizuj selectowane jednostki
-		print('updatuje jednostki')
 		queue_redraw() #Odśwież grafikę prostokąta
 
 func _unhandled_input(event: InputEvent) -> void: #sprawdza left click

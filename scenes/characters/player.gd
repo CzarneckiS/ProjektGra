@@ -8,9 +8,16 @@ var standing: bool = true
 var selected = false
 var dying : bool = false
 
+var skills_summon = {}
+var skills_stat_up = {}
+var skills_passive = {}
+var skills_active = {}
+var own_tags : Array[String] = ["Player"]
+
 #Unit spawning
 var skeleton_warrior_count = 0
 var skeleton_mage_count = 0
+signal summon_unit()
 
 func _unhandled_input(event):
 	if event.is_action_pressed("fireball_input"):
@@ -88,6 +95,8 @@ var hp_bar_style = StyleBoxFlat.new()
 
 
 func _ready() -> void:
+	handle_skills()
+	handle_starting_skills()
 	health_bar.max_value = Globals.health
 	health_bar.value = Globals.health
 	health_bar.visible = false
@@ -102,8 +111,7 @@ func _ready() -> void:
 	hp_bar_style.border_width_bottom = 2
 	hp_bar_style.border_color = Color(0.0, 0.0, 0.0, 1.0)
 	health_bar.add_theme_stylebox_override("fill", hp_bar_style)
-	
-		
+
 func _process(_delta: float) -> void:
 	if standing:
 		$AnimationPlayer.play("stand")
@@ -122,12 +130,44 @@ func _process(_delta: float) -> void:
 		move_and_slide()
 	Globals.player_position = global_position
 
-	#if Globals.health <= 0:
-	#	health_bar.visible = false
-	#	damage_bar.visible = false
-	#	animacja_smierci() + menu_ze_przegrales()
+#SKILLS ===============================================================================
+func handle_skills():
+	#dodaj do odpowiednich list umiejetnosci odblokowane
+	for skill in Skills.unlocked_skills:
+		for i in range(own_tags.size()):
+			if skill.tags.has(own_tags[i]):
+				if skill.tags.has("StatUp"):
+					skills_stat_up[skill] = skills_stat_up.size()
+				if skill.tags.has("Passive"):
+					skills_passive[skill] = skills_passive.size()
+				if skill.tags.has("Active"):
+					skills_active[skill] = skills_active.size()
+				if skill.tags.has("Summon"):
+					skills_summon[skill] = skills_summon.size()
+				break
 func handle_skill_update(skill):
-	pass
+	for i in range(own_tags.size()):
+		if skill.tags.has(own_tags[i]):
+			if skill.tags.has("StatUp"):
+				skills_stat_up[skill] = skills_stat_up.size()
+				skill.use(self)
+			if skill.tags.has("Passive"):
+				skills_passive[skill] = skills_passive.size()
+				skill.use(self)
+			if skill.tags.has("Active"):
+				skills_active[skill] = skills_active.size()
+			if skill.tags.has("Summon"):
+				skills_summon[skill] = skills_summon.size()
+				skill.use(self)
+			break
+func handle_starting_skills():
+	for skill in skills_stat_up:
+		skill.use(self)
+	for skill in skills_passive:
+		skill.use(self)
+	for skill in skills_summon:
+		skill.use(self)
+
 func hit(damage_taken, _damage_source) -> void:
 	health_bar.visible = true
 	damage_bar.visible = true

@@ -146,6 +146,7 @@ func _get_transition(_delta):
 				else: #kiedy się skończy, przestań istnieć
 					if parent.mouse_hovering: #jeśli wciąż mamy kursor na przeciwniku
 						Globals.remove_overlapping_allies() #to przestań highlightować kursor
+					parent.death() #tutaj akcje specyficzne do poszczegolnych jednostek
 					parent.queue_free()
 			states.mid_animation: #Dopóki odgrywasz animację atakowania, nic nie rób
 				if animation_player.is_playing(): return
