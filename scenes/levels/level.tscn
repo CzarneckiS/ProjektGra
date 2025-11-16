@@ -384,4 +384,6 @@ offset_left = -40.0
 offset_bottom = 23.0
 grow_horizontal = 0
 
+[node name="LvlUpUpgradesLayer" type="CanvasLayer" parent="."]
+
 [connection signal="timeout" from="Player/EnemySpawnArea/Timer" to="." method="_on_timer_timeout"]

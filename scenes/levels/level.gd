@@ -3,12 +3,18 @@ extends Node2D
 @onready var move_cursor = $MoveCursor
 @onready var unit_selector: Node2D = $UnitSelector
 var attack_move_input: bool = false
-var hud = load("res://scenes/levels/hud.tscn").instantiate()              
+
+var stats_hud = load("res://scenes/levels/hud.tscn").instantiate() 
+var minions_selections_hud = load("res://scenes/levels/hud.tscn").instantiate()
+var command_spells_hud = load("res://scenes/levels/hud.tscn").instantiate() 
+#var lvl_up_upgrades_menu = load("res://scenes/ui/lvlup_menu.tscn").instantiate()
 
 
 func _ready():
-	hud.process_mode = Node.PROCESS_MODE_ALWAYS
-	$HudLayer.add_child(hud)
+	Globals.lvl_up_menu_requested.connect(show_lvl_up_menu)
+	stats_hud.process_mode = Node.PROCESS_MODE_ALWAYS
+	#lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+	$HudLayer.add_child(stats_hud)
 	
 	#musimy dla kazdej instancji warriora laczyc sygnal _on_target_clicked, pozniej bedzie to w spawn_enemy()
 	$EnemyUnits/HumanWarrior.connect("target_clicked", _on_target_clicked)
@@ -19,6 +25,15 @@ func _ready():
 func _process(_delta: float) -> void:
 	pass #do testow
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
+
+
+func show_lvl_up_menu():
+	get_tree().paused = true
+	var lvl_up_upgrades_menu = preload("res://scenes/ui/lvlup_menu.tscn").instantiate()
+	lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+	$LvlUpUpgradesLayer.add_child(lvl_up_upgrades_menu)
+
+
 
 #SPAWNING PRZECIWNIKÓW ================================================================
 func spawn_enemy(): # EnemySpawnFollow bierzemy jako unique name
@@ -107,6 +122,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		var new_ally = preload("res://scenes/characters/allies/skeletonmage.tscn").instantiate()
 		new_ally.global_position = get_global_mouse_position()
 		add_child(new_ally)
+
+		
 	elif event.is_action_pressed("tmpSpawnEnemy"):
 		spawn_enemy()
 
