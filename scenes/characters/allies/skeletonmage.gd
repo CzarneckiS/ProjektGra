@@ -6,7 +6,7 @@ var skills_stat_up = {}
 var skills_passive = {}
 var skills_on_hit = {projectile:1}
 var skills_on_death = {}
-var tags : Array[String] = ["SkeletonMage", "Unit", "Allied"]
+var own_tags : Array[String] = ["Unit", "AlliedUnit","SkeletonMage"]
 #movement
 var speed = 300
 var move_target = Vector2.ZERO
@@ -18,7 +18,8 @@ var can_navigate:bool = true
 var follow_distance_idle:int = 400
 var follow_distance_absolute:int = 1000
 #combat
-var damage = 20
+var base_damage = 20
+var damage = base_damage
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
 const attack_range = 400
@@ -27,6 +28,8 @@ var dying : bool = false
 #selecting
 var selected: bool = false
 var mouse_hovering:bool = false
+
+signal unit_died()
 
 var state_machine
 @onready var health_bar: ProgressBar = $HealthBar 
@@ -38,6 +41,7 @@ func _ready() -> void:
 	unit_hud_order = 3
 	icon_texture = "res://sprites/skeleton mage icon.png"
 	handle_skills()
+	handle_starting_skills()
 	max_health  = 60
 	health = max_health
 	health_bar.max_value = max_health
@@ -73,13 +77,12 @@ func _physics_process(_delta: float) -> void:
 	for unit in possible_targets:
 		if unit == null:
 			possible_targets.erase(unit)
-#SKILLS
-
+#SKILLS ===============================================================================
 func handle_skills():
 	#dodaj do odpowiednich list umiejetnosci odblokowane
 	for skill in Skills.unlocked_skills:
-		for i in range(tags.size()):
-			if skill.tags.has(tags[i]):
+		for i in range(own_tags.size()):
+			if skill.tags.has(own_tags[i]):
 				if skill.tags.has("StatUp"):
 					skills_stat_up[skill] = skills_stat_up.size()
 				if skill.tags.has("Passive"):
@@ -89,10 +92,26 @@ func handle_skills():
 				if skill.tags.has("OnDeath"):
 					skills_on_death[skill] = skills_on_death.size()
 				break
-
-func handle_skill_update():
-	pass
-	#
+#NASTY STYLE updatujemy wszystkie skille mimo ze wiemy ktory sie zmienil, do poprawy
+func handle_skill_update(skill):
+	for i in range(own_tags.size()):
+		if skill.tags.has(own_tags[i]):
+			if skill.tags.has("StatUp"):
+				skills_stat_up[skill] = skills_stat_up.size()
+				skill.use(self)
+			if skill.tags.has("Passive"):
+				skills_passive[skill] = skills_passive.size()
+				skill.use(self)
+			if skill.tags.has("OnHit"):
+				skills_on_hit[skill] = skills_on_hit.size()
+			if skill.tags.has("OnDeath"):
+				skills_on_death[skill] = skills_on_death.size()
+			break
+func handle_starting_skills():
+	for skill in skills_stat_up:
+		skill.use(self)
+	for skill in skills_passive:
+		skill.use(self)
 #INPUT ===============================================================================
 func handle_inputs(event):
 	if state_machine.state == state_machine.states.dying:
@@ -197,7 +216,10 @@ func hit(damage_taken, _damage_source) -> bool:
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
-
+func death():
+	unit_died.emit("SkeletonMage")
+	for skill in skills_on_death:
+		skill.use(self)
 func heal(heal_amount):
 	health_bar.visible = true
 	damage_bar.visible = true

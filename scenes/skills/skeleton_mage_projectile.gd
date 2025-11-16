@@ -8,10 +8,12 @@ var direction: Vector2
 var target
 var target_position
 var collision_distance = 20
+var parent_unit
 func initialize(unit: CharacterBody2D, _target: CharacterBody2D, skill_res: SkeletonMageProjectile):
 	skill_resource = skill_res
 	target = _target
 	global_position = unit.global_position
+	parent_unit = unit
 
 
 func _ready():
@@ -31,7 +33,7 @@ func _physics_process(delta: float) -> void:
 
 	if (global_position.distance_to(target_position) <= collision_distance):
 		if target:
-			target.hit(skill_resource.skill_effect_data.base_damage*skill_resource.skill_effect_data.damage_multiplier, self)
+			target.hit(parent_unit.damage, self)
 		queue_free()
 	
 

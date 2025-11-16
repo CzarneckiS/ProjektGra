@@ -9,14 +9,18 @@ var fireball = preload("res://resources/fireball.tres")
 var heal = preload("res://resources/heal.tres")
 var thunderbolt = preload("res://resources/thunderbolt.tres")
 var unit_on_hit_poison = preload("res://resources/unit_on_hit_poison.tres")
-
+var unit_stat_up_attack_up = preload("res://resources/unit_stat_up_attack_up.tres")
+var player_skeleton_warrior = preload("res://resources/player_skeleton_warrior.tres")
+var player_skeleton_mage = preload("res://resources/player_skeleton_mage.tres")
 func _ready():
 	add_skill(fireball)
 	add_skill(heal)
 	add_skill(thunderbolt)
 	add_skill(unit_on_hit_poison)
-	unlock_skill(fireball)
-	unlock_skill(unit_on_hit_poison)
+	add_skill(unit_stat_up_attack_up)
+	add_skill(player_skeleton_warrior)
+	add_skill(player_skeleton_mage)
+	
 	
 func add_skill(skill):
 	all_skills[skill] = all_skills.size()
@@ -26,6 +30,8 @@ func unlock_skill(skill):
 		unlocked_skills[skill] = unlocked_skills.size()
 	else:
 		skill.skill_level += 1
+	for unit in get_tree().get_nodes_in_group("Allied"):
+		unit.handle_skill_update(skill)
 
 #DODAC BOOL = CZY OSIAGNELISMY LIMIT SPELL SLOTOW ! ! ! 
 func get_skill() -> Array:

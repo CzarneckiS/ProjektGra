@@ -5,13 +5,8 @@
 [ext_resource type="Script" uid="uid://dnv5i0eq6rlp7" path="res://scripts/skill_effects/effect_damage.gd" id="3_37tvn"]
 [ext_resource type="PackedScene" path="res://scenes/skills/skeleton_mage_projectile.tscn" id="3_o7rmr"]
 
-[sub_resource type="Resource" id="Resource_7ldo0"]
-script = ExtResource("3_37tvn")
-metadata/_custom_type_script = "uid://dnv5i0eq6rlp7"
-
 [resource]
 script = ExtResource("2_o7rmr")
-skill_effect_data = SubResource("Resource_7ldo0")
 speed = 500.0
 skill_name = "SkeletonMageProjectile"
 visual_effect = ExtResource("3_o7rmr")

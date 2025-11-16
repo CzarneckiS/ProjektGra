@@ -1,7 +1,6 @@
 extends SkillRangeBased
 class_name SkeletonMageProjectile
 
-@export var skill_effect_data: EffectDamage
 @export var tags : Dictionary = {}
 func use(unit: CharacterBody2D, target: CharacterBody2D) -> void:
 	var projectile_node = visual_effect.instantiate()

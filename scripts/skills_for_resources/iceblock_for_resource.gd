@@ -1,6 +1,7 @@
 extends SkillInstant
 class_name Iceblock
 
+@export var tags : Dictionary = {}
 @export var skill_effect_data: EffectDamage
 @export var skill_effect_data2: EffectAreaOfEffect
 @export var skill_effect_data3: EffectDamageOverTime
