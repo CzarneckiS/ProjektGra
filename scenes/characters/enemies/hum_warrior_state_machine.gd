@@ -35,7 +35,6 @@ func _state_logic(delta):
 				pass
 			states.push:
 				parent.push_velocity = parent.push_velocity.lerp(Vector2.ZERO, delta * parent.push_friction)
-				print(parent.push_velocity)
 				parent.velocity = parent.push_velocity
 				parent.move_and_slide()
 				if parent.push_velocity.is_zero_approx():
