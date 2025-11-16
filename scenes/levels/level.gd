@@ -8,11 +8,22 @@ var human_warrior = preload("res://scenes/characters/enemies/humanwarrior.tscn")
 var skeleton_warrior = preload("res://scenes/characters/allies/skeletonwarrior.tscn")
 var skeleton_mage = preload("res://scenes/characters/allies/skeletonmage.tscn")
 
+var stats_hud = load("res://scenes/levels/hud.tscn").instantiate() 
+var minions_selections_hud = load("res://scenes/levels/hud.tscn").instantiate()
+var command_spells_hud = load("res://scenes/levels/hud.tscn").instantiate() 
+#var lvl_up_upgrades_menu = load("res://scenes/ui/lvlup_menu.tscn").instantiate()
+
+
 func _ready():
 	$Player.connect("summon_unit", on_summon_unit)
 	hud.process_mode = Node.PROCESS_MODE_ALWAYS
 	$HudLayer.add_child(hud)
 	#tu chyba nie powinno byc podlogi przed nazwa sygnalu? idk juz sie w tym pogubilem
+	Globals.lvl_up_menu_requested.connect(show_lvl_up_menu)
+	stats_hud.process_mode = Node.PROCESS_MODE_ALWAYS
+	#lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+	$HudLayer.add_child(stats_hud)
+	
 	#musimy dla kazdej instancji warriora laczyc sygnal _on_target_clicked, pozniej bedzie to w spawn_enemy()
 	$EnemyUnits/HumanWarrior.connect("target_clicked", _on_target_clicked)
 	#$HumanWarrior2.connect("target_clicked", _on_target_clicked)
@@ -24,6 +35,16 @@ func _process(_delta: float) -> void:
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
 
 #SPAWNING JEDNOSTEK ================================================================
+
+func show_lvl_up_menu():
+	get_tree().paused = true
+	var lvl_up_upgrades_menu = preload("res://scenes/ui/lvlup_menu.tscn").instantiate()
+	lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+	$LvlUpUpgradesLayer.add_child(lvl_up_upgrades_menu)
+
+
+
+
 func spawn_enemy(): # EnemySpawnFollow bierzemy jako unique name
 	var new_enemy = human_warrior.instantiate()
 	%EnemySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek

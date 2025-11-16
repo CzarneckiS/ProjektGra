@@ -38,6 +38,8 @@ var state_machine
 @onready var unstick_timer: Timer = $Timers/UnstickTimer
 
 func _ready() -> void:
+	unit_hud_order = 3
+	icon_texture = "res://sprites/skeleton mage icon.png"
 	handle_skills()
 	handle_starting_skills()
 	max_health  = 60
@@ -205,7 +207,7 @@ func hit(damage_taken, _damage_source) -> bool:
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_OUT)
 	if health <= 0: #hp poniżej 0 - umieranie
-		
+		Globals.unit_died.emit(self)
 		dying = true
 		health_bar.visible = false
 		damage_bar.visible = false

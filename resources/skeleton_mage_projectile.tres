@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="SkeletonMageProjectile" load_steps=4 format=3 uid="uid://24fibcl5e153"]
+[gd_resource type="Resource" script_class="SkeletonMageProjectile" load_steps=6 format=3 uid="uid://cls43nq85lq5"]
 
 [ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_np52e"]
 [ext_resource type="Script" path="res://scripts/skills_for_resources/skeleton_mage_projectile_for_resource.gd" id="2_o7rmr"]
-[ext_resource type="PackedScene" uid="uid://b3opmttu2ioto" path="res://scenes/skills/skeleton_mage_projectile.tscn" id="3_o7rmr"]
+[ext_resource type="Script" uid="uid://dnv5i0eq6rlp7" path="res://scripts/skill_effects/effect_damage.gd" id="3_37tvn"]
+[ext_resource type="PackedScene" path="res://scenes/skills/skeleton_mage_projectile.tscn" id="3_o7rmr"]
 
 [resource]
 script = ExtResource("2_o7rmr")

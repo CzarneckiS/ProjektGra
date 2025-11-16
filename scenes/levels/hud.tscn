@@ -1,110 +1,420 @@
-[gd_scene load_steps=6 format=3 uid="uid://dow75ifqnaejo"]
+[gd_scene load_steps=18 format=3 uid="uid://dow75ifqnaejo"]
 
 [ext_resource type="Script" uid="uid://bh80at3wk5jxc" path="res://scenes/levels/hud.gd" id="1_h1s5m"]
+[ext_resource type="Texture2D" uid="uid://bvafebvu6h5ix" path="res://sprites/HUD lifebar XP BAR purple.png" id="2_16vcj"]
+[ext_resource type="Texture2D" uid="uid://cegf2xnvik2q2" path="res://sprites/HUD lifebar HP BAR.png" id="2_f2y6e"]
+[ext_resource type="Texture2D" uid="uid://cfof88wjy0pfx" path="res://sprites/HUD left corner.png" id="3_16vcj"]
+[ext_resource type="Texture2D" uid="uid://c7jajlc2ay5ur" path="res://sprites/HUD_middle.png" id="5_0jkms"]
+[ext_resource type="Texture2D" uid="uid://bpcd50fq8syjh" path="res://sprites/HUD right corner.png" id="6_xjlsw"]
+[ext_resource type="Texture2D" uid="uid://b4oegmy842s8l" path="res://sprites/attack icon.png" id="7_npjfx"]
+[ext_resource type="Texture2D" uid="uid://c1w42wxnnjnow" path="res://sprites/hold icon.png" id="8_x77mw"]
+[ext_resource type="Texture2D" uid="uid://clj1o87ll6lr4" path="res://sprites/move icon.png" id="9_862nl"]
+[ext_resource type="Texture2D" uid="uid://c3a1s8si78c2t" path="res://sprites/stop icon.png" id="10_36mnu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyfml"]
-bg_color = Color(0, 0, 0, 1)
-border_width_top = 1
-border_width_bottom = 1
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 0)
 border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1s5m"]
-bg_color = Color(0.6872153, 0.6872149, 0.6872149, 1)
-border_width_top = 3
-border_width_bottom = 3
-border_color = Color(0, 0, 0, 1)
+bg_color = Color(1, 1, 1, 0.19607843)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.13725491)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icbpb"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2y6e"]
+bg_color = Color(0.6, 0.6, 0.6, 0.039215688)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16vcj"]
-bg_color = Color(0.84003437, 0.0008719367, 0.8898385, 1)
-border_color = Color(0, 0, 0, 1)
-corner_detail = 4
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f2y6e"]
+texture = ExtResource("2_f2y6e")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0jkms"]
+bg_color = Color(1, 1, 1, 0.039215688)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xjlsw"]
+texture = ExtResource("2_16vcj")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_icbpb"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.96035105, 0.96035105, 0.96035093, 1)
 
 [node name="Hud" type="Control"]
-z_index = 100
+z_index = 4
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 49.0
-offset_top = 781.0
-offset_right = -1551.0
-offset_bottom = -77.0
+offset_left = 590.0
+offset_top = 795.0
+offset_right = -920.0
+offset_bottom = -63.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_h1s5m")
 
 [node name="DamageBar" type="ProgressBar" parent="."]
+z_index = 4
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.44966444
-anchor_top = 1.6240602
-anchor_right = 0.44966444
+anchor_left = 0.37777787
+anchor_top = 1.5288221
+anchor_right = 0.6
 anchor_bottom = 1.6240602
-offset_left = -24.0
-offset_top = -0.21052551
-offset_right = 356.0
-offset_bottom = 25.789474
+offset_left = 35.01998
+offset_top = -26.670525
+offset_right = 345.08
+offset_bottom = -3.1405258
 theme_override_styles/background = SubResource("StyleBoxFlat_qyfml")
 theme_override_styles/fill = SubResource("StyleBoxFlat_h1s5m")
 value = 95.0
 show_percentage = false
-metadata/_edit_use_anchors_ = true
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+z_index = 4
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.44966444
-anchor_top = 1.6190476
-anchor_right = 0.50140727
+anchor_left = 0.37777787
+anchor_top = 1.5238096
+anchor_right = 0.774192
 anchor_bottom = 1.6240602
-offset_left = -24.0
-offset_right = 356.0
-offset_bottom = 25.789474
-theme_override_styles/background = SubResource("StyleBoxEmpty_icbpb")
-theme_override_styles/fill = SubResource("StyleBoxFlat_16vcj")
+offset_left = 35.01998
+offset_top = -26.46
+offset_right = 329.4027
+offset_bottom = -3.1405258
+theme_override_styles/background = SubResource("StyleBoxFlat_f2y6e")
+theme_override_styles/fill = SubResource("StyleBoxTexture_f2y6e")
 value = 90.0
 show_percentage = false
-metadata/_edit_use_anchors_ = true
 
 [node name="ExpGainBar" type="ProgressBar" parent="."]
+z_index = 4
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.45138887
-anchor_top = 1.0357143
-anchor_right = 0.45138887
-anchor_bottom = 1.0357143
-offset_left = -24.0
-offset_right = 296.0
-offset_bottom = 18.0
+anchor_left = 0.37777773
+anchor_top = 0.5714286
+anchor_right = 1.2666667
+anchor_bottom = 0.9047619
+offset_left = 35.019993
+offset_top = 44.54001
+offset_right = 285.08
+offset_bottom = 58.070007
 theme_override_styles/background = SubResource("StyleBoxFlat_qyfml")
 theme_override_styles/fill = SubResource("StyleBoxFlat_h1s5m")
 value = 95.0
 show_percentage = false
-metadata/_edit_use_anchors_ = true
 
 [node name="ExpBar" type="ProgressBar" parent="."]
+z_index = 4
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.45138887
-anchor_top = 1.0357143
-anchor_right = 0.45138887
-anchor_bottom = 1.0357143
-offset_left = -24.0
-offset_right = 296.0
-offset_bottom = 18.0
-theme_override_styles/background = SubResource("StyleBoxEmpty_icbpb")
-theme_override_styles/fill = SubResource("StyleBoxFlat_16vcj")
+anchor_left = 0.5402777
+anchor_top = 0.71428573
+anchor_right = 1.2316359
+anchor_bottom = 0.79761904
+offset_left = 20.394993
+offset_top = 38.54001
+offset_right = 288.23276
+offset_bottom = 62.570007
+theme_override_styles/background = SubResource("StyleBoxFlat_0jkms")
+theme_override_styles/fill = SubResource("StyleBoxTexture_xjlsw")
 value = 90.0
 show_percentage = false
-metadata/_edit_use_anchors_ = true
 
 [node name="LabelPlayerLevel" type="Label" parent="."]
+z_index = 4
 layout_mode = 0
-offset_left = -24.0
-offset_top = -8.0
-offset_right = 77.0
-offset_bottom = 42.0
+offset_left = 66.0
+offset_top = -67.0
+offset_right = 167.0
+offset_bottom = -17.0
 theme_override_font_sizes/font_size = 36
 text = "LVL: 0"
+
+[node name="UnitsPanel" type="GridContainer" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -6.111111
+anchor_top = -1.8333334
+anchor_right = -2.5222223
+anchor_bottom = 1.3571428
+offset_left = -4.0
+offset_top = 46.0
+offset_right = -4.0
+offset_bottom = 18.000004
+grow_horizontal = 0
+grow_vertical = 2
+columns = 6
+
+[node name="Slot1" type="TextureButton" parent="UnitsPanel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="UnitsPanel/Slot1"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+stretch_mode = 5
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot1"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot2" type="TextureButton" parent="UnitsPanel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="UnitsPanel/Slot2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+stretch_mode = 5
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot2"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot3" type="TextureButton" parent="UnitsPanel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="UnitsPanel/Slot3"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+stretch_mode = 5
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot3"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot4" type="TextureButton" parent="UnitsPanel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="UnitsPanel/Slot4"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+stretch_mode = 5
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot4"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot5" type="TextureButton" parent="UnitsPanel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="UnitsPanel/Slot5"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+stretch_mode = 5
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot5"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot6" type="TextureButton" parent="UnitsPanel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="UnitsPanel/Slot6"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+stretch_mode = 5
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot6"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot7" type="TextureButton" parent="UnitsPanel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="UnitsPanel/Slot7"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+stretch_mode = 5
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot7"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot8" type="TextureButton" parent="UnitsPanel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="UnitsPanel/Slot8"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+stretch_mode = 5
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot8"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot9" type="TextureButton" parent="UnitsPanel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="UnitsPanel/Slot9"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+stretch_mode = 5
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot9"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot10" type="TextureButton" parent="UnitsPanel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="UnitsPanel/Slot10"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+stretch_mode = 5
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot10"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot11" type="TextureButton" parent="UnitsPanel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="UnitsPanel/Slot11"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+stretch_mode = 5
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot11"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="Slot12" type="TextureButton" parent="UnitsPanel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="UnitsPanel/Slot12"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+stretch_mode = 5
+
+[node name="Border" type="Panel" parent="UnitsPanel/Slot12"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
+
+[node name="HudLeftCornerOriginal" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-377.26947, -65.74997)
+scale = Vector2(0.23412158, 0.23412159)
+texture = ExtResource("3_16vcj")
+
+[node name="HudLeftCorner" type="Sprite2D" parent="."]
+position = Vector2(-381.86743, -35.749977)
+scale = Vector2(0.22905503, 0.19358106)
+texture = ExtResource("3_16vcj")
+
+[node name="HudMiddle" type="Sprite2D" parent="."]
+position = Vector2(234.00002, 38.812477)
+scale = Vector2(0.20064794, 0.2006479)
+texture = ExtResource("5_0jkms")
+
+[node name="HudRightCorner" type="Sprite2D" parent="."]
+position = Vector2(829, -43)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_xjlsw")
+
+[node name="AttackIcon" type="Sprite2D" parent="."]
+position = Vector2(936.52, -71.5)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("7_npjfx")
+
+[node name="HoldIcon" type="Sprite2D" parent="."]
+position = Vector2(871.49, -71.5)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("8_x77mw")
+
+[node name="MoveIcon" type="Sprite2D" parent="."]
+position = Vector2(739.5, -71.5)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("9_862nl")
+
+[node name="StopIcon" type="Sprite2D" parent="."]
+position = Vector2(805.49, -71.5)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("10_36mnu")

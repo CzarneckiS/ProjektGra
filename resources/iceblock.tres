@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Iceblock" load_steps=10 format=3 uid="uid://crl7u67xbxbhx"]
+[gd_resource type="Resource" script_class="Iceblock" load_steps=10 format=3 uid="uid://clncq4tpiyuec"]
 
 [ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_3d7v5"]
 [ext_resource type="Script" path="res://scripts/skills_for_resources/iceblock_for_resource.gd" id="2_8vg0c"]
