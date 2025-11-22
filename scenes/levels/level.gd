@@ -5,6 +5,8 @@ extends Node2D
 var attack_move_input: bool = false
 var hud = load("res://scenes/levels/hud.tscn").instantiate()              
 var human_warrior = preload("res://scenes/characters/enemies/humanwarrior.tscn")
+var human_archer = preload("res://scenes/characters/enemies/humanarcher.tscn")
+var human_mage = preload("res://scenes/characters/enemies/humanmage.tscn")
 var skeleton_warrior = preload("res://scenes/characters/allies/skeletonwarrior.tscn")
 var skeleton_mage = preload("res://scenes/characters/allies/skeletonmage.tscn")
 
@@ -24,11 +26,11 @@ func _ready():
 	#lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	$HudLayer.add_child(stats_hud)
 	
+	$Player/EnemySpawnArea/Timer.connect("timeout", _on_timer_timeout)
 	#musimy dla kazdej instancji warriora laczyc sygnal _on_target_clicked, pozniej bedzie to w spawn_enemy()
 	$EnemyUnits/HumanWarrior.connect("target_clicked", _on_target_clicked)
 	#$HumanWarrior2.connect("target_clicked", _on_target_clicked)
 	#$HumanWarrior3.connect("target_clicked", _on_target_clicked)           
-
 
 func _process(_delta: float) -> void:
 	pass #do testow
@@ -47,11 +49,11 @@ func show_lvl_up_menu():
 
 func spawn_enemy(): # EnemySpawnFollow bierzemy jako unique name
 	var new_enemy = human_warrior.instantiate()
+	$EnemyUnits.add_child(new_enemy)
 	%EnemySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
 	while !is_point_on_map(%EnemySpawnFollow.global_position):
 		%EnemySpawnFollow.progress_ratio = randf()
 	new_enemy.global_position = %EnemySpawnFollow.global_position
-	$EnemyUnits.add_child(new_enemy)
 	new_enemy.connect("target_clicked", _on_target_clicked)
 var test = 0
 #timer okresla co jaki czas bedzie respiony mob, feel free to change
@@ -72,35 +74,36 @@ func on_summon_unit(unit):
 func on_unit_death(unit):
 	match unit:
 		"SkeletonWarrior":
-			var timer = Timer.new()
-			$UnitRespawnTimers.add_child(timer)
-			timer.wait_time = 5.0
-			timer.one_shot = true
-			timer.start()
-			timer.timeout.connect(summon_skeleton_warrior)
+			await get_tree().create_timer(1.0).timeout
+			summon_skeleton_warrior()
 		"SkeletonMage":
-			var timer = Timer.new()
-			$UnitRespawnTimers.add_child(timer)
-			timer.wait_time = 5.0
-			timer.one_shot = true
-			timer.start()
-			timer.timeout.connect(summon_skeleton_mage)
-#moze w przyszlosci zrobie ladniej (+ uzywac enum zamiast stringa, nasty shit)
+			await get_tree().create_timer(1.0).timeout
+			summon_skeleton_mage()
+#Ta funkcja moze byc potencjalnie grozna bo uzywa WHILE !
+#uzywanie while podczas runtime gry moze oznaczac lagi i wtedy moze trzeba zrobic cos takiego:
+#funkcja w while ma np 60 prob zanim sie podda
+#i rozpoczyna kalkulacje od nowa w nastepnym frame
+#czyli rozkladamy kalkulacje na kilka framow zeby uniknac lagow :) 
+func get_random_point_in_radius(radius: int = 200) -> Vector2:
+	var point := Vector2(randf_range(Globals.player_position.x-radius, Globals.player_position.x+radius),\
+	randf_range(Globals.player_position.y-radius, Globals.player_position.y+radius))
+	while !is_point_on_map(point):
+		point = Vector2(randf_range(Globals.player_position.x-radius, Globals.player_position.x+radius),\
+	randf_range(Globals.player_position.y-radius, Globals.player_position.y+radius))
+	return point
 func summon_skeleton_warrior():
 	var new_skeleton_warrior = skeleton_warrior.instantiate()
-	%AllySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
-	while !is_point_on_map(%AllySpawnFollow.global_position):
-		%AllySpawnFollow.progress_ratio = randf()
-	new_skeleton_warrior.global_position = %AllySpawnFollow.global_position
 	$AlliedUnits.add_child(new_skeleton_warrior)
+	new_skeleton_warrior.global_position = get_random_point_in_radius()
 	new_skeleton_warrior.connect("unit_died", on_unit_death)
 func summon_skeleton_mage():
 	var new_skeleton_mage = skeleton_mage.instantiate()
-	%AllySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
-	while !is_point_on_map(%AllySpawnFollow.global_position):
-		%AllySpawnFollow.progress_ratio = randf()
-	new_skeleton_mage.global_position = %AllySpawnFollow.global_position
 	$AlliedUnits.add_child(new_skeleton_mage)
+	#%AllySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
+	#while !is_point_on_map(%AllySpawnFollow.global_position):
+		#%AllySpawnFollow.progress_ratio = randf()
+	#new_skeleton_mage.global_position = %AllySpawnFollow.global_position
+	new_skeleton_mage.global_position = get_random_point_in_radius()
 	new_skeleton_mage.connect("unit_died", on_unit_death)
 
 
@@ -177,6 +180,22 @@ func _unhandled_input(event: InputEvent) -> void:
 		summon_skeleton_mage()
 	elif event.is_action_pressed("tmpSpawnEnemy"):
 		spawn_enemy()
+	elif event.is_action_pressed("tmpSpawnEnemy2"):
+		var new_enemy = human_archer.instantiate()
+		$EnemyUnits.add_child(new_enemy)
+		%EnemySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
+		while !is_point_on_map(%EnemySpawnFollow.global_position):
+			%EnemySpawnFollow.progress_ratio = randf()
+		new_enemy.global_position = %EnemySpawnFollow.global_position
+		new_enemy.connect("target_clicked", _on_target_clicked)
+	elif event.is_action_pressed("tmpSpawnEnemy3"):
+		var new_enemy = human_mage.instantiate()
+		$EnemyUnits.add_child(new_enemy)
+		%EnemySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
+		while !is_point_on_map(%EnemySpawnFollow.global_position):
+			%EnemySpawnFollow.progress_ratio = randf()
+		new_enemy.global_position = %EnemySpawnFollow.global_position
+		new_enemy.connect("target_clicked", _on_target_clicked)
 
 
 

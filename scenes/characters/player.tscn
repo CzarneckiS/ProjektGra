@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cbodjjoib2qrn"]
+[gd_scene load_steps=35 format=3 uid="uid://cbodjjoib2qrn"]
 
 [ext_resource type="Script" uid="uid://bi5nwihkqq2pp" path="res://scenes/characters/player.gd" id="1_rp718"]
 [ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/shadow.png" id="2_3wg1y"]
@@ -20,8 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://d2sb57islimab" path="res://sprites/oldmimi/mimi_right_hand.png" id="10_2l4js"]
 [ext_resource type="Texture2D" uid="uid://bwwvia3so8b5l" path="res://sprites/mimi/new_right_arm.png" id="10_eir2k"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_yewv4"]
-radius = 27.018513
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3wg1y"]
+radius = 23.0
+height = 78.0
 
 [sub_resource type="Animation" id="Animation_d6tgn"]
 length = 0.001
@@ -285,10 +286,6 @@ _data = {
 &"stand": SubResource("Animation_jk2m4")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d6tgn"]
-radius = 31.0
-height = 118.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d6tgn"]
 bg_color = Color(0, 0, 0, 1)
 border_width_top = 1
@@ -326,11 +323,6 @@ visible = false
 position = Vector2(0, 55.000008)
 scale = Vector2(0.24452555, 0.24452555)
 texture = ExtResource("2_d6tgn")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, 37)
-shape = SubResource("CircleShape2D_yewv4")
 
 [node name="SpriteRoot" type="Sprite2D" parent="."]
 scale = Vector2(0.165, 0.165)
@@ -408,6 +400,10 @@ texture = ExtResource("9_7vyk4")
 [node name="RightHand" type="Sprite2D" parent="SpriteRootOLD/Hands"]
 texture = ExtResource("10_2l4js")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 15)
+shape = SubResource("CapsuleShape2D_3wg1y")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_3wg1y")
@@ -426,13 +422,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_k4v7y")
 }
 autoplay = "stand"
-
-[node name="ClickArea" type="Area2D" parent="."]
-collision_layer = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
-position = Vector2(1, 7)
-shape = SubResource("CapsuleShape2D_d6tgn")
 
 [node name="DamageBar" type="ProgressBar" parent="."]
 z_index = 5

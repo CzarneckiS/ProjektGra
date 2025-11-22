@@ -18,7 +18,7 @@ var follow_distance_absolute:int = 1000
 #combat
 var base_damage = 20
 var damage = base_damage
-var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
+var attack_target : WeakRef #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
 const attack_range = 100
 const vision_range = 500
@@ -37,7 +37,7 @@ var state_machine
 
 func _ready() -> void:
 	unit_hud_order = 1
-	icon_texture = "res://sprites/skeleton warrior icon.png"
+	icon_texture = "res://sprites/skeleton warrior icon.png" 
 	handle_skills()
 	handle_starting_skills()
 	max_health  = 60
@@ -61,20 +61,24 @@ func _ready() -> void:
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	state_machine = $WarriorStateMachine
 	
+	$VisionArea/CollisionShape2D.shape.radius = vision_range
+	
 	navigation_agent_2d.velocity_computed.connect(_on_navigation_agent_2d_velocity_computed)
 	$ClickArea.mouse_entered.connect(_on_click_area_mouse_entered)
 	$ClickArea.mouse_exited.connect(_on_click_area_mouse_exited)
 	$VisionArea.body_entered.connect(_on_vision_area_body_entered)
 	$VisionArea.body_exited.connect(_on_vision_area_body_exited)
 	$Timers/NavigationTimer.timeout.connect(_on_navigation_timer_timeout)
+	$Timers/AttackTimer.timeout.connect(_on_attack_timer_timeout)
+	$Timers/HitFlashTimer.timeout.connect(_on_hit_flash_timer_timeout)
 	
 func _physics_process(_delta: float) -> void:
 	#seek_enemies()
 	if !dying:
 		follow_player()
-	for unit in possible_targets:
-		if unit == null:
-			possible_targets.erase(unit)
+	#for unit in possible_targets:
+		#if unit == null:
+			#possible_targets.erase(unit)
 #SKILLS ===============================================================================
 func handle_skills():
 	#dodaj do odpowiednich list umiejetnosci odblokowane
@@ -194,6 +198,8 @@ func follow_player() -> void:
 
 #COMBAT ===============================================================================
 func hit(damage_taken, _damage_source) -> bool:
+	$Sprite2D.material.set_shader_parameter('progress',1)
+	$Timers/HitFlashTimer.start()
 	health_bar.visible = true
 	damage_bar.visible = true
 	
@@ -240,17 +246,17 @@ func heal(heal_amount):
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
 func attack():
-	if attack_target: #jeśli nasz cel wciąż istnieje:
-		attack_target.hit(damage, self)
+	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
+		attack_target.get_ref().hit(damage, self)
 		for skill in skills_on_hit:
-			skill.use(self, attack_target)
+			skill.use(self, attack_target.get_ref())
 			pass #jeśli cel zwrócił true - czyli żyje - kontynuuj atakowanie
 	else:
 		state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle
 
 func _attack():
 	if attack_target: #jeśli nasz cel wciąż istnieje:
-		if attack_target.hit(damage, self): #wysyła hit do celu
+		if attack_target.get_ref().hit(damage, self): #wysyła hit do celu
 			pass #jeśli cel zwrócił true - czyli żyje - kontynuuj atakowanie
 		else:
 			state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle
@@ -276,6 +282,7 @@ func _on_vision_area_body_entered(body: Node2D) -> void:
 func _on_vision_area_body_exited(body: Node2D) -> void:
 	if possible_targets.has(body): #jednostka z listy targetów wyszła z wizji
 		possible_targets.erase(body)
+	print("body exited")
 
 #to jest funkcja do sortowania, jesli target a jest blizej targeta b to jest przesuwany blizej
 #pozycji 0 w arrayu; a pozycja 0 w arrayu possible_target to najblizszy cel :D
@@ -295,9 +302,9 @@ func closest_enemy(): #sprawdza, który cel jest najbliżej
 		return null
 
 func attack_target_within_attack_range(): #sprawdź czy attack_target znajduje się w attack_range
-	if attack_target and attack_target.global_position.distance_to(global_position) < \
+	if attack_target.get_ref().global_position.distance_to(global_position) < \
 	attack_range:
-		return attack_target #jeśli jest to go zwróć
+		return attack_target.get_ref() #jeśli jest to go zwróć
 	else:
 		return null
 
@@ -350,3 +357,8 @@ func _on_click_area_mouse_exited() -> void:
 	#male testy do feedbacku dla gracza
 	$Highlighted.visible = false
 	Globals.remove_overlapping_allies()
+
+#VISUALS ============================================================
+
+func _on_hit_flash_timer_timeout() -> void:
+	$Sprite2D.material.set_shader_parameter('progress',0)

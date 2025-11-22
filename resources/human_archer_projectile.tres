@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HumanArcherProjectile" load_steps=4 format=3 uid="uid://cc1atkrekw8tp"]
+
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_7lnv5"]
+[ext_resource type="Script" uid="uid://bfshdtg2trm6m" path="res://scripts/skills_for_resources/human_archer_projectile_for_resource.gd" id="2_0a5or"]
+[ext_resource type="PackedScene" uid="uid://dcvxdidqqfpni" path="res://scenes/skills/human_archer_projectile.tscn" id="3_0ypdq"]
+
+[resource]
+script = ExtResource("2_0a5or")
+max_range = 700.0
+speed = 1200.0
+visual_effect = ExtResource("3_0ypdq")

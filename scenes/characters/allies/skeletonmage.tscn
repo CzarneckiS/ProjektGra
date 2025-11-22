@@ -1,16 +1,23 @@
-[gd_scene load_steps=18 format=3 uid="uid://cvrvwcohvoolf"]
+[gd_scene load_steps=20 format=3 uid="uid://cvrvwcohvoolf"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_y8oev"]
 [ext_resource type="Script" uid="uid://c2ualbrtrq04b" path="res://scenes/characters/allies/skeletonmage.gd" id="2_2plqw"]
 [ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/shadow.png" id="3_aivwt"]
 [ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/selection.png" id="4_5wufg"]
-[ext_resource type="Texture2D" uid="uid://d3ejsschhu3o0" path="res://sprites/skeleton_mage/skeleton_mage_cloak.png" id="5_g3lfh"]
-[ext_resource type="Texture2D" uid="uid://b4qc628w3t3li" path="res://sprites/skeleton_mage/skeleton_mage_wand.png" id="6_xaqjm"]
-[ext_resource type="Texture2D" uid="uid://de8pn72sfosk6" path="res://sprites/skeleton_mage/skeleton_mage_head.png" id="7_y8oev"]
+[ext_resource type="Texture2D" uid="uid://d3ejsschhu3o0" path="res://sprites/units/skeleton_mage/skeleton_mage_cloak.png" id="5_g3lfh"]
+[ext_resource type="Shader" uid="uid://dde0kqx4ndsel" path="res://sprites/vfx/hitflash.gdshader" id="5_xaqjm"]
+[ext_resource type="Texture2D" uid="uid://b4qc628w3t3li" path="res://sprites/units/skeleton_mage/skeleton_mage_wand.png" id="6_xaqjm"]
+[ext_resource type="Texture2D" uid="uid://de8pn72sfosk6" path="res://sprites/units/skeleton_mage/skeleton_mage_head.png" id="7_y8oev"]
 [ext_resource type="PackedScene" uid="uid://dyst0xyeehbia" path="res://scenes/warrior_state_machine.tscn" id="11_wve4s"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bluo0"]
-radius = 24.083189
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y8oev"]
+shader = ExtResource("5_xaqjm")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/progress = 1.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2plqw"]
+radius = 24.0
+height = 62.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w5s2j"]
 radius = 43.0
@@ -291,6 +298,7 @@ scale = Vector2(0.14781019, 0.14781019)
 texture = ExtResource("4_5wufg")
 
 [node name="Sprite2D" parent="." index="3"]
+material = SubResource("ShaderMaterial_y8oev")
 position = Vector2(0, -11)
 scale = Vector2(0.15, 0.15)
 
@@ -307,10 +315,10 @@ scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("7_y8oev")
 
 [node name="CollisionShape2D" parent="." index="4"]
-position = Vector2(0, 14)
-shape = SubResource("CircleShape2D_bluo0")
+shape = SubResource("CapsuleShape2D_2plqw")
 
 [node name="ClickArea" parent="." index="5"]
+visible = false
 collision_layer = 16
 collision_mask = 0
 
@@ -324,39 +332,29 @@ offset_top = -69.0
 offset_right = 25.0
 offset_bottom = -61.0
 
-[node name="Timers" type="Node" parent="." index="7"]
+[node name="WarriorStateMachine" parent="." index="7" instance=ExtResource("11_wve4s")]
 
-[node name="MoveTimer" type="Timer" parent="Timers" index="0"]
-
-[node name="NavigationTimer" type="Timer" parent="Timers" index="1"]
-wait_time = 0.05
-one_shot = true
-
-[node name="UnstickTimer" type="Timer" parent="Timers" index="2"]
-one_shot = true
-
-[node name="WarriorStateMachine" parent="." index="8" instance=ExtResource("11_wve4s")]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
 libraries = {
 &"": SubResource("AnimationLibrary_cm8ef")
 }
 autoplay = "idle"
 blend_times = [&"attack", &"idle", 0.5, &"attack", &"walk", 0.5, &"idle", &"attack", 0.5, &"idle", &"walk", 0.5, &"walk", &"attack", 0.5, &"walk", &"idle", 0.5]
 
-[node name="HealthBar" parent="." index="10"]
+[node name="HealthBar" parent="." index="9"]
 offset_left = -25.0
 offset_top = -69.0
 offset_right = 25.0
 offset_bottom = -61.0
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="11"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="10"]
 path_max_distance = 200.0
 avoidance_enabled = true
 radius = 20.0
 neighbor_distance = 100.0
 
-[node name="VisionArea" type="Area2D" parent="." index="12"]
+[node name="VisionArea" type="Area2D" parent="." index="11"]
+visible = false
 collision_layer = 16
 collision_mask = 4
 
@@ -364,4 +362,3 @@ collision_mask = 4
 shape = SubResource("CircleShape2D_2plqw")
 
 [connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]
-[connection signal="timeout" from="Timers/MoveTimer" to="WarriorStateMachine" method="_on_move_timer_timeout"]

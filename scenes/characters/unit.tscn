@@ -55,3 +55,19 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_e0k25")
 theme_override_styles/fill = SubResource("StyleBoxFlat_38bh5")
 value = 90.0
 show_percentage = false
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="NavigationTimer" type="Timer" parent="Timers"]
+wait_time = 0.1
+one_shot = true
+
+[node name="UnstickTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="HitFlashTimer" type="Timer" parent="Timers"]
+wait_time = 0.2
+one_shot = true

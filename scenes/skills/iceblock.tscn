@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://ca7j2rmm5tryu"]
+[gd_scene load_steps=9 format=3 uid="uid://bnnjo24dvhgll"]
 
-[ext_resource type="Script" uid="uid://816i57r10wir" path="res://scenes/skills/iceblock.gd" id="1_1rhpg"]
+[ext_resource type="Script" path="res://scenes/skills/iceblock.gd" id="1_1rhpg"]
 [ext_resource type="Texture2D" uid="uid://q48jg8atsgu3" path="res://sprites/iceblock/ice_wall_0.png" id="1_nn1yf"]
 [ext_resource type="Texture2D" uid="uid://dyprbgi2mgxn8" path="res://sprites/iceblock/ice_wall_1.png" id="2_1rhpg"]
 [ext_resource type="Texture2D" uid="uid://it57gh4w16eh" path="res://sprites/iceblock/ice_wall_2.png" id="3_a6g3u"]

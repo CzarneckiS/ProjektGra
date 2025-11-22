@@ -1,5 +1,5 @@
 extends Node2D
-class_name SkeletonMageProjectileSpell
+class_name SkeletonMageProjectileScene
 
 var skill_resource: SkeletonMageProjectile
 
@@ -9,15 +9,16 @@ var target
 var target_position
 var collision_distance = 20
 var parent_unit
+var damage
 func initialize(unit: CharacterBody2D, _target: CharacterBody2D, skill_res: SkeletonMageProjectile):
 	skill_resource = skill_res
 	target = _target
 	global_position = unit.global_position
 	parent_unit = unit
+	damage = parent_unit.damage
 
 
 func _ready():
-	$AnimatedSprite2D.modulate = Color(0.867, 0.326, 0.364, 1.0)
 	$AnimatedSprite2D.connect("animation_finished", _on_animated_sprite_2d_animation_finished)
 	$AnimatedSprite2D.play("on_creation")
 	
@@ -33,7 +34,7 @@ func _physics_process(delta: float) -> void:
 
 	if (global_position.distance_to(target_position) <= collision_distance):
 		if target:
-			target.hit(parent_unit.damage, self)
+			target.hit(damage, self)
 		queue_free()
 	
 
