@@ -12,21 +12,20 @@
 [ext_resource type="Texture2D" uid="uid://clj1o87ll6lr4" path="res://sprites/move icon.png" id="9_862nl"]
 [ext_resource type="Texture2D" uid="uid://c3a1s8si78c2t" path="res://sprites/stop icon.png" id="10_36mnu"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyfml"]
-bg_color = Color(0.12941177, 0.12941177, 0.12941177, 0)
-border_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1s5m"]
-bg_color = Color(1, 1, 1, 0.19607843)
-border_width_top = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 0.13725491)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2y6e"]
 bg_color = Color(0.6, 0.6, 0.6, 0.039215688)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f2y6e"]
 texture = ExtResource("2_f2y6e")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyfml"]
+bg_color = Color(0, 0, 0, 0)
+border_color = Color(0, 0, 0, 0)
+shadow_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1s5m"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(1, 1, 1, 0.13725491)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0jkms"]
 bg_color = Color(1, 1, 1, 0.039215688)
@@ -56,23 +55,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_h1s5m")
 
-[node name="DamageBar" type="ProgressBar" parent="."]
-z_index = 4
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.37777787
-anchor_top = 1.5288221
-anchor_right = 0.6
-anchor_bottom = 1.6240602
-offset_left = 35.01998
-offset_top = -26.670525
-offset_right = 345.08
-offset_bottom = -3.1405258
-theme_override_styles/background = SubResource("StyleBoxFlat_qyfml")
-theme_override_styles/fill = SubResource("StyleBoxFlat_h1s5m")
-value = 95.0
-show_percentage = false
-
 [node name="HealthBar" type="ProgressBar" parent="."]
 z_index = 4
 layout_mode = 1
@@ -81,30 +63,32 @@ anchor_left = 0.37777787
 anchor_top = 1.5238096
 anchor_right = 0.774192
 anchor_bottom = 1.6240602
-offset_left = 35.01998
-offset_top = -26.46
+offset_left = 35.01999
+offset_top = -26.43
 offset_right = 329.4027
-offset_bottom = -3.1405258
+offset_bottom = -3.1105118
 theme_override_styles/background = SubResource("StyleBoxFlat_f2y6e")
 theme_override_styles/fill = SubResource("StyleBoxTexture_f2y6e")
-value = 90.0
+value = 100.0
 show_percentage = false
 
-[node name="ExpGainBar" type="ProgressBar" parent="."]
+[node name="DamageBar" type="ProgressBar" parent="."]
 z_index = 4
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.37777773
-anchor_top = 0.5714286
-anchor_right = 1.2666667
-anchor_bottom = 0.9047619
-offset_left = 35.019993
-offset_top = 44.54001
-offset_right = 285.08
-offset_bottom = 58.070007
+anchor_left = 0.37777787
+anchor_top = 1.5288221
+anchor_right = 0.6
+anchor_bottom = 1.6240602
+offset_left = 365.0
+offset_top = 1.7894745
+offset_right = 675.06
+offset_bottom = 25.824478
+rotation = 3.1415927
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_qyfml")
 theme_override_styles/fill = SubResource("StyleBoxFlat_h1s5m")
-value = 95.0
+value = 10.09
 show_percentage = false
 
 [node name="ExpBar" type="ProgressBar" parent="."]
@@ -121,7 +105,26 @@ offset_right = 288.23276
 offset_bottom = 62.570007
 theme_override_styles/background = SubResource("StyleBoxFlat_0jkms")
 theme_override_styles/fill = SubResource("StyleBoxTexture_xjlsw")
-value = 90.0
+value = 100.0
+show_percentage = false
+
+[node name="ExpGainBar" type="ProgressBar" parent="."]
+z_index = 4
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37777773
+anchor_top = 0.5714286
+anchor_right = 1.2666667
+anchor_bottom = 0.9047619
+offset_left = 365.0
+offset_top = 73.0
+offset_right = 615.06
+offset_bottom = 86.979996
+rotation = 3.1415927
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_qyfml")
+theme_override_styles/fill = SubResource("StyleBoxFlat_h1s5m")
+value = 8.43
 show_percentage = false
 
 [node name="LabelPlayerLevel" type="Label" parent="."]
@@ -391,6 +394,7 @@ scale = Vector2(0.22905503, 0.19358106)
 texture = ExtResource("3_16vcj")
 
 [node name="IconPage1" type="TextureRect" parent="HudLeftCorner"]
+modulate = Color(1, 1, 1, 0.7647059)
 offset_left = -406.01587
 offset_top = -25.829102
 offset_right = -356.01587
@@ -398,6 +402,7 @@ offset_bottom = 24.170898
 texture = ExtResource("5_x77mw")
 
 [node name="IconPage2" type="TextureRect" parent="HudLeftCorner"]
+modulate = Color(1, 1, 1, 0.7647059)
 offset_left = -78.58374
 offset_top = -25.829102
 offset_right = -28.58374
@@ -405,6 +410,7 @@ offset_bottom = 24.170898
 texture = ExtResource("5_x77mw")
 
 [node name="IconPage3" type="TextureRect" parent="HudLeftCorner"]
+modulate = Color(1, 1, 1, 0.7647059)
 offset_left = 235.75119
 offset_top = -25.829102
 offset_right = 285.7512

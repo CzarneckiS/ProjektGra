@@ -1,8 +1,6 @@
 extends Control
 
-@onready var main_health_bar: ProgressBar = $HealthBar
 @onready var main_damage_bar: ProgressBar = $DamageBar
-@onready var xp_bar: ProgressBar = $ExpBar
 @onready var xp_gain_bar: ProgressBar = $ExpGainBar
 @onready var player_level: Label = $LabelPlayerLevel
 @onready var units_panel: GridContainer = $UnitsPanel
@@ -34,18 +32,12 @@ func _ready() -> void:
 			unit_slots.append(child)
 
 	# ustawienia pasków zdrowia i xp
-	main_health_bar.max_value = Globals.health
-	main_health_bar.value = Globals.health
 	main_damage_bar.max_value = Globals.health
-	main_damage_bar.value = Globals.health
-	main_health_bar.visible = true
+	main_damage_bar.value = 0
 	main_damage_bar.visible = true
 
-	xp_bar.max_value = Globals.xp_to_level
-	xp_bar.value = Globals.accumulated_xp
 	xp_gain_bar.max_value = Globals.xp_to_level
-	xp_gain_bar.value = Globals.accumulated_xp
-	xp_bar.visible = true
+	xp_gain_bar.value = Globals.xp_to_level
 	xp_gain_bar.visible = true
 
 	player_level.text = "LVL: %d" % Globals.level
@@ -78,17 +70,18 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 func update_hp_bar():
-	main_health_bar.value = Globals.health
+	main_damage_bar.value = Globals.max_health - Globals.health 
 	var main_health_tween = create_tween()
-	main_health_tween.tween_property(main_damage_bar, "value", Globals.health, 0.2)
+	main_health_tween.tween_property(main_damage_bar, "value", Globals.max_health - Globals.health, 0.5)
 	main_health_tween.set_trans(Tween.TRANS_SINE)
-	main_health_tween.set_ease(Tween.EASE_OUT)
+	main_health_tween.set_ease(Tween.EASE_IN_OUT)
 
 func update_exp_bar():
+	xp_gain_bar.value = Globals.xp_to_level - Globals.accumulated_xp
 	var xp_tween = create_tween()
-	xp_tween.tween_property(xp_bar, "value", Globals.accumulated_xp, 0.2)
+	xp_tween.tween_property(xp_gain_bar, "value", Globals.xp_to_level - Globals.accumulated_xp, 0.5)
 	xp_tween.set_trans(Tween.TRANS_SINE)
-	xp_tween.set_ease(Tween.EASE_OUT)
+	xp_tween.set_ease(Tween.EASE_IN_OUT)
 	player_level.text = "LVL: %d" % Globals.level
 
 func update_units_panel(new_units: Array) -> void:
@@ -209,7 +202,7 @@ func _update_page_icons():
 		if i + 1 > total_pages:
 			icons[i].modulate = Color(0.1, 0.1, 0.1)
 		else:
-			icons[i].modulate = Color(1,1,1) if current_page == i+1 else Color(0.467, 0.467, 0.467, 0.388)
+			icons[i].modulate = Color(1,1,1) if current_page == i+1 else Color("777777c3")
 
 func _cycle_unit_group() -> void:
 	if unique_orders_in_selection.is_empty():
