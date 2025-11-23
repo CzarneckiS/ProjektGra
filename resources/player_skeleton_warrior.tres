@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_s03ti"]
 [ext_resource type="Texture2D" uid="uid://1q6dnif565mv" path="res://sprites/icons/skeleton warrior icon.png" id="2_knvpo"]
-[ext_resource type="Script" uid="uid://k41d42p0826c" path="res://scripts/skills_for_resources/player_skeleton_warrior_for_resource.gd" id="2_wa7xt"]
+[ext_resource type="Script" path="res://scripts/skills_for_resources/player_skeleton_warrior_for_resource.gd" id="2_wa7xt"]
 
 [resource]
 script = ExtResource("2_wa7xt")
