@@ -5,6 +5,8 @@ extends Node2D
 var attack_move_input: bool = false
 var hud = load("res://scenes/levels/hud.tscn").instantiate()              
 var human_warrior = preload("res://scenes/characters/enemies/humanwarrior.tscn")
+var human_archer = preload("res://scenes/characters/enemies/humanarcher.tscn")
+var human_mage = preload("res://scenes/characters/enemies/humanmage.tscn")
 var skeleton_warrior = preload("res://scenes/characters/allies/skeletonwarrior.tscn")
 var skeleton_mage = preload("res://scenes/characters/allies/skeletonmage.tscn")
 
@@ -16,6 +18,7 @@ var command_spells_hud = load("res://scenes/levels/hud.tscn").instantiate()
 
 func _ready():
 	$Player.connect("summon_unit", on_summon_unit)
+	$Player.connect("took_damage", on_unit_damage_taken)
 	hud.process_mode = Node.PROCESS_MODE_ALWAYS
 	$HudLayer.add_child(hud)
 	#tu chyba nie powinno byc podlogi przed nazwa sygnalu? idk juz sie w tym pogubilem
@@ -23,13 +26,8 @@ func _ready():
 	stats_hud.process_mode = Node.PROCESS_MODE_ALWAYS
 	#lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	$HudLayer.add_child(stats_hud)
-	
-	#musimy dla kazdej instancji warriora laczyc sygnal _on_target_clicked, pozniej bedzie to w spawn_enemy()
-	$EnemyUnits/HumanWarrior.connect("target_clicked", _on_target_clicked)
-	#$HumanWarrior2.connect("target_clicked", _on_target_clicked)
-	#$HumanWarrior3.connect("target_clicked", _on_target_clicked)           
-
-
+	$Player/EnemySpawnArea/Timer.connect("timeout", _on_timer_timeout)
+	   
 func _process(_delta: float) -> void:
 	pass #do testow
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
@@ -47,12 +45,13 @@ func show_lvl_up_menu():
 
 func spawn_enemy(): # EnemySpawnFollow bierzemy jako unique name
 	var new_enemy = human_warrior.instantiate()
+	$EnemyUnits.add_child(new_enemy)
 	%EnemySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
 	while !is_point_on_map(%EnemySpawnFollow.global_position):
 		%EnemySpawnFollow.progress_ratio = randf()
 	new_enemy.global_position = %EnemySpawnFollow.global_position
-	$EnemyUnits.add_child(new_enemy)
 	new_enemy.connect("target_clicked", _on_target_clicked)
+	new_enemy.connect("took_damage", on_unit_damage_taken)
 var test = 0
 #timer okresla co jaki czas bedzie respiony mob, feel free to change
 func _on_timer_timeout() -> void:
@@ -70,40 +69,42 @@ func on_summon_unit(unit):
 			print("summon skeleton mage")
 			summon_skeleton_mage()
 func on_unit_death(unit):
+	#narazie hardcoded 5 sekundowy timer
 	match unit:
 		"SkeletonWarrior":
-			var timer = Timer.new()
-			$UnitRespawnTimers.add_child(timer)
-			timer.wait_time = 5.0
-			timer.one_shot = true
-			timer.start()
-			timer.timeout.connect(summon_skeleton_warrior)
+			await get_tree().create_timer(5.0).timeout
+			summon_skeleton_warrior()
 		"SkeletonMage":
-			var timer = Timer.new()
-			$UnitRespawnTimers.add_child(timer)
-			timer.wait_time = 5.0
-			timer.one_shot = true
-			timer.start()
-			timer.timeout.connect(summon_skeleton_mage)
-#moze w przyszlosci zrobie ladniej (+ uzywac enum zamiast stringa, nasty shit)
+			await get_tree().create_timer(5.0).timeout
+			summon_skeleton_mage()
+#Ta funkcja moze byc potencjalnie grozna bo uzywa WHILE !
+#uzywanie while podczas runtime gry moze oznaczac lagi i wtedy moze trzeba zrobic cos takiego:
+#funkcja w while ma np 60 prob zanim sie podda
+#i rozpoczyna kalkulacje od nowa w nastepnym frame
+#czyli rozkladamy kalkulacje na kilka framow zeby uniknac lagow :) 
+func get_random_point_in_radius(radius: int = 200) -> Vector2:
+	var point := Vector2(randf_range(Globals.player_position.x-radius, Globals.player_position.x+radius),\
+	randf_range(Globals.player_position.y-radius, Globals.player_position.y+radius))
+	while !is_point_on_map(point):
+		point = Vector2(randf_range(Globals.player_position.x-radius, Globals.player_position.x+radius),\
+	randf_range(Globals.player_position.y-radius, Globals.player_position.y+radius))
+	return point
 func summon_skeleton_warrior():
 	var new_skeleton_warrior = skeleton_warrior.instantiate()
-	%AllySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
-	while !is_point_on_map(%AllySpawnFollow.global_position):
-		%AllySpawnFollow.progress_ratio = randf()
-	new_skeleton_warrior.global_position = %AllySpawnFollow.global_position
 	$AlliedUnits.add_child(new_skeleton_warrior)
+	new_skeleton_warrior.global_position = get_random_point_in_radius()
 	new_skeleton_warrior.connect("unit_died", on_unit_death)
+	new_skeleton_warrior.connect("took_damage", on_unit_damage_taken)
 func summon_skeleton_mage():
 	var new_skeleton_mage = skeleton_mage.instantiate()
-	%AllySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
-	while !is_point_on_map(%AllySpawnFollow.global_position):
-		%AllySpawnFollow.progress_ratio = randf()
-	new_skeleton_mage.global_position = %AllySpawnFollow.global_position
 	$AlliedUnits.add_child(new_skeleton_mage)
+	#%AllySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
+	#while !is_point_on_map(%AllySpawnFollow.global_position):
+		#%AllySpawnFollow.progress_ratio = randf()
+	#new_skeleton_mage.global_position = %AllySpawnFollow.global_position
+	new_skeleton_mage.global_position = get_random_point_in_radius()
 	new_skeleton_mage.connect("unit_died", on_unit_death)
-
-
+	new_skeleton_mage.connect("took_damage", on_unit_damage_taken)
 
 func is_point_on_map(target_point: Vector2) -> bool:
 	var map = get_world_2d().navigation_map
@@ -119,32 +120,34 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		if !event.is_released(): #Jeśli right clickujesz
 			return
-		if get_tree().get_nodes_in_group("Selected"): #sprawdza czy zselectowaliśmy jakąś jednostkę
-			cursor_move_animation()  #Odegraj animację
-			for unit in get_tree().get_nodes_in_group("Selected"):
-				unit.handle_inputs("right_click")
 		if attack_move_input:
 			attack_move_input = false
 			unit_selector.attack_move_input = false
-			Globals.attack_move_input_ended()
+			Globals.attack_move_input_ended() #do grafiki kursora
+		elif get_tree().get_nodes_in_group("Selected"): #sprawdza czy zselectowaliśmy jakąś jednostkę
+			cursor_move_animation()  #Odegraj animację
+			for unit in get_tree().get_nodes_in_group("Selected"):
+				unit.handle_inputs("right_click")
+
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if !event.is_released():
 			return
 		if attack_move_input:
 			attack_move_input = false
 			unit_selector.attack_move_input = false
-			Globals.attack_move_input_ended()
+			Globals.attack_move_input_ended() #do grafiki kursora
 			if Globals.overlapping_enemies <= 0:
 				if get_tree().get_nodes_in_group("Selected"): #sprawdza czy zselectowaliśmy jakąś jednostkę
-					cursor_move_animation()
+					cursor_attack_move_animation()
 					for unit in get_tree().get_nodes_in_group("Selected"):
 						unit.handle_inputs("left_click")
 	elif event.is_action_pressed("attack_move"):
-		Globals.attack_move_input_pressed()
-		unit_selector.attack_move_input = true
-		attack_move_input = true
-		for unit in get_tree().get_nodes_in_group("Selected"):
-			unit.handle_inputs("attack_move")
+		if get_tree().get_nodes_in_group("Selected"):
+			Globals.attack_move_input_pressed()
+			unit_selector.attack_move_input = true
+			attack_move_input = true
+			for unit in get_tree().get_nodes_in_group("Selected"):
+				unit.handle_inputs("attack_move")
 	elif event.is_action_pressed("stop"):
 		for unit in get_tree().get_nodes_in_group("Selected"):
 				unit.handle_inputs("stop")
@@ -155,6 +158,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("EscMenu"):
 		#JAK COS TO TRZEBA TU VAR BO USUWAMY TE ZMIENNE 
 		#PO TYM JAK WCISKAMY CONTINUE W ESCMENU
+		if attack_move_input: #przywroc kursor do normy jesli klikalismy A przed ESC
+			attack_move_input = false
+			unit_selector.attack_move_input = false
+			Globals.attack_move_input_ended() #do grafiki kursora
 		if not $MenuLayer.has_node("EscMenu"):
 			var esc_menu_scene = load("res://scenes/ui/esc_menu.tscn")
 			var esc_menu = esc_menu_scene.instantiate()
@@ -177,13 +184,58 @@ func _unhandled_input(event: InputEvent) -> void:
 		summon_skeleton_mage()
 	elif event.is_action_pressed("tmpSpawnEnemy"):
 		spawn_enemy()
+	elif event.is_action_pressed("tmpSpawnEnemy2"):
+		var new_enemy = human_archer.instantiate()
+		$EnemyUnits.add_child(new_enemy)
+		%EnemySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
+		while !is_point_on_map(%EnemySpawnFollow.global_position):
+			%EnemySpawnFollow.progress_ratio = randf()
+		new_enemy.global_position = %EnemySpawnFollow.global_position
+		new_enemy.connect("target_clicked", _on_target_clicked)
+		new_enemy.connect("took_damage", on_unit_damage_taken)
+	elif event.is_action_pressed("tmpSpawnEnemy3"):
+		var new_enemy = human_mage.instantiate()
+		$EnemyUnits.add_child(new_enemy)
+		%EnemySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
+		while !is_point_on_map(%EnemySpawnFollow.global_position):
+			%EnemySpawnFollow.progress_ratio = randf()
+		new_enemy.global_position = %EnemySpawnFollow.global_position
+		new_enemy.connect("target_clicked", _on_target_clicked)
+		new_enemy.connect("took_damage", on_unit_damage_taken)
 
 
+func on_unit_damage_taken(damage, unit):
+	var damage_number = Label.new()
+	add_child(damage_number)
+	damage_number.text = str(damage)
+	damage_number.global_position = unit.global_position
+	damage_number.global_position.y -= 100 #hardcoded 100 pixeli w gore od srodka jednostki, moze do poprawy
+	damage_number.z_index = 3
+	damage_number.label_settings = LabelSettings.new()
+	var color = "#FFF"
+	damage_number.label_settings.font_size = 30
+	if unit in get_tree().get_nodes_in_group("Allied"):
+		damage_number.text = ("-"+str(damage))
+		color = "#F00"
+		if unit in get_tree().get_nodes_in_group("Player"):
+			damage_number.label_settings.font_size = 36
+	damage_number.label_settings.font_color = color
 
+	damage_number.label_settings.outline_color = "#000"
+	damage_number.label_settings.outline_size = 5
+	damage_number.pivot_offset = Vector2(damage_number.size / 2)
+	damage_number.label_settings.font = preload("res://misc/fonts/upheavtt.ttf")
+	
+	var tween = get_tree().create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(damage_number,"global_position:y",damage_number.global_position.y - 20, 0.5)
+	tween.tween_property(damage_number,"global_position:x",damage_number.global_position.x + randi_range(-20, 20), 0.5)
+	await tween.finished
+	damage_number.queue_free()
 func _on_target_clicked(body): #Sygnał od human warriora, czy został kliknięty
 	print("przyjalem sygnal od warriora")
 	for unit in get_tree().get_nodes_in_group("Selected"): #Jeśli jednostka jest zaznaczona
-		unit.attack_target = body #wyślij do niej human warriora jako cel ataku
+		unit.attack_target = weakref(body) #wyślij do niej human warriora jako cel ataku
 		unit.state_machine.set_state(unit.state_machine.states.engaging)
 
 func cursor_move_animation() -> void: #Animacja przy right clickowaniu na ziemię
@@ -194,6 +246,13 @@ func cursor_move_animation() -> void: #Animacja przy right clickowaniu na ziemi�
 		await new_move_cursor.animation_finished
 		new_move_cursor.queue_free()
 
+func cursor_attack_move_animation() -> void: #Animacja przy attack move clickowaniu na ziemię
+		var new_move_cursor = preload("res://scenes/ui/attack_cursor.tscn").instantiate()
+		new_move_cursor.global_position = get_global_mouse_position()
+		new_move_cursor.play("default")
+		$MoveCursor.add_child(new_move_cursor)
+		await new_move_cursor.animation_finished
+		new_move_cursor.queue_free()
 
 #	       ⠀⠀⠀⠀⢀⣴⣶⠿⠟⠻⠿⢷⣦⣄⠀⠀⠀
 #	⠀       ⠀⠀⠀⣾⠏⠀⠀⣠⣤⣤⣤⣬⣿⣷⣄⡀
