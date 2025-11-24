@@ -15,7 +15,7 @@ var max_health : int = health
 var player_position: Vector2
 
 #exp i levelowanie
-var xp_to_level : int = 200 #limit, ktory musimy dobic aby wbic lvl. placeholder value
+var xp_to_level : int = 300 #limit, ktory musimy dobic aby wbic lvl. placeholder value
 var level : int = 1 #startowy lvl
 var accumulated_xp : int = 0 #zebrany przez nas exp, startujemy bez expa
 
@@ -91,7 +91,6 @@ func update_player_hp(damage_taken):
 	
 #funkcja aktualizuje stan expa gracza, na razie jest wywoływana jedynie w fsm humanwarrior
 func update_player_exp(xp_given): #funkcja przyjmuje wartosc expa, zaleznie od jednostki moze sie zmieniac
-	return #WYLACZYLEM EXPA BO MNIE IRYTOWAL xd
 	accumulated_xp += xp_given #aktualizujemy expa
 	while accumulated_xp >= xp_to_level: #dajemy pętle a nie zwykłego ifa bo teoretycznie możemy mieć uzbierane tyle expa, że moglibyśmy dostać kilka lvl upów
 		accumulated_xp -= xp_to_level #jesli mamy wiecej expa niz trzeba to odejmujemy aktualny limit i zostawiamy reszte
