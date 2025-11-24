@@ -8,6 +8,8 @@ var bar_style = StyleBoxFlat.new()
 var icon_texture
 
 var can_attack: bool = true
+var status_effects_array = []
+signal took_damage(damage, unit)
 
 # warior=1 mage=3
 var unit_hud_order

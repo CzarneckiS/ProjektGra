@@ -72,7 +72,10 @@ func _ready() -> void:
 	$Timers/NavigationTimer.timeout.connect(_on_navigation_timer_timeout)
 	$Timers/AttackTimer.timeout.connect(_on_attack_timer_timeout)
 	$Timers/HitFlashTimer.timeout.connect(_on_hit_flash_timer_timeout)
-	
+	$Particles/HitParticles.modulate = Color(1.0, 0.0, 0.0, 1.0)
+	#dodawanie shaderow to wszystkich spritow
+	for child in $Sprite2D.get_children():
+		child.use_parent_material = true
 #VISUALSY ===============================================================================
 func start_hit_flash(damage_source):
 	var original_color = Color.WHITE
@@ -133,8 +136,11 @@ func _on_navigation_timer_timeout() -> void:
 
 #COMBAT ===============================================================================
 func hit(damage_taken, damage_source) -> bool:
-	$Sprite2D.material.set_shader_parameter('progress',1)
-	$Timers/HitFlashTimer.start()
+	if health > 0:
+		$Sprite2D.material.set_shader_parameter('progress',1)
+		$Timers/HitFlashTimer.start()
+		$Particles/HitParticles.emitting = true
+		took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
 	health_bar.visible = true
 	damage_bar.visible = true
 	

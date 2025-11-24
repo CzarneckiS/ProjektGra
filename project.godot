@@ -24,7 +24,7 @@ UnitUpgrades="*res://scenes/globals/upgrade_manager.gd"
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
-mouse_cursor/custom_image="uid://d1t2bxeqi8pwh"
+mouse_cursor/custom_image="uid://bb14q7ycbsskh"
 
 [editor_plugins]
 
@@ -36,6 +36,7 @@ Selectable=""
 Selected=""
 Unit=""
 Allied=""
+Player=""
 
 [input]
 

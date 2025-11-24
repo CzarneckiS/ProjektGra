@@ -66,7 +66,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 func update_hp_bar():
-	print(Globals.health)
 	main_health_bar.value = Globals.health
 	
 	var main_health_tween = create_tween()

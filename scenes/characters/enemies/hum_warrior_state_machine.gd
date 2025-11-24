@@ -11,8 +11,6 @@ func _ready():
 	add_state("attacking") #3
 	add_state("dying") #4
 	add_state("mid_animation") #5
-	#to po prostu oznacza ze startujemy ze statem idle jak cos, call deferred wywoluje sie jako ostatni
-	#kiedy juz inne states sie ladnie dodadza do słownia
 	call_deferred("set_state", states.idle)
 
 #Rozkazy dla jednostki wykonywane w physics_process
@@ -30,7 +28,7 @@ func _state_logic(delta):
 					if sprite_root.scale.x < 0:
 						sprite_root.scale.x *= -1
 			states.engaging:
-				if parent.attack_target: #jeśli cel (jednostka) istnieje, idź do niego
+				if parent.attack_target.get_ref(): #jeśli cel (jednostka) istnieje, idź do niego
 					parent.move_to_target(delta, parent.attack_target.get_ref().global_position)
 					if parent.velocity.x > 0:
 						if sprite_root.scale.x > 0:
@@ -39,7 +37,7 @@ func _state_logic(delta):
 						if sprite_root.scale.x < 0:
 							sprite_root.scale.x *= -1
 			states.attacking:
-				if parent.attack_target:
+				if parent.attack_target.get_ref():
 					if parent.global_position.x - parent.attack_target.get_ref().global_position.x < 0:
 						if sprite_root.scale.x > 0:
 							sprite_root.scale.x *= -1
@@ -87,14 +85,14 @@ func _get_transition(_delta):
 			states.engaging: #jeśli idziesz w stronę przeciwnika
 				if !parent.attack_target.get_ref(): #jeśli nie masz celu
 					set_state(states.idle) #zacznij idlować
-				if parent.attack_target.get_ref().dying:
+				elif parent.attack_target.get_ref().dying:
 					parent.possible_targets.erase(parent.attack_target.get_ref())
 					set_state(states.idle)
-				if parent.closest_enemy_within_attack_range() != null:
+				elif parent.closest_enemy_within_attack_range() != null:
 					#parent.attack_target = weakref(parent.closest_enemy())
 					set_state(states.attacking) # zacznij atakowac
 			states.attacking:
-				if parent.attack_target:
+				if parent.attack_target.get_ref():
 					if !parent.attack_target.get_ref().dying:
 						if parent.can_attack:
 							animation_player.play("attack") #Jeśli zaczniesz atakować, zagraj animacje ataku

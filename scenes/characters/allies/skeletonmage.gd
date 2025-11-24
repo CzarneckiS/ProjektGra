@@ -25,6 +25,7 @@ var possible_targets = [] #jednostki ktore wejda w VisionArea
 const attack_range = 400
 const vision_range = 500
 var dying : bool = false
+var attack_speed_modifier = 1 #wykorzystywany w state machine
 #selecting
 var selected: bool = false
 var mouse_hovering:bool = false
@@ -74,6 +75,9 @@ func _ready() -> void:
 	$Timers/AttackTimer.timeout.connect(_on_attack_timer_timeout)
 	$Timers/HitFlashTimer.timeout.connect(_on_hit_flash_timer_timeout)
 	
+	#dodawanie shaderow to wszystkich spritow
+	for child in $Sprite2D.get_children():
+		child.use_parent_material = true
 func _physics_process(_delta: float) -> void:
 	#seek_enemies()
 	if !dying:
@@ -200,11 +204,13 @@ func follow_player() -> void:
 
 #COMBAT ===============================================================================
 func hit(damage_taken, _damage_source) -> bool:
-	$Sprite2D.material.set_shader_parameter('progress',1)
-	$Timers/HitFlashTimer.start()
+	if health > 0:
+		$Sprite2D.material.set_shader_parameter('progress',1)
+		$Timers/HitFlashTimer.start()
+		$Particles/HitParticles.emitting = true
+		took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
 	health_bar.visible = true
 	damage_bar.visible = true
-	
 	health -= damage_taken
 	health_bar.value = health
 	
@@ -222,6 +228,14 @@ func hit(damage_taken, _damage_source) -> bool:
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
+func forced_death():
+		health = 0
+		Globals.ui_unit_died.emit(self)
+		dying = true
+		health_bar.visible = false
+		damage_bar.visible = false
+		state_machine.call_deferred("set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
+		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
 func death():
 	unit_died.emit("SkeletonMage")
 	for skill in skills_on_death:

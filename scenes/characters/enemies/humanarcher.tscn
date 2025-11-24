@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cfpdv8d50j0j8" path="res://scenes/characters/enemies/humanarcher.gd" id="2_dkfy2"]
 [ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/shadow.png" id="3_1r3p8"]
 [ext_resource type="Texture2D" uid="uid://btcfx5u0jfdq8" path="res://sprites/selection_enemy.png" id="4_lg4em"]
-[ext_resource type="Shader" uid="uid://dde0kqx4ndsel" path="res://sprites/vfx/hitflash.gdshader" id="5_1jpfn"]
+[ext_resource type="Shader" uid="uid://dde0kqx4ndsel" path="res://vfx/hitflash.gdshader" id="5_1jpfn"]
 [ext_resource type="Texture2D" uid="uid://b071t7rbiyi6y" path="res://sprites/units/human_warrior/human_warrior_left_boot.png" id="5_76516"]
 [ext_resource type="Texture2D" uid="uid://bbjdsni1utjsy" path="res://sprites/units/human_warrior/human_warrior_right_boot.png" id="6_dkfy2"]
 [ext_resource type="Texture2D" uid="uid://bjh88v6pmrrt2" path="res://sprites/units/human_archer/human_archer_quiver.png" id="7_dkfy2"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bkvjd3jr4htwx" path="res://sprites/units/human_archer/human_archer_right_arm.png" id="15_csiw2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u0omj"]
+resource_local_to_scene = true
 shader = ExtResource("5_1jpfn")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/progress = 0.0
@@ -628,9 +629,6 @@ texture = ExtResource("15_csiw2")
 [node name="CollisionShape2D" parent="." index="4"]
 position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_dkfy2")
-
-[node name="ClickArea" parent="." index="5"]
-visible = false
 
 [node name="CollisionShape2D" parent="ClickArea" index="0"]
 position = Vector2(0, -23)

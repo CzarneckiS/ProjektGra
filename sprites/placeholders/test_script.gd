@@ -1,12 +1,10 @@
-extends Node
+
 class_name TestScript
 
 #to jest klasa w ktorej prowadze eksperymenty / debugguje
 #move along
 
-var object = SkeletonMageProjectileScene
-
-var ref = weakref(object)
-
-func _process(_delta):
-	print("test")
+#bardzo przydatna funkcja do testowania czy RefCounted zostal zwolniony
+func _notification(what):
+	if what == NOTIFICATION_PREDELETE:
+		print("Bye")

@@ -1,8 +1,10 @@
 extends UnitParent
 
+var melee_attack_vfx = preload("res://vfx/melee_attack_slash/melee_attack_slash_vfx.tres")
+
 var skills_stat_up = {}
 var skills_passive = {}
-var skills_on_hit = {}
+var skills_on_hit = {melee_attack_vfx:1}
 var skills_on_death = {}
 var own_tags : Array[String] = ["Unit", "AlliedUnit","SkeletonWarrior"]
 #movement
@@ -16,13 +18,14 @@ var can_navigate:bool = true
 var follow_distance_idle:int = 400
 var follow_distance_absolute:int = 1000
 #combat
-var base_damage = 20
+var base_damage = 15
 var damage = base_damage
 var attack_target : WeakRef #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
 const attack_range = 100
 const vision_range = 500
 var dying : bool = false
+var attack_speed_modifier = 1 #wykorzystywany w state machine
 #selecting
 var selected: bool = false
 var mouse_hovering:bool = false
@@ -72,6 +75,9 @@ func _ready() -> void:
 	$Timers/AttackTimer.timeout.connect(_on_attack_timer_timeout)
 	$Timers/HitFlashTimer.timeout.connect(_on_hit_flash_timer_timeout)
 	
+	#dodawanie shaderow to wszystkich spritow
+	for child in $Sprite2D.get_children():
+		child.use_parent_material = true
 func _physics_process(_delta: float) -> void:
 	#seek_enemies()
 	if !dying:
@@ -198,8 +204,11 @@ func follow_player() -> void:
 
 #COMBAT ===============================================================================
 func hit(damage_taken, _damage_source) -> bool:
-	$Sprite2D.material.set_shader_parameter('progress',1)
-	$Timers/HitFlashTimer.start()
+	if health > 0:
+		$Sprite2D.material.set_shader_parameter('progress',1)
+		$Timers/HitFlashTimer.start()
+		$Particles/HitParticles.emitting = true
+		took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
 	health_bar.visible = true
 	damage_bar.visible = true
 	
@@ -216,12 +225,18 @@ func hit(damage_taken, _damage_source) -> bool:
 		dying = true
 		health_bar.visible = false
 		damage_bar.visible = false
-		
 		state_machine.call_deferred("set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
 		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
+func forced_death():
+		Globals.ui_unit_died.emit(self)
+		dying = true
+		health_bar.visible = false
+		damage_bar.visible = false
+		state_machine.call_deferred("set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
+		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
 func death():
 	unit_died.emit("SkeletonWarrior")
 	for skill in skills_on_death:
@@ -247,10 +262,11 @@ func heal(heal_amount):
 		return true #jednostka ma ponad 0hp więc wciąż żyje
 func attack():
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
-		attack_target.get_ref().hit(damage, self)
+		#check czy cel nie odszedl za daleko
+		if global_position.distance_to(attack_target.get_ref().global_position) < 300:
+			attack_target.get_ref().hit(damage, self)
 		for skill in skills_on_hit:
 			skill.use(self, attack_target.get_ref())
-			pass #jeśli cel zwrócił true - czyli żyje - kontynuuj atakowanie
 	else:
 		state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle
 
@@ -282,7 +298,6 @@ func _on_vision_area_body_entered(body: Node2D) -> void:
 func _on_vision_area_body_exited(body: Node2D) -> void:
 	if possible_targets.has(body): #jednostka z listy targetów wyszła z wizji
 		possible_targets.erase(body)
-	print("body exited")
 
 #to jest funkcja do sortowania, jesli target a jest blizej targeta b to jest przesuwany blizej
 #pozycji 0 w arrayu; a pozycja 0 w arrayu possible_target to najblizszy cel :D

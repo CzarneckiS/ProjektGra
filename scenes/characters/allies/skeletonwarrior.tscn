@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/shadow.png" id="3_p5k3i"]
 [ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/selection.png" id="3_xg2mg"]
 [ext_resource type="Texture2D" uid="uid://bbkf2tlyficf6" path="res://sprites/units/skeleton_warrior/skellington_warrior_body.png" id="4_mfyro"]
-[ext_resource type="Shader" uid="uid://dde0kqx4ndsel" path="res://sprites/vfx/hitflash.gdshader" id="5_152ed"]
+[ext_resource type="Shader" uid="uid://dde0kqx4ndsel" path="res://vfx/hitflash.gdshader" id="5_152ed"]
 [ext_resource type="Texture2D" uid="uid://ymu8vxktg2t7" path="res://sprites/units/skeleton_warrior/skellington_warrior_shield.png" id="5_p5k3i"]
 [ext_resource type="PackedScene" uid="uid://dyst0xyeehbia" path="res://scenes/warrior_state_machine.tscn" id="5_x85af"]
 [ext_resource type="Texture2D" uid="uid://ceoj7ghhpw2mq" path="res://sprites/units/skeleton_warrior/skellington_warrior_sword.png" id="6_152ed"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://c5guqovle2c50" path="res://sprites/units/skeleton_warrior/skellington_warrior_head.png" id="9_ksuwf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_24fhp"]
+resource_local_to_scene = true
 shader = ExtResource("5_152ed")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/progress = 0.0
@@ -139,6 +140,7 @@ tracks/8/keys = {
 
 [sub_resource type="Animation" id="Animation_e2rn1"]
 resource_name = "attack"
+step = 0.0333
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -440,7 +442,6 @@ texture = ExtResource("9_ksuwf")
 shape = SubResource("CapsuleShape2D_p5k3i")
 
 [node name="ClickArea" parent="." index="5"]
-visible = false
 collision_layer = 16
 collision_mask = 0
 
