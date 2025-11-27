@@ -52,13 +52,16 @@ func unlock_achievement(achievement):
 		save_game()
 
 func load_game():
-	var save_file = FileAccess.open("res://saves/savegame.save", FileAccess.READ)
+	var save_file = FileAccess.open("res://saves/savegame.json", FileAccess.READ)
+	if !save_file:
+		print("No save file found!")
+		return
 	var json_string = save_file.get_line()
 	var json = JSON.new()
 	var _parse_result = json.parse(json_string)
 	achievement_list = json.data
 	
 func save_game(): #potencjalnie do przeniesienia do osobnej klasy / zrobienia oddzielnej funkcji dla achievementow
-	var save_file = FileAccess.open("res://saves/savegame.save", FileAccess.WRITE)
+	var save_file = FileAccess.open("res://saves/savegame.json", FileAccess.WRITE)
 	var json_string = JSON.stringify(achievement_list)
 	save_file.store_line(json_string)
