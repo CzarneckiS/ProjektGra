@@ -108,6 +108,7 @@ func _get_transition(_delta):
 					if parent.mouse_hovering: #jeśli wciąż mamy kursor na przeciwniku
 						Globals.remove_overlapping_enemies() #to przestań highlightować kursor
 					Globals.update_player_exp(parent.experience_value) #wywolujemy funkcje z globalsow aby zaktualizowac exp gracza i przekazujemy zmeinna warrior_exp zdefiniowana w samym human warriorze
+					parent.death()
 					parent.queue_free()
 			states.mid_animation: #Dopóki odgrywasz animację atakowania, nic nie rób
 				if animation_player.is_playing(): return 

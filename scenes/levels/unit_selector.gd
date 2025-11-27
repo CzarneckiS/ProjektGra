@@ -32,7 +32,6 @@ func _unhandled_input(event: InputEvent) -> void: #sprawdza left click
 			if drag_start.is_equal_approx(get_global_mouse_position()): #jeśli nie ruszyłeś myszką
 				select_box = Rect2(get_global_mouse_position(), Vector2.ZERO) #nie rysuj prostokąta
 				return
-			print('updatuje jednostki')
 			update_selected_units() #kiedy puścisz left click zaktualizuj selectowane jednostki
 			queue_redraw() #Odśwież grafikę prostokąta
 

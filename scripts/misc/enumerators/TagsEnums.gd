@@ -1,0 +1,23 @@
+extends Resource
+class_name Tags
+
+enum UnitTag{
+	UNIT,
+	ALLIED,
+	ENEMY,
+	PLAYER,
+	SKELETON_WARRIOR,
+	SKELETON_MAGE,
+	HUMAN_WARRIOR,
+	HUMAN_MAGE,
+	HUMAN_ARCHER
+}
+
+enum UseTag{
+	STAT_UP,
+	PASSIVE,
+	ACTIVE,
+	ON_HIT,
+	ON_DEATH,
+	SUMMON
+}

@@ -3,11 +3,11 @@ class_name HumanArcher
 
 var projectile = preload("res://resources/human_archer_projectile.tres")
 
-var skills_stat_up = {}
-var skills_passive = {}
-var skills_on_hit = {projectile:1}
-var skills_on_death = {}
-var own_tags : Array[String] = []
+var skills_stat_up = []
+var skills_passive = []
+var skills_on_hit = [projectile]
+var skills_on_death = []
+var own_tags : PackedInt32Array = []
 #exp ktory daje warrior, wykorzystywany przekazywany do fsm w dying state
 const experience_value = 20
 
@@ -163,6 +163,11 @@ func hit(damage_taken, damage_source) -> bool:
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
+
+func death():
+	unit_died.emit(Tags.UnitTag.HUMAN_ARCHER)
+	for skill in skills_on_death:
+		skill.use(self)
 
 func attack():
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:

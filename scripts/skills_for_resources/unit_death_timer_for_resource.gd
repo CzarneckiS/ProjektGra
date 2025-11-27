@@ -2,7 +2,9 @@ extends SkillInstant
 class_name UnitDeathTimer
 
 @export var death_timer_seconds = 10
-@export var tags : Dictionary = {}
+@export var unit_tags : PackedInt32Array = []
+@export var use_tags : PackedInt32Array = []
+@export var skill_tags : PackedInt32Array = []
 @export var attack_speed_multiplier = 2
 func use(unit: CharacterBody2D) -> void:
 	unit.attack_speed_modifier *= attack_speed_multiplier
@@ -11,5 +13,5 @@ func use(unit: CharacterBody2D) -> void:
 		if !unit.dying:
 			unit.forced_death()
 func _init() -> void:
-	tags["AlliedUnit"] = tags.size()
-	tags["Passive"] = tags.size()
+	unit_tags.append(Tags.UnitTag.ALLIED)
+	use_tags.append(Tags.UseTag.PASSIVE)

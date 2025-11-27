@@ -2,11 +2,11 @@ extends UnitParent
 
 var melee_attack_vfx = preload("res://vfx/melee_attack_slash/melee_attack_slash_vfx.tres")
 
-var skills_stat_up = {}
-var skills_passive = {}
-var skills_on_hit = {melee_attack_vfx:1}
-var skills_on_death = {}
-var own_tags : Array[String] = ["Unit", "AlliedUnit","SkeletonWarrior"]
+var skills_stat_up = []
+var skills_passive = []
+var skills_on_hit = [melee_attack_vfx]
+var skills_on_death = []
+var own_tags: PackedInt32Array = [Tags.UnitTag.UNIT, Tags.UnitTag.ALLIED, Tags.UnitTag.SKELETON_WARRIOR]
 #movement
 var speed = 300
 var move_target = Vector2.ZERO
@@ -30,7 +30,6 @@ var attack_speed_modifier = 1 #wykorzystywany w state machine
 var selected: bool = false
 var mouse_hovering:bool = false
 
-signal unit_died()
 
 var state_machine
 @onready var health_bar: ProgressBar = $HealthBar 
@@ -90,30 +89,30 @@ func handle_skills():
 	#dodaj do odpowiednich list umiejetnosci odblokowane
 	for skill in Skills.unlocked_skills:
 		for i in range(own_tags.size()):
-			if skill.tags.has(own_tags[i]):
-				if skill.tags.has("StatUp"):
-					skills_stat_up[skill] = skills_stat_up.size()
-				if skill.tags.has("Passive"):
-					skills_passive[skill] = skills_passive.size()
-				if skill.tags.has("OnHit"):
-					skills_on_hit[skill] = skills_on_hit.size()
-				if skill.tags.has("OnDeath"):
-					skills_on_death[skill] = skills_on_death.size()
+			if skill.unit_tags.has(own_tags[i]):
+				if skill.use_tags.has(Tags.UseTag.STAT_UP):
+					skills_stat_up.append(skill)
+				if skill.use_tags.has(Tags.UseTag.PASSIVE):
+					skills_passive.append(skill)
+				if skill.use_tags.has(Tags.UseTag.ON_HIT):
+					skills_on_hit.append(skill)
+				if skill.use_tags.has(Tags.UseTag.ON_DEATH):
+					skills_on_death.append(skill)
 				break
 #NASTY STYLE updatujemy wszystkie skille mimo ze wiemy ktory sie zmienil, do poprawy
 func handle_skill_update(skill):
 	for i in range(own_tags.size()):
-		if skill.tags.has(own_tags[i]):
-			if skill.tags.has("StatUp"):
-				skills_stat_up[skill] = skills_stat_up.size()
+		if skill.unit_tags.has(own_tags[i]):
+			if skill.use_tags.has(Tags.UseTag.STAT_UP):
+				skills_stat_up.append(skill)
 				skill.use(self)
-			if skill.tags.has("Passive"):
-				skills_passive[skill] = skills_passive.size()
+			if skill.use_tags.has(Tags.UseTag.PASSIVE):
+				skills_passive.append(skill)
 				skill.use(self)
-			if skill.tags.has("OnHit"):
-				skills_on_hit[skill] = skills_on_hit.size()
-			if skill.tags.has("OnDeath"):
-				skills_on_death[skill] = skills_on_death.size()
+			if skill.use_tags.has(Tags.UseTag.ON_HIT):
+				skills_on_hit.append(skill)
+			if skill.use_tags.has(Tags.UseTag.ON_DEATH):
+				skills_on_death.append(skill)
 			break
 func handle_starting_skills():
 	for skill in skills_stat_up:
@@ -237,10 +236,12 @@ func forced_death():
 		damage_bar.visible = false
 		state_machine.call_deferred("set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
 		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
+
 func death():
-	unit_died.emit("SkeletonWarrior")
+	unit_died.emit(Tags.UnitTag.SKELETON_WARRIOR)
 	for skill in skills_on_death:
 		skill.use(self)
+
 func heal(heal_amount):
 	health_bar.visible = true
 	damage_bar.visible = true
