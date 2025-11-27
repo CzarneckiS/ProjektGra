@@ -6,5 +6,5 @@
 
 [resource]
 script = ExtResource("2_wa7xt")
-skill_name = "Skeleton Warrior"
+skill_name = "skeleton_warrior"
 icon = ExtResource("2_knvpo")

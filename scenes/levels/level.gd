@@ -29,7 +29,6 @@ func _ready():
 	$Player/EnemySpawnArea/Timer.connect("timeout", _on_timer_timeout)
 	   
 func _process(_delta: float) -> void:
-	pass #do testow
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
 
 #SPAWNING JEDNOSTEK ================================================================
@@ -52,6 +51,7 @@ func spawn_enemy(): # EnemySpawnFollow bierzemy jako unique name
 	new_enemy.global_position = %EnemySpawnFollow.global_position
 	new_enemy.connect("target_clicked", _on_target_clicked)
 	new_enemy.connect("took_damage", on_unit_damage_taken)
+	new_enemy.connect("unit_died", on_unit_death)
 var test = 0
 #timer okresla co jaki czas bedzie respiony mob, feel free to change
 func _on_timer_timeout() -> void:
@@ -63,20 +63,24 @@ func _on_timer_timeout() -> void:
 func on_summon_unit(unit):
 	match unit:
 		"SkeletonWarrior":
-			print("summon skeleton warrior")
 			summon_skeleton_warrior()
 		"SkeletonMage":
-			print("summon skeleton mage")
 			summon_skeleton_mage()
 func on_unit_death(unit):
 	#narazie hardcoded 5 sekundowy timer
 	match unit:
-		"SkeletonWarrior":
+		Tags.UnitTag.SKELETON_MAGE:
 			await get_tree().create_timer(5.0).timeout
 			summon_skeleton_warrior()
-		"SkeletonMage":
+		Tags.UnitTag.SKELETON_WARRIOR:
 			await get_tree().create_timer(5.0).timeout
 			summon_skeleton_mage()
+		Tags.UnitTag.HUMAN_WARRIOR:
+			Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.HUMAN_WARRIOR)
+		Tags.UnitTag.HUMAN_ARCHER:
+			Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.HUMAN_ARCHER)
+		Tags.UnitTag.HUMAN_MAGE:
+			Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.HUMAN_MAGE)
 #Ta funkcja moze byc potencjalnie grozna bo uzywa WHILE !
 #uzywanie while podczas runtime gry moze oznaczac lagi i wtedy moze trzeba zrobic cos takiego:
 #funkcja w while ma np 60 prob zanim sie podda
@@ -193,6 +197,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		new_enemy.global_position = %EnemySpawnFollow.global_position
 		new_enemy.connect("target_clicked", _on_target_clicked)
 		new_enemy.connect("took_damage", on_unit_damage_taken)
+		new_enemy.connect("unit_died", on_unit_death)
 	elif event.is_action_pressed("tmpSpawnEnemy3"):
 		var new_enemy = human_mage.instantiate()
 		$EnemyUnits.add_child(new_enemy)
@@ -202,6 +207,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		new_enemy.global_position = %EnemySpawnFollow.global_position
 		new_enemy.connect("target_clicked", _on_target_clicked)
 		new_enemy.connect("took_damage", on_unit_damage_taken)
+		new_enemy.connect("unit_died", on_unit_death)
 
 
 func on_unit_damage_taken(damage, unit):
@@ -233,7 +239,6 @@ func on_unit_damage_taken(damage, unit):
 	await tween.finished
 	damage_number.queue_free()
 func _on_target_clicked(body): #Sygnał od human warriora, czy został kliknięty
-	print("przyjalem sygnal od warriora")
 	for unit in get_tree().get_nodes_in_group("Selected"): #Jeśli jednostka jest zaznaczona
 		unit.attack_target = weakref(body) #wyślij do niej human warriora jako cel ataku
 		unit.state_machine.set_state(unit.state_machine.states.engaging)
