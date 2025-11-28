@@ -1,19 +1,62 @@
 extends Control
 
-@onready var description_1: Label = $Description1
-@onready var description_2: Label = $Description2
-@onready var description_3: Label = $Description3
-@onready var texture_rect: TextureRect = $TextureRect
-@onready var texture_rect_2: TextureRect = $TextureRect2
-@onready var texture_rect_3: TextureRect = $TextureRect3
+@onready var name_1: Label = $Option1/Name
+@onready var name_2: Label = $Option2/Name
+@onready var name_3: Label = $Option3/Name
+
+@onready var description_1: Label = $Option1/Description
+@onready var description_2: Label = $Option2/Description
+@onready var description_3: Label = $Option3/Description
+
+@onready var texture_rect_1: TextureRect = $Option1/Icon
+@onready var texture_rect_2: TextureRect = $Option2/Icon
+@onready var texture_rect_3: TextureRect = $Option3/Icon
+
+@onready var option_1: Button = $Option1
+@onready var option_2: Button = $Option2
+@onready var option_3: Button = $Option3
+
+@onready var highlight_1: TextureRect = $Option1/Highlight
+@onready var highlight_2: TextureRect = $Option2/Highlight
+@onready var highlight_3: TextureRect = $Option3/Highlight
+
 var skills_to_show: Array
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
+	option_1.focus_mode = Control.FOCUS_NONE
+	option_2.focus_mode = Control.FOCUS_NONE
+	option_3.focus_mode = Control.FOCUS_NONE
+
+	_setup_hover(option_1, highlight_1)
+	_setup_hover(option_2, highlight_2)
+	_setup_hover(option_3, highlight_3)
+
 	level_up()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+
+func _setup_hover(btn: Button, highlight: TextureRect) -> void:
+	highlight.visible = false
+	btn.mouse_entered.connect(func(): highlight.visible = true)
+	btn.mouse_exited.connect(func(): highlight.visible = false)
+
+
+func level_up():
+	skills_to_show = Skills.get_skill()
+
+
+	#ta pętla przechodzi przez wszystkie komponenty @onready i zmienia teksty i td
+	#tak naprawde zmienia się tylko cyferka przy nazwie 
+	#żeby nie pisać  6*3 = 18 linijek jednakowego kodu
+	for i in range(skills_to_show.size()):
+		self.get("name_" + str(i + 1)).text = skills_to_show[i].skill_name
+		self.get("texture_rect_" + str(i + 1)).texture = skills_to_show[i].icon
+		self.get("description_" + str(i + 1)).text = skills_to_show[i].skill_desc
+		
+		# !!! TRZEBA PRZETESTOWAĆ !!!
+		if Skills.unlocked_skills.has(skills_to_show[i].skill_name):
+			self.get("option_" + str(i + 1)).text = "Upgrade skill"
+		else:
+			self.get("option_" + str(i + 1)).text = "Unlock skill"
 
 
 func _on_option_1_pressed() -> void:
@@ -24,23 +67,14 @@ func _on_option_1_pressed() -> void:
 
 
 func _on_option_2_pressed() -> void:
-	get_tree().paused = false 
+	get_tree().paused = false
 	Skills.unlock_skill(skills_to_show[1])
 	Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[1])
 	queue_free()   
 
 
 func _on_option_3_pressed() -> void:
-	get_tree().paused = false 
+	get_tree().paused = false
 	Skills.unlock_skill(skills_to_show[2])
 	Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[2])
 	queue_free()   
-
-func level_up():
-	skills_to_show = Skills.get_skill()
-	description_1.text = skills_to_show[0].skill_name
-	texture_rect.texture = skills_to_show[0].icon
-	description_2.text = skills_to_show[1].skill_name
-	texture_rect_2.texture = skills_to_show[1].icon
-	description_3.text = skills_to_show[2].skill_name
-	texture_rect_3.texture = skills_to_show[2].icon

@@ -1,31 +1,31 @@
-[gd_scene load_steps=18 format=3 uid="uid://dow75ifqnaejo"]
+[gd_scene load_steps=19 format=3 uid="uid://dow75ifqnaejo"]
 
 [ext_resource type="Script" uid="uid://bh80at3wk5jxc" path="res://scenes/levels/hud.gd" id="1_h1s5m"]
-[ext_resource type="Texture2D" uid="uid://bvafebvu6h5ix" path="res://sprites/HUD lifebar XP BAR purple.png" id="2_16vcj"]
-[ext_resource type="Texture2D" uid="uid://cegf2xnvik2q2" path="res://sprites/HUD lifebar HP BAR.png" id="2_f2y6e"]
-[ext_resource type="Texture2D" uid="uid://cfof88wjy0pfx" path="res://sprites/HUD left corner.png" id="3_16vcj"]
-[ext_resource type="Texture2D" uid="uid://c7jajlc2ay5ur" path="res://sprites/HUD_middle.png" id="5_0jkms"]
-[ext_resource type="Texture2D" uid="uid://bpcd50fq8syjh" path="res://sprites/HUD right corner.png" id="6_xjlsw"]
-[ext_resource type="Texture2D" uid="uid://b4oegmy842s8l" path="res://sprites/attack icon.png" id="7_npjfx"]
-[ext_resource type="Texture2D" uid="uid://c1w42wxnnjnow" path="res://sprites/hold icon.png" id="8_x77mw"]
-[ext_resource type="Texture2D" uid="uid://clj1o87ll6lr4" path="res://sprites/move icon.png" id="9_862nl"]
-[ext_resource type="Texture2D" uid="uid://c3a1s8si78c2t" path="res://sprites/stop icon.png" id="10_36mnu"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyfml"]
-bg_color = Color(0.12941177, 0.12941177, 0.12941177, 0)
-border_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1s5m"]
-bg_color = Color(1, 1, 1, 0.19607843)
-border_width_top = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 0.13725491)
+[ext_resource type="Texture2D" uid="uid://bvafebvu6h5ix" path="res://sprites/ui/HUD lifebar XP BAR purple.png" id="2_16vcj"]
+[ext_resource type="Texture2D" uid="uid://cegf2xnvik2q2" path="res://sprites/ui/HUD lifebar HP BAR.png" id="2_f2y6e"]
+[ext_resource type="Texture2D" uid="uid://cfof88wjy0pfx" path="res://sprites/ui/HUD left corner.png" id="3_16vcj"]
+[ext_resource type="Texture2D" uid="uid://c7jajlc2ay5ur" path="res://sprites/ui/HUD_middle.png" id="5_0jkms"]
+[ext_resource type="Texture2D" uid="uid://c6a6cymtsl4cd" path="res://sprites/ui/EmptyIcon.png" id="5_x77mw"]
+[ext_resource type="Texture2D" uid="uid://bpcd50fq8syjh" path="res://sprites/ui/HUD right corner.png" id="6_xjlsw"]
+[ext_resource type="Texture2D" uid="uid://b4oegmy842s8l" path="res://sprites/ui/attack icon.png" id="7_npjfx"]
+[ext_resource type="Texture2D" uid="uid://c1w42wxnnjnow" path="res://sprites/ui/hold icon.png" id="8_x77mw"]
+[ext_resource type="Texture2D" uid="uid://clj1o87ll6lr4" path="res://sprites/ui/move icon.png" id="9_862nl"]
+[ext_resource type="Texture2D" uid="uid://c3a1s8si78c2t" path="res://sprites/ui/stop icon.png" id="10_36mnu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2y6e"]
 bg_color = Color(0.6, 0.6, 0.6, 0.039215688)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f2y6e"]
 texture = ExtResource("2_f2y6e")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyfml"]
+bg_color = Color(0, 0, 0, 0)
+border_color = Color(0, 0, 0, 0)
+shadow_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1s5m"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(1, 1, 1, 0.13725491)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0jkms"]
 bg_color = Color(1, 1, 1, 0.039215688)
@@ -55,22 +55,23 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_h1s5m")
 
-[node name="DamageBar" type="ProgressBar" parent="."]
-z_index = 4
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.37777787
-anchor_top = 1.5288221
-anchor_right = 0.6
-anchor_bottom = 1.6240602
-offset_left = 35.01998
-offset_top = -26.670525
-offset_right = 345.08
-offset_bottom = -3.1405258
-theme_override_styles/background = SubResource("StyleBoxFlat_qyfml")
-theme_override_styles/fill = SubResource("StyleBoxFlat_h1s5m")
-value = 95.0
-show_percentage = false
+[node name="HP" type="Label" parent="."]
+z_index = 103
+layout_mode = 0
+offset_left = 74.0
+offset_top = 40.0
+offset_right = 114.0
+offset_bottom = 63.0
+text = "HP"
+
+[node name="XP" type="Label" parent="."]
+z_index = 103
+layout_mode = 0
+offset_left = 73.0
+offset_top = 71.0
+offset_right = 113.0
+offset_bottom = 95.0
+text = "EXP"
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 z_index = 4
@@ -80,30 +81,32 @@ anchor_left = 0.37777787
 anchor_top = 1.5238096
 anchor_right = 0.774192
 anchor_bottom = 1.6240602
-offset_left = 35.01998
-offset_top = -26.46
+offset_left = 35.01999
+offset_top = -26.43
 offset_right = 329.4027
-offset_bottom = -3.1405258
+offset_bottom = -3.1105118
 theme_override_styles/background = SubResource("StyleBoxFlat_f2y6e")
 theme_override_styles/fill = SubResource("StyleBoxTexture_f2y6e")
-value = 90.0
+value = 100.0
 show_percentage = false
 
-[node name="ExpGainBar" type="ProgressBar" parent="."]
+[node name="DamageBar" type="ProgressBar" parent="."]
 z_index = 4
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.37777773
-anchor_top = 0.5714286
-anchor_right = 1.2666667
-anchor_bottom = 0.9047619
-offset_left = 35.019993
-offset_top = 44.54001
-offset_right = 285.08
-offset_bottom = 58.070007
+anchor_left = 0.37777787
+anchor_top = 1.5288221
+anchor_right = 0.6
+anchor_bottom = 1.6240602
+offset_left = 365.0
+offset_top = 1.7894745
+offset_right = 675.06
+offset_bottom = 25.824478
+rotation = 3.1415927
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_qyfml")
 theme_override_styles/fill = SubResource("StyleBoxFlat_h1s5m")
-value = 95.0
+value = 10.09
 show_percentage = false
 
 [node name="ExpBar" type="ProgressBar" parent="."]
@@ -120,7 +123,26 @@ offset_right = 288.23276
 offset_bottom = 62.570007
 theme_override_styles/background = SubResource("StyleBoxFlat_0jkms")
 theme_override_styles/fill = SubResource("StyleBoxTexture_xjlsw")
-value = 90.0
+value = 100.0
+show_percentage = false
+
+[node name="ExpGainBar" type="ProgressBar" parent="."]
+z_index = 4
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37777773
+anchor_top = 0.5714286
+anchor_right = 1.2666667
+anchor_bottom = 0.9047619
+offset_left = 365.0
+offset_top = 73.0
+offset_right = 615.06
+offset_bottom = 86.979996
+rotation = 3.1415927
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_qyfml")
+theme_override_styles/fill = SubResource("StyleBoxFlat_h1s5m")
+value = 8.43
 show_percentage = false
 
 [node name="LabelPlayerLevel" type="Label" parent="."]
@@ -142,10 +164,9 @@ anchor_left = -6.111111
 anchor_top = -1.8333334
 anchor_right = -2.5222223
 anchor_bottom = 1.3571428
-offset_left = -4.0
-offset_top = 46.0
-offset_right = -4.0
-offset_bottom = 18.000004
+offset_top = 57.99994
+offset_right = -3.0
+offset_bottom = 27.999943
 grow_horizontal = 0
 grow_vertical = 2
 columns = 6
@@ -378,43 +399,92 @@ offset_bottom = 50.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_icbpb")
 
-[node name="HudLeftCornerOriginal" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-377.26947, -65.74997)
-scale = Vector2(0.23412158, 0.23412159)
+[node name="HudLeftCorner" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -589.0
+offset_top = -181.0
+offset_right = 1226.0
+offset_bottom = 1299.0
+scale = Vector2(0.229, 0.194)
 texture = ExtResource("3_16vcj")
 
-[node name="HudLeftCorner" type="Sprite2D" parent="."]
-position = Vector2(-381.86743, -35.749977)
-scale = Vector2(0.22905503, 0.19358106)
-texture = ExtResource("3_16vcj")
+[node name="IconPage1" type="TextureRect" parent="HudLeftCorner"]
+modulate = Color(1, 1, 1, 0.7647059)
+layout_mode = 0
+offset_left = 506.5503
+offset_top = 711.33984
+offset_right = 556.5503
+offset_bottom = 761.33984
+texture = ExtResource("5_x77mw")
 
-[node name="HudMiddle" type="Sprite2D" parent="."]
-position = Vector2(234.00002, 38.812477)
-scale = Vector2(0.20064794, 0.2006479)
+[node name="IconPage2" type="TextureRect" parent="HudLeftCorner"]
+modulate = Color(1, 1, 1, 0.7647059)
+layout_mode = 0
+offset_left = 834.0615
+offset_top = 711.33984
+offset_right = 884.0615
+offset_bottom = 761.33984
+texture = ExtResource("5_x77mw")
+
+[node name="IconPage3" type="TextureRect" parent="HudLeftCorner"]
+modulate = Color(1, 1, 1, 0.7647059)
+layout_mode = 0
+offset_left = 1148.4717
+offset_top = 711.33984
+offset_right = 1198.4717
+offset_bottom = 761.33984
+texture = ExtResource("5_x77mw")
+
+[node name="HudMiddle" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -11.0
+offset_top = -27.0
+offset_right = 2428.0
+offset_bottom = 629.0
+scale = Vector2(0.201, 0.201)
 texture = ExtResource("5_0jkms")
 
-[node name="HudRightCorner" type="Sprite2D" parent="."]
-position = Vector2(829, -43)
+[node name="HudRightCorner" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 647.9999
+offset_top = -191.0
+offset_right = 2463.0
+offset_bottom = 1289.0
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("6_xjlsw")
 
-[node name="AttackIcon" type="Sprite2D" parent="."]
-position = Vector2(936.52, -71.5)
+[node name="AttackIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 708.0
+offset_top = -104.0
+offset_right = 1208.0
+offset_bottom = 396.0
 scale = Vector2(0.13, 0.13)
 texture = ExtResource("7_npjfx")
 
-[node name="HoldIcon" type="Sprite2D" parent="."]
-position = Vector2(871.49, -71.5)
+[node name="HoldIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 774.0
+offset_top = -104.0
+offset_right = 1274.0
+offset_bottom = 396.0
 scale = Vector2(0.13, 0.13)
 texture = ExtResource("8_x77mw")
 
-[node name="MoveIcon" type="Sprite2D" parent="."]
-position = Vector2(739.5, -71.5)
+[node name="MoveIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 840.0
+offset_top = -104.0
+offset_right = 1340.0
+offset_bottom = 396.0
 scale = Vector2(0.13, 0.13)
 texture = ExtResource("9_862nl")
 
-[node name="StopIcon" type="Sprite2D" parent="."]
-position = Vector2(805.49, -71.5)
+[node name="StopIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 905.0
+offset_top = -104.0
+offset_right = 1405.0
+offset_bottom = 396.0
 scale = Vector2(0.13, 0.13)
 texture = ExtResource("10_36mnu")

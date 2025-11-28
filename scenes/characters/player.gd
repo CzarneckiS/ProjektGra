@@ -112,11 +112,13 @@ func _ready() -> void:
 	hp_bar_style.border_width_bottom = 2
 	hp_bar_style.border_color = Color(0.0, 0.0, 0.0, 1.0)
 	health_bar.add_theme_stylebox_override("fill", hp_bar_style)
+
 	$Timers/HitFlashTimer.timeout.connect(_on_hit_flash_timer_timeout)
 	for child in $SpriteRoot.get_children():
 		child.use_parent_material = true
 		for childs_child in child.get_children():
 			childs_child.use_parent_material = true
+
 
 func _process(_delta: float) -> void:
 	if standing:
