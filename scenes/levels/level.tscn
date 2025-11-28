@@ -1,11 +1,9 @@
-[gd_scene load_steps=19 format=4 uid="uid://di31cuiaxvo7s"]
+[gd_scene load_steps=17 format=4 uid="uid://di31cuiaxvo7s"]
 
 [ext_resource type="PackedScene" uid="uid://cbodjjoib2qrn" path="res://scenes/characters/player.tscn" id="1_377w7"]
 [ext_resource type="Script" uid="uid://dek8k2fbphrnu" path="res://scenes/levels/level.gd" id="1_xb4v1"]
-[ext_resource type="Texture2D" uid="uid://bhf8r5as37ld0" path="res://sprites/ui/Tileset.png" id="3_mbbpy"]
-[ext_resource type="PackedScene" uid="uid://c6wxbv4ruot4l" path="res://scenes/characters/allies/skeletonwarrior.tscn" id="4_d4w6o"]
+[ext_resource type="Texture2D" uid="uid://bhf8r5as37ld0" path="res://sprites/Tileset.png" id="3_mbbpy"]
 [ext_resource type="Script" uid="uid://rkcfoq2ddkxw" path="res://scenes/levels/unit_selector.gd" id="4_xb4v1"]
-[ext_resource type="PackedScene" uid="uid://crrf60xb54uea" path="res://scenes/characters/enemies/humanwarrior.tscn" id="7_7pb6i"]
 
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d4w6o"]
@@ -267,9 +265,9 @@ point_count = 5
 
 [sub_resource type="Curve2D" id="Curve2D_d4w6o"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 234, -45, 0, 0, 0, 0, 172, 189, 0, 0, 0, 0, -187, 186, 0, 0, 0, 0, -277, -74, 0, 0, 0, 0, -22, -211, 0, 0, 0, 0, 234, -45)
+"points": PackedVector2Array(0, 0, 0, 0, -213, -201, 0, 0, 0, 0, -114, -196, 0, 0, 0, 0, -25, -197, 0, 0, 0, 0, 112.23096, -193.98697, 0, 0, 0, 0, 202.26459, -193.36604, 0, 0, 0, 0, 306, -190, 0, 0, 0, 0, 300.99103, -125.68562, 0, 0, 0, 0, 297.8864, -76.01193, 0, 0, 0, 0, 297.88644, 12.779831, 0, 0, 0, 0, 302.8538, 86.04854, 0, 0, 0, 0, 300.99106, 138.2059, 0, 0, 0, 0, 303, 184, 0, 0, 0, 0, 246.35, 181.04947, 0, 0, 0, 0, 153.83273, 182.29132, 0, 0, 0, 0, 64.420044, 176.70303, 0, 0, 0, 0, -31.201813, 178.5658, 0, 0, 0, 0, -205, 171, 0, 0, 0, 0, -205.39848, 74.25101, 0, 0, 0, 0, -204.43886, -15.161652, 0, 0, 0, 0, -205.6807, -110.78352, 0, 0, 0, 0, -213, -201)
 }
-point_count = 6
+point_count = 21
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_urvlt"]
 vertices = PackedVector2Array(420, -300, 420, -900, 2339.2734, -1282.1797, 2374.711, 1270.9531, -1847.9297, -1322.7969, -420, -900, -1839.0625, 1261.0391, -420, -300)
@@ -306,6 +304,7 @@ tile_map_data = PackedByteArray("AAD7//T/AQAAAAgAAAD7//X/AQAAAAkAAAD7//b/AQAAAAo
 tile_set = SubResource("TileSet_7pb6i")
 
 [node name="Player" parent="." instance=ExtResource("1_377w7")]
+position = Vector2(171, 68)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(0.765, 0.765)
@@ -325,26 +324,22 @@ rotation = -0.005737672
 wait_time = 0.1
 
 [node name="AllySpawnArea" type="Path2D" parent="Player"]
-position = Vector2(8, 213)
+visible = false
+position = Vector2(-30, 199)
 curve = SubResource("Curve2D_d4w6o")
 
 [node name="AllySpawnFollow" type="PathFollow2D" parent="Player/AllySpawnArea"]
 unique_name_in_owner = true
-position = Vector2(234, -45)
-rotation = 1.8298022
+position = Vector2(276.74744, -190.94919)
+rotation = 0.032436967
+progress = 489.93872
 
 [node name="AlliedUnits" type="Node2D" parent="."]
 y_sort_enabled = true
 position = Vector2(19, -181)
 
-[node name="SkeletonWarrior" parent="AlliedUnits" instance=ExtResource("4_d4w6o")]
-position = Vector2(-508, 355)
-
 [node name="EnemyUnits" type="Node2D" parent="."]
 y_sort_enabled = true
-
-[node name="HumanWarrior" parent="EnemyUnits" instance=ExtResource("7_7pb6i")]
-position = Vector2(502, 509)
 
 [node name="Projectiles" type="Node2D" parent="."]
 
@@ -353,10 +348,18 @@ z_index = 1
 script = ExtResource("4_xb4v1")
 
 [node name="MoveCursor" type="Node2D" parent="."]
+z_index = 3
 
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+[node name="StageLightingDay" type="DirectionalLight2D" parent="."]
+visible = false
 color = Color(0.96197957, 0.6363589, 0.5854872, 1)
 energy = 0.05
+
+[node name="StageLightingNight" type="DirectionalLight2D" parent="."]
+visible = false
+color = Color(0.65654224, 0.73087066, 0.9042677, 1)
+energy = 1.23
+blend_mode = 2
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 position = Vector2(-8, -7)
@@ -389,7 +392,9 @@ X = stop
 C = hold position
 J = Spawn Warrior
 K = Spawn Mage
-L = Spawn Enemy
+L = Spawn Human Warrior
+N = Spawn Human Archer
+M = Spawn Human Mage
 P = Level up
 Q = fireball
 E = lightning bolt
@@ -405,8 +410,4 @@ grow_horizontal = 0
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]
 
-[node name="UnitRespawnTimers" type="Node" parent="."]
-
 [node name="LvlUpUpgradesLayer" type="CanvasLayer" parent="."]
-
-[connection signal="timeout" from="Player/EnemySpawnArea/Timer" to="." method="_on_timer_timeout"]

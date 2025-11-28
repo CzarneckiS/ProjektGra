@@ -8,16 +8,17 @@ var standing: bool = true
 var selected = false
 var dying : bool = false
 
-var skills_summon = {}
-var skills_stat_up = {}
-var skills_passive = {}
-var skills_active = {}
-var own_tags : Array[String] = ["Player"]
+var skills_summon = []
+var skills_stat_up = []
+var skills_passive = []
+var skills_active = []
+var own_tags : PackedInt32Array = [Tags.UnitTag.PLAYER]
 
 #Unit spawning
 var skeleton_warrior_count = 0
 var skeleton_mage_count = 0
 signal summon_unit()
+signal took_damage(damage, unit)
 
 func _unhandled_input(event):
 	if event.is_action_pressed("fireball_input"):
@@ -33,7 +34,7 @@ var fireball_skill: Resource = preload("res://resources/fireball.tres")
 var thunderbolt_skill: Resource = preload("res://resources/thunderbolt.tres")
 var heal_skill: Resource = preload("res://resources/heal.tres")
 var iceblock_skill: Resource = preload("res://resources/iceblock.tres")
-var skill_cooldowns: Dictionary = {}
+var skill_cooldowns: Dictionary = {} #zmienic na array?
 
 func can_cast(skill: Resource) -> bool:
 	var key = skill.resource_path
@@ -111,6 +112,14 @@ func _ready() -> void:
 	hp_bar_style.border_width_bottom = 2
 	hp_bar_style.border_color = Color(0.0, 0.0, 0.0, 1.0)
 	health_bar.add_theme_stylebox_override("fill", hp_bar_style)
+
+	$Timers/HitFlashTimer.timeout.connect(_on_hit_flash_timer_timeout)
+	for child in $SpriteRoot.get_children():
+		child.use_parent_material = true
+		for childs_child in child.get_children():
+			childs_child.use_parent_material = true
+
+
 func _process(_delta: float) -> void:
 	if standing:
 		$AnimationPlayer.play("stand")
@@ -129,34 +138,35 @@ func _process(_delta: float) -> void:
 		move_and_slide()
 	Globals.player_position = global_position
 
+
 #SKILLS ===============================================================================
 func handle_skills():
 	#dodaj do odpowiednich list umiejetnosci odblokowane
 	for skill in Skills.unlocked_skills:
 		for i in range(own_tags.size()):
-			if skill.tags.has(own_tags[i]):
-				if skill.tags.has("StatUp"):
-					skills_stat_up[skill] = skills_stat_up.size()
-				if skill.tags.has("Passive"):
-					skills_passive[skill] = skills_passive.size()
-				if skill.tags.has("Active"):
-					skills_active[skill] = skills_active.size()
-				if skill.tags.has("Summon"):
-					skills_summon[skill] = skills_summon.size()
+			if skill.unit_tags.has(own_tags[i]):
+				if skill.use_tags.has(Tags.UseTag.STAT_UP):
+					skills_stat_up.append(skill)
+				if skill.use_tags.has(Tags.UseTag.PASSIVE):
+					skills_passive.append(skill)
+				if skill.use_tags.has(Tags.UseTag.ACTIVE):
+					skills_active.append(skill)
+				if skill.use_tags.has(Tags.UseTag.SUMMON):
+					skills_summon.append(skill)
 				break
 func handle_skill_update(skill):
 	for i in range(own_tags.size()):
-		if skill.tags.has(own_tags[i]):
-			if skill.tags.has("StatUp"):
-				skills_stat_up[skill] = skills_stat_up.size()
+		if skill.unit_tags.has(own_tags[i]):
+			if skill.use_tags.has(Tags.UseTag.STAT_UP):
+				skills_stat_up.append(skill)
 				skill.use(self)
-			if skill.tags.has("Passive"):
-				skills_passive[skill] = skills_passive.size()
+			if skill.use_tags.has(Tags.UseTag.PASSIVE):
+				skills_passive.append(skill)
 				skill.use(self)
-			if skill.tags.has("Active"):
-				skills_active[skill] = skills_active.size()
-			if skill.tags.has("Summon"):
-				skills_summon[skill] = skills_summon.size()
+			if skill.use_tags.has(Tags.UseTag.ACTIVE):
+				skills_active.append(skill)
+			if skill.use_tags.has(Tags.UseTag.SUMMON):
+				skills_summon.append(skill)
 				skill.use(self)
 			break
 func handle_starting_skills():
@@ -168,6 +178,9 @@ func handle_starting_skills():
 		skill.use(self)
 
 func hit(damage_taken, _damage_source) -> void:
+	took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
+	$SpriteRoot.material.set_shader_parameter('progress',1)
+	$Timers/HitFlashTimer.start()
 	health_bar.visible = true
 	damage_bar.visible = true
 	health_bar.value = Globals.health
@@ -177,26 +190,6 @@ func hit(damage_taken, _damage_source) -> void:
 	health_tween.set_ease(Tween.EASE_OUT)
 	Globals.update_player_hp(damage_taken)
 
-		
-#func select() -> void:
-	#add_to_group("Selected")
-	#selected = true
-	#$Selected.visible = true
-	#
-#func deselect() -> void:
-	#remove_from_group("Selected")
-	#selected = false
-	#$Selected.visible = false
-	#
-#func is_in_selection_box(select_box: Rect2):
-	#return select_box.has_point(global_position)
-#
-#func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		#if event.is_released:
-			#print("selekcik gracza") #debug print 
-			#select()
-
 func flip() -> void:
 	if $SpriteRoot.scale.x > 0:
 		$SpriteRoot.scale.x *= -1
@@ -204,3 +197,6 @@ func flip() -> void:
 func unflip() -> void:
 	if $SpriteRoot.scale.x < 0:
 		$SpriteRoot.scale.x *= -1
+
+func _on_hit_flash_timer_timeout() -> void:
+	$SpriteRoot.material.set_shader_parameter('progress',0)

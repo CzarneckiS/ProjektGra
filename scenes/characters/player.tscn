@@ -1,27 +1,26 @@
-[gd_scene load_steps=36 format=3 uid="uid://cbodjjoib2qrn"]
+[gd_scene load_steps=29 format=3 uid="uid://cbodjjoib2qrn"]
 
 [ext_resource type="Script" uid="uid://bi5nwihkqq2pp" path="res://scenes/characters/player.gd" id="1_rp718"]
 [ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/ui/shadow.png" id="2_3wg1y"]
 [ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/ui/selection.png" id="2_d6tgn"]
 [ext_resource type="Texture2D" uid="uid://dhw3owys25v6j" path="res://sprites/mimi/mimi_low_hair3.png" id="3_d6tgn"]
-[ext_resource type="Texture2D" uid="uid://h63yoaumnbrl" path="res://sprites/oldmimi/mimi_lower_hair.png" id="3_qgnko"]
 [ext_resource type="Texture2D" uid="uid://b5m1qu00df4mp" path="res://sprites/mimi/new_body.png" id="4_3wg1y"]
-[ext_resource type="Texture2D" uid="uid://ds07jqcjf5g10" path="res://sprites/oldmimi/mimi_body.png" id="4_7vyk4"]
-[ext_resource type="Texture2D" uid="uid://l1pmg43lbiso" path="res://sprites/oldmimi/mimi_ahoge.png" id="5_2l4js"]
+[ext_resource type="Shader" uid="uid://dde0kqx4ndsel" path="res://vfx/hitflash.gdshader" id="4_jk2m4"]
 [ext_resource type="Texture2D" uid="uid://ddq0687b6xvwy" path="res://sprites/mimi/mimi_head3.png" id="5_3wg1y"]
 [ext_resource type="Texture2D" uid="uid://v251r1xeidh3" path="res://sprites/mimi/mimi_oko_open2.png" id="6_a2luo"]
-[ext_resource type="Texture2D" uid="uid://1pbg87sgd0wi" path="res://sprites/oldmimi/mimi_head.png" id="6_jk2m4"]
 [ext_resource type="Texture2D" uid="uid://bpc6yxqx75n7q" path="res://sprites/mimi/mimi_oko_closed2.png" id="7_eir2k"]
-[ext_resource type="Texture2D" uid="uid://7dx5qdcrveoy" path="res://sprites/oldmimi/mimi_eye_open.png" id="7_xhtjm"]
-[ext_resource type="Texture2D" uid="uid://di4w74nfdppyk" path="res://sprites/oldmimi/mimi_eye_closed.png" id="8_k4v7y"]
 [ext_resource type="Texture2D" uid="uid://br2gxw4fjvdyv" path="res://sprites/mimi/mimi_ahoge3.png" id="8_kmyvj"]
-[ext_resource type="Texture2D" uid="uid://b1p7mp6frf56h" path="res://sprites/oldmimi/mimi_left_hand.png" id="9_7vyk4"]
 [ext_resource type="Texture2D" uid="uid://dqr328wqveed2" path="res://sprites/mimi/new_left_arm.png" id="9_a2luo"]
-[ext_resource type="Texture2D" uid="uid://d2sb57islimab" path="res://sprites/oldmimi/mimi_right_hand.png" id="10_2l4js"]
 [ext_resource type="Texture2D" uid="uid://bwwvia3so8b5l" path="res://sprites/mimi/new_right_arm.png" id="10_eir2k"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_yewv4"]
-radius = 27.018513
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xhtjm"]
+shader = ExtResource("4_jk2m4")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3wg1y"]
+radius = 23.0
+height = 78.0
 
 [sub_resource type="Animation" id="Animation_d6tgn"]
 length = 0.001
@@ -285,10 +284,6 @@ _data = {
 &"stand": SubResource("Animation_jk2m4")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d6tgn"]
-radius = 31.0
-height = 118.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d6tgn"]
 bg_color = Color(0, 0, 0, 1)
 border_width_top = 1
@@ -310,7 +305,7 @@ bg_color = Color(0.84003437, 0.0008719367, 0.8898385, 1)
 border_color = Color(0, 0, 0, 1)
 corner_detail = 4
 
-[node name="Player" type="CharacterBody2D" groups=["Allied", "Unit"]]
+[node name="Player" type="CharacterBody2D" groups=["Allied", "Player", "Unit"]]
 collision_layer = 2
 collision_mask = 47
 script = ExtResource("1_rp718")
@@ -327,12 +322,8 @@ position = Vector2(0, 55.000008)
 scale = Vector2(0.24452555, 0.24452555)
 texture = ExtResource("2_d6tgn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, 37)
-shape = SubResource("CircleShape2D_yewv4")
-
 [node name="SpriteRoot" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xhtjm")
 scale = Vector2(0.165, 0.165)
 
 [node name="LowerHair" type="Sprite2D" parent="SpriteRoot"]
@@ -370,43 +361,9 @@ texture = ExtResource("9_a2luo")
 [node name="RightHand" type="Sprite2D" parent="SpriteRoot/Hands"]
 texture = ExtResource("10_eir2k")
 
-[node name="SpriteRootOLD" type="Sprite2D" parent="."]
-visible = false
-scale = Vector2(0.165, 0.165)
-
-[node name="LowerHair" type="Sprite2D" parent="SpriteRootOLD"]
-position = Vector2(0, -12)
-texture = ExtResource("3_qgnko")
-
-[node name="Body" type="Sprite2D" parent="SpriteRootOLD"]
-position = Vector2(0, -10)
-texture = ExtResource("4_7vyk4")
-
-[node name="AhogeRoot" type="Node2D" parent="SpriteRootOLD"]
-position = Vector2(0, -174.71036)
-rotation = -0.081489705
-
-[node name="Ahoge" type="Sprite2D" parent="SpriteRootOLD/AhogeRoot"]
-position = Vector2(0, 169)
-texture = ExtResource("5_2l4js")
-
-[node name="Head" type="Sprite2D" parent="SpriteRootOLD"]
-texture = ExtResource("6_jk2m4")
-
-[node name="EyeOpen" type="Sprite2D" parent="SpriteRootOLD/Head"]
-texture = ExtResource("7_xhtjm")
-
-[node name="EyeClosed" type="Sprite2D" parent="SpriteRootOLD/Head"]
-visible = false
-texture = ExtResource("8_k4v7y")
-
-[node name="Hands" type="Node2D" parent="SpriteRootOLD"]
-
-[node name="LeftHand" type="Sprite2D" parent="SpriteRootOLD/Hands"]
-texture = ExtResource("9_7vyk4")
-
-[node name="RightHand" type="Sprite2D" parent="SpriteRootOLD/Hands"]
-texture = ExtResource("10_2l4js")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 15)
+shape = SubResource("CapsuleShape2D_3wg1y")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -426,13 +383,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_k4v7y")
 }
 autoplay = "stand"
-
-[node name="ClickArea" type="Area2D" parent="."]
-collision_layer = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
-position = Vector2(1, 7)
-shape = SubResource("CapsuleShape2D_d6tgn")
 
 [node name="DamageBar" type="ProgressBar" parent="."]
 z_index = 5
@@ -455,3 +405,9 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_kmyvj")
 theme_override_styles/fill = SubResource("StyleBoxFlat_a2luo")
 value = 90.0
 show_percentage = false
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="HitFlashTimer" type="Timer" parent="Timers"]
+wait_time = 0.15
+one_shot = true

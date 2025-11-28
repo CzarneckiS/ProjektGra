@@ -1,7 +1,9 @@
 extends SkillInstantAllied
 class_name Heal
 
-@export var tags : Dictionary = {}
+@export var unit_tags : PackedInt32Array = []
+@export var use_tags : PackedInt32Array = []
+@export var skill_tags : PackedInt32Array = []
 @export var skill_effect_data: EffectHeal
 @export var skill_effect_data2: EffectAreaOfEffect
 

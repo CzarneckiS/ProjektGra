@@ -1,19 +1,29 @@
-[gd_scene load_steps=21 format=3 uid="uid://c6wxbv4ruot4l"]
+[gd_scene load_steps=23 format=3 uid="uid://c6wxbv4ruot4l"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_2674o"]
 [ext_resource type="Script" uid="uid://cwci7wyh3g6yl" path="res://scenes/characters/allies/skeletonwarrior.gd" id="2_f3pgp"]
-[ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/ui/shadow.png" id="3_p5k3i"]
-[ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/ui/selection.png" id="3_xg2mg"]
-[ext_resource type="Texture2D" uid="uid://bbkf2tlyficf6" path="res://sprites/skeleton_warrior/skellington_warrior_body.png" id="4_mfyro"]
-[ext_resource type="Texture2D" uid="uid://ymu8vxktg2t7" path="res://sprites/skeleton_warrior/skellington_warrior_shield.png" id="5_p5k3i"]
-[ext_resource type="PackedScene" uid="uid://dyst0xyeehbia" path="res://scenes/warrior_state_machine.tscn" id="5_x85af"]
-[ext_resource type="Texture2D" uid="uid://ceoj7ghhpw2mq" path="res://sprites/skeleton_warrior/skellington_warrior_sword.png" id="6_152ed"]
-[ext_resource type="Texture2D" uid="uid://chk2x4f7c6xvb" path="res://sprites/skeleton_warrior/skellington_warrior_left_boot.png" id="7_24fhp"]
-[ext_resource type="Texture2D" uid="uid://dd80gild66mgj" path="res://sprites/skeleton_warrior/skellington_warrior_right_boot.png" id="8_6bcrf"]
-[ext_resource type="Texture2D" uid="uid://c5guqovle2c50" path="res://sprites/skeleton_warrior/skellington_warrior_head.png" id="9_ksuwf"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bluo0"]
-radius = 24.083189
+[ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/shadow.png" id="3_p5k3i"]
+[ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/selection.png" id="3_xg2mg"]
+[ext_resource type="Texture2D" uid="uid://bbkf2tlyficf6" path="res://sprites/units/skeleton_warrior/skellington_warrior_body.png" id="4_mfyro"]
+[ext_resource type="Shader" uid="uid://dde0kqx4ndsel" path="res://vfx/hitflash.gdshader" id="5_152ed"]
+[ext_resource type="Texture2D" uid="uid://ymu8vxktg2t7" path="res://sprites/units/skeleton_warrior/skellington_warrior_shield.png" id="5_p5k3i"]
+
+[ext_resource type="PackedScene" uid="uid://dyst0xyeehbia" path="res://scenes/warrior_state_machine.tscn" id="5_x85af"]
+[ext_resource type="Texture2D" uid="uid://ceoj7ghhpw2mq" path="res://sprites/units/skeleton_warrior/skellington_warrior_sword.png" id="6_152ed"]
+[ext_resource type="Texture2D" uid="uid://chk2x4f7c6xvb" path="res://sprites/units/skeleton_warrior/skellington_warrior_left_boot.png" id="7_24fhp"]
+[ext_resource type="Texture2D" uid="uid://dd80gild66mgj" path="res://sprites/units/skeleton_warrior/skellington_warrior_right_boot.png" id="8_6bcrf"]
+[ext_resource type="Texture2D" uid="uid://c5guqovle2c50" path="res://sprites/units/skeleton_warrior/skellington_warrior_head.png" id="9_ksuwf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_24fhp"]
+resource_local_to_scene = true
+shader = ExtResource("5_152ed")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p5k3i"]
+radius = 23.0
+height = 76.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w5s2j"]
 radius = 43.0
@@ -132,6 +142,7 @@ tracks/8/keys = {
 
 [sub_resource type="Animation" id="Animation_e2rn1"]
 resource_name = "attack"
+step = 0.0333
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -402,6 +413,7 @@ scale = Vector2(0.14781019, 0.14781019)
 texture = ExtResource("3_xg2mg")
 
 [node name="Sprite2D" parent="." index="3"]
+material = SubResource("ShaderMaterial_24fhp")
 position = Vector2(0, -11)
 scale = Vector2(0.15, 0.15)
 
@@ -429,8 +441,7 @@ scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("9_ksuwf")
 
 [node name="CollisionShape2D" parent="." index="4"]
-position = Vector2(0, 14)
-shape = SubResource("CircleShape2D_bluo0")
+shape = SubResource("CapsuleShape2D_p5k3i")
 
 [node name="ClickArea" parent="." index="5"]
 collision_layer = 16
@@ -446,39 +457,29 @@ offset_top = -69.0
 offset_right = 25.0
 offset_bottom = -61.0
 
-[node name="Timers" type="Node" parent="." index="7"]
+[node name="WarriorStateMachine" parent="." index="7" instance=ExtResource("5_x85af")]
 
-[node name="MoveTimer" type="Timer" parent="Timers" index="0"]
-
-[node name="NavigationTimer" type="Timer" parent="Timers" index="1"]
-wait_time = 0.05
-one_shot = true
-
-[node name="UnstickTimer" type="Timer" parent="Timers" index="2"]
-one_shot = true
-
-[node name="WarriorStateMachine" parent="." index="8" instance=ExtResource("5_x85af")]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
 libraries = {
 &"": SubResource("AnimationLibrary_cm8ef")
 }
 autoplay = "idle"
 blend_times = [&"attack", &"idle", 0.5, &"attack", &"walk", 0.5, &"idle", &"attack", 0.5, &"idle", &"walk", 0.5, &"walk", &"attack", 0.5, &"walk", &"idle", 0.5]
 
-[node name="HealthBar" parent="." index="10"]
+[node name="HealthBar" parent="." index="9"]
 offset_left = -25.0
 offset_top = -69.0
 offset_right = 25.0
 offset_bottom = -61.0
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="11"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="10"]
 path_max_distance = 200.0
 avoidance_enabled = true
 radius = 20.0
 neighbor_distance = 100.0
 
-[node name="VisionArea" type="Area2D" parent="." index="12"]
+[node name="VisionArea" type="Area2D" parent="." index="11"]
+visible = false
 collision_layer = 16
 collision_mask = 4
 
@@ -486,4 +487,3 @@ collision_mask = 4
 shape = SubResource("CircleShape2D_p5k3i")
 
 [connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]
-[connection signal="timeout" from="Timers/MoveTimer" to="WarriorStateMachine" method="_on_move_timer_timeout"]

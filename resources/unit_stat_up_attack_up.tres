@@ -6,5 +6,6 @@
 
 [resource]
 script = ExtResource("3_8cvhf")
+damage_bonus = 10
 skill_name = "Attack Upgrade"
 icon = ExtResource("2_qc1nt")

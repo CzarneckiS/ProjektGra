@@ -1,12 +1,15 @@
 extends UnitParent
 class_name HumanWarrior
 
-#thought - nie robic tak, ze mobki ida PROSTO na gracza od razu
-#tylko dla coolnosci zrobic tak ze ida kawalek w mniej wiecej kierunku gracza
-#i sie zatrzymuja i nazwac ten stan wandering dla realizmu????? idk idk
+var melee_attack_vfx = preload("res://vfx/melee_attack_slash/melee_attack_slash_vfx.tres")
 
+var skills_stat_up = []
+var skills_passive = []
+var skills_on_hit = [melee_attack_vfx]
+var skills_on_death = []
+var own_tags : PackedInt32Array = []
 #exp ktory daje warrior, wykorzystywany przekazywany do fsm w dying state
-const warrior_exp = 15
+const experience_value = 15
 
 #movement
 var speed = 300
@@ -22,8 +25,9 @@ var damage = 10
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UŻYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
 var attack_range = 100
-var vision_range = 500
+var vision_range = 300
 var dying : bool = false
+var attack_time = 0.3 #czas pomiędzy atakami
 #clicking
 signal target_clicked(target_node: Node) #sygnał, który będzie wysyłany do naszych jednostek
 # aby weszły w engaging state jeśli klikniemy na wroga
@@ -54,7 +58,11 @@ func _ready() -> void:
 	
 	move_target = Globals.player_position
 	navigation_agent_2d.max_speed = speed
+	navigation_agent_2d.radius = 20 #im wieksza liczba tym bardziej unika kolizji
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
+	
+	$VisionArea/CollisionShape2D.shape.radius = vision_range
+	$Timers/AttackTimer.wait_time = attack_time
 	
 	navigation_agent_2d.velocity_computed.connect(_on_navigation_agent_2d_velocity_computed)
 	$ClickArea.mouse_entered.connect(_on_click_area_mouse_entered)
@@ -62,7 +70,12 @@ func _ready() -> void:
 	$VisionArea.body_entered.connect(_on_vision_area_body_entered)
 	$VisionArea.body_exited.connect(_on_vision_area_body_exited)
 	$Timers/NavigationTimer.timeout.connect(_on_navigation_timer_timeout)
-
+	$Timers/AttackTimer.timeout.connect(_on_attack_timer_timeout)
+	$Timers/HitFlashTimer.timeout.connect(_on_hit_flash_timer_timeout)
+	$Particles/HitParticles.modulate = Color(1.0, 0.0, 0.0, 1.0)
+	#dodawanie shaderow to wszystkich spritow
+	for child in $Sprite2D.get_children():
+		child.use_parent_material = true
 #VISUALSY ===============================================================================
 func start_hit_flash(damage_source):
 	var original_color = Color.WHITE
@@ -80,11 +93,7 @@ func start_hit_flash(damage_source):
 	
 	flash_tween.set_ease(Tween.EASE_OUT)
 
-func _physics_process(_delta: float) -> void:
-	for unit in possible_targets:
-		if unit == null:
-			possible_targets.erase(unit)
-	#seek_enemies()
+
 #MOVEMENT ===============================================================================
 func move_to_target(_delta,target_position): #CLOSE RANGE MOVEMENT
 	if !get_slide_collision_count() and unstick_timer.is_stopped():
@@ -123,6 +132,12 @@ func _on_navigation_timer_timeout() -> void:
 
 #COMBAT ===============================================================================
 func hit(damage_taken, damage_source) -> bool:
+	if health > 0:
+		if damage_source != RefCounted:
+			$Sprite2D.material.set_shader_parameter('progress',1)
+		$Timers/HitFlashTimer.start()
+		$Particles/HitParticles.emitting = true
+		took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
 	health_bar.visible = true
 	damage_bar.visible = true
 	
@@ -146,12 +161,22 @@ func hit(damage_taken, damage_source) -> bool:
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
 
+func death():
+	unit_died.emit(Tags.UnitTag.HUMAN_WARRIOR)
+	for skill in skills_on_death:
+		skill.use(self)
+
 func attack():
-	if attack_target: #jeśli nasz cel wciąż istnieje:
-		if attack_target.hit(damage, self): #wysyła hit do celu
-			pass #jeśli cel zwrócił true - czyli żyje - kontynuuj atakowanie
-		else:
-			state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle
+	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
+		#check czy cel nie odszedl za daleko
+		if global_position.distance_to(attack_target.get_ref().global_position) < 300:
+			attack_target.get_ref().hit(damage, self)
+		for skill in skills_on_hit:
+			skill.use(self, attack_target.get_ref())
+	else:
+		state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle
+	can_attack = false
+	$Timers/AttackTimer.start()
 
 func seek_enemies():
 	for unit in possible_targets:
@@ -231,3 +256,8 @@ func _on_click_area_mouse_exited() -> void:
 	#male testy do feedbacku dla gracza
 	$Highlighted.visible = false
 	Globals.remove_overlapping_enemies()
+
+#VISUALS ============================================================
+
+func _on_hit_flash_timer_timeout() -> void:
+	$Sprite2D.material.set_shader_parameter('progress',0)

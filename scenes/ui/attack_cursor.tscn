@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://dknf6mbxvremk"]
+
+[ext_resource type="Texture2D" uid="uid://ccvvumjrppetx" path="res://sprites/cursors/KursorAttack1.png" id="1_38j1r"]
+[ext_resource type="Texture2D" uid="uid://dgi2khy48j67i" path="res://sprites/cursors/KursorAttack2.png" id="2_nb07q"]
+[ext_resource type="Texture2D" uid="uid://cynjml5mvfhqq" path="res://sprites/cursors/KursorAttack3.png" id="3_5qyhh"]
+[ext_resource type="Texture2D" uid="uid://dgmoytgfolf0l" path="res://sprites/cursors/KursorAttack4.png" id="4_f8fsc"]
+[ext_resource type="Texture2D" uid="uid://qsqvnxje25ow" path="res://sprites/cursors/KursorAttack5.png" id="5_pdp8o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l2sfu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_38j1r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_nb07q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5qyhh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f8fsc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_pdp8o")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 24.0
+}]
+
+[node name="MoveCursor" type="AnimatedSprite2D"]
+scale = Vector2(0.12, 0.12)
+sprite_frames = SubResource("SpriteFrames_l2sfu")
+frame = 5
+frame_progress = 1.0

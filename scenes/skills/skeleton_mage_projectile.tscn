@@ -1,20 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://b3opmttu2ioto"]
+[gd_scene load_steps=8 format=3 uid="uid://dkn8fishlgny"]
 
 [ext_resource type="Script" uid="uid://cykeqw4tb2ehb" path="res://scenes/skills/skeleton_mage_projectile.gd" id="1_nr5hh"]
-[ext_resource type="Texture2D" uid="uid://d25ulam6unf7v" path="res://sprites/skeleton_mage/MagicMissle4.png" id="2_q56tr"]
-[ext_resource type="Texture2D" uid="uid://b26kxpmxpj8qe" path="res://sprites/skeleton_mage/MagicMissle5.png" id="3_xdts4"]
-[ext_resource type="Texture2D" uid="uid://cyok0wbo6dvwn" path="res://sprites/skeleton_mage/MagicMissle1.png" id="4_dqg54"]
-[ext_resource type="Texture2D" uid="uid://gw6s4ptfmnro" path="res://sprites/skeleton_mage/MagicMissle2.png" id="5_txhya"]
-[ext_resource type="Texture2D" uid="uid://b76j2m3qqtfau" path="res://sprites/skeleton_mage/MagicMissle3.png" id="6_igq7k"]
+[ext_resource type="Texture2D" uid="uid://yocrabjbhxv8" path="res://sprites/units/skeleton_mage/SkeletonMageProjectile4.png" id="2_nr5hh"]
+[ext_resource type="Texture2D" uid="uid://bfnyeod73t6sa" path="res://sprites/units/skeleton_mage/SkeletonMageProjectile5.png" id="3_q56tr"]
+[ext_resource type="Texture2D" uid="uid://0qm0pl7swekh" path="res://sprites/units/skeleton_mage/SkeletonMageProjectile1.png" id="4_xdts4"]
+[ext_resource type="Texture2D" uid="uid://c5py4wdq35ylj" path="res://sprites/units/skeleton_mage/SkeletonMageProjectile2.png" id="5_dqg54"]
+[ext_resource type="Texture2D" uid="uid://bhn6d4akuso5h" path="res://sprites/units/skeleton_mage/SkeletonMageProjectile3.png" id="6_txhya"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ptkfr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_q56tr")
+"texture": ExtResource("2_nr5hh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_xdts4")
+"texture": ExtResource("3_q56tr")
 }],
 "loop": true,
 "name": &"flying",
@@ -22,19 +22,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_dqg54")
+"texture": ExtResource("4_xdts4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_txhya")
+"texture": ExtResource("5_dqg54")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_igq7k")
+"texture": ExtResource("6_txhya")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_q56tr")
+"texture": ExtResource("2_nr5hh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_xdts4")
+"texture": ExtResource("3_q56tr")
 }],
 "loop": true,
 "name": &"on_creation",
@@ -49,4 +49,3 @@ position = Vector2(-6, 0)
 scale = Vector2(0.22, 0.22)
 sprite_frames = SubResource("SpriteFrames_ptkfr")
 animation = &"on_creation"
-frame_progress = 0.77627444

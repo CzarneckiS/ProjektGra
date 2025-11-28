@@ -62,16 +62,19 @@ func level_up():
 func _on_option_1_pressed() -> void:
 	get_tree().paused = false
 	Skills.unlock_skill(skills_to_show[0])
-	queue_free()
+	Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[0])
+	queue_free()   
 
 
 func _on_option_2_pressed() -> void:
 	get_tree().paused = false
 	Skills.unlock_skill(skills_to_show[1])
-	queue_free()
+	Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[1])
+	queue_free()   
 
 
 func _on_option_3_pressed() -> void:
 	get_tree().paused = false
 	Skills.unlock_skill(skills_to_show[2])
-	queue_free()
+	Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[2])
+	queue_free()   

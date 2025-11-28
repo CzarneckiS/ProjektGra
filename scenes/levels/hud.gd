@@ -70,6 +70,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 func update_hp_bar():
+
 	main_damage_bar.value = Globals.max_health - Globals.health 
 	var main_health_tween = create_tween()
 	main_health_tween.tween_property(main_damage_bar, "value", Globals.max_health - Globals.health, 0.5)

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HumanMageProjectile" load_steps=4 format=3 uid="uid://nabw431etjut"]
+
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_n17o4"]
+[ext_resource type="Script" uid="uid://u6jy372a4jpa" path="res://scripts/skills_for_resources/human_mage_projectile_for_resource.gd" id="2_bwwy8"]
+[ext_resource type="PackedScene" uid="uid://dx0mwxboh46eq" path="res://scenes/skills/human_mage_projectile.tscn" id="3_43035"]
+
+[resource]
+script = ExtResource("2_bwwy8")
+max_range = 550.0
+speed = 400.0
+visual_effect = ExtResource("3_43035")

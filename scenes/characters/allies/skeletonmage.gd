@@ -2,11 +2,11 @@ extends UnitParent
 
 var projectile = preload("res://resources/skeleton_mage_projectile.tres")
 
-var skills_stat_up = {}
-var skills_passive = {}
-var skills_on_hit = {projectile:1}
-var skills_on_death = {}
-var own_tags : Array[String] = ["Unit", "AlliedUnit","SkeletonMage"]
+var skills_stat_up = []
+var skills_passive = []
+var skills_on_hit = [projectile]
+var skills_on_death = []
+var own_tags: PackedInt32Array = [Tags.UnitTag.UNIT, Tags.UnitTag.ALLIED, Tags.UnitTag.SKELETON_MAGE]
 #movement
 var speed = 300
 var move_target = Vector2.ZERO
@@ -25,11 +25,12 @@ var possible_targets = [] #jednostki ktore wejda w VisionArea
 const attack_range = 400
 const vision_range = 500
 var dying : bool = false
+var attack_speed_modifier = 1 #wykorzystywany w state machine
 #selecting
 var selected: bool = false
 var mouse_hovering:bool = false
 
-signal unit_died()
+
 
 var state_machine
 @onready var health_bar: ProgressBar = $HealthBar 
@@ -63,49 +64,56 @@ func _ready() -> void:
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	state_machine = $WarriorStateMachine
 	
+	$VisionArea/CollisionShape2D.shape.radius = vision_range
+	
 	navigation_agent_2d.velocity_computed.connect(_on_navigation_agent_2d_velocity_computed)
 	$ClickArea.mouse_entered.connect(_on_click_area_mouse_entered)
 	$ClickArea.mouse_exited.connect(_on_click_area_mouse_exited)
 	$VisionArea.body_entered.connect(_on_vision_area_body_entered)
 	$VisionArea.body_exited.connect(_on_vision_area_body_exited)
 	$Timers/NavigationTimer.timeout.connect(_on_navigation_timer_timeout)
+	$Timers/AttackTimer.timeout.connect(_on_attack_timer_timeout)
+	$Timers/HitFlashTimer.timeout.connect(_on_hit_flash_timer_timeout)
 	
+	#dodawanie shaderow to wszystkich spritow
+	for child in $Sprite2D.get_children():
+		child.use_parent_material = true
 func _physics_process(_delta: float) -> void:
 	#seek_enemies()
 	if !dying:
 		follow_player()
-	for unit in possible_targets:
-		if unit == null:
-			possible_targets.erase(unit)
+	#for unit in possible_targets:
+		#if unit == null:
+			#possible_targets.erase(unit)
 #SKILLS ===============================================================================
 func handle_skills():
 	#dodaj do odpowiednich list umiejetnosci odblokowane
 	for skill in Skills.unlocked_skills:
 		for i in range(own_tags.size()):
-			if skill.tags.has(own_tags[i]):
-				if skill.tags.has("StatUp"):
-					skills_stat_up[skill] = skills_stat_up.size()
-				if skill.tags.has("Passive"):
-					skills_passive[skill] = skills_passive.size()
-				if skill.tags.has("OnHit"):
-					skills_on_hit[skill] = skills_on_hit.size()
-				if skill.tags.has("OnDeath"):
-					skills_on_death[skill] = skills_on_death.size()
+			if skill.unit_tags.has(own_tags[i]):
+				if skill.use_tags.has(Tags.UseTag.STAT_UP):
+					skills_stat_up.append(skill)
+				if skill.use_tags.has(Tags.UseTag.PASSIVE):
+					skills_passive.append(skill)
+				if skill.use_tags.has(Tags.UseTag.ON_HIT):
+					skills_on_hit.append(skill)
+				if skill.use_tags.has(Tags.UseTag.ON_DEATH):
+					skills_on_death.append(skill)
 				break
 #NASTY STYLE updatujemy wszystkie skille mimo ze wiemy ktory sie zmienil, do poprawy
 func handle_skill_update(skill):
 	for i in range(own_tags.size()):
-		if skill.tags.has(own_tags[i]):
-			if skill.tags.has("StatUp"):
-				skills_stat_up[skill] = skills_stat_up.size()
+		if skill.unit_tags.has(own_tags[i]):
+			if skill.use_tags.has(Tags.UseTag.STAT_UP):
+				skills_stat_up.append(skill)
 				skill.use(self)
-			if skill.tags.has("Passive"):
-				skills_passive[skill] = skills_passive.size()
+			if skill.use_tags.has(Tags.UseTag.PASSIVE):
+				skills_passive.append(skill)
 				skill.use(self)
-			if skill.tags.has("OnHit"):
-				skills_on_hit[skill] = skills_on_hit.size()
-			if skill.tags.has("OnDeath"):
-				skills_on_death[skill] = skills_on_death.size()
+			if skill.use_tags.has(Tags.UseTag.ON_HIT):
+				skills_on_hit.append(skill)
+			if skill.use_tags.has(Tags.UseTag.ON_DEATH):
+				skills_on_death.append(skill)
 			break
 func handle_starting_skills():
 	for skill in skills_stat_up:
@@ -196,9 +204,13 @@ func follow_player() -> void:
 
 #COMBAT ===============================================================================
 func hit(damage_taken, _damage_source) -> bool:
+	if health > 0:
+		$Sprite2D.material.set_shader_parameter('progress',1)
+		$Timers/HitFlashTimer.start()
+		$Particles/HitParticles.emitting = true
+		took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
 	health_bar.visible = true
 	damage_bar.visible = true
-	
 	health -= damage_taken
 	health_bar.value = health
 	
@@ -216,10 +228,20 @@ func hit(damage_taken, _damage_source) -> bool:
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
+func forced_death():
+		health = 0
+		Globals.ui_unit_died.emit(self)
+		dying = true
+		health_bar.visible = false
+		damage_bar.visible = false
+		state_machine.call_deferred("set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
+		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
+
 func death():
-	unit_died.emit("SkeletonMage")
+	unit_died.emit(Tags.UnitTag.SKELETON_MAGE)
 	for skill in skills_on_death:
 		skill.use(self)
+
 func heal(heal_amount):
 	health_bar.visible = true
 	damage_bar.visible = true
@@ -240,15 +262,14 @@ func heal(heal_amount):
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
 func attack():
-	if attack_target: #jeśli nasz cel wciąż istnieje:
+	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		for skill in skills_on_hit:
-			skill.use(self, attack_target)
-			pass #jeśli cel zwrócił true - czyli żyje - kontynuuj atakowanie
+			skill.use(self, attack_target.get_ref())
 	else:
 		state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle
 func _attack():
 	if attack_target: #jeśli nasz cel wciąż istnieje:
-		if attack_target.hit(damage, self): #wysyła hit do celu
+		if attack_target.get_ref().hit(damage, self): #wysyła hit do celu
 			pass #jeśli cel zwrócił true - czyli żyje - kontynuuj atakowanie
 		else:
 			state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle
@@ -293,9 +314,9 @@ func closest_enemy(): #sprawdza, który cel jest najbliżej
 		return null
 
 func attack_target_within_attack_range(): #sprawdź czy attack_target znajduje się w attack_range
-	if attack_target and attack_target.global_position.distance_to(global_position) < \
+	if attack_target.get_ref().global_position.distance_to(global_position) < \
 	attack_range:
-		return attack_target #jeśli jest to go zwróć
+		return attack_target.get_ref() #jeśli jest to go zwróć
 	else:
 		return null
 
@@ -348,3 +369,8 @@ func _on_click_area_mouse_exited() -> void:
 	#male testy do feedbacku dla gracza
 	$Highlighted.visible = false
 	Globals.remove_overlapping_allies()
+
+#VISUALS ============================================================
+
+func _on_hit_flash_timer_timeout() -> void:
+	$Sprite2D.material.set_shader_parameter('progress',0)
