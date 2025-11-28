@@ -15,7 +15,7 @@ var max_health : int = health
 var player_position: Vector2
 
 #exp i levelowanie
-var xp_to_level : int = 200 #limit, ktory musimy dobic aby wbic lvl. placeholder value
+var xp_to_level : int = 1 #200 #limit, ktory musimy dobic aby wbic lvl. placeholder value
 var level : int = 1 #startowy lvl
 var accumulated_xp : int = 0 #zebrany przez nas exp, startujemy bez expa
 

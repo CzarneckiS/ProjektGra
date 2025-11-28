@@ -2,10 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://cbodjjoib2qrn" path="res://scenes/characters/player.tscn" id="1_377w7"]
 [ext_resource type="Script" uid="uid://dek8k2fbphrnu" path="res://scenes/levels/level.gd" id="1_xb4v1"]
-[ext_resource type="Texture2D" uid="uid://bhf8r5as37ld0" path="res://sprites/Tileset.png" id="3_mbbpy"]
+[ext_resource type="Texture2D" uid="uid://bhf8r5as37ld0" path="res://sprites/ui/Tileset.png" id="3_mbbpy"]
 [ext_resource type="PackedScene" uid="uid://c6wxbv4ruot4l" path="res://scenes/characters/allies/skeletonwarrior.tscn" id="4_d4w6o"]
 [ext_resource type="Script" uid="uid://rkcfoq2ddkxw" path="res://scenes/levels/unit_selector.gd" id="4_xb4v1"]
 [ext_resource type="PackedScene" uid="uid://crrf60xb54uea" path="res://scenes/characters/enemies/humanwarrior.tscn" id="7_7pb6i"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d4w6o"]
 texture = ExtResource("3_mbbpy")

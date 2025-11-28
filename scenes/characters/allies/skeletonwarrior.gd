@@ -37,7 +37,7 @@ var state_machine
 
 func _ready() -> void:
 	unit_hud_order = 1
-	icon_texture = "res://sprites/skeleton warrior icon.png"
+	icon_texture = "res://sprites/ui/skeleton warrior icon.png"
 	handle_skills()
 	handle_starting_skills()
 	max_health  = 60

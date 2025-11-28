@@ -111,7 +111,6 @@ func _ready() -> void:
 	hp_bar_style.border_width_bottom = 2
 	hp_bar_style.border_color = Color(0.0, 0.0, 0.0, 1.0)
 	health_bar.add_theme_stylebox_override("fill", hp_bar_style)
-
 func _process(_delta: float) -> void:
 	if standing:
 		$AnimationPlayer.play("stand")

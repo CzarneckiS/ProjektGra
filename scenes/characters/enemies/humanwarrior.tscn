@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_km2sc"]
 [ext_resource type="Script" uid="uid://178j0odpensc" path="res://scenes/characters/enemies/humanwarrior.gd" id="2_ds4t1"]
-[ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/shadow.png" id="3_gj5gp"]
-[ext_resource type="Texture2D" uid="uid://btcfx5u0jfdq8" path="res://sprites/selection_enemy.png" id="3_v7f0p"]
+[ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/ui/shadow.png" id="3_gj5gp"]
+[ext_resource type="Texture2D" uid="uid://btcfx5u0jfdq8" path="res://sprites/ui/selection_enemy.png" id="3_v7f0p"]
 [ext_resource type="Texture2D" uid="uid://b071t7rbiyi6y" path="res://sprites/human_warrior/human_warrior_left_boot.png" id="4_wdckd"]
 [ext_resource type="Texture2D" uid="uid://bbjdsni1utjsy" path="res://sprites/human_warrior/human_warrior_right_boot.png" id="5_o7qs6"]
 [ext_resource type="Texture2D" uid="uid://fkk8u7xgi46j" path="res://sprites/human_warrior/human_warrior_body.png" id="6_gj5gp"]

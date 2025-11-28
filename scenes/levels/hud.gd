@@ -109,7 +109,7 @@ func update_units_panel(new_units: Array) -> void:
 			border.visible = false
 		var icon = slot.get_node_or_null("Icon")
 		if icon:
-			icon.texture = preload("res://sprites/UnitEmptyIcon.png")
+			icon.texture = preload("res://sprites/ui/UnitEmptyIcon.png")
 			icon.expand = true
 			icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 
@@ -121,7 +121,7 @@ func update_units_panel(new_units: Array) -> void:
 		if unit.icon_texture != "" and ResourceLoader.exists(unit.icon_texture):
 			icon.texture = load(unit.icon_texture)
 		else:
-			icon.texture = preload("res://sprites/UnitDoesntLinkedIcon.png")
+			icon.texture = preload("res://sprites/ui/EmptyIcon.png")
 		icon.expand = true
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 
@@ -199,6 +199,7 @@ func set_page(page: int) -> void:
 func _update_page_icons():
 	var icons = [icon_page_1, icon_page_2, icon_page_3]
 	for i in range(3):
+		icons[i].visible = true 
 		if i + 1 > total_pages:
 			icons[i].modulate = Color(0.1, 0.1, 0.1)
 		else:
@@ -206,6 +207,9 @@ func _update_page_icons():
 
 func _cycle_unit_group() -> void:
 	if unique_orders_in_selection.is_empty():
+		icon_page_1.visible = false 
+		icon_page_2.visible = false 
+		icon_page_3.visible = false 
 		return
 
 	current_group_index += 1

@@ -1,8 +1,38 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnbuo84uf6qat"]
+[gd_scene load_steps=16 format=3 uid="uid://bnbuo84uf6qat"]
 
 [ext_resource type="Script" uid="uid://dxykujtkps4xt" path="res://scenes/ui/esc_menu.gd" id="1_guea3"]
+[ext_resource type="Texture2D" uid="uid://dphc21aqf5r1m" path="res://sprites/ui/Button_neutral.png" id="2_1apln"]
+[ext_resource type="Texture2D" uid="uid://chy5d1g28au0x" path="res://sprites/thunderbolt/HUD_MenuTemplate.png" id="2_646ss"]
+[ext_resource type="Texture2D" uid="uid://bpvowenbyhjyy" path="res://sprites/ui/Button_pressed.png" id="2_wvp1r"]
+[ext_resource type="Texture2D" uid="uid://csuu5qvhmmnvx" path="res://sprites/ui/HUD_MenuLine.png" id="3_akhel"]
+[ext_resource type="Texture2D" uid="uid://cvilxq7eyc1kj" path="res://sprites/ui/Button_highlight.png" id="4_wo83s"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_guea3"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oy65n"]
+texture = ExtResource("2_1apln")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_akhel"]
+texture = ExtResource("2_wvp1r")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wvp1r"]
+texture = ExtResource("2_1apln")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0us07"]
+texture = ExtResource("2_1apln")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_viui7"]
+texture = ExtResource("2_wvp1r")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wo83s"]
+texture = ExtResource("2_1apln")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8dnxo"]
+texture = ExtResource("2_1apln")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3axht"]
+texture = ExtResource("2_wvp1r")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_646ss"]
+texture = ExtResource("2_1apln")
 
 [node name="EscMenu" type="Control"]
 z_index = 101
@@ -15,42 +45,173 @@ grow_vertical = 2
 script = ExtResource("1_guea3")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-modulate = Color(0, 0, 0, 1)
-self_modulate = Color(0.2382136, 0.39851362, 0.22120544, 0.3254902)
-material = SubResource("CanvasItemMaterial_guea3")
+self_modulate = Color(0, 0, 0, 0.87058824)
+z_index = 108
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -22.0
+offset_top = -12.0
+offset_right = 20.0
+offset_bottom = 18.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+z_index = 110
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -197.0
-offset_top = -74.5
-offset_right = 197.0
-offset_bottom = 74.5
+offset_left = -118.0
+offset_top = -73.0
+offset_right = 128.0
+offset_bottom = 102.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ButtonContinue" type="Button" parent="VBoxContainer"]
-layout_mode = 2
+[node name="Rect" type="TextureRect" parent="."]
+z_index = 109
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -203.0
+offset_top = -258.0
+offset_right = 997.0
+offset_bottom = 1267.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_646ss")
+
+[node name="StickOfTrue" type="TextureRect" parent="."]
+z_index = 110
+layout_mode = 0
+offset_left = 671.0
+offset_top = 494.00006
+offset_right = 1430.0
+offset_bottom = 534.00006
+scale = Vector2(0.35, 0.25)
+texture = ExtResource("3_akhel")
+
+[node name="ButtonContinue" type="Button" parent="."]
+z_index = 110
+layout_mode = 0
+offset_left = 682.0
+offset_top = 590.0
+offset_right = 928.0
+offset_bottom = 637.0
 theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxTexture_oy65n")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_akhel")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wvp1r")
 text = "CONTINUE"
 
-[node name="ButtonMainMenu" type="Button" parent="VBoxContainer"]
-layout_mode = 2
+[node name="Highlight" type="TextureRect" parent="ButtonContinue"]
+z_index = 110
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 905.624
+offset_bottom = 204.0
+scale = Vector2(0.275, 0.25)
+texture = ExtResource("4_wo83s")
+
+[node name="ButtonMainMenu" type="Button" parent="."]
+z_index = 110
+layout_mode = 0
+offset_left = 682.0
+offset_top = 378.0
+offset_right = 928.0
+offset_bottom = 425.0
 theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxTexture_0us07")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_viui7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wo83s")
 text = "MAIN MENU"
 
-[node name="ButtonExit" type="Button" parent="VBoxContainer"]
-layout_mode = 2
+[node name="Highlight" type="TextureRect" parent="ButtonMainMenu"]
+z_index = 110
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 905.624
+offset_bottom = 204.0
+scale = Vector2(0.275, 0.25)
+texture = ExtResource("4_wo83s")
+
+[node name="ButtonExit" type="Button" parent="."]
+z_index = 110
+layout_mode = 0
+offset_left = 682.0
+offset_top = 431.0
+offset_right = 928.0
+offset_bottom = 478.0
 theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxTexture_8dnxo")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3axht")
+theme_override_styles/hover = SubResource("StyleBoxTexture_646ss")
 text = "EXIT
 "
+
+[node name="Highlight" type="TextureRect" parent="ButtonExit"]
+z_index = 110
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 905.624
+offset_bottom = 204.0
+scale = Vector2(0.275, 0.25)
+texture = ExtResource("4_wo83s")
+
+[node name="ButtonOptions" type="Button" parent="."]
+z_index = 110
+layout_mode = 0
+offset_left = 682.0
+offset_top = 270.0
+offset_right = 928.0
+offset_bottom = 317.0
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxTexture_0us07")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_viui7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wo83s")
+text = "OPTIONS"
+
+[node name="Highlight" type="TextureRect" parent="ButtonOptions"]
+z_index = 110
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 905.624
+offset_bottom = 204.0
+scale = Vector2(0.275, 0.25)
+texture = ExtResource("4_wo83s")
+
+[node name="ButtonRestart" type="Button" parent="."]
+z_index = 110
+layout_mode = 0
+offset_left = 682.0
+offset_top = 324.0
+offset_right = 928.0
+offset_bottom = 371.0
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxTexture_0us07")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_viui7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wo83s")
+text = "RESTART"
+
+[node name="Highlight" type="TextureRect" parent="ButtonRestart"]
+z_index = 110
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 905.624
+offset_bottom = 204.0
+scale = Vector2(0.275, 0.25)
+texture = ExtResource("4_wo83s")
