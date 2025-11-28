@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dylf6bubhlan2"
-path="res://.godot/imported/shadow.png-200bc23f98602015579d9b60e0b1fd92.ctex"
+uid="uid://b75mcmseqa17j"
+path="res://.godot/imported/TilesetSmoll.png-665bdfdfaabc3a17253eabd91cc5c860.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/ui/shadow.png"
-dest_files=["res://.godot/imported/shadow.png-200bc23f98602015579d9b60e0b1fd92.ctex"]
+source_file="res://sprites/terrain/TilesetSmoll.png"
+dest_files=["res://.godot/imported/TilesetSmoll.png-665bdfdfaabc3a17253eabd91cc5c860.ctex"]
 
 [params]
 

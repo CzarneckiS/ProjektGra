@@ -2,9 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_y8oev"]
 [ext_resource type="Script" uid="uid://c2ualbrtrq04b" path="res://scenes/characters/allies/skeletonmage.gd" id="2_2plqw"]
-
-[ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/shadow.png" id="3_aivwt"]
-[ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/selection.png" id="4_5wufg"]
+[ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/units/additional_textures/shadow.png" id="3_aivwt"]
+[ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/units/additional_textures/selection.png" id="4_5wufg"]
 [ext_resource type="Texture2D" uid="uid://d3ejsschhu3o0" path="res://sprites/units/skeleton_mage/skeleton_mage_cloak.png" id="5_g3lfh"]
 [ext_resource type="Shader" uid="uid://dde0kqx4ndsel" path="res://vfx/hitflash.gdshader" id="5_xaqjm"]
 [ext_resource type="Texture2D" uid="uid://b4qc628w3t3li" path="res://sprites/units/skeleton_mage/skeleton_mage_wand.png" id="6_xaqjm"]

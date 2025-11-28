@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btcfx5u0jfdq8"
-path="res://.godot/imported/selection_enemy.png-43bbf15b7d628e78f573a9f9737d781b.ctex"
+uid="uid://dylf6bubhlan2"
+path="res://.godot/imported/shadow.png-fd315bc3c9337087a416f4413d0d6fa0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/ui/selection_enemy.png"
-dest_files=["res://.godot/imported/selection_enemy.png-43bbf15b7d628e78f573a9f9737d781b.ctex"]
+source_file="res://sprites/units/additional_textures/shadow.png"
+dest_files=["res://.godot/imported/shadow.png-fd315bc3c9337087a416f4413d0d6fa0.ctex"]
 
 [params]
 

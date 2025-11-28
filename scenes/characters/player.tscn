@@ -1,8 +1,8 @@
 [gd_scene load_steps=29 format=3 uid="uid://cbodjjoib2qrn"]
 
 [ext_resource type="Script" uid="uid://bi5nwihkqq2pp" path="res://scenes/characters/player.gd" id="1_rp718"]
-[ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/ui/shadow.png" id="2_3wg1y"]
-[ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/ui/selection.png" id="2_d6tgn"]
+[ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/units/additional_textures/shadow.png" id="2_3wg1y"]
+[ext_resource type="Texture2D" uid="uid://c418dki3gw0y7" path="res://sprites/units/additional_textures/selection.png" id="2_d6tgn"]
 [ext_resource type="Texture2D" uid="uid://dhw3owys25v6j" path="res://sprites/mimi/mimi_low_hair3.png" id="3_d6tgn"]
 [ext_resource type="Texture2D" uid="uid://b5m1qu00df4mp" path="res://sprites/mimi/new_body.png" id="4_3wg1y"]
 [ext_resource type="Shader" uid="uid://dde0kqx4ndsel" path="res://vfx/hitflash.gdshader" id="4_jk2m4"]

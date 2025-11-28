@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b75mcmseqa17j"
-path="res://.godot/imported/TilesetSmoll.png-fab602e176e41b7d72d15901e8748ae7.ctex"
+uid="uid://cfq0a260dqqcn"
+path="res://.godot/imported/circle.png-44b524053929f94dd1566f087585a590.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/ui/TilesetSmoll.png"
-dest_files=["res://.godot/imported/TilesetSmoll.png-fab602e176e41b7d72d15901e8748ae7.ctex"]
+source_file="res://sprites/circle.png"
+dest_files=["res://.godot/imported/circle.png-44b524053929f94dd1566f087585a590.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfq0a260dqqcn"
-path="res://.godot/imported/circle.png-3281c608b48ece5e7e1197ba04cf5026.ctex"
+uid="uid://ci3kvqokrn6o6"
+path="res://.godot/imported/testtile.png-326e1027cc912d4b73daef0829cbaaf8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/ui/circle.png"
-dest_files=["res://.godot/imported/circle.png-3281c608b48ece5e7e1197ba04cf5026.ctex"]
+source_file="res://sprites/terrain/testtile.png"
+dest_files=["res://.godot/imported/testtile.png-326e1027cc912d4b73daef0829cbaaf8.ctex"]
 
 [params]
 

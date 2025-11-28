@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhf8r5as37ld0"
-path="res://.godot/imported/Tileset.png-4e6d43a3b631dc081b0fb41d4b6b5f2f.ctex"
+uid="uid://btcfx5u0jfdq8"
+path="res://.godot/imported/selection_enemy.png-86a60840da3f50932db9b8c144260927.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/ui/Tileset.png"
-dest_files=["res://.godot/imported/Tileset.png-4e6d43a3b631dc081b0fb41d4b6b5f2f.ctex"]
+source_file="res://sprites/units/additional_textures/selection_enemy.png"
+dest_files=["res://.godot/imported/selection_enemy.png-86a60840da3f50932db9b8c144260927.ctex"]
 
 [params]
 
