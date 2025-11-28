@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://its2dvwjlqs7"]
+
+[ext_resource type="Script" uid="uid://dve0mkr3o7e2q" path="res://scripts/unit_movement/unit_move_stop_area.gd" id="1_7tm4o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7tm4o"]
+resource_local_to_scene = true
+radius = 30.0
+
+[node name="UnitMoveStopArea" type="Area2D"]
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("1_7tm4o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7tm4o")

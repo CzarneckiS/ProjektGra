@@ -270,7 +270,7 @@ _data = {
 point_count = 21
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_urvlt"]
-vertices = PackedVector2Array(420, -300, 420, -900, 2339.2734, -1282.1797, 2374.711, 1270.9531, -1847.9297, -1322.7969, -420, -900, -1839.0625, 1261.0391, -420, -300)
+vertices = PackedVector2Array(428, -293, 428, -893, 2339.2734, -1282.1797, 2374.711, 1270.9531, -1847.9297, -1322.7969, -412, -893, -1839.0625, 1261.0391, -412, -293)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 2, 1, 5), PackedInt32Array(0, 3, 6, 7), PackedInt32Array(7, 6, 4, 5)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-1868, -1343, 2359, -1302, 2395, 1291, -1859, 1281)])
 source_geometry_mode = 1

@@ -31,7 +31,7 @@ func _ready():
 func _process(_delta: float) -> void:
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
 
-#SPAWNING JEDNOSTEK ================================================================
+
 
 func show_lvl_up_menu():
 	get_tree().paused = true
@@ -41,7 +41,7 @@ func show_lvl_up_menu():
 
 
 
-
+#SPAWNING JEDNOSTEK ================================================================
 func spawn_enemy(): # EnemySpawnFollow bierzemy jako unique name
 	var new_enemy = human_warrior.instantiate()
 	$EnemyUnits.add_child(new_enemy)
@@ -68,13 +68,16 @@ func on_summon_unit(unit):
 			summon_skeleton_mage()
 func on_unit_death(unit):
 	#narazie hardcoded 5 sekundowy timer
+	for order in movement_orders:
+			if unit in order.unit_array:
+				order.unit_array.erase(unit)
 	match unit:
 		Tags.UnitTag.SKELETON_MAGE:
 			await get_tree().create_timer(5.0).timeout
-			summon_skeleton_warrior()
+			summon_skeleton_mage()
 		Tags.UnitTag.SKELETON_WARRIOR:
 			await get_tree().create_timer(5.0).timeout
-			summon_skeleton_mage()
+			summon_skeleton_warrior()
 		Tags.UnitTag.HUMAN_WARRIOR:
 			Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.HUMAN_WARRIOR)
 		Tags.UnitTag.HUMAN_ARCHER:
@@ -132,7 +135,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			cursor_move_animation()  #Odegraj animację
 			for unit in get_tree().get_nodes_in_group("Selected"):
 				unit.handle_inputs("right_click")
-
+				create_movement_order_stop_area()
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if !event.is_released():
 			return
@@ -145,6 +148,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					cursor_attack_move_animation()
 					for unit in get_tree().get_nodes_in_group("Selected"):
 						unit.handle_inputs("left_click")
+						create_movement_order_stop_area()
 	elif event.is_action_pressed("attack_move"):
 		if get_tree().get_nodes_in_group("Selected"):
 			Globals.attack_move_input_pressed()
@@ -209,7 +213,28 @@ func _unhandled_input(event: InputEvent) -> void:
 		new_enemy.connect("took_damage", on_unit_damage_taken)
 		new_enemy.connect("unit_died", on_unit_death)
 
+#MOVEMENT ======================================================================================
+var movement_orders : Array = []
+func create_movement_order_stop_area():
+	#do przetestowania, potencjalny memory leak w kombinacji z funkcja follow_player?
+	var selected_units_order = preload("res://scripts/unit_movement/unit_move_stop_area.tscn").instantiate()
+	add_child(selected_units_order)
+	selected_units_order.global_position = get_global_mouse_position()
+	for unit in get_tree().get_nodes_in_group("Selected"):
+		for order in movement_orders:
+			if unit in order.unit_array:
+				order.unit_array.erase(unit)
+		selected_units_order.unit_array.append(unit)
+	movement_orders.append(selected_units_order)
+	for order in movement_orders:
+		for reference in order.unit_array:
+			if reference == null:
+				order.unit_array.erase(reference)
+		if order.unit_array.size() <= 0:
+			movement_orders.erase(order)
+			order.queue_free()
 
+#VISUALS =======================================================================================
 func on_unit_damage_taken(damage, unit):
 	var damage_number = Label.new()
 	add_child(damage_number)
