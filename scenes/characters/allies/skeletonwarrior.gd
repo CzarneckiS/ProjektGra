@@ -80,6 +80,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	#seek_enemies()
 	if !dying:
+		return #TEMPORARY
 		follow_player()
 	#for unit in possible_targets:
 		#if unit == null:
@@ -153,16 +154,19 @@ func _move_to_target(_delta,target_position):
 	move_and_slide()
 
 func move_to_target(_delta,target_position): #CLOSE RANGE MOVEMENT
+	#jedna porcja a* zeby zrobic unified movement?
+	var new_velocity
 	if !get_slide_collision_count() and unstick_timer.is_stopped():
 		navigation_agent_2d.target_position = target_position
-		var new_velocity = global_position.direction_to(target_position) * speed
+		new_velocity = global_position.direction_to(target_position) * speed
 		navigation_agent_2d.set_velocity(new_velocity)
 	if get_slide_collision_count() and unstick_timer.is_stopped():
+		print("i sense a collision")
 		unstick_timer.start() # JEŚLI WYKRYJE KOLIZJE NA SEKUNDE DOSTAJE A* MOVEMENT
 	if !unstick_timer.is_stopped():
 		if can_navigate:
 			calculate_new_path(target_position) #A* MOVEMENT
-			var new_velocity = global_position.direction_to(next_path_position) * speed
+			new_velocity = global_position.direction_to(next_path_position) * speed
 			navigation_agent_2d.set_velocity(new_velocity)
 			can_navigate = false
 			$Timers/NavigationTimer.start()

@@ -81,6 +81,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	#seek_enemies()
 	if !dying:
+		return #TEMPORARY
 		follow_player()
 	#for unit in possible_targets:
 		#if unit == null:
