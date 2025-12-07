@@ -43,7 +43,12 @@ func _ready() -> void:
 	player_level.text = "LVL: %d" % Globals.level
 
 	set_process_unhandled_input(true)  # aby działało _unhandled_input
-
+	
+	icon_page_1.visible = false 
+	icon_page_2.visible = false 
+	icon_page_3.visible = false 
+	
+	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select_next_group"):
 		_cycle_unit_group()
@@ -70,7 +75,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 func update_hp_bar():
-
 	main_damage_bar.value = Globals.max_health - Globals.health 
 	var main_health_tween = create_tween()
 	main_health_tween.tween_property(main_damage_bar, "value", Globals.max_health - Globals.health, 0.5)
@@ -85,6 +89,7 @@ func update_exp_bar():
 	xp_tween.set_ease(Tween.EASE_IN_OUT)
 	player_level.text = "LVL: %d" % Globals.level
 
+
 func update_units_panel(new_units: Array) -> void:
 	selected_units = new_units.filter(func(u): return is_instance_valid(u))
 	selected_units.sort_custom(func(a, b): return a.unit_hud_order < b.unit_hud_order)
@@ -94,12 +99,18 @@ func update_units_panel(new_units: Array) -> void:
 	total_pages = clamp(total_pages, 1, 3)
 	if current_page > total_pages:
 		current_page = total_pages
-
+	elif selected_units.size() == 0:
+		total_pages = 0
+		icon_page_1.visible = false 
+		icon_page_2.visible = false 
+		icon_page_3.visible = false 
+		
 	# zakres jednostek aktualnej strony
 	var start = (current_page - 1) * 12
 	var end = min(start + 12, selected_units.size())
 	var visible_units = selected_units.slice(start, end)
 
+		
 	# reset slotów
 	for slot in unit_slots:
 		slot.set_meta("unit_ref", null)
