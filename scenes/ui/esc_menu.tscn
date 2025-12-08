@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://bnbuo84uf6qat"]
+[gd_scene load_steps=17 format=3 uid="uid://bnbuo84uf6qat"]
 
 [ext_resource type="Script" uid="uid://dxykujtkps4xt" path="res://scenes/ui/esc_menu.gd" id="1_guea3"]
 [ext_resource type="Texture2D" uid="uid://dphc21aqf5r1m" path="res://sprites/ui/Button_neutral.png" id="2_1apln"]
 [ext_resource type="Texture2D" uid="uid://chy5d1g28au0x" path="res://sprites/thunderbolt/HUD_MenuTemplate.png" id="2_646ss"]
 [ext_resource type="Texture2D" uid="uid://bpvowenbyhjyy" path="res://sprites/ui/Button_pressed.png" id="2_wvp1r"]
 [ext_resource type="Texture2D" uid="uid://csuu5qvhmmnvx" path="res://sprites/ui/HUD_MenuLine.png" id="3_akhel"]
+[ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="4_viui7"]
 [ext_resource type="Texture2D" uid="uid://cvilxq7eyc1kj" path="res://sprites/ui/Button_highlight.png" id="4_wo83s"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oy65n"]
@@ -107,6 +108,7 @@ offset_left = 682.0
 offset_top = 590.0
 offset_right = 928.0
 offset_bottom = 637.0
+theme_override_fonts/font = ExtResource("4_viui7")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_oy65n")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_akhel")
@@ -130,6 +132,7 @@ offset_left = 682.0
 offset_top = 378.0
 offset_right = 928.0
 offset_bottom = 425.0
+theme_override_fonts/font = ExtResource("4_viui7")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_0us07")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_viui7")
@@ -153,6 +156,7 @@ offset_left = 682.0
 offset_top = 431.0
 offset_right = 928.0
 offset_bottom = 478.0
+theme_override_fonts/font = ExtResource("4_viui7")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_8dnxo")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_3axht")
@@ -177,6 +181,7 @@ offset_left = 682.0
 offset_top = 270.0
 offset_right = 928.0
 offset_bottom = 317.0
+theme_override_fonts/font = ExtResource("4_viui7")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_0us07")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_viui7")
@@ -200,6 +205,7 @@ offset_left = 682.0
 offset_top = 324.0
 offset_right = 928.0
 offset_bottom = 371.0
+theme_override_fonts/font = ExtResource("4_viui7")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_0us07")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_viui7")

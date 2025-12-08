@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://oi7udmkhy0cl"]
+[gd_scene load_steps=21 format=3 uid="uid://oi7udmkhy0cl"]
 
 [ext_resource type="Script" uid="uid://dyqgocxdri5va" path="res://scenes/ui/lvlup_menu.gd" id="1_ra1c2"]
 [ext_resource type="Texture2D" uid="uid://dphc21aqf5r1m" path="res://sprites/ui/Button_neutral.png" id="2_6pxxg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cvilxq7eyc1kj" path="res://sprites/ui/Button_highlight.png" id="4_vuuuy"]
 [ext_resource type="Texture2D" uid="uid://csuu5qvhmmnvx" path="res://sprites/ui/HUD_MenuLine.png" id="6_w0jd5"]
 [ext_resource type="Texture2D" uid="uid://c6a6cymtsl4cd" path="res://sprites/ui/EmptyIcon.png" id="7_mvsde"]
+[ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="8_fssdh"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6pxxg"]
 texture = ExtResource("2_6pxxg")
@@ -131,6 +132,7 @@ offset_left = 97.000015
 offset_top = -341.0
 offset_right = 249.31502
 offset_bottom = -242.0
+theme_override_fonts/font = ExtResource("8_fssdh")
 theme_override_font_sizes/font_size = 19
 text = "NAME
 
@@ -142,6 +144,7 @@ offset_left = -28.0
 offset_top = -226.00003
 offset_right = 201.0
 offset_bottom = -151.0
+theme_override_fonts/font = ExtResource("8_fssdh")
 text = "DESCRIPTION"
 
 [node name="Option2" type="Button" parent="."]
@@ -188,6 +191,7 @@ offset_left = 97.0
 offset_top = -341.0
 offset_right = 249.315
 offset_bottom = -242.0
+theme_override_fonts/font = ExtResource("8_fssdh")
 theme_override_font_sizes/font_size = 19
 text = "NAME
 
@@ -199,6 +203,7 @@ offset_left = -28.0
 offset_top = -226.00003
 offset_right = 201.0
 offset_bottom = -151.0
+theme_override_fonts/font = ExtResource("8_fssdh")
 text = "DESCRIPTION"
 
 [node name="Option3" type="Button" parent="."]
@@ -247,6 +252,7 @@ offset_left = 97.0
 offset_top = -341.0
 offset_right = 249.315
 offset_bottom = -242.0
+theme_override_fonts/font = ExtResource("8_fssdh")
 theme_override_font_sizes/font_size = 19
 text = "NAME
 
@@ -258,6 +264,7 @@ offset_left = -43.0
 offset_top = -226.00003
 offset_right = 186.0
 offset_bottom = -151.0
+theme_override_fonts/font = ExtResource("8_fssdh")
 text = "DESCRIPTION
 "
 
