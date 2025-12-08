@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cvrvwcohvoolf"]
+[gd_scene load_steps=21 format=3 uid="uid://cvrvwcohvoolf"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_y8oev"]
 [ext_resource type="Script" uid="uid://c2ualbrtrq04b" path="res://scenes/characters/allies/skeletonmage.gd" id="2_2plqw"]
@@ -166,6 +166,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_p5k3i"]
 resource_name = "dying"
+length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -173,10 +174,82 @@ tracks/0/path = NodePath("Sprite2D/Head:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.96666664),
+"times": PackedFloat32Array(0, 0.3, 0.73333335),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 500)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Head:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.73, 0.8333333, 0.9, 0.93333334, 0.96666664),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.2076941809873248, 0.4886921905584123, 0.3490658503988659, 0.4188790204786391, 0.3490658503988659]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/Sword:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16666666, 0.56666666),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 20), Vector2(-50, 50), Vector2(-350, 150)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D/Sword:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.16666666, 0.55833334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.2617993877991494, -1.7453292519943295]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:material:shader_parameter/progress")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.1333333, 1.2, 1.2666668, 1.3666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1.0, 0.0, 1.0, 1.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Particles/DeathParticles:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite2D:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1.2333333, 1.3666667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, -120)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_hnk33"]
@@ -272,9 +345,12 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_2plqw"]
 radius = 316.2673
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_g3lfh"]
+radius = 24.0
+
 [node name="SkeletonMage" groups=["Allied", "Selectable"] instance=ExtResource("1_y8oev")]
 collision_layer = 32
-collision_mask = 11
+collision_mask = 9
 script = ExtResource("2_2plqw")
 
 [node name="Shadow" type="Sprite2D" parent="." index="0"]
@@ -361,5 +437,13 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea" index="0"]
 shape = SubResource("CircleShape2D_2plqw")
+
+[node name="MovementPushArea" type="Area2D" parent="." index="14"]
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovementPushArea" index="0"]
+position = Vector2(0, 7)
+shape = SubResource("CircleShape2D_g3lfh")
 
 [connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]

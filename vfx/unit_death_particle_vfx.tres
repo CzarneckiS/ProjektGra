@@ -1,0 +1,15 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://dtnoj12viypnl"]
+
+[resource]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 10.48
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 194.11
+initial_velocity_max = 194.11
+gravity = Vector3(0, 98, 0)
+scale_min = 3.0
+scale_max = 6.0

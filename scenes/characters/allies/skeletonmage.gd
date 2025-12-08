@@ -2,14 +2,13 @@ extends UnitParent
 
 var projectile = preload("res://resources/skeleton_mage_projectile.tres")
 
-var skills_stat_up = []
-var skills_passive = []
-var skills_on_hit = [projectile]
-var skills_on_death = []
+var skills_stat_up : Array = []
+var skills_passive : Array = []
+var skills_on_hit : Array = [projectile]
+var skills_on_death : Array = []
 var own_tags: PackedInt32Array = [Tags.UnitTag.UNIT, Tags.UnitTag.ALLIED, Tags.UnitTag.SKELETON_MAGE]
 #movement
 var speed = 300
-var move_target = Vector2.ZERO
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position = Vector2.ZERO #temporary, bedzie wymienione przy pathfindingu
@@ -17,6 +16,8 @@ var next_path_position
 var can_navigate:bool = true
 var follow_distance_idle:int = 400
 var follow_distance_absolute:int = 1000
+var movement_order #rozkaz tworzony w levelu przy right clickowaniu
+
 #combat
 var base_damage = 20
 var damage = base_damage
@@ -74,10 +75,14 @@ func _ready() -> void:
 	$Timers/NavigationTimer.timeout.connect(_on_navigation_timer_timeout)
 	$Timers/AttackTimer.timeout.connect(_on_attack_timer_timeout)
 	$Timers/HitFlashTimer.timeout.connect(_on_hit_flash_timer_timeout)
+	$MovementPushArea.connect("body_entered", _on_movement_push_area_body_entered)
+	$MovementPushArea.connect("body_exited", _on_movement_push_area_body_exited)
 	
 	#dodawanie shaderow to wszystkich spritow
 	for child in $Sprite2D.get_children():
 		child.use_parent_material = true
+	for raycast in raycast_array:
+		raycast.set_collision_mask(0b100000)
 func _physics_process(_delta: float) -> void:
 	#seek_enemies()
 	if !dying:
@@ -153,18 +158,70 @@ func handle_inputs(event):
 func _move_to_target(_delta,target_position):
 	velocity = global_position.direction_to(target_position) * speed
 	move_and_slide()
+	
+var unit_collision_push_array : Array = []
+func push_units():
+	for body in unit_collision_push_array:
+		if body.get_ref().state_machine.state != body.get_ref().state_machine.states.idle:
+			continue
+		if body.get_ref().movement_order == movement_order:
+			continue
+		if body.get_ref().state_machine.command == body.get_ref().state_machine.commands.HOLD:
+			continue
+			#ta liczba oznacza jak daleko ma sie odsunac odepchnieta jednostka
+		if angle_difference(global_position.angle_to_point(move_target), global_position.angle_to_point(body.get_ref().global_position)) < PI/2:
+			#print("im pushin p")
+			body.get_ref().move_target = body.get_ref().global_position + (global_position.direction_to(body.get_ref().global_position))
+			body.get_ref().state_machine.set_state(body.get_ref().state_machine.states.moving)
+			#body.get_ref().push_units()
 
-func move_to_target(_delta,target_position): #CLOSE RANGE MOVEMENT
-	if !get_slide_collision_count() and unstick_timer.is_stopped():
+func _on_movement_push_area_body_entered(body: Node2D) -> void:
+	unit_collision_push_array.append(weakref(body))
+
+func _on_movement_push_area_body_exited(body: Node2D) -> void:
+	for unit in unit_collision_push_array:
+		if unit.get_ref() == body:
+			unit_collision_push_array.erase(unit)
+var stuck_pathfining_timer = 0.2 #CZAS W SEKUNDACH
+var epsilon = 5 #ILOSC PIXELI
+func reset_stuck_pathfinding_timer():
+	stuck_pathfining_timer = 0.2 #CZAS W SEKUNDACH
+var unit_stuck_boolean : bool = false
+var pathfinding_raycast
+func move_to_target(delta,target_position): #CLOSE RANGE MOVEMENT
+	#print("unit stuck bool:%s"%unit_stuck_boolean)
+	stuck_pathfining_timer -= delta
+	if stuck_pathfining_timer <= 0:
+		reset_stuck_pathfinding_timer()
+		#print("im checking if you're stuck")
+		if last_position: #trzeba bedzie resetowac zeby nie pamietal last position z poprzedniego rozkazu
+			if abs(last_position.x - global_position.x) < epsilon and abs(last_position.y - global_position.y) < epsilon:
+				unit_stuck_boolean = true
+		if unit_stuck_boolean:
+			pathfinding_raycast = send_out_raycasts(target_position)
+		last_position = global_position
+	if unit_stuck_boolean:
+		if pathfinding_raycast:
+			target_position = global_position+pathfinding_raycast.target_position
+		else:
+			#print("im setting this stuff to false")
+			unit_stuck_boolean = false
+		#no i wysylamy raycasty
+		#jesli najbardziej optymalny raycast jest wolny = mozesz isc prosto do celu
+		#wiec bedzie podążał za punktami wyznaczonymi przez raycasty dopoki nie zwolni sobie optymalnego
+	#jedna porcja a* zeby zrobic unified movement?
+	var new_velocity
+	if !get_slide_collision_count() and unstick_timer.is_stopped(): #tryb podstawowy
 		navigation_agent_2d.target_position = target_position
-		var new_velocity = global_position.direction_to(target_position) * speed
+		new_velocity = global_position.direction_to(target_position) * speed
 		navigation_agent_2d.set_velocity(new_velocity)
-	if get_slide_collision_count() and unstick_timer.is_stopped():
+	if get_slide_collision_count() and unstick_timer.is_stopped(): #wykrycie kolizji
+		#print("i sense a collision")
 		unstick_timer.start() # JEŚLI WYKRYJE KOLIZJE NA SEKUNDE DOSTAJE A* MOVEMENT
-	if !unstick_timer.is_stopped():
+	if !unstick_timer.is_stopped(): #poruszanie sie z a* kiedy wykryje kolizje
 		if can_navigate:
 			calculate_new_path(target_position) #A* MOVEMENT
-			var new_velocity = global_position.direction_to(next_path_position) * speed
+			new_velocity = global_position.direction_to(next_path_position) * speed
 			navigation_agent_2d.set_velocity(new_velocity)
 			can_navigate = false
 			$Timers/NavigationTimer.start()
@@ -225,6 +282,7 @@ func hit(damage_taken, _damage_source) -> bool:
 		health_bar.visible = false
 		damage_bar.visible = false
 		state_machine.call_deferred("set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
+		navigation_agent_2d.avoidance_enabled = false
 		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:

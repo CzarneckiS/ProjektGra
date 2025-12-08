@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cbodjjoib2qrn"]
+[gd_scene load_steps=31 format=3 uid="uid://cbodjjoib2qrn"]
 
 [ext_resource type="Script" uid="uid://bi5nwihkqq2pp" path="res://scenes/characters/player.gd" id="1_rp718"]
 [ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/units/additional_textures/shadow.png" id="2_3wg1y"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dhw3owys25v6j" path="res://sprites/mimi/mimi_low_hair3.png" id="3_d6tgn"]
 [ext_resource type="Texture2D" uid="uid://b5m1qu00df4mp" path="res://sprites/mimi/new_body.png" id="4_3wg1y"]
 [ext_resource type="Shader" uid="uid://dde0kqx4ndsel" path="res://vfx/hitflash.gdshader" id="4_jk2m4"]
+[ext_resource type="Texture2D" uid="uid://dxyvboitpo7ib" path="res://sprites/mimi/mimi hero glow.png" id="4_xhtjm"]
 [ext_resource type="Texture2D" uid="uid://ddq0687b6xvwy" path="res://sprites/mimi/mimi_head3.png" id="5_3wg1y"]
 [ext_resource type="Texture2D" uid="uid://v251r1xeidh3" path="res://sprites/mimi/mimi_oko_open2.png" id="6_a2luo"]
 [ext_resource type="Texture2D" uid="uid://bpc6yxqx75n7q" path="res://sprites/mimi/mimi_oko_closed2.png" id="7_eir2k"]
@@ -305,9 +306,12 @@ bg_color = Color(0.84003437, 0.0008719367, 0.8898385, 1)
 border_color = Color(0, 0, 0, 1)
 corner_detail = 4
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jk2m4"]
+radius = 27.0
+
 [node name="Player" type="CharacterBody2D" groups=["Allied", "Player", "Unit"]]
 collision_layer = 2
-collision_mask = 47
+collision_mask = 15
 script = ExtResource("1_rp718")
 
 [node name="Shadow" type="Sprite2D" parent="."]
@@ -321,6 +325,12 @@ visible = false
 position = Vector2(0, 55.000008)
 scale = Vector2(0.24452555, 0.24452555)
 texture = ExtResource("2_d6tgn")
+
+[node name="HeroGlowSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1, 54)
+scale = Vector2(0.28284675, 0.28284672)
+texture = ExtResource("4_xhtjm")
 
 [node name="SpriteRoot" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_xhtjm")
@@ -411,3 +421,14 @@ show_percentage = false
 [node name="HitFlashTimer" type="Timer" parent="Timers"]
 wait_time = 0.15
 one_shot = true
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 20.0
+
+[node name="MovementPushArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovementPushArea"]
+position = Vector2(0, 32)
+shape = SubResource("CircleShape2D_jk2m4")

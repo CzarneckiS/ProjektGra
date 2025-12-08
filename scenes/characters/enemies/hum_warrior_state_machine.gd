@@ -20,7 +20,7 @@ func _state_logic(delta):
 				pass #jeśli jesteś idle to nic nie robisz
 			states.moving:
 				parent.move_target = Globals.player_position
-				parent.navigate_to_target(delta, parent.move_target) #idź do celu (nie przeciwnik)
+				parent.move_to_target(delta, parent.move_target) #idź do celu (nie przeciwnik)
 				if parent.velocity.x > 0:
 					if sprite_root.scale.x > 0:
 						sprite_root.scale.x *= -1

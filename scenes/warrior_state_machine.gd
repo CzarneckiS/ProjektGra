@@ -32,9 +32,10 @@ func _ready():
 func _state_logic(delta):
 		match state: #sprawdź w którym stanie teraz jesteś
 			states.idle:
-				pass #jeśli jesteś idle to nic nie robisz
+				pass
 			states.moving:
 				parent.move_to_target(delta, parent.move_target) #idź do celu (nie przeciwnik)
+				parent.push_units()
 				if parent.velocity.x > 0:
 					if sprite_root.scale.x > 0:
 						sprite_root.scale.x *= -1
@@ -44,6 +45,7 @@ func _state_logic(delta):
 			states.engaging:
 				if parent.attack_target.get_ref(): #jeśli cel (jednostka) istnieje, idź do niego
 					parent.move_to_target(delta, parent.attack_target.get_ref().global_position)
+					parent.push_units()
 					if parent.velocity.x > 0:
 						if sprite_root.scale.x > 0:
 							sprite_root.scale.x *= -1
@@ -73,6 +75,7 @@ func _enter_state(_new_state, _previous_state):
 			states.idle:
 				animation_player.play("idle")
 			states.moving:
+				parent.reset_stuck_pathfinding_timer() #proper reset wszystkich zmiennych
 				animation_player.play("walk")
 			states.engaging:
 				animation_player.play("walk")

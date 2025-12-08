@@ -4,27 +4,32 @@ extends Area2D
 var unit_array : Array = []
 var units_inside : Array = []
 var units_reached_target = 0
+const STOP_DISTANCE = 60
 func _ready() -> void:
 	connect("body_entered",_on_body_entered)
-
 
 func _on_body_entered(body: Node2D) -> void:
 	if body in unit_array:
 		units_reached_target += 1
 		check_if_can_stop(body)
-		units_inside.append(body)
-		$CollisionShape2D.shape.radius += 15 #10 + sqrt(800*units_reached_target)
 
 func check_if_can_stop(body : Node2D):
+	if body in units_inside:
+		return
 	if units_inside.size() == 0:
-		body.state_machine.set_state(body.state_machine.states.idle)
+		stop_body(body)
 	else:
 		for unit in units_inside:
-			if body.global_position.distance_to(unit.global_position) < 60 and unit != body:
-				body.state_machine.set_state(body.state_machine.states.idle)
-	if body.state_machine.state != body.state_machine.states.idle:
-		await body.get_tree().create_timer(0.1).timeout
-		if body:
-			check_if_can_stop(body)
-		
+			if body.global_position.distance_to(unit.global_position) < STOP_DISTANCE and unit != body:
+				stop_body(body)
+				return
+		if body.state_machine.state != body.state_machine.states.idle:
+			await body.get_tree().create_timer(0.3).timeout
+			if body:
+				check_if_can_stop(body)
+
+func stop_body(body : Node2D):
+	body.state_machine.set_state(body.state_machine.states.idle)
+	units_inside.append(body)
+	$CollisionShape2D.shape.radius += 15 #10 + sqrt(800*units_reached_target)
 #connect them, kiedy sie zatrzymuja niech wysylaja sygnal yada yada

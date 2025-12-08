@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bm8xe1rrvu7x3"]
+
+[ext_resource type="Texture2D" uid="uid://bni3mreiwwfwy" path="res://sprites/heal/heal_0.png" id="1_t4alm"]
+[ext_resource type="Texture2D" uid="uid://ut22hpemoqt5" path="res://sprites/heal/heal_1.png" id="2_8rdfe"]
+[ext_resource type="Texture2D" uid="uid://dwress0a2npo1" path="res://sprites/heal/heal_2.png" id="3_0nyr0"]
+[ext_resource type="Texture2D" uid="uid://brhvotngjwd0j" path="res://sprites/heal/heal_3.png" id="4_oxfsf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7hnho"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_t4alm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_8rdfe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0nyr0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_oxfsf")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="SpawnAnimation" type="AnimatedSprite2D"]
+modulate = Color(0, 1, 1, 1)
+z_index = 1
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_7hnho")
+frame = 3
+frame_progress = 1.0
