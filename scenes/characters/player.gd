@@ -8,10 +8,10 @@ var standing: bool = true
 var selected = false
 var dying : bool = false
 
-var skills_summon = []
-var skills_stat_up = []
-var skills_passive = []
-var skills_active = []
+var skills_summon : Array = []
+var skills_stat_up : Array = []
+var skills_passive : Array = []
+var skills_active : Array = []
 var own_tags : PackedInt32Array = [Tags.UnitTag.PLAYER]
 
 #Unit spawning
@@ -19,6 +19,9 @@ var skeleton_warrior_count = 0
 var skeleton_mage_count = 0
 signal summon_unit()
 signal took_damage(damage, unit)
+
+var unit_collision_push_array : Array = []
+var direction : Vector2
 
 func _unhandled_input(event):
 	if event.is_action_pressed("fireball_input"):
@@ -118,15 +121,17 @@ func _ready() -> void:
 		child.use_parent_material = true
 		for childs_child in child.get_children():
 			childs_child.use_parent_material = true
+	$MovementPushArea.connect("body_entered", _on_movement_push_area_body_entered)
+	$MovementPushArea.connect("body_exited", _on_movement_push_area_body_exited)
 
-
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if standing:
 		$AnimationPlayer.play("stand")
 	standing = true
 	# TRZEBA JEJ ZROBIC TEZ MOVEMENT Z KLIKANIEM TO JEST PLAAACEHOOOLDER
-	var direction = Input.get_vector("move_left","move_right","move_up","move_down")
+	direction = Input.get_vector("move_left","move_right","move_up","move_down")
 	if direction != Vector2.ZERO:
+		push_units()
 		if Input.is_action_pressed("move_right"):
 			flip()
 		else:
@@ -136,7 +141,9 @@ func _process(_delta: float) -> void:
 		velocity = direction * speed
 		motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 		move_and_slide()
+		direction = Vector2.ZERO
 	Globals.player_position = global_position
+
 
 
 #SKILLS ===============================================================================
@@ -200,3 +207,36 @@ func unflip() -> void:
 
 func _on_hit_flash_timer_timeout() -> void:
 	$SpriteRoot.material.set_shader_parameter('progress',0)
+
+
+
+func _push_units():
+	for body in unit_collision_push_array:
+		if body.get_ref().state_machine.state != body.get_ref().state_machine.states.idle:
+			continue
+		if body.get_ref().state_machine.command == body.get_ref().state_machine.commands.HOLD:
+			continue
+			#ta liczba oznacza jak daleko ma sie odsunac odepchnieta jednostka
+		if angle_difference(global_position.angle_to_point(global_position+direction), global_position.angle_to_point(body.get_ref().global_position)) < PI/2:
+			body.get_ref().move_target = body.get_ref().global_position + (global_position.direction_to(body.get_ref().global_position) * 50)
+			body.get_ref().state_machine.set_state(body.get_ref().state_machine.states.moving)
+			
+func push_units():
+	for body in unit_collision_push_array:
+		if body.get_ref().state_machine.state != body.get_ref().state_machine.states.idle:
+			continue
+		if body.get_ref().state_machine.command == body.get_ref().state_machine.commands.HOLD:
+			continue
+			#ta liczba oznacza jak daleko ma sie odsunac odepchnieta jednostka
+		if angle_difference(global_position.angle_to_point(global_position+direction), global_position.angle_to_point(body.get_ref().global_position)) < PI/2:
+			body.get_ref().move_target = body.get_ref().global_position + (global_position.direction_to(body.get_ref().global_position) * 50)
+			body.get_ref().state_machine.set_state(body.get_ref().state_machine.states.moving)
+			#body.get_ref().push_units()
+
+func _on_movement_push_area_body_entered(body: Node2D) -> void:
+	unit_collision_push_array.append(weakref(body))
+
+func _on_movement_push_area_body_exited(body: Node2D) -> void:
+	for unit in unit_collision_push_array:
+		if unit.get_ref() == body:
+			unit_collision_push_array.erase(unit)

@@ -31,9 +31,7 @@ func _ready():
 func _process(_delta: float) -> void:
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
 
-
-
-func show_lvl_up_menu():
+func show_lvl_up_menu():  
 	get_tree().paused = true
 	var lvl_up_upgrades_menu = preload("res://scenes/ui/lvlup_menu.tscn").instantiate()
 	lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -102,6 +100,7 @@ func summon_skeleton_warrior():
 	new_skeleton_warrior.global_position = get_random_point_in_radius()
 	new_skeleton_warrior.connect("unit_died", on_unit_death)
 	new_skeleton_warrior.connect("took_damage", on_unit_damage_taken)
+	on_allied_unit_spawn_animation(new_skeleton_warrior)
 func summon_skeleton_mage():
 	var new_skeleton_mage = skeleton_mage.instantiate()
 	$AlliedUnits.add_child(new_skeleton_mage)
@@ -112,6 +111,7 @@ func summon_skeleton_mage():
 	new_skeleton_mage.global_position = get_random_point_in_radius()
 	new_skeleton_mage.connect("unit_died", on_unit_death)
 	new_skeleton_mage.connect("took_damage", on_unit_damage_taken)
+	on_allied_unit_spawn_animation(new_skeleton_mage)
 
 func is_point_on_map(target_point: Vector2) -> bool:
 	var map = get_world_2d().navigation_map
@@ -225,6 +225,7 @@ func create_movement_order_stop_area():
 			if unit in order.unit_array:
 				order.unit_array.erase(unit)
 		selected_units_order.unit_array.append(unit)
+		unit.movement_order = weakref(selected_units_order)
 	movement_orders.append(selected_units_order)
 	for order in movement_orders:
 		for reference in order.unit_array:
@@ -235,6 +236,14 @@ func create_movement_order_stop_area():
 			order.queue_free()
 
 #VISUALS =======================================================================================
+func on_allied_unit_spawn_animation(unit):
+	var spawn_animation = preload("res://vfx/spawn_animation.tscn").instantiate()
+	add_child(spawn_animation)
+	spawn_animation.global_position = unit.global_position
+	spawn_animation.play("default")
+	await spawn_animation.animation_finished
+	spawn_animation.queue_free()
+
 func on_unit_damage_taken(damage, unit):
 	var damage_number = Label.new()
 	add_child(damage_number)

@@ -3,20 +3,19 @@ class_name HumanArcher
 
 var projectile = preload("res://resources/human_archer_projectile.tres")
 
-var skills_stat_up = []
-var skills_passive = []
-var skills_on_hit = [projectile]
-var skills_on_death = []
+var skills_stat_up : Array = []
+var skills_passive : Array = []
+var skills_on_hit : Array = [projectile]
+var skills_on_death : Array = []
 var own_tags : PackedInt32Array = []
 #exp ktory daje warrior, wykorzystywany przekazywany do fsm w dying state
 const experience_value = 20
 
 #movement
 var speed = 300
-var move_target = Vector2.ZERO
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
-var last_position = Vector2.ZERO #temporary, bedzie wymienione przy pathfindingu
+var last_position
 var next_path_position
 var can_navigate:bool = true
 
@@ -76,6 +75,8 @@ func _ready() -> void:
 	#dodawanie shaderow to wszystkich spritow
 	for child in $Sprite2D.get_children():
 		child.use_parent_material = true
+	for raycast in raycast_array:
+		raycast.set_collision_mask(0b100)
 #VISUALSY ===============================================================================
 func start_hit_flash(damage_source):
 	var original_color = Color.WHITE
@@ -99,17 +100,46 @@ func start_hit_flash(damage_source):
 			#possible_targets.erase(unit)
 	#seek_enemies()
 #MOVEMENT ===============================================================================
-func move_to_target(_delta,target_position): #CLOSE RANGE MOVEMENT
-	if !get_slide_collision_count() and unstick_timer.is_stopped():
+var stuck_pathfining_timer = 0.2 #CZAS W SEKUNDACH
+var epsilon = 5 #ILOSC PIXELI
+func reset_stuck_pathfinding_timer():
+	stuck_pathfining_timer = 0.2 #CZAS W SEKUNDACH
+var unit_stuck_boolean : bool = false
+var pathfinding_raycast
+func move_to_target(delta,target_position): #CLOSE RANGE MOVEMENT
+	#print("unit stuck bool:%s"%unit_stuck_boolean)
+	stuck_pathfining_timer -= delta
+	if stuck_pathfining_timer <= 0:
+		reset_stuck_pathfinding_timer()
+		#print("im checking if you're stuck")
+		if last_position: #trzeba bedzie resetowac zeby nie pamietal last position z poprzedniego rozkazu
+			if abs(last_position.x - global_position.x) < epsilon and abs(last_position.y - global_position.y) < epsilon:
+				unit_stuck_boolean = true
+		if unit_stuck_boolean:
+			pathfinding_raycast = send_out_raycasts(target_position)
+		last_position = global_position
+	if unit_stuck_boolean:
+		if pathfinding_raycast:
+			target_position = global_position+pathfinding_raycast.target_position
+		else:
+			#print("im setting this stuff to false")
+			unit_stuck_boolean = false
+		#no i wysylamy raycasty
+		#jesli najbardziej optymalny raycast jest wolny = mozesz isc prosto do celu
+		#wiec bedzie podążał za punktami wyznaczonymi przez raycasty dopoki nie zwolni sobie optymalnego
+	#jedna porcja a* zeby zrobic unified movement?
+	var new_velocity
+	if !get_slide_collision_count() and unstick_timer.is_stopped(): #tryb podstawowy
 		navigation_agent_2d.target_position = target_position
-		var new_velocity = global_position.direction_to(target_position) * speed
+		new_velocity = global_position.direction_to(target_position) * speed
 		navigation_agent_2d.set_velocity(new_velocity)
-	if get_slide_collision_count() and unstick_timer.is_stopped():
+	if get_slide_collision_count() and unstick_timer.is_stopped(): #wykrycie kolizji
+		#print("i sense a collision")
 		unstick_timer.start() # JEŚLI WYKRYJE KOLIZJE NA SEKUNDE DOSTAJE A* MOVEMENT
-	if !unstick_timer.is_stopped():
+	if !unstick_timer.is_stopped(): #poruszanie sie z a* kiedy wykryje kolizje
 		if can_navigate:
 			calculate_new_path(target_position) #A* MOVEMENT
-			var new_velocity = global_position.direction_to(next_path_position) * speed
+			new_velocity = global_position.direction_to(next_path_position) * speed
 			navigation_agent_2d.set_velocity(new_velocity)
 			can_navigate = false
 			$Timers/NavigationTimer.start()
@@ -159,6 +189,7 @@ func hit(damage_taken, damage_source) -> bool:
 		health_bar.visible = false
 		damage_bar.visible = false
 		state_machine.call_deferred("set_state", state_machine.states.dying) #zmiana na call_deferred bo przy spellach powodowało, że debugger nie był happy (przez sygnał _on_body_entered w fireball gdzie wywołujemy hit())
+		navigation_agent_2d.avoidance_enabled = false
 		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów. Zmiana na call_deferred by debugger był happy, patrz wyżej.
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:

@@ -22,6 +22,9 @@ var achievement_list : Dictionary = {
 }
 
 func _ready() -> void:
+	print("template")
+	print(OS.has_feature("template"))
+	create_save_directory()
 	load_game()
 	skill_unlock_handler = SkillUnlockHandler.new()
 
@@ -50,9 +53,20 @@ func unlock_achievement(achievement):
 	if !achievement:
 		achievement = true
 		save_game()
+		
+func create_save_directory():
+	if OS.has_feature("template"):
+		var path = OS.get_executable_path().get_base_dir().path_join("saves")
+		if !FileAccess.file_exists(path):
+			DirAccess.make_dir_absolute(path)
 
 func load_game():
-	var save_file = FileAccess.open("res://saves/savegame.json", FileAccess.READ)
+	var path
+	if OS.has_feature("template"):
+		path = OS.get_executable_path().get_base_dir().path_join("saves/savegame.json")
+	else:
+		path = "res://saves/savegame.json"
+	var save_file = FileAccess.open(path, FileAccess.READ)
 	if !save_file:
 		print("No save file found!")
 		return
@@ -62,6 +76,14 @@ func load_game():
 	achievement_list = json.data
 	
 func save_game(): #potencjalnie do przeniesienia do osobnej klasy / zrobienia oddzielnej funkcji dla achievementow
-	var save_file = FileAccess.open("res://saves/savegame.json", FileAccess.WRITE)
+	var path
+	if OS.has_feature("template"):
+		path = OS.get_executable_path().get_base_dir().path_join("saves/savegame.json")
+	else:
+		path = "res://saves/savegame.json"
+	print("path")
+	print(path)
+	var save_file = FileAccess.open(path, FileAccess.WRITE)
 	var json_string = JSON.stringify(achievement_list)
 	save_file.store_line(json_string)
+	print(save_file)
