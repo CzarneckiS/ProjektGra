@@ -20,14 +20,16 @@ func initialize(spawn_position: Vector2, skill_res: Iceblock):
 	lifespan.one_shot = true
 	lifespan.autostart = false
 	lifespan.wait_time = 4.0
-	lifespan.timeout.connect(_on_lifespan_timeout)
 func _ready():
 	lifespan.call_deferred("start")
 	_get_iceblock_animation()
+	
 	damage_area.body_entered.connect(_on_damage_area_entered)
 	knockback_area.body_entered.connect(_on_knockback_area_entered)
 	diagonal_damage_area.body_entered.connect(_on_damage_area_entered)
 	diagonal_knockback_area.body_entered.connect(_on_knockback_area_entered)
+	lifespan.timeout.connect(_on_lifespan_timeout)
+	
 	navigation_region_2d.call_deferred("bake_navigation_polygon")
 
 func _on_lifespan_timeout():
