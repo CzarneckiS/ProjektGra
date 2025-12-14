@@ -6,6 +6,7 @@ class_name Thunderbolt
 @export var skill_tags : PackedInt32Array = []
 @export var skill_effect_data: EffectDamage
 @export var skill_effect_data2: EffectAreaOfEffect
+@export var skill_effect_data3: EffectKnockback
 
 func use(player: CharacterBody2D, target_position: Vector2) -> void:
 	var projectile_node = visual_effect.instantiate()

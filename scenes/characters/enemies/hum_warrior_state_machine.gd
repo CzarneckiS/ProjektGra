@@ -11,6 +11,9 @@ func _ready():
 	add_state("attacking") #3
 	add_state("dying") #4
 	add_state("mid_animation") #5
+	add_state("push") #6
+	#to po prostu oznacza ze startujemy ze statem idle jak cos, call deferred wywoluje sie jako ostatni
+	#kiedy juz inne states sie ladnie dodadza do słownia
 	call_deferred("set_state", states.idle)
 
 #Rozkazy dla jednostki wykonywane w physics_process
@@ -48,7 +51,15 @@ func _state_logic(delta):
 				pass
 			states.mid_animation:
 				pass
-
+			states.push:
+				parent.push_velocity = parent.push_velocity.lerp(Vector2.ZERO, delta * parent.push_friction)
+				print(parent.push_velocity)
+				parent.velocity = parent.push_velocity
+				parent.move_and_slide()
+				if parent.push_velocity.is_zero_approx():
+					parent.push_velocity = Vector2.ZERO
+					set_state(states.idle)
+				
 #Akcje wykonywane jednorazowo przy zmianie stanu PRZED state_logic
 #DO POPRAWY ! - nie działają poprawnie
 #enter state jest wykonywane PRZED state logic więc pytamy o nasz cel zeby zmienic kierunek
@@ -66,6 +77,16 @@ func _enter_state(_new_state, _previous_state):
 				pass
 			states.dying:
 				animation_player.play("dying") #Kiedy wejdziesz w state, rozpocznij animację
+			states.push:
+				animation_player.play("dying") #dla debuga
+				#animation_player.play("walk") #dla debuga
+				#if parent.velocity.x > 0:
+					#if sprite_root.scale.x > 0:
+						#sprite_root.scale.x *= -1
+				#elif parent.velocity.x < 0:
+					#if sprite_root.scale.x < 0:
+						#sprite_root.scale.x *= -1
+						
 			states.mid_animation:
 				pass
 #Warunki przejścia do nowego stanu - wykonywane PO state_logic
@@ -119,7 +140,11 @@ func _get_transition(_delta):
 					else:
 						set_state(states.engaging) #jeśli nie to go goń
 						#jeśli cel umarł to w stanie engaging to sprawdzi i przejdzie do idle
-
+			states.push:
+				if animation_player.is_playing(): return
+				else:
+					set_state(states.idle)
+					
 #temporary do movementu
 #func _on_move_timer_timeout() -> void:
 	#if parent.get_slide_collision_count():

@@ -32,12 +32,15 @@ func _unhandled_input(event):
 		cast_heal()
 	if event.is_action_pressed("iceblock_input"):
 		cast_iceblock()
+	if event.is_action_pressed("field_input"):
+		cast_field()
 
 var fireball_skill: Resource = preload("res://resources/fireball.tres")
 var thunderbolt_skill: Resource = preload("res://resources/thunderbolt.tres")
 var heal_skill: Resource = preload("res://resources/heal.tres")
 var iceblock_skill: Resource = preload("res://resources/iceblock.tres")
-var skill_cooldowns: Dictionary = {} #zmienic na array?
+var field_skill: Resource = preload("res://resources/field.tres")
+var skill_cooldowns: Dictionary = {}
 
 func can_cast(skill: Resource) -> bool:
 	var key = skill.resource_path
@@ -91,6 +94,16 @@ func cast_iceblock():
 	var target_pos: Vector2 = get_global_mouse_position()
 	if iceblock_skill is Iceblock:
 		iceblock_skill.use(self, target_pos)
+		
+func cast_field():
+	if !can_cast(field_skill):
+		return
+	
+	set_cooldown(field_skill)
+	
+	var target_pos: Vector2 = get_global_mouse_position()
+	if field_skill is Field:
+		field_skill.use(self, target_pos)
 
 var hp_bar_style = StyleBoxFlat.new()
 

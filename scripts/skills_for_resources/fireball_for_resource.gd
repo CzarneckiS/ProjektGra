@@ -2,6 +2,8 @@ extends SkillRangeBased
 class_name Fireball
 
 @export var skill_effect_data: EffectDamage
+@export var effect_knockback: EffectKnockback
+
 @export var unit_tags : PackedInt32Array = []
 @export var use_tags : PackedInt32Array = []
 @export var skill_tags : PackedInt32Array = []

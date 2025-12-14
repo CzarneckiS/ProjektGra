@@ -1,0 +1,68 @@
+[gd_scene load_steps=13 format=3 uid="uid://33qbkro5dgyq"]
+
+[ext_resource type="Script" uid="uid://c1gv00tvrpvx" path="res://scenes/skills/field.gd" id="1_4q3dd"]
+[ext_resource type="Texture2D" uid="uid://56mhsr0cvjyp" path="res://sprites/dot_field/circle_attack/circle_0.png" id="1_iqhrd"]
+[ext_resource type="Texture2D" uid="uid://bnahvfom3t8bs" path="res://sprites/dot_field/circle_attack/circle_1.png" id="2_4q3dd"]
+[ext_resource type="Texture2D" uid="uid://wlqvbocq0c7q" path="res://sprites/dot_field/circle_attack/circle_2.png" id="3_hj32k"]
+[ext_resource type="Texture2D" uid="uid://uyd0sbhrl61s" path="res://sprites/dot_field/circle_attack/circle_3.png" id="4_6ev8s"]
+[ext_resource type="Texture2D" uid="uid://nf5a6uhawhhj" path="res://sprites/dot_field/circle_start/circle_0.png" id="5_a0qyj"]
+[ext_resource type="Texture2D" uid="uid://bnurr4me22221" path="res://sprites/dot_field/circle_start/circle_1.png" id="6_hgsew"]
+[ext_resource type="Texture2D" uid="uid://dstks4uh3ybdy" path="res://sprites/dot_field/circle_start/circle_2.png" id="7_tt1p2"]
+[ext_resource type="Texture2D" uid="uid://bpl1gw1e04bly" path="res://sprites/dot_field/circle_start/circle_3.png" id="8_txx61"]
+[ext_resource type="Texture2D" uid="uid://6y41ukqyvyba" path="res://sprites/dot_field/circle_start/circle_4.png" id="9_vbhg8"]
+[ext_resource type="Shape2D" uid="uid://ccwys0jcff6b7" path="res://resources/field_shape.tres" id="11_hj32k"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nk1qw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_iqhrd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_4q3dd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hj32k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_6ev8s")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_a0qyj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_hgsew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_tt1p2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_txx61")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vbhg8")
+}],
+"loop": false,
+"name": &"default",
+"speed": 18.0
+}]
+
+[node name="Field" type="Area2D"]
+z_index = -4
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_4q3dd")
+
+[node name="field_animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nk1qw")
+animation = &"attack"
+frame = 3
+
+[node name="field_collision" type="CollisionShape2D" parent="."]
+shape = ExtResource("11_hj32k")
+one_way_collision_margin = 0.0
