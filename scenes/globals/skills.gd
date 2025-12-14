@@ -1,33 +1,41 @@
 extends Node
+#SKILL - DOWOLNA UMIEJETNOSC / BUFF DLA JEDNOSTKI
+#SPELL - TO CO CASTUJE NASZA POSTAC
+#ALL SPELLS = SKILLS BUT ALL SKILLS =/= SPELLS
+var all_skills: Array = []
+var unlocked_skills: Array = []
 
-var all_spells: Dictionary = {}
-var unlocked_spells: Dictionary = {}
 
 var fireball = preload("res://resources/fireball.tres")
 var heal = preload("res://resources/heal.tres")
 var thunderbolt = preload("res://resources/thunderbolt.tres")
+var unit_on_hit_poison = preload("res://resources/unit_on_hit_poison.tres")
+var unit_stat_up_attack_up = preload("res://resources/unit_stat_up_attack_up.tres")
+var unit_death_timer = preload("res://resources/unit_death_timer.tres")
+var player_skeleton_warrior = preload("res://resources/player_skeleton_warrior.tres")
+var player_skeleton_mage = preload("res://resources/player_skeleton_mage.tres")
 
-func _ready():
-	add_spell(fireball)
-	add_spell(heal)
-	add_spell(thunderbolt)
-	unlock_spell(fireball)
-	
-func add_spell(spell):
-	all_spells[spell] = all_spells.size()
 
-func unlock_spell(spell_name):
-	if !(spell_name in unlocked_spells):
-		unlocked_spells[spell_name] = unlocked_spells.size()
+func add_skill(skill):
+	all_skills.append(skill)
 
-func get_spell() -> Array:
-	var available_spells: Array = []
-	var spells_to_show: Array = []
-	for spell in all_spells:
-		if spell not in unlocked_spells:
-			available_spells.append(spell)
-	for spell in available_spells:
-		if spell not in spells_to_show:
-			spells_to_show.append(spell)
-	return spells_to_show
-			
+func unlock_skill(skill):
+	if !(skill in unlocked_skills):
+		unlocked_skills.append(skill)
+	else:
+		skill.skill_level += 1
+	for unit in get_tree().get_nodes_in_group("Allied"):
+		unit.handle_skill_update(skill)
+
+#DODAC BOOL = CZY OSIAGNELISMY LIMIT SPELL SLOTOW ! ! ! 
+func get_skill() -> Array:
+	var available_skills: Array = []
+	var skills_to_show: Array = []
+	for skill in all_skills:
+		available_skills.append(skill)
+	available_skills.shuffle()
+	for i in available_skills.size():
+		if i >=3:
+			break
+		skills_to_show.append(available_skills[i])
+	return skills_to_show

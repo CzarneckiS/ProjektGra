@@ -1,19 +1,27 @@
-[gd_scene load_steps=23 format=3 uid="uid://crrf60xb54uea"]
+[gd_scene load_steps=26 format=3 uid="uid://crrf60xb54uea"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_km2sc"]
 [ext_resource type="Script" uid="uid://178j0odpensc" path="res://scenes/characters/enemies/humanwarrior.gd" id="2_ds4t1"]
-[ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/shadow.png" id="3_gj5gp"]
-[ext_resource type="Texture2D" uid="uid://btcfx5u0jfdq8" path="res://sprites/selection_enemy.png" id="3_v7f0p"]
-[ext_resource type="Texture2D" uid="uid://b071t7rbiyi6y" path="res://sprites/human_warrior/human_warrior_left_boot.png" id="4_wdckd"]
-[ext_resource type="Texture2D" uid="uid://bbjdsni1utjsy" path="res://sprites/human_warrior/human_warrior_right_boot.png" id="5_o7qs6"]
-[ext_resource type="Texture2D" uid="uid://fkk8u7xgi46j" path="res://sprites/human_warrior/human_warrior_body.png" id="6_gj5gp"]
-[ext_resource type="Texture2D" uid="uid://cgai4a5o8b6sf" path="res://sprites/human_warrior/human_warrior_shoulders.png" id="7_vuace"]
-[ext_resource type="Texture2D" uid="uid://cy2g1dcu5ye10" path="res://sprites/human_warrior/human_warrior_head.png" id="8_du7wb"]
-[ext_resource type="Texture2D" uid="uid://bwyarkpn2hya8" path="res://sprites/human_warrior/human_warrior_sword.png" id="9_ru2nh"]
+[ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/units/additional_textures/shadow.png" id="3_gj5gp"]
+[ext_resource type="Texture2D" uid="uid://btcfx5u0jfdq8" path="res://sprites/units/additional_textures/selection_enemy.png" id="3_v7f0p"]
+[ext_resource type="Texture2D" uid="uid://b071t7rbiyi6y" path="res://sprites/units/human_warrior/human_warrior_left_boot.png" id="4_wdckd"]
+[ext_resource type="Texture2D" uid="uid://bbjdsni1utjsy" path="res://sprites/units/human_warrior/human_warrior_right_boot.png" id="5_o7qs6"]
+[ext_resource type="Shader" uid="uid://dde0kqx4ndsel" path="res://vfx/hitflash.gdshader" id="5_vuace"]
+[ext_resource type="Texture2D" uid="uid://fkk8u7xgi46j" path="res://sprites/units/human_warrior/human_warrior_body.png" id="6_gj5gp"]
+[ext_resource type="Texture2D" uid="uid://cgai4a5o8b6sf" path="res://sprites/units/human_warrior/human_warrior_shoulders.png" id="7_vuace"]
+[ext_resource type="Texture2D" uid="uid://cy2g1dcu5ye10" path="res://sprites/units/human_warrior/human_warrior_head.png" id="8_du7wb"]
+[ext_resource type="Texture2D" uid="uid://bwyarkpn2hya8" path="res://sprites/units/human_warrior/human_warrior_sword.png" id="9_ru2nh"]
 [ext_resource type="Script" uid="uid://csr4x6mrcrwjc" path="res://scenes/characters/enemies/hum_warrior_state_machine.gd" id="10_o7qs6"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gj5gp"]
-radius = 30.066593
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_du7wb"]
+resource_local_to_scene = true
+shader = ExtResource("5_vuace")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gj5gp"]
+radius = 25.0
+height = 62.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o7qs6"]
 radius = 53.0
@@ -93,6 +101,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite2D/Head:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_yvs6w"]
 resource_name = "attack"
@@ -161,6 +181,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_o7qs6"]
 resource_name = "dying"
+length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -168,10 +189,106 @@ tracks/0/path = NodePath("Sprite2D/Head:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.96666664),
+"times": PackedFloat32Array(0, 0.56666666),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, -120)]
+"values": [Vector2(0, 0), Vector2(0, 40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Sword:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.36666667, 0.40000004, 0.4666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 60), Vector2(0, 50), Vector2(0, 60)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/Sword:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.36666667, 0.40000004, 0.4666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, -1.7453292519943295, -1.5707963267948966, -1.7453292519943295]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D/Head:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.38, 0.55, 0.64, 0.73),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.10471975511965978, -0.17453292519943295, -0.10471975511965978, -0.17453292519943295]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D/Shoulders:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.38, 0.54),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 10), Vector2(0, 50)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D/Body:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.38, 0.54),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 10), Vector2(0, 25)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite2D:material:shader_parameter/progress")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1.1333333, 1.2, 1.2666668, 1.3666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1.0, 0.0, 1.0, 1.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Particles/DeathParticles:emitting")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Sprite2D:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(1.2333333, 1.3666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_syyb6"]
@@ -323,9 +440,12 @@ _data = {
 &"clicked_enemy": SubResource("Animation_gj5gp")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vuace"]
+radius = 316.2673
+
 [node name="HumanWarrior" instance=ExtResource("1_km2sc")]
 collision_layer = 4
-collision_mask = 15
+collision_mask = 11
 script = ExtResource("2_ds4t1")
 
 [node name="Shadow" type="Sprite2D" parent="." index="0"]
@@ -348,6 +468,7 @@ scale = Vector2(0.18826461, 0.18826461)
 texture = ExtResource("3_v7f0p")
 
 [node name="Sprite2D" parent="." index="3"]
+material = SubResource("ShaderMaterial_du7wb")
 position = Vector2(0, -23)
 scale = Vector2(0.15, 0.15)
 
@@ -372,7 +493,8 @@ texture = ExtResource("8_du7wb")
 texture = ExtResource("9_ru2nh")
 
 [node name="CollisionShape2D" parent="." index="4"]
-shape = SubResource("CircleShape2D_gj5gp")
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_gj5gp")
 
 [node name="CollisionShape2D" parent="ClickArea" index="0"]
 position = Vector2(0, -23)
@@ -399,27 +521,25 @@ libraries = {
 [node name="HumWarriorStateMachine" type="Node" parent="." index="9"]
 script = ExtResource("10_o7qs6")
 
-[node name="Timers" type="Node" parent="." index="10"]
-
-[node name="MoveTimer" type="Timer" parent="Timers" index="0"]
-
-[node name="NavigationTimer" type="Timer" parent="Timers" index="1"]
-wait_time = 0.1
-one_shot = true
-
-[node name="UnstickTimer" type="Timer" parent="Timers" index="2"]
-one_shot = true
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="11"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="10"]
 path_max_distance = 200.0
 avoidance_enabled = true
 radius = 20.0
 neighbor_distance = 100.0
 
-[node name="HealthBar" parent="." index="12"]
+[node name="HealthBar" parent="." index="11"]
 offset_left = -25.0
 offset_top = -78.0
 offset_right = 25.0
 offset_bottom = -70.0
 
-[connection signal="timeout" from="Timers/MoveTimer" to="HumWarriorStateMachine" method="_on_move_timer_timeout"]
+[node name="VisionArea" type="Area2D" parent="." index="12"]
+visible = false
+collision_layer = 16
+collision_mask = 34
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea" index="0"]
+shape = SubResource("CircleShape2D_vuace")
+
+[node name="AttackTimer" parent="Timers" index="2"]
+wait_time = 0.3
