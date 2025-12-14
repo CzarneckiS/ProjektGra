@@ -1,0 +1,42 @@
+extends Node2D
+class_name SkeletonMageProjectileScene
+
+var skill_resource: SkeletonMageProjectile
+
+var start_position: Vector2
+var direction: Vector2
+var target
+var target_position
+var collision_distance = 20
+var parent_unit
+var damage
+func initialize(unit: CharacterBody2D, _target: CharacterBody2D, skill_res: SkeletonMageProjectile):
+	skill_resource = skill_res
+	target = _target
+	global_position = unit.global_position
+	parent_unit = unit
+	damage = parent_unit.damage
+
+
+func _ready():
+	$AnimatedSprite2D.connect("animation_finished", _on_animated_sprite_2d_animation_finished)
+	$AnimatedSprite2D.play("on_creation")
+	
+func _physics_process(delta: float) -> void:
+	if skill_resource == null:
+		queue_free()
+		return
+	if target:
+		target_position = target.global_position
+	direction = (target_position - global_position).normalized()
+	look_at(target_position)
+	global_position += direction * skill_resource.speed * delta
+
+	if (global_position.distance_to(target_position) <= collision_distance):
+		if target:
+			target.hit(damage, self)
+		queue_free()
+	
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	$AnimatedSprite2D.play("flying")

@@ -3,25 +3,29 @@ extends Node
 # nie wiem czy jest sens rozbić na 2 różne sygnały dla hp/xp
 signal ui_hp_update_requested
 signal ui_exp_update_requested
+signal lvl_up_menu_requested
+signal units_selection_changed(new_units)
+signal ui_unit_died(unit)
+
+
 
 #statystyki głównej jednostki
 var health : int = 100
 var max_health : int = health
 var player_position: Vector2
 
-
 #exp i levelowanie
-var xp_to_level : int = 5 #limit, ktory musimy dobic aby wbic lvl. placeholder value
+var xp_to_level : int = 300 #limit, ktory musimy dobic aby wbic lvl. placeholder value
 var level : int = 1 #startowy lvl
 var accumulated_xp : int = 0 #zebrany przez nas exp, startujemy bez expa
 
 #podswietlanie kursora
 var overlapping_enemies : int = 0 #sprawdzamy na ile jednostek najechaliśmy myszką
 var overlapping_allies : int = 0
-const neutral_cursor = preload("res://sprites/placeholders/KursorRekaSmallNeutral.png")
-const evil_cursor = preload("res://sprites/placeholders/KursorRekaSmallEvil.png")
-const allied_cursor = preload("res://sprites/placeholders/KursorRekaSmallAllied.png")
-const target_cursor = preload("res://sprites/placeholders/KursorTarget.png")
+const neutral_cursor = preload("res://sprites/cursors/KursorRekaSmallNeutral.png")
+const evil_cursor = preload("res://sprites/cursors/KursorRekaSmallEvil.png")
+const allied_cursor = preload("res://sprites/cursors/KursorRekaSmallAllied.png")
+const target_cursor = preload("res://sprites/cursors/KursorTarget.png")
 var attack_move_input : bool = false
 
 func attack_move_input_pressed():
@@ -46,8 +50,11 @@ func remove_overlapping_enemies(): #kiedy zjedziemy myszką z przeciwnika lub um
 		overlapping_enemies -= 1
 	if attack_move_input:
 		return
-	if overlapping_enemies <= 0 and overlapping_allies <= 0: #jesli na nikogo nie wskazujemy kursorem
-		Input.set_custom_mouse_cursor(neutral_cursor) #neutralny kursor
+	if overlapping_enemies <= 0:
+		if overlapping_allies <= 0:
+			Input.set_custom_mouse_cursor(neutral_cursor) #neutralny kursor
+		else:
+			Input.set_custom_mouse_cursor(allied_cursor)
 
 func add_overlapping_allies():
 	overlapping_allies += 1
@@ -61,8 +68,11 @@ func remove_overlapping_allies():
 		overlapping_allies -= 1
 	if attack_move_input:
 		return
-	if overlapping_allies <= 0 and overlapping_enemies <= 0:
-		Input.set_custom_mouse_cursor(neutral_cursor)
+	if overlapping_allies <= 0:
+		if overlapping_enemies <= 0:
+			Input.set_custom_mouse_cursor(neutral_cursor)
+		else:
+			Input.set_custom_mouse_cursor(evil_cursor)
 #funkcja, ktora obsluguje to, co sie dzieje z postacia po lvl upie
 func level_up():
 	max_health += 20 #placeholder wartosc na zwiekszanie max hp
@@ -70,14 +80,12 @@ func level_up():
 	xp_to_level += 5 #placeholder wartosc na zwiekszanie limitu do uzyskania kolejnego lvla
 	level += 1 #nie było tego, dodałem, nie wiem czy coś innego myśleliście
 	
-	
 	ui_hp_update_requested.emit()
-
+	lvl_up_menu_requested.emit()
 
 func update_player_hp(damage_taken):
 	health -= damage_taken
 	ui_hp_update_requested.emit()
-	
 	if health <= 0:
 		pass # play death()
 	

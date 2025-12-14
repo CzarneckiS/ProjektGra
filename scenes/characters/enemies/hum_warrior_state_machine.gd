@@ -21,16 +21,34 @@ func _state_logic(delta):
 		match state: #sprawdź w którym stanie teraz jesteś
 			states.idle:
 				pass #jeśli jesteś idle to nic nie robisz
-			states.moving: 
-				parent.move_target = Globals.player_position #Gracz się rusza więc musimy aktualizować
-				parent.navigate_to_target(delta, parent.move_target) #idź do celu (nie przeciwnik)
+			states.moving:
+				parent.move_target = Globals.player_position
+				parent.move_to_target(delta, parent.move_target) #idź do celu (nie przeciwnik)
+				if parent.velocity.x > 0:
+					if sprite_root.scale.x > 0:
+						sprite_root.scale.x *= -1
+				elif parent.velocity.x < 0:
+					if sprite_root.scale.x < 0:
+						sprite_root.scale.x *= -1
 			states.engaging:
 				if parent.attack_target.get_ref(): #jeśli cel (jednostka) istnieje, idź do niego
 					parent.move_to_target(delta, parent.attack_target.get_ref().global_position)
+					if parent.velocity.x > 0:
+						if sprite_root.scale.x > 0:
+							sprite_root.scale.x *= -1
+					elif parent.velocity.x < 0:
+						if sprite_root.scale.x < 0:
+							sprite_root.scale.x *= -1
 			states.attacking:
-				animation_player.play("attack") #Jeśli zaczniesz atakować, zagraj animacje ataku
+				if parent.attack_target.get_ref():
+					if parent.global_position.x - parent.attack_target.get_ref().global_position.x < 0:
+						if sprite_root.scale.x > 0:
+							sprite_root.scale.x *= -1
+					elif parent.global_position.x - parent.attack_target.get_ref().global_position.x > 0:
+						if sprite_root.scale.x < 0:
+							sprite_root.scale.x *= -1
 			states.dying:
-				pass #aktualizujemy expa gracza gdy enemy umrze
+				pass
 			states.mid_animation:
 				pass
 			states.push:
@@ -52,20 +70,8 @@ func _enter_state(_new_state, _previous_state):
 				animation_player.play("idle")
 			states.moving:
 				animation_player.play("walk")
-				if parent.velocity.x > 0:
-					if sprite_root.scale.x > 0:
-						sprite_root.scale.x *= -1
-				elif parent.velocity.x < 0:
-					if sprite_root.scale.x < 0:
-						sprite_root.scale.x *= -1
 			states.engaging:
 				animation_player.play("walk")
-				if parent.velocity.x > 0:
-					if sprite_root.scale.x > 0:
-						sprite_root.scale.x *= -1
-				elif parent.velocity.x < 0:
-					if sprite_root.scale.x < 0:
-						sprite_root.scale.x *= -1
 			states.attacking:
 				pass
 			states.dying:
@@ -80,6 +86,8 @@ func _enter_state(_new_state, _previous_state):
 					#if sprite_root.scale.x < 0:
 						#sprite_root.scale.x *= -1
 						
+			states.mid_animation:
+				pass
 #Warunki przejścia do nowego stanu - wykonywane PO state_logic
 func _get_transition(_delta):
 		match state:
@@ -95,22 +103,32 @@ func _get_transition(_delta):
 					parent.attack_target = weakref(parent.closest_enemy()) #obierz go za cel
 					set_state(states.engaging) #i idź w jego stronę
 			states.engaging: #jeśli idziesz w stronę przeciwnika
-				#Jesli jakiś znajdzie się w naszym zasiegu ataku
-				if parent.closest_enemy_within_attack_range() != null:
-					#parent.attack_target = weakref(parent.closest_enemy())
-					set_state(states.attacking) # zacznij atakowac
 				if !parent.attack_target.get_ref(): #jeśli nie masz celu
 					set_state(states.idle) #zacznij idlować
+				elif parent.attack_target.get_ref().dying:
+					parent.possible_targets.erase(parent.attack_target.get_ref())
+					set_state(states.idle)
+				elif parent.closest_enemy_within_attack_range() != null:
+					#parent.attack_target = weakref(parent.closest_enemy())
+					set_state(states.attacking) # zacznij atakowac
 			states.attacking:
-				#jeśli uda ci się zacząć atak przejdź w stan wykonywania animacji
-				if animation_player.get_current_animation() == "attack":
-					set_state(states.mid_animation)
+				if parent.attack_target.get_ref():
+					if !parent.attack_target.get_ref().dying:
+						if parent.can_attack:
+							animation_player.play("attack") #Jeśli zaczniesz atakować, zagraj animacje ataku
+							set_state(states.mid_animation)
+					else:
+						parent.possible_targets.erase(parent.attack_target.get_ref())
+						set_state(states.idle)
+				else:
+					set_state(states.idle)
 			states.dying: #Dopóki odgrywasz animację umierania, nic nie rób
 				if animation_player.is_playing(): return
 				else: #kiedy się skończy, przestań istnieć
 					if parent.mouse_hovering: #jeśli wciąż mamy kursor na przeciwniku
 						Globals.remove_overlapping_enemies() #to przestań highlightować kursor
-					Globals.update_player_exp(parent.warrior_exp) #wywolujemy funkcje z globalsow aby zaktualizowac exp gracza i przekazujemy zmeinna warrior_exp zdefiniowana w samym human warriorze
+					Globals.update_player_exp(parent.experience_value) #wywolujemy funkcje z globalsow aby zaktualizowac exp gracza i przekazujemy zmeinna warrior_exp zdefiniowana w samym human warriorze
+					parent.death()
 					parent.queue_free()
 			states.mid_animation: #Dopóki odgrywasz animację atakowania, nic nie rób
 				if animation_player.is_playing(): return 

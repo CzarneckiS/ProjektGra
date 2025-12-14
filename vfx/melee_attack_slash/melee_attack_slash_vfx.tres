@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://hnxckl86yc2g"]
+
+[ext_resource type="Script" uid="uid://cgmgxv6oi57pw" path="res://vfx/melee_attack_slash/melee_attack_slash_vfx_resource.gd" id="1_pqddp"]
+[ext_resource type="PackedScene" uid="uid://5avp64g0jiy6" path="res://vfx/melee_attack_slash/melee_attack_slash_vfx.tscn" id="2_mgj34"]
+
+[resource]
+script = ExtResource("1_pqddp")
+visual_effect = ExtResource("2_mgj34")

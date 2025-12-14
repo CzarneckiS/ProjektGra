@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://dkn8fishlgny"]
+
+[ext_resource type="Script" uid="uid://cykeqw4tb2ehb" path="res://scenes/skills/skeleton_mage_projectile.gd" id="1_nr5hh"]
+[ext_resource type="Texture2D" uid="uid://yocrabjbhxv8" path="res://sprites/units/skeleton_mage/SkeletonMageProjectile4.png" id="2_nr5hh"]
+[ext_resource type="Texture2D" uid="uid://bfnyeod73t6sa" path="res://sprites/units/skeleton_mage/SkeletonMageProjectile5.png" id="3_q56tr"]
+[ext_resource type="Texture2D" uid="uid://0qm0pl7swekh" path="res://sprites/units/skeleton_mage/SkeletonMageProjectile1.png" id="4_xdts4"]
+[ext_resource type="Texture2D" uid="uid://c5py4wdq35ylj" path="res://sprites/units/skeleton_mage/SkeletonMageProjectile2.png" id="5_dqg54"]
+[ext_resource type="Texture2D" uid="uid://bhn6d4akuso5h" path="res://sprites/units/skeleton_mage/SkeletonMageProjectile3.png" id="6_txhya"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ptkfr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_nr5hh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q56tr")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_xdts4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dqg54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_txhya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_nr5hh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q56tr")
+}],
+"loop": true,
+"name": &"on_creation",
+"speed": 10.0
+}]
+
+[node name="SkeletonMageProjectile" type="Node2D"]
+script = ExtResource("1_nr5hh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-6, 0)
+scale = Vector2(0.22, 0.22)
+sprite_frames = SubResource("SpriteFrames_ptkfr")
+animation = &"on_creation"

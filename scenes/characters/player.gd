@@ -6,6 +6,22 @@ extends CharacterBody2D
 var speed = 500
 var standing: bool = true
 var selected = false
+var dying : bool = false
+
+var skills_summon : Array = []
+var skills_stat_up : Array = []
+var skills_passive : Array = []
+var skills_active : Array = []
+var own_tags : PackedInt32Array = [Tags.UnitTag.PLAYER]
+
+#Unit spawning
+var skeleton_warrior_count = 0
+var skeleton_mage_count = 0
+signal summon_unit()
+signal took_damage(damage, unit)
+
+var unit_collision_push_array : Array = []
+var direction : Vector2
 
 func _unhandled_input(event):
 	if event.is_action_pressed("fireball_input"):
@@ -109,6 +125,8 @@ var hp_bar_style = StyleBoxFlat.new()
 
 
 func _ready() -> void:
+	handle_skills()
+	handle_starting_skills()
 	health_bar.max_value = Globals.health
 	health_bar.value = Globals.health
 	health_bar.visible = false
@@ -123,15 +141,23 @@ func _ready() -> void:
 	hp_bar_style.border_width_bottom = 2
 	hp_bar_style.border_color = Color(0.0, 0.0, 0.0, 1.0)
 	health_bar.add_theme_stylebox_override("fill", hp_bar_style)
-	
-		
-func _process(_delta: float) -> void:
+
+	$Timers/HitFlashTimer.timeout.connect(_on_hit_flash_timer_timeout)
+	for child in $SpriteRoot.get_children():
+		child.use_parent_material = true
+		for childs_child in child.get_children():
+			childs_child.use_parent_material = true
+	$MovementPushArea.connect("body_entered", _on_movement_push_area_body_entered)
+	$MovementPushArea.connect("body_exited", _on_movement_push_area_body_exited)
+
+func _physics_process(_delta: float) -> void:
 	if standing:
 		$AnimationPlayer.play("stand")
 	standing = true
 	# TRZEBA JEJ ZROBIC TEZ MOVEMENT Z KLIKANIEM TO JEST PLAAACEHOOOLDER
-	var direction = Input.get_vector("move_left","move_right","move_up","move_down")
+	direction = Input.get_vector("move_left","move_right","move_up","move_down")
 	if direction != Vector2.ZERO:
+		push_units()
 		if Input.is_action_pressed("move_right"):
 			flip()
 		else:
@@ -141,14 +167,53 @@ func _process(_delta: float) -> void:
 		velocity = direction * speed
 		motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 		move_and_slide()
+		direction = Vector2.ZERO
 	Globals.player_position = global_position
 
-	#if Globals.health <= 0:
-	#	health_bar.visible = false
-	#	damage_bar.visible = false
-	#	animacja_smierci() + menu_ze_przegrales()
+
+
+#SKILLS ===============================================================================
+func handle_skills():
+	#dodaj do odpowiednich list umiejetnosci odblokowane
+	for skill in Skills.unlocked_skills:
+		for i in range(own_tags.size()):
+			if skill.unit_tags.has(own_tags[i]):
+				if skill.use_tags.has(Tags.UseTag.STAT_UP):
+					skills_stat_up.append(skill)
+				if skill.use_tags.has(Tags.UseTag.PASSIVE):
+					skills_passive.append(skill)
+				if skill.use_tags.has(Tags.UseTag.ACTIVE):
+					skills_active.append(skill)
+				if skill.use_tags.has(Tags.UseTag.SUMMON):
+					skills_summon.append(skill)
+				break
+func handle_skill_update(skill):
+	for i in range(own_tags.size()):
+		if skill.unit_tags.has(own_tags[i]):
+			if skill.use_tags.has(Tags.UseTag.STAT_UP):
+				skills_stat_up.append(skill)
+				skill.use(self)
+			if skill.use_tags.has(Tags.UseTag.PASSIVE):
+				skills_passive.append(skill)
+				skill.use(self)
+			if skill.use_tags.has(Tags.UseTag.ACTIVE):
+				skills_active.append(skill)
+			if skill.use_tags.has(Tags.UseTag.SUMMON):
+				skills_summon.append(skill)
+				skill.use(self)
+			break
+func handle_starting_skills():
+	for skill in skills_stat_up:
+		skill.use(self)
+	for skill in skills_passive:
+		skill.use(self)
+	for skill in skills_summon:
+		skill.use(self)
 
 func hit(damage_taken, _damage_source) -> void:
+	took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
+	$SpriteRoot.material.set_shader_parameter('progress',1)
+	$Timers/HitFlashTimer.start()
 	health_bar.visible = true
 	damage_bar.visible = true
 	health_bar.value = Globals.health
@@ -158,26 +223,6 @@ func hit(damage_taken, _damage_source) -> void:
 	health_tween.set_ease(Tween.EASE_OUT)
 	Globals.update_player_hp(damage_taken)
 
-		
-#func select() -> void:
-	#add_to_group("Selected")
-	#selected = true
-	#$Selected.visible = true
-	#
-#func deselect() -> void:
-	#remove_from_group("Selected")
-	#selected = false
-	#$Selected.visible = false
-	#
-#func is_in_selection_box(select_box: Rect2):
-	#return select_box.has_point(global_position)
-#
-#func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		#if event.is_released:
-			#print("selekcik gracza") #debug print 
-			#select()
-
 func flip() -> void:
 	if $SpriteRoot.scale.x > 0:
 		$SpriteRoot.scale.x *= -1
@@ -185,3 +230,39 @@ func flip() -> void:
 func unflip() -> void:
 	if $SpriteRoot.scale.x < 0:
 		$SpriteRoot.scale.x *= -1
+
+func _on_hit_flash_timer_timeout() -> void:
+	$SpriteRoot.material.set_shader_parameter('progress',0)
+
+
+
+func _push_units():
+	for body in unit_collision_push_array:
+		if body.get_ref().state_machine.state != body.get_ref().state_machine.states.idle:
+			continue
+		if body.get_ref().state_machine.command == body.get_ref().state_machine.commands.HOLD:
+			continue
+			#ta liczba oznacza jak daleko ma sie odsunac odepchnieta jednostka
+		if angle_difference(global_position.angle_to_point(global_position+direction), global_position.angle_to_point(body.get_ref().global_position)) < PI/2:
+			body.get_ref().move_target = body.get_ref().global_position + (global_position.direction_to(body.get_ref().global_position) * 50)
+			body.get_ref().state_machine.set_state(body.get_ref().state_machine.states.moving)
+			
+func push_units():
+	for body in unit_collision_push_array:
+		if body.get_ref().state_machine.state != body.get_ref().state_machine.states.idle:
+			continue
+		if body.get_ref().state_machine.command == body.get_ref().state_machine.commands.HOLD:
+			continue
+			#ta liczba oznacza jak daleko ma sie odsunac odepchnieta jednostka
+		if angle_difference(global_position.angle_to_point(global_position+direction), global_position.angle_to_point(body.get_ref().global_position)) < PI/2:
+			body.get_ref().move_target = body.get_ref().global_position + (global_position.direction_to(body.get_ref().global_position) * 50)
+			body.get_ref().state_machine.set_state(body.get_ref().state_machine.states.moving)
+			#body.get_ref().push_units()
+
+func _on_movement_push_area_body_entered(body: Node2D) -> void:
+	unit_collision_push_array.append(weakref(body))
+
+func _on_movement_push_area_body_exited(body: Node2D) -> void:
+	for unit in unit_collision_push_array:
+		if unit.get_ref() == body:
+			unit_collision_push_array.erase(unit)

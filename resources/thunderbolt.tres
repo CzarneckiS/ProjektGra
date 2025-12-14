@@ -1,34 +1,31 @@
-[gd_resource type="Resource" script_class="Thunderbolt" load_steps=9 format=3 uid="uid://bd3gk3ewadiam"]
+[gd_resource type="Resource" script_class="Thunderbolt" load_steps=11 format=3 uid="uid://ctes02848163n"]
 
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_y4w00"]
 [ext_resource type="Script" uid="uid://dnv5i0eq6rlp7" path="res://scripts/skill_effects/effect_damage.gd" id="2_jvauk"]
 [ext_resource type="Script" uid="uid://b6hgmwtiws7ea" path="res://scripts/skills_for_resources/thunderbolt_for_resource.gd" id="2_y4w00"]
 [ext_resource type="Script" uid="uid://8g2g4sl8jw6l" path="res://scripts/skill_effects/effect_aoe.gd" id="3_f2p8b"]
-[ext_resource type="Script" uid="uid://doefgekdmwu85" path="res://scripts/skill_effects/effect_knockback.gd" id="4_f2p8b"]
+[ext_resource type="Script" path="res://scripts/skill_effects/effect_knockback.gd" id="4_f2p8b"]
+[ext_resource type="Texture2D" uid="uid://bqkm6nmsyxh1l" path="res://sprites/icons/thunderbolt icon.png" id="4_jdh3n"]
 [ext_resource type="PackedScene" uid="uid://loqryqxp6f73" path="res://scenes/skills/thunderbolt.tscn" id="5_f2p8b"]
 
-[sub_resource type="Resource" id="Resource_jdh3n"]
+[sub_resource type="Resource" id="Resource_8g4b0"]
 script = ExtResource("2_jvauk")
 metadata/_custom_type_script = "uid://dnv5i0eq6rlp7"
 
-[sub_resource type="Resource" id="Resource_8g4b0"]
+[sub_resource type="Resource" id="Resource_hb6hf"]
 script = ExtResource("3_f2p8b")
-radius = 100.0
-radius_multiplier = 2.0
 metadata/_custom_type_script = "uid://8g2g4sl8jw6l"
 
-[sub_resource type="Resource" id="Resource_hb6hf"]
+[sub_resource type="Resource" id="Resource_xqibp"]
 script = ExtResource("4_f2p8b")
-knockback_friction = 4.0
-knockback_speed = 1200.0
 metadata/_custom_type_script = "uid://doefgekdmwu85"
 
 [resource]
 script = ExtResource("2_y4w00")
-skill_effect_data = SubResource("Resource_jdh3n")
-skill_effect_data2 = SubResource("Resource_8g4b0")
-skill_effect_data3 = SubResource("Resource_hb6hf")
-skill_name = "thunderbolt"
-skill_desc = "pierun"
-cooldown = 0.1
+skill_effect_data = SubResource("Resource_8g4b0")
+skill_effect_data2 = SubResource("Resource_hb6hf")
+skill_effect_data3 = SubResource("Resource_xqibp")
+skill_name = "Thunderbolt"
+skill_desc = "Zeus W"
 visual_effect = ExtResource("5_f2p8b")
-metadata/_custom_type_script = "uid://b6hgmwtiws7ea"
+icon = ExtResource("4_jdh3n")

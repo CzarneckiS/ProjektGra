@@ -1,6 +1,47 @@
-[gd_scene load_steps=2 format=3 uid="uid://oi7udmkhy0cl"]
+[gd_scene load_steps=21 format=3 uid="uid://oi7udmkhy0cl"]
 
 [ext_resource type="Script" uid="uid://dyqgocxdri5va" path="res://scenes/ui/lvlup_menu.gd" id="1_ra1c2"]
+[ext_resource type="Texture2D" uid="uid://dphc21aqf5r1m" path="res://sprites/ui/Button_neutral.png" id="2_6pxxg"]
+[ext_resource type="Texture2D" uid="uid://chy5d1g28au0x" path="res://sprites/thunderbolt/HUD_MenuTemplate.png" id="2_vuuuy"]
+[ext_resource type="Texture2D" uid="uid://bpvowenbyhjyy" path="res://sprites/ui/Button_pressed.png" id="3_iygms"]
+[ext_resource type="Texture2D" uid="uid://cvilxq7eyc1kj" path="res://sprites/ui/Button_highlight.png" id="4_vuuuy"]
+[ext_resource type="Texture2D" uid="uid://csuu5qvhmmnvx" path="res://sprites/ui/HUD_MenuLine.png" id="6_w0jd5"]
+[ext_resource type="Texture2D" uid="uid://c6a6cymtsl4cd" path="res://sprites/ui/EmptyIcon.png" id="7_mvsde"]
+[ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="8_fssdh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6pxxg"]
+texture = ExtResource("2_6pxxg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w0jd5"]
+texture = ExtResource("3_iygms")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mvsde"]
+texture = ExtResource("2_6pxxg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tj1gx"]
+texture = ExtResource("2_6pxxg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fssdh"]
+texture = ExtResource("3_iygms")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h1lrv"]
+texture = ExtResource("2_6pxxg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iygms"]
+texture = ExtResource("2_6pxxg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1rptu"]
+texture = ExtResource("3_iygms")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_poolv"]
+texture = ExtResource("2_6pxxg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vuuuy"]
+texture = ExtResource("2_6pxxg")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ra1c2"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6pxxg"]
 
 [node name="LvlupMenu" type="Control"]
 layout_mode = 3
@@ -12,109 +53,238 @@ grow_vertical = 2
 script = ExtResource("1_ra1c2")
 
 [node name="Background" type="ColorRect" parent="."]
-modulate = Color(0, 0, 0, 0.39215687)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0, 0, 0.59607846)
 
-[node name="Choice1" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -550.0
-offset_top = -250.0
-offset_right = -250.0
-offset_bottom = 250.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.4857033, 0.4857036, 0.48570347, 1)
-
-[node name="Choice2" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -250.0
-offset_right = 150.0
-offset_bottom = 250.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.4857033, 0.4857036, 0.48570347, 1)
-
-[node name="Choice3" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 250.0
-offset_top = -250.0
-offset_right = 550.0
-offset_bottom = 249.99988
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.4857033, 0.4857036, 0.48570347, 1)
-
-[node name="Description1" type="Label" parent="."]
+[node name="Choice1" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 283.0
-offset_top = 223.0
-offset_right = 512.0
-offset_bottom = 272.0
-text = "PRZYKŁADOWY TEKST OPISU1
-"
+offset_left = 163.0
+offset_top = 63.000023
+offset_right = 1363.0
+offset_bottom = 1588.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_vuuuy")
 
-[node name="Description2" type="Label" parent="."]
+[node name="Choice2" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 689.0
-offset_top = 223.0
-offset_right = 918.0
-offset_bottom = 272.0
-text = "PRZYKŁADOWY TEKST OPISU1
-"
+offset_left = 572.99994
+offset_top = 63.000023
+offset_right = 1773.0
+offset_bottom = 1588.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_vuuuy")
 
-[node name="Description3" type="Label" parent="."]
+[node name="Choice3" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 1084.0
-offset_top = 223.0
-offset_right = 1313.0
-offset_bottom = 272.0
-text = "PRZYKŁADOWY TEKST OPISU1
-"
+offset_left = 983.9999
+offset_top = 63.000023
+offset_right = 2184.0
+offset_bottom = 1588.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_vuuuy")
 
 [node name="Option1" type="Button" parent="."]
 layout_mode = 0
 offset_left = 289.0
-offset_top = 620.0
+offset_top = 525.0
 offset_right = 517.0
-offset_bottom = 681.0
-text = "@_@"
+offset_bottom = 586.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_6pxxg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_w0jd5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_mvsde")
+text = "OPTION"
+
+[node name="Highlight" type="TextureRect" parent="Option1"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 829.0
+offset_bottom = 242.82764
+scale = Vector2(0.278, 0.265)
+texture = ExtResource("4_vuuuy")
+
+[node name="Line" type="TextureRect" parent="Option1"]
+layout_mode = 0
+offset_left = -41.99997
+offset_top = -255.0
+offset_right = 717.0
+offset_bottom = -215.0
+scale = Vector2(0.4, 0.3)
+texture = ExtResource("6_w0jd5")
+
+[node name="Icon" type="TextureRect" parent="Option1"]
+layout_mode = 0
+offset_left = -29.0
+offset_top = -368.0
+offset_right = 71.0
+offset_bottom = -268.0
+texture = ExtResource("7_mvsde")
+expand_mode = 3
+
+[node name="Name" type="Label" parent="Option1"]
+layout_mode = 0
+offset_left = 97.000015
+offset_top = -341.0
+offset_right = 249.31502
+offset_bottom = -242.0
+theme_override_fonts/font = ExtResource("8_fssdh")
+theme_override_font_sizes/font_size = 19
+text = "NAME
+
+"
+
+[node name="Description" type="Label" parent="Option1"]
+layout_mode = 0
+offset_left = -28.0
+offset_top = -226.00003
+offset_right = 201.0
+offset_bottom = -151.0
+theme_override_fonts/font = ExtResource("8_fssdh")
+text = "DESCRIPTION"
 
 [node name="Option2" type="Button" parent="."]
 layout_mode = 0
-offset_left = 685.0
-offset_top = 620.0
-offset_right = 913.0
-offset_bottom = 681.0
-text = "^_^"
+offset_left = 695.0
+offset_top = 525.0
+offset_right = 923.0
+offset_bottom = 586.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_tj1gx")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fssdh")
+theme_override_styles/hover = SubResource("StyleBoxTexture_h1lrv")
+text = "OPTION"
+
+[node name="Highlight" type="TextureRect" parent="Option2"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 829.0
+offset_bottom = 242.828
+scale = Vector2(0.278, 0.265)
+texture = ExtResource("4_vuuuy")
+
+[node name="Line" type="TextureRect" parent="Option2"]
+layout_mode = 0
+offset_left = -42.0
+offset_top = -255.0
+offset_right = 717.0
+offset_bottom = -215.0
+scale = Vector2(0.4, 0.3)
+texture = ExtResource("6_w0jd5")
+
+[node name="Icon" type="TextureRect" parent="Option2"]
+layout_mode = 0
+offset_left = -29.0
+offset_top = -368.0
+offset_right = 71.0
+offset_bottom = -268.0
+texture = ExtResource("7_mvsde")
+expand_mode = 3
+
+[node name="Name" type="Label" parent="Option2"]
+layout_mode = 0
+offset_left = 97.0
+offset_top = -341.0
+offset_right = 249.315
+offset_bottom = -242.0
+theme_override_fonts/font = ExtResource("8_fssdh")
+theme_override_font_sizes/font_size = 19
+text = "NAME
+
+"
+
+[node name="Description" type="Label" parent="Option2"]
+layout_mode = 0
+offset_left = -28.0
+offset_top = -226.00003
+offset_right = 201.0
+offset_bottom = -151.0
+theme_override_fonts/font = ExtResource("8_fssdh")
+text = "DESCRIPTION"
 
 [node name="Option3" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1090.0
-offset_top = 620.0
-offset_right = 1318.0
-offset_bottom = 681.0
-text = "-_-"
+offset_left = 1105.0
+offset_top = 525.0
+offset_right = 1333.0
+offset_bottom = 586.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_iygms")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1rptu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_poolv")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_vuuuy")
+text = "OPTION
+"
+
+[node name="Highlight" type="TextureRect" parent="Option3"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 828.0
+offset_bottom = 242.828
+scale = Vector2(0.278, 0.265)
+texture = ExtResource("4_vuuuy")
+
+[node name="Line" type="TextureRect" parent="Option3"]
+layout_mode = 0
+offset_left = -42.0
+offset_top = -255.0
+offset_right = 717.0
+offset_bottom = -215.0
+scale = Vector2(0.4, 0.3)
+texture = ExtResource("6_w0jd5")
+
+[node name="Icon" type="TextureRect" parent="Option3"]
+layout_mode = 0
+offset_left = -29.0
+offset_top = -368.0
+offset_right = 71.0
+offset_bottom = -268.0
+texture = ExtResource("7_mvsde")
+expand_mode = 3
+
+[node name="Name" type="Label" parent="Option3"]
+layout_mode = 0
+offset_left = 97.0
+offset_top = -341.0
+offset_right = 249.315
+offset_bottom = -242.0
+theme_override_fonts/font = ExtResource("8_fssdh")
+theme_override_font_sizes/font_size = 19
+text = "NAME
+
+"
+
+[node name="Description" type="Label" parent="Option3"]
+layout_mode = 0
+offset_left = -43.0
+offset_top = -226.00003
+offset_right = 186.0
+offset_bottom = -151.0
+theme_override_fonts/font = ExtResource("8_fssdh")
+text = "DESCRIPTION
+"
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1103.0
+offset_top = 216.99998
+offset_right = 1288.0
+offset_bottom = 407.0
+texture = SubResource("CompressedTexture2D_ra1c2")
+expand_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 715.0
+offset_top = 212.99998
+offset_right = 897.0
+offset_bottom = 424.0
+texture = SubResource("CompressedTexture2D_6pxxg")
+expand_mode = 3
 
 [connection signal="pressed" from="Option1" to="." method="_on_option_1_pressed"]
 [connection signal="pressed" from="Option2" to="." method="_on_option_2_pressed"]
