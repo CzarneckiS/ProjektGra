@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="Field" load_steps=9 format=3 uid="uid://bd7n362crrca7"]
+[gd_resource type="Resource" script_class="Field" load_steps=10 format=3 uid="uid://04lvhuhdkni"]
 
 [ext_resource type="Script" uid="uid://8g2g4sl8jw6l" path="res://scripts/skill_effects/effect_aoe.gd" id="1_jioq5"]
 [ext_resource type="Script" uid="uid://eb2n0krmxsn8" path="res://scripts/skill_effects/effect_dot.gd" id="1_v83ye"]
-[ext_resource type="Script" uid="uid://chkhmaji4l68m" path="res://scripts/skills_for_resources/field_for_resource.gd" id="1_wle43"]
-[ext_resource type="Script" uid="uid://b8hvxjgf4wq4l" path="res://scripts/skill_effects/effect_pull.gd" id="2_215y7"]
-[ext_resource type="PackedScene" uid="uid://33qbkro5dgyq" path="res://scenes/skills/field.tscn" id="4_215y7"]
+[ext_resource type="Script" path="res://scripts/skills_for_resources/field_for_resource.gd" id="1_wle43"]
+[ext_resource type="Script" path="res://scripts/skill_effects/effect_pull.gd" id="2_215y7"]
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="3_v0y4w"]
+[ext_resource type="PackedScene" path="res://scenes/skills/field.tscn" id="4_215y7"]
 
 [sub_resource type="Resource" id="Resource_l03n4"]
 script = ExtResource("1_jioq5")

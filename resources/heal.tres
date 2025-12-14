@@ -1,28 +1,25 @@
-[gd_resource type="Resource" script_class="Heal" load_steps=7 format=3 uid="uid://dvy8sgfr5rojt"]
+[gd_resource type="Resource" script_class="Heal" load_steps=9 format=3 uid="uid://bhd0nc6smc4ju"]
 
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_cefjl"]
 [ext_resource type="Script" uid="uid://02kqq8hqw2mm" path="res://scripts/skill_effects/effect_heal.gd" id="2_1wtui"]
 [ext_resource type="Script" uid="uid://bi8kmec45hfuq" path="res://scripts/skills_for_resources/heal_for_resource.gd" id="2_cpcm7"]
 [ext_resource type="Script" uid="uid://8g2g4sl8jw6l" path="res://scripts/skill_effects/effect_aoe.gd" id="3_t64mn"]
 [ext_resource type="Texture2D" uid="uid://cp1doehp16wic" path="res://sprites/icons/heal icon.png" id="4_t64mn"]
 [ext_resource type="PackedScene" uid="uid://cfvsv4vtqn30m" path="res://scenes/skills/heal.tscn" id="5_xcos8"]
 
-[sub_resource type="Resource" id="Resource_ukrfb"]
+[sub_resource type="Resource" id="Resource_t64mn"]
 script = ExtResource("2_1wtui")
 metadata/_custom_type_script = "uid://02kqq8hqw2mm"
 
-[sub_resource type="Resource" id="Resource_iaknn"]
+[sub_resource type="Resource" id="Resource_xcos8"]
 script = ExtResource("3_t64mn")
-radius = 150.0
 metadata/_custom_type_script = "uid://8g2g4sl8jw6l"
 
 [resource]
 script = ExtResource("2_cpcm7")
-skill_effect_data = SubResource("Resource_ukrfb")
-skill_effect_data2 = SubResource("Resource_iaknn")
-skill_name = "heal"
-skill_desc = "it healzzz"
-cooldown = 0.0
+skill_effect_data = SubResource("Resource_t64mn")
+skill_effect_data2 = SubResource("Resource_xcos8")
+skill_name = "Heal"
+skill_desc = "It healzzz"
 visual_effect = ExtResource("5_xcos8")
-metadata/_custom_type_script = "uid://bi8kmec45hfuq"
-effects = Array[ExtResource("1_cefjl")]([SubResource("Resource_spjag"), SubResource("Resource_r7v8x")])
 icon = ExtResource("4_t64mn")
