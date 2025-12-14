@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://mo7y7716pkss"]
+[gd_scene load_steps=14 format=3 uid="uid://cqnoo2277h8ds"]
 
 [ext_resource type="Script" uid="uid://tha8w2rmwcql" path="res://scenes/ui/achievements.gd" id="1_bblh1"]
 [ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="2_jml7r"]

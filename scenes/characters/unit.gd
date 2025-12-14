@@ -38,51 +38,51 @@ var original_move_target = Vector2.ZERO #move target zapisywany przy algorytmie 
 ]
 
 func send_out_raycasts(target_position):
-	print("sendin out raycasts")
+	#print("sendin out raycasts")
 	for raycast in raycast_array:
 		raycast.force_raycast_update()
-		if raycast.is_colliding():
-			print("raycast %s is colliding" %raycast)
+		#if raycast.is_colliding():
+			#print("raycast %s is colliding" %raycast)
 	var raycast_closest_to_move_target : RayCast2D = find_raycast_closest_to_move_target(target_position)
 	if raycast_closest_to_move_target.is_colliding():
 		var raycast_to_follow : RayCast2D = find_best_raycast_to_follow(raycast_closest_to_move_target)
-		print("closest raycast koliduje i jest nim %s"%raycast_closest_to_move_target)
-		match raycast_to_follow:
-			raycast_0:
-				print("South chosen - raycast 0")
-				if raycast_0.is_colliding():
-					print("i do tego koliduje fajnie")
-			raycast_1:
-				print("South-East chosen - raycast 1")
-				if raycast_0.is_colliding():
-					print("i do tego koliduje fajnie")
-			raycast_2:
-				print("East chosen - raycast 2")
-				if raycast_0.is_colliding():
-					print("i do tego koliduje fajnie")
-			raycast_3:
-				print("North-East chosen - raycast 3")
-				if raycast_0.is_colliding():
-					print("i do tego koliduje fajnie")
-			raycast_4:
-				print("North chosen - raycast 4")
-				if raycast_0.is_colliding():
-					print("i do tego koliduje fajnie")
-			raycast_5:
-				print("North-West chosen - raycast 5")
-				if raycast_0.is_colliding():
-					print("i do tego koliduje fajnie")
-			raycast_6:
-				print("West chosen - raycast 6")
-				if raycast_0.is_colliding():
-					print("i do tego koliduje fajnie")
-			raycast_7:
-				print("South-West chosen - raycast 7")
-				if raycast_0.is_colliding():
-					print("i do tego koliduje fajnie")
+		#print("closest raycast koliduje i jest nim %s"%raycast_closest_to_move_target)
+		#match raycast_to_follow:
+			#raycast_0:
+				#print("South chosen - raycast 0")
+				#if raycast_0.is_colliding():
+					#print("i do tego koliduje fajnie")
+			#raycast_1:
+				#print("South-East chosen - raycast 1")
+				#if raycast_0.is_colliding():
+					#print("i do tego koliduje fajnie")
+			#raycast_2:
+				#print("East chosen - raycast 2")
+				#if raycast_0.is_colliding():
+					#print("i do tego koliduje fajnie")
+			#raycast_3:
+				#print("North-East chosen - raycast 3")
+				#if raycast_0.is_colliding():
+					#print("i do tego koliduje fajnie")
+			#raycast_4:
+				#print("North chosen - raycast 4")
+				#if raycast_0.is_colliding():
+					#print("i do tego koliduje fajnie")
+			#raycast_5:
+				#print("North-West chosen - raycast 5")
+				#if raycast_0.is_colliding():
+					#print("i do tego koliduje fajnie")
+			#raycast_6:
+				#print("West chosen - raycast 6")
+				#if raycast_0.is_colliding():
+					#print("i do tego koliduje fajnie")
+			#raycast_7:
+				#print("South-West chosen - raycast 7")
+				#if raycast_0.is_colliding():
+					#print("i do tego koliduje fajnie")
 		return raycast_to_follow
 	else:
-		print("closest raycast NIE koliduje ale jest nim %s" %raycast_closest_to_move_target)
+		#print("closest raycast NIE koliduje ale jest nim %s" %raycast_closest_to_move_target)
 		return null
 	#jesli cos stoi nam na przeszkodzie zwroc najlepszy raycast do followowania
 	#jesli optymalny raycast nie jest zablokowany zwroc null
@@ -104,10 +104,10 @@ func find_best_raycast_to_follow(closest_raycast : RayCast2D):
 		else:
 			left_raycast_position -= 1
 		if !raycast_array[left_raycast_position].is_colliding():
-			print("analizowany raycast NIE koliduje")
+			#print("analizowany raycast NIE koliduje")
 			first_open_raycast = raycast_array[left_raycast_position]
-			print("w funkcji sprawdzam wybrany raycast %s" %first_open_raycast)
-			print("i czy koliduje %s" %first_open_raycast.is_colliding())
+			#print("w funkcji sprawdzam wybrany raycast %s" %first_open_raycast)
+			#print("i czy koliduje %s" %first_open_raycast.is_colliding())
 			if first_open_raycast.is_colliding():
 				pass
 			else:

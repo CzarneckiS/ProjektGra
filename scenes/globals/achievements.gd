@@ -1,5 +1,6 @@
 extends Node
 
+#moze w przyszlosci zmienic na dictionary
 var human_warrior_kill_count = 0
 var human_archer_kill_count = 0
 var human_mage_kill_count = 0
@@ -13,7 +14,7 @@ enum Event{
 }
 
 var achievement_list : Dictionary = {
-	"default_unlock": true,
+	"default_unlock": true, #jako jedyny true bo odnosi sie do skilli odblokowanych na start
 	"mages_killed": false,
 	"skeletons_summoned": false,
 	"level_5_skill_unlocked": false,
@@ -24,9 +25,10 @@ var achievement_list : Dictionary = {
 func _ready() -> void:
 	print("template")
 	print(OS.has_feature("template"))
-	create_save_directory()
+	create_save_directory() #jesli template:  build exportowany do pliku .exe
 	load_game()
 	skill_unlock_handler = SkillUnlockHandler.new()
+	#w main menu pobieramy handler i uzywamy jego funkcji do dodania odblokowanych skilli do puli 
 
 func achievement_update(event : Event, entity) -> void :
 	match event:
@@ -47,6 +49,7 @@ func achievement_update(event : Event, entity) -> void :
 				"skeleton_warrior":
 					if entity.skill_level >= 3:
 						achievement_list.skeletons_summoned = true
+						print("unlocking skeleton mage")
 						save_game()
 #na przyszlosc ladniejsza funkcja od unlockowania
 func unlock_achievement(achievement):

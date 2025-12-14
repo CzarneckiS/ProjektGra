@@ -97,23 +97,29 @@ func start_hit_flash(damage_source):
 
 #MOVEMENT ===============================================================================
 var stuck_pathfining_timer = 0.2 #CZAS W SEKUNDACH
-var epsilon = 5 #ILOSC PIXELI
+var epsilon = 10 #ILOSC PIXELI
 func reset_stuck_pathfinding_timer():
-	stuck_pathfining_timer = 0.2 #CZAS W SEKUNDACH
+	if unit_stuck_boolean:
+		stuck_pathfining_timer = 0.1 #CZAS W SEKUNDACH
+	else:
+		stuck_pathfining_timer = 0.3
 var unit_stuck_boolean : bool = false
 var pathfinding_raycast
 func move_to_target(delta,target_position): #CLOSE RANGE MOVEMENT
 	#print("unit stuck bool:%s"%unit_stuck_boolean)
 	stuck_pathfining_timer -= delta
 	if stuck_pathfining_timer <= 0:
-		reset_stuck_pathfinding_timer()
 		#print("im checking if you're stuck")
 		if last_position: #trzeba bedzie resetowac zeby nie pamietal last position z poprzedniego rozkazu
 			if abs(last_position.x - global_position.x) < epsilon and abs(last_position.y - global_position.y) < epsilon:
+				#print("im setting this stuff to true")
 				unit_stuck_boolean = true
+			else:
+				print("odleglosc byla wieksza niz epsilon")
 		if unit_stuck_boolean:
 			pathfinding_raycast = send_out_raycasts(target_position)
 		last_position = global_position
+		reset_stuck_pathfinding_timer()
 	if unit_stuck_boolean:
 		if pathfinding_raycast:
 			target_position = global_position+pathfinding_raycast.target_position
@@ -139,14 +145,6 @@ func move_to_target(delta,target_position): #CLOSE RANGE MOVEMENT
 			navigation_agent_2d.set_velocity(new_velocity)
 			can_navigate = false
 			$Timers/NavigationTimer.start()
-	move_and_slide()
-func navigate_to_target(_delta,target_position): #A* MOVEMENT
-	if can_navigate:
-		calculate_new_path(target_position)
-		can_navigate = false
-		$Timers/NavigationTimer.start()
-	var new_velocity = global_position.direction_to(next_path_position) * speed
-	navigation_agent_2d.set_velocity(new_velocity)
 	move_and_slide()
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
