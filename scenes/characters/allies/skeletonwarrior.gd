@@ -405,11 +405,12 @@ func closest_enemy(): #sprawdza, który cel jest najbliżej
 		return null
 
 func attack_target_within_attack_range(): #sprawdź czy attack_target znajduje się w attack_range
-	if attack_target.get_ref().global_position.distance_to(global_position) < \
-	attack_range:
-		return attack_target.get_ref() #jeśli jest to go zwróć
-	else:
-		return null
+	if attack_target.get_ref():
+		if attack_target.get_ref().global_position.distance_to(global_position) < \
+		attack_range:
+			return attack_target.get_ref() #jeśli jest to go zwróć
+		else:
+			return null
 
 func closest_enemy_within_attack_range():
 	if closest_enemy() != null and closest_enemy().global_position.distance_to(global_position) < \

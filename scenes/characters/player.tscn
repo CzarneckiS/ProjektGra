@@ -311,7 +311,7 @@ radius = 27.0
 
 [node name="Player" type="CharacterBody2D" groups=["Allied", "Player", "Unit"]]
 collision_layer = 2
-collision_mask = 15
+collision_mask = 47
 script = ExtResource("1_rp718")
 
 [node name="Shadow" type="Sprite2D" parent="."]

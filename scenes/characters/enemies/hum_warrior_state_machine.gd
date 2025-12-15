@@ -77,7 +77,8 @@ func _enter_state(_new_state, _previous_state):
 			states.dying:
 				animation_player.play("dying") #Kiedy wejdziesz w state, rozpocznij animację
 			states.push:
-				animation_player.play("dying") #dla debuga
+				pass
+				#animation_player.play("dying") #dla debuga
 				#animation_player.play("walk") #dla debuga
 				#if parent.velocity.x > 0:
 					#if sprite_root.scale.x > 0:
