@@ -36,6 +36,7 @@ func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 	
 	
 func populate_skill_icons() -> void:
+	Achievements.skill_unlock_handler.update_skill_unlock_handler() #odswieża odblokowane skille
 	var dict = Achievements.skill_unlock_handler.skill_unlock_dictionary
 	var skills = dict.keys()
 	var count = min(skills.size(), ach_icons.size())

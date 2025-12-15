@@ -1,9 +1,7 @@
 extends Node
-#SKILL - DOWOLNA UMIEJETNOSC / BUFF DLA JEDNOSTKI
-#SPELL - TO CO CASTUJE NASZA POSTAC
-#ALL SPELLS = SKILLS BUT ALL SKILLS =/= SPELLS
-var all_skills: Array = []
-var unlocked_skills: Array = []
+
+var all_skills: Array = [] #Wszystkie skille ktore mozemy zdobyc w trakcie runa (achievement odblokowany)
+var unlocked_skills: Array = [] #Wszystkie skille ktore wybralismy przy level upie
 
 
 var fireball = preload("res://resources/fireball.tres")
@@ -17,7 +15,8 @@ var player_skeleton_mage = preload("res://resources/player_skeleton_mage.tres")
 
 
 func add_skill(skill):
-	all_skills.append(skill)
+	if skill not in all_skills:
+		all_skills.append(skill)
 
 func unlock_skill(skill):
 	if !(skill in unlocked_skills):
@@ -26,6 +25,11 @@ func unlock_skill(skill):
 		skill.skill_level += 1
 	for unit in get_tree().get_nodes_in_group("Allied"):
 		unit.handle_skill_update(skill)
+
+func reset_unlocked_skills():
+	for skill in unlocked_skills:
+		skill.skill_level = 1
+	unlocked_skills = []
 
 #DODAC BOOL = CZY OSIAGNELISMY LIMIT SPELL SLOTOW ! ! ! 
 func get_skill() -> Array:

@@ -33,7 +33,7 @@ func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 
 	
 func _on_button_start_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/levels/level.tscn")
+	start_new_game()
 
 
 func _on_button_options_pressed() -> void:
@@ -45,3 +45,9 @@ func _on_button_achievements_pressed() -> void:
 
 func _on_button_exit_pressed() -> void:
 	get_tree().quit()
+
+func start_new_game():
+	Globals.reset_globals()
+	Skills.reset_unlocked_skills()
+	Achievements.skill_unlock_handler.handle_unlocked_skills()
+	get_tree().change_scene_to_file("res://scenes/levels/level.tscn")

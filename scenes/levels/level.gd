@@ -17,6 +17,7 @@ var command_spells_hud = load("res://scenes/levels/hud.tscn").instantiate()
 
 
 func _ready():
+	print()
 	$Player.connect("summon_unit", on_summon_unit)
 	$Player.connect("took_damage", on_unit_damage_taken)
 	hud.process_mode = Node.PROCESS_MODE_ALWAYS

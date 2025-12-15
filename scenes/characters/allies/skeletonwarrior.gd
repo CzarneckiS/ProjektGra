@@ -207,19 +207,19 @@ var stuck_pathfining_timer = 0.2 #CZAS W SEKUNDACH
 var epsilon = 10 #ILOSC PIXELI
 func reset_stuck_pathfinding_timer():
 	if unit_stuck_boolean:
-		stuck_pathfining_timer = 0.05 #CZAS W SEKUNDACH
+		stuck_pathfining_timer = 0.1 #CZAS W SEKUNDACH
 	else:
 		stuck_pathfining_timer = 0.3
 var unit_stuck_boolean : bool = false
 var pathfinding_raycast
 func move_to_target(delta,target_position): #CLOSE RANGE MOVEMENT
-	print("unit stuck bool:%s"%unit_stuck_boolean)
+	#print("unit stuck bool:%s"%unit_stuck_boolean)
 	stuck_pathfining_timer -= delta
 	if stuck_pathfining_timer <= 0:
-		print("im checking if you're stuck")
+		#print("im checking if you're stuck")
 		if last_position: #trzeba bedzie resetowac zeby nie pamietal last position z poprzedniego rozkazu
 			if abs(last_position.x - global_position.x) < epsilon and abs(last_position.y - global_position.y) < epsilon:
-				print("im setting this stuff to true")
+				#print("im setting this stuff to true")
 				unit_stuck_boolean = true
 			else:
 				print("odleglosc byla wieksza niz epsilon")
@@ -231,7 +231,7 @@ func move_to_target(delta,target_position): #CLOSE RANGE MOVEMENT
 		if pathfinding_raycast:
 			target_position = global_position+pathfinding_raycast.target_position
 		else:
-			print("im setting this stuff to false")
+			#print("im setting this stuff to false")
 			unit_stuck_boolean = false
 		#no i wysylamy raycasty
 		#jesli najbardziej optymalny raycast jest wolny = mozesz isc prosto do celu

@@ -28,6 +28,16 @@ const allied_cursor = preload("res://sprites/cursors/KursorRekaSmallAllied.png")
 const target_cursor = preload("res://sprites/cursors/KursorTarget.png")
 var attack_move_input : bool = false
 
+func reset_globals():
+	health = 100
+	max_health = health
+	level = 1
+	accumulated_xp = 0
+	xp_to_level = 300
+	ui_hp_update_requested.emit()
+	lvl_up_menu_requested.emit()
+	ui_exp_update_requested.emit()
+
 func attack_move_input_pressed():
 	Input.set_custom_mouse_cursor(target_cursor, Input.CURSOR_ARROW, Vector2(20,20))
 	attack_move_input = true
