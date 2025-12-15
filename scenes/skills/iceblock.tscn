@@ -281,10 +281,10 @@ tracks/6/path = NodePath("pivotpoint/diagonal_knockback_area/diagonal_knockback_
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.375, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.3125, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [true, false, true]
+"values": [true, true, false, true]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -293,10 +293,10 @@ tracks/7/path = NodePath("pivotpoint/diagonal_damage_area/diagonal_damage_area_c
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.1875, 0.25, 0.375, 0.4375),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true, false, true, false, true]
+"values": [true, true, false, true, true, false, true]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -418,10 +418,10 @@ tracks/6/path = NodePath("pivotpoint/knockback_area/knockback_collision:disabled
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.375, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.3125, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [true, false, true]
+"values": [true, true, false, true]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -430,10 +430,10 @@ tracks/7/path = NodePath("pivotpoint/damage_area/damage_collision:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.1875, 0.25, 0.375, 0.4375),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true, false, true, false, true]
+"values": [true, true, false, true, true, false, true]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -483,6 +483,30 @@ tracks/11/keys = {
 "update": 1,
 "values": [Vector2(0, 0), Vector2(8.5, 0), Vector2(5, 0), Vector2(-0.5, -3.5), Vector2(7.75, -3.5), Vector2(4.5, -3.5), Vector2(1.5, -6.75), Vector2(4.25, -6.75)]
 }
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("pivotpoint/diagonal_damage_area/diagonal_damage_area_collision:disabled")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("pivotpoint/diagonal_knockback_area/diagonal_knockback_area_collision:disabled")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_yje8c"]
 resource_name = "ice_wall_side"
@@ -519,10 +543,10 @@ tracks/2/path = NodePath("pivotpoint/damage_area/damage_collision:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1875, 0.25, 0.375, 0.4375),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true, false, true, false, true]
+"values": [true, true, false, true, true, false, true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -555,10 +579,10 @@ tracks/5/path = NodePath("pivotpoint/knockback_area/knockback_collision:disabled
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.375, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.3125, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [true, false, true]
+"values": [true, true, false, true]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -619,6 +643,30 @@ tracks/10/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector2(4.25, -6.75), Vector2(10.75, -6.75), Vector2(7.5, -6.75), Vector2(3.5, -18.5), Vector2(11.5, -18.5), Vector2(7.75, -18.5), Vector2(5.25, -50.75), Vector2(7.75, -50.75)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("pivotpoint/diagonal_damage_area/diagonal_damage_area_collision:disabled")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("pivotpoint/diagonal_knockback_area/diagonal_knockback_area_collision:disabled")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0e8mw"]

@@ -25,8 +25,8 @@ func _ready():
 	lifespan.call_deferred("start")
 	_get_iceblock_animation()
 	
-	opacity_area.body_entered.connect(update_opacity_decrease)
-	opacity_area.body_exited.connect(update_opacity_increase)
+	opacity_area.body_entered.connect(update_opacity_update)
+	opacity_area.body_exited.connect(update_opacity_update)
 	
 	damage_area.body_entered.connect(_on_damage_area_entered)
 	knockback_area.body_entered.connect(_on_knockback_area_entered)
@@ -94,14 +94,11 @@ func _get_iceblock_animation():
 			pivotpoint.scale.x = -1
 			iceblock_animation.play("ice_wall_diagonal")
 
-func update_opacity_decrease(_body):
+func update_opacity_update(_body):
 	var opacity_tween = create_tween()
-	opacity_tween.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 0.5), 0.15) 
-	opacity_tween.set_trans(Tween.TRANS_SINE)
-	opacity_tween.set_ease(Tween.EASE_OUT)
-
-func update_opacity_increase(_body):
-	var opacity_tween = create_tween()
-	opacity_tween.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.15) 
+	if opacity_area.get_overlapping_bodies().is_empty():
+		opacity_tween.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.15) 
+	else:
+		opacity_tween.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 0.5), 0.15)
 	opacity_tween.set_trans(Tween.TRANS_SINE)
 	opacity_tween.set_ease(Tween.EASE_OUT)
