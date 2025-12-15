@@ -4,6 +4,7 @@ class_name IceblockSpell
 var skill_resource: Iceblock
 const diagonal_threshold = 0.6
 var lifespan: Timer = Timer.new()
+@onready var opacity_area: Area2D = $pivotpoint/opacity_area
 @onready var damage_area: Area2D = $pivotpoint/damage_area
 @onready var knockback_area: Area2D = $pivotpoint/knockback_area
 @onready var diagonal_damage_area: Area2D = $pivotpoint/diagonal_damage_area
@@ -23,6 +24,9 @@ func initialize(spawn_position: Vector2, skill_res: Iceblock):
 func _ready():
 	lifespan.call_deferred("start")
 	_get_iceblock_animation()
+	
+	opacity_area.body_entered.connect(update_opacity_decrease)
+	opacity_area.body_exited.connect(update_opacity_increase)
 	
 	damage_area.body_entered.connect(_on_damage_area_entered)
 	knockback_area.body_entered.connect(_on_knockback_area_entered)
@@ -89,3 +93,15 @@ func _get_iceblock_animation():
 		"LeftDown":
 			pivotpoint.scale.x = -1
 			iceblock_animation.play("ice_wall_diagonal")
+
+func update_opacity_decrease(_body):
+	var opacity_tween = create_tween()
+	opacity_tween.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 0.5), 0.15) 
+	opacity_tween.set_trans(Tween.TRANS_SINE)
+	opacity_tween.set_ease(Tween.EASE_OUT)
+
+func update_opacity_increase(_body):
+	var opacity_tween = create_tween()
+	opacity_tween.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.15) 
+	opacity_tween.set_trans(Tween.TRANS_SINE)
+	opacity_tween.set_ease(Tween.EASE_OUT)
