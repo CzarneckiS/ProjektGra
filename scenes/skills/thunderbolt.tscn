@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://loqryqxp6f73"]
+[gd_scene load_steps=8 format=3 uid="uid://loqryqxp6f73"]
 
 [ext_resource type="Texture2D" uid="uid://b1v454ivfxv4h" path="res://sprites/thunderbolt/thunderbolt_0.png" id="1_1aqtv"]
 [ext_resource type="Script" uid="uid://ckel3qrcfaaek" path="res://scenes/skills/thunderbolt.gd" id="1_oumkm"]
@@ -27,9 +27,6 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8r461"]
-radius = 262.1221
-
 [node name="Thunderbolt" type="Area2D"]
 collision_layer = 8
 collision_mask = 4
@@ -43,8 +40,3 @@ frame_progress = 1.0
 
 [node name="thunderbolt_collision" type="CollisionShape2D" parent="."]
 shape = ExtResource("6_8r461")
-
-[node name="thunderbolt_pushback" type="StaticBody2D" parent="."]
-
-[node name="thunderbolt_pushback_collision" type="CollisionShape2D" parent="thunderbolt_pushback"]
-shape = SubResource("CircleShape2D_8r461")

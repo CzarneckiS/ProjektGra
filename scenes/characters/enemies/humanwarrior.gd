@@ -38,6 +38,12 @@ var mouse_hovering : bool = false #sluzy do sprawdzania czy myszka jest w clicka
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
 @onready var unstick_timer: Timer = $Timers/UnstickTimer
 
+#func apply_knockback(attack_position: Vector2, force: float):
+	#var knockback_direction: Vector2 = (global_position - attack_position).normalized()
+	#knockback_velocity = knockback_direction * force
+	#navigation_agent_2d.set_velocity(Vector2.ZERO)
+	#state_machine.set_state(state_machine.states.knockback)
+	
 func _ready() -> void:
 	max_health  = 60
 	health = max_health

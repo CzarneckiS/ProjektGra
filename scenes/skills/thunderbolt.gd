@@ -32,3 +32,4 @@ func _physics_process(_delta: float) -> void:
 func _on_body_entered(body: UnitParent):
 	if !body.is_in_group("Allied"):
 		body.hit(skill_resource.skill_effect_data.base_damage*skill_resource.skill_effect_data.damage_multiplier, self)
+		skill_resource.skill_effect_data3.apply_push(global_position, body)

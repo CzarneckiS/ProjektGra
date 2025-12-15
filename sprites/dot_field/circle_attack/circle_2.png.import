@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://it57gh4w16eh"
-path="res://.godot/imported/ice_wall_2.png-ce84430fe8ffdff0695286e9867df3a3.ctex"
+uid="uid://wlqvbocq0c7q"
+path="res://.godot/imported/circle_2.png-2a768fdc993d0fa35a33fc5c930fbd8e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/iceblock/ice_wall_2.png"
-dest_files=["res://.godot/imported/ice_wall_2.png-ce84430fe8ffdff0695286e9867df3a3.ctex"]
+source_file="res://sprites/dot_field/circle_attack/circle_2.png"
+dest_files=["res://.godot/imported/circle_2.png-2a768fdc993d0fa35a33fc5c930fbd8e.ctex"]
 
 [params]
 
