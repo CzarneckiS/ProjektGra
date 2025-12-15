@@ -29,3 +29,4 @@ skill_name = "Thunderbolt"
 skill_desc = "Zeus W"
 visual_effect = ExtResource("5_f2p8b")
 icon = ExtResource("4_jdh3n")
+metadata/_custom_type_script = "uid://b6hgmwtiws7ea"

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Tornado" load_steps=12 format=3 uid="uid://cvm1ku6dph7g1"]
 
-[ext_resource type="Script" uid="uid://dvoy1kbe6clpy" path="res://scripts/skills_for_resources/tornado_for_resource.gd" id="1_gqxx4"]
+[ext_resource type="Script" path="res://scripts/skills_for_resources/tornado_for_resource.gd" id="1_gqxx4"]
 [ext_resource type="Script" uid="uid://8g2g4sl8jw6l" path="res://scripts/skill_effects/effect_aoe.gd" id="1_hvh3h"]
 [ext_resource type="Script" uid="uid://eb2n0krmxsn8" path="res://scripts/skill_effects/effect_dot.gd" id="2_5qvuc"]
 [ext_resource type="Script" path="res://scripts/skill_effects/effect_knockback.gd" id="3_p3lq7"]

@@ -249,9 +249,14 @@ func _push_units():
 			
 func push_units():
 	for body in unit_collision_push_array:
-		if body.get_ref().state_machine.state != body.get_ref().state_machine.states.idle:
+		if body.get_ref().state_machine.state == body.get_ref().state_machine.states.mid_animation:
+			remove_collision_exception_with(body.get_ref())
 			continue
 		if body.get_ref().state_machine.command == body.get_ref().state_machine.commands.HOLD:
+			remove_collision_exception_with(body.get_ref())
+			continue
+		add_collision_exception_with(body.get_ref())
+		if body.get_ref().state_machine.state != body.get_ref().state_machine.states.idle:
 			continue
 			#ta liczba oznacza jak daleko ma sie odsunac odepchnieta jednostka
 		if angle_difference(global_position.angle_to_point(global_position+direction), global_position.angle_to_point(body.get_ref().global_position)) < PI/2:

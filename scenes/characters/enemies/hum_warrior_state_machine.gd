@@ -16,6 +16,11 @@ func _ready():
 	#kiedy juz inne states sie ladnie dodadza do słownia
 	call_deferred("set_state", states.idle)
 
+#quick 'n' dirty 'n' nasty fix zeby jednostki mniej wibrowaly kiedy sa bodyblockowane
+#tutaj musi byc 0, zeby nie bylo delayu przy wydawaniu rozkazu
+var turn_left_timer = 0
+var turn_right_timer = 0
+
 #Rozkazy dla jednostki wykonywane w physics_process
 func _state_logic(delta):
 		match state: #sprawdź w którym stanie teraz jesteś
@@ -24,20 +29,32 @@ func _state_logic(delta):
 			states.moving:
 				parent.move_target = Globals.player_position
 				parent.move_to_target(delta, parent.move_target) #idź do celu (nie przeciwnik)
-				if parent.velocity.x > 0:
-					if sprite_root.scale.x > 0:
+				if parent.velocity.x > 0: #turn right
+					turn_left_timer = 0.1
+					if turn_right_timer > 0:
+						turn_right_timer -= delta
+					if sprite_root.scale.x > 0 and turn_right_timer <= 0:
 						sprite_root.scale.x *= -1
-				elif parent.velocity.x < 0:
-					if sprite_root.scale.x < 0:
+				elif parent.velocity.x < 0: #turn left
+					turn_right_timer = 0.1
+					if turn_left_timer > 0:
+						turn_left_timer -= delta
+					if sprite_root.scale.x < 0 and turn_left_timer <= 0:
 						sprite_root.scale.x *= -1
 			states.engaging:
 				if parent.attack_target.get_ref(): #jeśli cel (jednostka) istnieje, idź do niego
 					parent.move_to_target(delta, parent.attack_target.get_ref().global_position)
-					if parent.velocity.x > 0:
-						if sprite_root.scale.x > 0:
+					if parent.velocity.x > 0: #turn right
+						turn_left_timer = 0.1
+						if turn_right_timer > 0:
+							turn_right_timer -= delta
+						if sprite_root.scale.x > 0 and turn_right_timer <= 0:
 							sprite_root.scale.x *= -1
-					elif parent.velocity.x < 0:
-						if sprite_root.scale.x < 0:
+					elif parent.velocity.x < 0: #turn left
+						turn_right_timer = 0.1
+						if turn_left_timer > 0:
+							turn_left_timer -= delta
+						if sprite_root.scale.x < 0 and turn_left_timer <= 0:
 							sprite_root.scale.x *= -1
 			states.attacking:
 				if parent.attack_target.get_ref():
@@ -69,6 +86,7 @@ func _enter_state(_new_state, _previous_state):
 			states.idle:
 				animation_player.play("idle")
 			states.moving:
+				parent.reset_stuck_pathfinding_timer() #proper reset wszystkich zmiennych
 				animation_player.play("walk")
 			states.engaging:
 				animation_player.play("walk")
