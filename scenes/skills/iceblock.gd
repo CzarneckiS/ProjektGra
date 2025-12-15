@@ -9,7 +9,7 @@ var lifespan: Timer = Timer.new()
 @onready var diagonal_damage_area: Area2D = $pivotpoint/diagonal_damage_area
 @onready var diagonal_knockback_area: Area2D = $pivotpoint/diagonal_knockback_area
 @onready var iceblock_animation: AnimationPlayer = $pivotpoint/iceblock_animation
-@onready var navigation_region_2d: NavigationRegion2D = get_node("../Level/NavigationRegion2D")
+@onready var navigation_region_2d: NavigationRegion2D = get_node("../NavigationRegion2D")
 @onready var pivotpoint: Node2D = $pivotpoint
 
 func initialize(spawn_position: Vector2, skill_res: Iceblock):
