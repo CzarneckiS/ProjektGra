@@ -22,6 +22,21 @@ var achievement_list : Dictionary = {
 	"boss_killed": false
 }
 
+var achievement_description_list : Dictionary = {
+	"default_unlock": "",
+	"mages_killed": "Zabij 100 magów",
+	"skeletons_summoned": "Przyzwij jednocześnie 5 jednostek",
+	"level_5_skill_unlocked": "Ulepsz umiejętność do poziomu 5",
+	"wave_10_reached": "Dotrzyj do fali 10",
+	"boss_killed": "Pokonaj Bossa"
+}
+
+func _process(delta: float) -> void:
+	#print(achievement_description_list.get("skeletons_summoned"))
+	#for skill in skill_unlock_handler.skill_unlock_dictionary:
+		#print(skill_unlock_handler.skill_unlock_dictionary[skill])
+	pass #do debuggowania
+
 func _ready() -> void:
 	print("template")
 	print(OS.has_feature("template"))
@@ -41,20 +56,23 @@ func achievement_update(event : Event, entity) -> void :
 				Tags.UnitTag.HUMAN_MAGE:
 					human_mage_kill_count += 1
 					if human_mage_kill_count >= 5:
-						achievement_list.mages_killed = true
+						unlock_achievement("mages_killed")
 		Event.WAVE_CLEARED:
 			pass
 		Event.SKILL_UPDATED:
 			match entity.skill_name:
 				"skeleton_warrior":
 					if entity.skill_level >= 3:
-						achievement_list.skeletons_summoned = true
-						print("unlocking skeleton mage")
-						save_game()
+						unlock_achievement("skeletons_summoned")
 #na przyszlosc ladniejsza funkcja od unlockowania
 func unlock_achievement(achievement):
-	if !achievement:
-		achievement = true
+	print(achievement_list.get(achievement))
+	if !achievement_list.get(achievement):
+		print("unlocking skeleton mage")
+		achievement_list.set(achievement, true)
+		print(achievement_list.get(achievement))
+		print("im finding this key:")
+		print(skill_unlock_handler.skill_unlock_dictionary.find_key(achievement))
 		save_game()
 		
 func create_save_directory():

@@ -43,7 +43,7 @@ func populate_skill_icons() -> void:
 
 	for i in range(count):
 		var skill = skills[i]
-		var is_unlocked = dict[skill]
+		var is_unlocked = Achievements.achievement_list[dict[skill]]
 		var icon_node: TextureRect = ach_icons[i]
 
 		icon_node.set_meta("skill_ref", skill)
