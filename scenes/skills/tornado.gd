@@ -5,6 +5,7 @@ var skill_resource: Tornado
 var lifespan: Timer = Timer.new()
 var ticks_per_sec: Timer = Timer.new()
 var is_ticking: bool = false
+var transformed: bool = false
 
 var base_damage
 var damage_multiplier
@@ -85,14 +86,19 @@ func _on_tornado_collision_transform_entered(body):
 		return
 
 func transform_skill(skill):
-	match skill.name:
-		"fireball":
+	if transformed:
+		return
+	match skill:
+		_ when skill is FireballSpell:
 			transform_animation("006626ff")
 			ticks_per_sec.wait_time = 1.0/20.0
 			base_damage = 6
-		"thunderbolt":
+		_ when skill is ThunderboltSpell:
 			transform_animation("00ffffff")
 			base_damage = -100
+		_:
+			return
+	transformed = true
 
 func transform_animation(color: String):
 	var transform_color: Color = Color.WHITE
