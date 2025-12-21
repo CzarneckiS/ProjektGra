@@ -5,7 +5,6 @@ var skill_resource: Tornado
 var lifespan: Timer = Timer.new()
 var ticks_per_sec: Timer = Timer.new()
 var is_ticking: bool = false
-var transformed: bool = false
 
 var base_damage
 var damage_multiplier
