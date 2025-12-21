@@ -5,10 +5,12 @@ var skill_resource: Tornado
 var lifespan: Timer = Timer.new()
 var ticks_per_sec: Timer = Timer.new()
 var get_new_direction_cooldown: Timer = Timer.new()
+var transformation_thunderbolt_timer: Timer = Timer.new()
 var is_ticking: bool = false
 var transformed: bool = false
 var target_position: Vector2
 var spawn_center: Vector2
+var thunderbolt_skill: Resource = preload("res://resources/thunderbolt_for_tornado.tres")
 
 var base_damage
 var damage_multiplier
@@ -45,6 +47,12 @@ func initialize(spawn_position: Vector2, skill_res: Tornado):
 	get_new_direction_cooldown.autostart = false
 	get_new_direction_cooldown.wait_time = skill_resource.time_before_new_direction
 	get_new_direction_cooldown.timeout.connect(_on_get_new_direction_cooldown_timeout)
+	
+	add_child(transformation_thunderbolt_timer)
+	transformation_thunderbolt_timer.one_shot = false
+	transformation_thunderbolt_timer.autostart = true
+	transformation_thunderbolt_timer.wait_time = skill_resource.transformation_thunderbolt_frequency
+	transformation_thunderbolt_timer.timeout.connect(_on_transformation_thunderbolt_timer_timeout)
 	
 	if skill_resource.effect_aoe != null:
 		if tornado_collision_pull.shape:
@@ -111,8 +119,8 @@ func transform_skill(skill):
 			base_damage = 6
 		_ when skill is ThunderboltSpell:
 			transform_animation("00ffffff")
-			base_damage = -100
-		_:
+			transformation_cast_thunderbolt()
+		_ :
 			return
 	transformed = true
 
@@ -133,6 +141,12 @@ func _get_new_direction() -> Vector2:
 func _on_get_new_direction_cooldown_timeout():
 	target_position = spawn_center + _get_new_direction()
 	print("new target: ", target_position)
+	
+func transformation_cast_thunderbolt():
+	transformation_thunderbolt_timer.start()
+				
+func _on_transformation_thunderbolt_timer_timeout():
+	thunderbolt_skill.call_deferred("use", self, global_position)
 	
 	
 	

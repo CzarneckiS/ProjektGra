@@ -41,6 +41,7 @@ effect_knockback = SubResource("Resource_3q8t8")
 range_radius = 500.0
 speed = 700.0
 time_before_new_direction = 0.4
+transformation_thunderbolt_frequency = 0.4
 skill_name = "tornado"
 skill_desc = "omega destruction"
 cooldown = 0.1

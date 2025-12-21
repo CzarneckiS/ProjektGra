@@ -9,6 +9,7 @@ class_name Tornado
 @export var range_radius: float
 @export var speed: float
 @export var time_before_new_direction: float
+@export var transformation_thunderbolt_frequency: float
 #@export var effect_heal: EffectHeal #who knows
 
 func use(player: CharacterBody2D, target_position: Vector2) -> void:
