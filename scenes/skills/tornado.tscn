@@ -1,12 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmmwvpsouxvpv"]
+[gd_scene load_steps=11 format=3 uid="uid://dmmwvpsouxvpv"]
 
 [ext_resource type="Texture2D" uid="uid://d2h2rutoardr1" path="res://sprites/tornado/tornado_spritesheet.png" id="1_fec2i"]
 [ext_resource type="Script" uid="uid://dxcuij1guk6e5" path="res://scenes/skills/tornado.gd" id="1_hymgt"]
 [ext_resource type="Shape2D" uid="uid://d0cuc6fxx8hw7" path="res://resources/tornado_shape_pull.tres" id="3_xrveb"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hymgt"]
-radius = 26.0
-height = 86.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrveb"]
+radius = 151.73505
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x00ro"]
+radius = 71.82043
 
 [sub_resource type="Animation" id="Animation_hymgt"]
 length = 0.001
@@ -132,7 +134,7 @@ hframes = 6
 [node name="tornado_collision_damage" type="CollisionShape2D" parent="."]
 position = Vector2(0, -27.999998)
 scale = Vector2(0.99999994, 0.99999994)
-shape = SubResource("CapsuleShape2D_hymgt")
+shape = SubResource("CircleShape2D_xrveb")
 debug_color = Color(0.9799941, 0, 0.38733768, 0.41960785)
 
 [node name="tornado_collision_transform_area" type="Area2D" parent="."]
@@ -143,7 +145,7 @@ collision_mask = 8
 [node name="tornado_collision_transform" type="CollisionShape2D" parent="tornado_collision_transform_area"]
 position = Vector2(0, -28.000004)
 scale = Vector2(1.5400002, 1.5400002)
-shape = SubResource("CapsuleShape2D_hymgt")
+shape = SubResource("CircleShape2D_x00ro")
 debug_color = Color(0.7192179, 0.48127967, 0, 0.41960785)
 
 [node name="tornado_collision_pull_area" type="Area2D" parent="."]

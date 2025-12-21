@@ -4,8 +4,11 @@ class_name TornadoSpell
 var skill_resource: Tornado
 var lifespan: Timer = Timer.new()
 var ticks_per_sec: Timer = Timer.new()
+var get_new_direction_cooldown: Timer = Timer.new()
 var is_ticking: bool = false
 var transformed: bool = false
+var target_position: Vector2
+var spawn_center: Vector2
 
 var base_damage
 var damage_multiplier
@@ -22,6 +25,8 @@ func initialize(spawn_position: Vector2, skill_res: Tornado):
 	damage_multiplier = skill_resource.effect_dot.damage_multiplier
 	
 	global_position = spawn_position
+	spawn_center = spawn_position
+	target_position = spawn_center + _get_new_direction()
 	
 	add_child(lifespan)
 	lifespan.one_shot = true
@@ -34,6 +39,12 @@ func initialize(spawn_position: Vector2, skill_res: Tornado):
 	ticks_per_sec.autostart = false
 	ticks_per_sec.wait_time = 1.0/skill_resource.effect_dot.ticks_per_second
 	ticks_per_sec.timeout.connect(_on_ticks_per_sec_timeout)
+	
+	add_child(get_new_direction_cooldown)
+	get_new_direction_cooldown.one_shot = true
+	get_new_direction_cooldown.autostart = false
+	get_new_direction_cooldown.wait_time = skill_resource.time_before_new_direction
+	get_new_direction_cooldown.timeout.connect(_on_get_new_direction_cooldown_timeout)
 	
 	if skill_resource.effect_aoe != null:
 		if tornado_collision_pull.shape:
@@ -63,10 +74,15 @@ func _on_ticks_per_sec_timeout():
 		ticks_per_sec.stop()
 		is_ticking = false
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if skill_resource == null:
 		queue_free()
 		return
+	
+	global_position = global_position.move_toward(target_position, skill_resource.speed*delta)
+	if global_position.distance_to(target_position) < 5.0:
+		if get_new_direction_cooldown.is_stopped():
+			get_new_direction_cooldown.start()
 		
 	var overlapping_bodies = get_overlapping_bodies()
 	if !overlapping_bodies.is_empty() and !is_ticking:
@@ -107,3 +123,16 @@ func transform_animation(color: String):
 	transform_color = Color(color) * 5.0
 	transform_tween.tween_property($tornado_sprite, "modulate", transform_color, 0.35)
 	transform_tween.set_ease(Tween.EASE_OUT)
+	
+func _get_new_direction() -> Vector2:
+	var radius = skill_resource.range_radius
+	var angle = randf() * TAU
+	var distance = sqrt(randf()) * radius
+	return Vector2(cos(angle), sin(angle)) * distance
+
+func _on_get_new_direction_cooldown_timeout():
+	target_position = spawn_center + _get_new_direction()
+	print("new target: ", target_position)
+	
+	
+	
