@@ -86,17 +86,14 @@ func _on_tornado_collision_transform_entered(body):
 		return
 
 func transform_skill(skill):
-	if !transformed:
-		if skill is FireballSpell:
+	match skill.name:
+		"fireball":
 			transform_animation("006626ff")
 			ticks_per_sec.wait_time = 1.0/20.0
 			base_damage = 6
-		elif skill is ThunderboltSpell:
+		"thunderbolt":
 			transform_animation("00ffffff")
 			base_damage = -100
-		else:
-			return
-		transformed = true
 
 func transform_animation(color: String):
 	var transform_color: Color = Color.WHITE
