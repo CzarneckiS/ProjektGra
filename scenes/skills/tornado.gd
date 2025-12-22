@@ -28,6 +28,7 @@ var damage_multiplier
 @onready var tornado_collision_heal: CollisionShape2D = $tornado_collision_heal_area/tornado_collision_heal
 @onready var tornado_collision_heal_protection_area: Area2D = $tornado_collision_heal_protection_area
 @onready var tornado_collision_heal_protection: CollisionShape2D = $tornado_collision_heal_protection_area/tornado_collision_heal_protection
+@onready var tornado_heal_protection_animation: AnimatedSprite2D = $tornado_collision_heal_protection_area/tornado_heal_protection_animation
 
 func initialize(spawn_position: Vector2, skill_res: Tornado):
 	skill_resource = skill_res
@@ -165,6 +166,7 @@ func transformation_heal():
 	skill_resource.effect_knockback.knockback_speed = 1800
 	
 	tornado_collision_heal_protection.set_deferred("disabled", false)
+	tornado_heal_protection_animation.play("protection")
 	
 	transformation_heal_timer.start()
 

@@ -1,8 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://dmmwvpsouxvpv"]
+[gd_scene load_steps=18 format=3 uid="uid://dmmwvpsouxvpv"]
 
 [ext_resource type="Texture2D" uid="uid://d2h2rutoardr1" path="res://sprites/tornado/tornado_spritesheet.png" id="1_fec2i"]
 [ext_resource type="Script" uid="uid://dxcuij1guk6e5" path="res://scenes/skills/tornado.gd" id="1_hymgt"]
 [ext_resource type="Shape2D" uid="uid://d0cuc6fxx8hw7" path="res://resources/tornado_shape_pull.tres" id="3_xrveb"]
+[ext_resource type="Texture2D" uid="uid://cdjo4vurbujal" path="res://sprites/tornado/protection_circle/protection_circle_001.png" id="4_ms7ra"]
+[ext_resource type="Texture2D" uid="uid://b6nnel6neg6oh" path="res://sprites/tornado/protection_circle/protection_circle_002.png" id="5_lrrw7"]
+[ext_resource type="Texture2D" uid="uid://xvxcfpsx4na4" path="res://sprites/tornado/protection_circle/protection_circle_003.png" id="6_modja"]
+[ext_resource type="Texture2D" uid="uid://pahdlf1epjlf" path="res://sprites/tornado/protection_circle/protection_circle_004.png" id="7_vdx5d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrveb"]
 radius = 151.73505
@@ -148,8 +152,33 @@ _data = {
 &"thunderbolted": SubResource("Animation_x00ro")
 }
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_ew3ul"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ms7ra")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_lrrw7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_modja")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_vdx5d")
+}],
+"loop": true,
+"name": &"protection",
+"speed": 8.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_jed8l"]
-radius = 182.00043
+radius = 159.99998
 
 [node name="Tornado" type="Area2D"]
 scale = Vector2(2.5, 2.5)
@@ -220,6 +249,12 @@ debug_color = Color(0.9799941, 0, 0.38733768, 0.41960785)
 collision_layer = 34
 collision_mask = 8
 
+[node name="tornado_heal_protection_animation" type="AnimatedSprite2D" parent="tornado_collision_heal_protection_area"]
+position = Vector2(0, -28)
+scale = Vector2(1.3, 1.3)
+sprite_frames = SubResource("SpriteFrames_ew3ul")
+
 [node name="tornado_collision_heal_protection" type="CollisionShape2D" parent="tornado_collision_heal_protection_area"]
+position = Vector2(0, -28)
 shape = SubResource("CircleShape2D_jed8l")
 disabled = true
