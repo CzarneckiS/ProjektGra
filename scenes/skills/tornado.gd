@@ -32,7 +32,7 @@ var damage_multiplier
 @onready var tornado_heal_protection_animation: AnimatedSprite2D = $tornado_collision_heal_protection_area/tornado_heal_protection_animation
 
 func initialize(spawn_position: Vector2, skill_res: Tornado):
-	skill_resource = skill_res
+	skill_resource = skill_res.duplicate(true)
 	base_damage = skill_resource.effect_dot.damage_per_tick
 	damage_multiplier = skill_resource.effect_dot.damage_multiplier
 	
@@ -154,7 +154,10 @@ func _on_get_new_direction_cooldown_timeout():
 	target_position = spawn_center + _get_new_direction()
 
 func transformation_fireball():
-	fireball_skill.call_deferred("use", self, Vector2.ZERO)
+	var amount = fireball_skill.amount
+	for i in range(amount):
+		var shift = (TAU/amount) * i
+		fireball_skill.call_deferred("use", self, Vector2.ZERO, shift)
 
 func transformation_thunderbolt():
 	transformation_thunderbolt_timer.start()
