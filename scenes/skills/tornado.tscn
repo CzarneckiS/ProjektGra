@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmmwvpsouxvpv"]
+[gd_scene load_steps=12 format=3 uid="uid://dmmwvpsouxvpv"]
 
 [ext_resource type="Texture2D" uid="uid://d2h2rutoardr1" path="res://sprites/tornado/tornado_spritesheet.png" id="1_fec2i"]
 [ext_resource type="Script" uid="uid://dxcuij1guk6e5" path="res://scenes/skills/tornado.gd" id="1_hymgt"]
@@ -83,6 +83,33 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(0, 0.9882353, 0.40784314, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_jed8l"]
+resource_name = "healed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tornado_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("tornado_sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.32049313, 0.0012809518, 0.6022583, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_x00ro"]
 resource_name = "thunderbolted"
 length = 0.50001
@@ -117,6 +144,7 @@ _data = {
 &"RESET": SubResource("Animation_hymgt"),
 &"default": SubResource("Animation_fec2i"),
 &"fireballed": SubResource("Animation_xrveb"),
+&"healed": SubResource("Animation_jed8l"),
 &"thunderbolted": SubResource("Animation_x00ro")
 }
 
@@ -159,7 +187,28 @@ scale = Vector2(1.0000002, 1.0000002)
 shape = ExtResource("3_xrveb")
 debug_color = Color(0, 0.8623122, 0.67507756, 0.41960785)
 
+[node name="tornado_collision_knockback_area" type="Area2D" parent="."]
+scale = Vector2(0.99999964, 0.99999964)
+collision_layer = 8
+collision_mask = 4
+
+[node name="tornado_collision_knockback" type="CollisionShape2D" parent="tornado_collision_knockback_area"]
+position = Vector2(0, -28.000006)
+scale = Vector2(1.0000002, 1.0000002)
+shape = ExtResource("3_xrveb")
+debug_color = Color(0, 0.8623122, 0.67507756, 0.41960785)
+
 [node name="tornado_animation" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_xrveb")
 }
+
+[node name="tornado_collision_heal_area" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 34
+
+[node name="tornado_collision_heal" type="CollisionShape2D" parent="tornado_collision_heal_area"]
+position = Vector2(0, -27.999996)
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("CircleShape2D_xrveb")
+debug_color = Color(0.9799941, 0, 0.38733768, 0.41960785)

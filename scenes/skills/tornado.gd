@@ -6,20 +6,26 @@ var lifespan: Timer = Timer.new()
 var ticks_per_sec: Timer = Timer.new()
 var get_new_direction_cooldown: Timer = Timer.new()
 var transformation_thunderbolt_timer: Timer = Timer.new()
+var transformation_heal_timer: Timer = Timer.new()
 var is_ticking: bool = false
 var transformed: bool = false
 var target_position: Vector2
 var spawn_center: Vector2
 var thunderbolt_skill: Resource = preload("res://resources/thunderbolt_for_tornado.tres")
+var heal_skill: Resource = preload("res://resources/heal_for_tornado.tres")
 
 var base_damage
 var damage_multiplier
 
 @onready var tornado_collision_pull_area: Area2D = $tornado_collision_pull_area
 @onready var tornado_collision_pull: CollisionShape2D = $tornado_collision_pull_area/tornado_collision_pull
+@onready var tornado_collision_knockback_area: Area2D = $tornado_collision_knockback_area
+@onready var tornado_collision_knockback: CollisionShape2D = $tornado_collision_knockback_area/tornado_collision_knockback
 @onready var tornado_collision_transform_area: Area2D = $tornado_collision_transform_area
 @onready var tornado_collision_transform: CollisionShape2D = $tornado_collision_transform_area/tornado_collision_transform
 @onready var tornado_animation: AnimationPlayer = $tornado_animation
+@onready var tornado_collision_heal_area: Area2D = $tornado_collision_heal_area
+@onready var tornado_collision_heal: CollisionShape2D = $tornado_collision_heal_area/tornado_collision_heal
 
 func initialize(spawn_position: Vector2, skill_res: Tornado):
 	skill_resource = skill_res
@@ -54,6 +60,12 @@ func initialize(spawn_position: Vector2, skill_res: Tornado):
 	transformation_thunderbolt_timer.wait_time = skill_resource.transformation_thunderbolt_frequency
 	transformation_thunderbolt_timer.timeout.connect(_on_transformation_thunderbolt_timer_timeout)
 	
+	add_child(transformation_heal_timer)
+	transformation_heal_timer.one_shot = false
+	transformation_heal_timer.autostart = true
+	transformation_heal_timer.wait_time = skill_resource.transformation_heal_frequency
+	transformation_heal_timer.timeout.connect(_on_transformation_heal_timer_timeout)
+	
 	if skill_resource.effect_aoe != null:
 		if tornado_collision_pull.shape:
 			var base_radius = skill_resource.effect_aoe.radius
@@ -68,6 +80,7 @@ func _ready():
 	tornado_animation.play("default")
 	tornado_collision_pull_area.body_entered.connect(_on_tornado_collision_pull_entered)
 	tornado_collision_transform_area.area_entered.connect(transform_skill)
+	tornado_collision_knockback_area.body_entered.connect(_on_tornado_collision_knockback_entered)
 	
 func _on_lifespan_timeout():
 	call_deferred("queue_free")
@@ -101,14 +114,6 @@ func _on_tornado_collision_pull_entered(body: UnitParent):
 	if !body.is_in_group("Allied"):
 		skill_resource.effect_pull.apply_push(global_position, body)
 
-func _on_tornado_collision_transform_entered(body):
-	if body is FireballSpell:
-		tornado_animation.play("fireballed")
-	elif body is ThunderboltSpell:
-		tornado_animation.play("thunderbolted")
-	else:
-		return
-
 func transform_skill(skill):
 	if transformed:
 		return
@@ -119,7 +124,10 @@ func transform_skill(skill):
 			base_damage = 6
 		_ when skill is ThunderboltSpell:
 			transform_animation("00ffffff")
-			transformation_cast_thunderbolt()
+			transformation_thunderbolt()
+		_ when skill is HealSpell:
+			transform_animation("52009a")
+			transformation_heal()
 		_ :
 			return
 	transformed = true
@@ -140,13 +148,26 @@ func _get_new_direction() -> Vector2:
 
 func _on_get_new_direction_cooldown_timeout():
 	target_position = spawn_center + _get_new_direction()
-	print("new target: ", target_position)
 	
-func transformation_cast_thunderbolt():
+func transformation_thunderbolt():
 	transformation_thunderbolt_timer.start()
-				
+	
 func _on_transformation_thunderbolt_timer_timeout():
 	thunderbolt_skill.call_deferred("use", self, global_position)
 	
-	
-	
+func transformation_heal():
+	skill_resource.effect_pull.pull_friction = 0
+	skill_resource.effect_pull.pull_speed = 0
+	skill_resource.effect_knockback.knockback_friction = 4.5
+	skill_resource.effect_knockback.knockback_speed = 1800
+	transformation_heal_timer.start()
+
+func _on_transformation_heal_timer_timeout():
+	var overlapping_bodies = tornado_collision_heal_area.get_overlapping_bodies()
+	if !overlapping_bodies.is_empty():
+		for body in overlapping_bodies:
+			if body.is_in_group("Allied") and body is UnitParent:
+				heal_skill.call_deferred("use", self, global_position)
+func _on_tornado_collision_knockback_entered(body: UnitParent):
+	if !body.is_in_group("Allied"):
+		skill_resource.effect_knockback.apply_push(global_position, body)
