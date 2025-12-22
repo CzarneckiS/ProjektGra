@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dmmwvpsouxvpv"]
+[gd_scene load_steps=13 format=3 uid="uid://dmmwvpsouxvpv"]
 
 [ext_resource type="Texture2D" uid="uid://d2h2rutoardr1" path="res://sprites/tornado/tornado_spritesheet.png" id="1_fec2i"]
 [ext_resource type="Script" uid="uid://dxcuij1guk6e5" path="res://scenes/skills/tornado.gd" id="1_hymgt"]
@@ -148,6 +148,9 @@ _data = {
 &"thunderbolted": SubResource("Animation_x00ro")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jed8l"]
+radius = 182.00043
+
 [node name="Tornado" type="Area2D"]
 scale = Vector2(2.5, 2.5)
 collision_layer = 8
@@ -212,3 +215,11 @@ position = Vector2(0, -27.999996)
 scale = Vector2(0.99999976, 0.99999976)
 shape = SubResource("CircleShape2D_xrveb")
 debug_color = Color(0.9799941, 0, 0.38733768, 0.41960785)
+
+[node name="tornado_collision_heal_protection_area" type="Area2D" parent="."]
+collision_layer = 34
+collision_mask = 8
+
+[node name="tornado_collision_heal_protection" type="CollisionShape2D" parent="tornado_collision_heal_protection_area"]
+shape = SubResource("CircleShape2D_jed8l")
+disabled = true

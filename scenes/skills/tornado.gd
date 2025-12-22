@@ -26,6 +26,8 @@ var damage_multiplier
 @onready var tornado_animation: AnimationPlayer = $tornado_animation
 @onready var tornado_collision_heal_area: Area2D = $tornado_collision_heal_area
 @onready var tornado_collision_heal: CollisionShape2D = $tornado_collision_heal_area/tornado_collision_heal
+@onready var tornado_collision_heal_protection_area: Area2D = $tornado_collision_heal_protection_area
+@onready var tornado_collision_heal_protection: CollisionShape2D = $tornado_collision_heal_protection_area/tornado_collision_heal_protection
 
 func initialize(spawn_position: Vector2, skill_res: Tornado):
 	skill_resource = skill_res
@@ -81,6 +83,7 @@ func _ready():
 	tornado_collision_pull_area.body_entered.connect(_on_tornado_collision_pull_entered)
 	tornado_collision_transform_area.area_entered.connect(transform_skill)
 	tornado_collision_knockback_area.body_entered.connect(_on_tornado_collision_knockback_entered)
+	tornado_collision_heal_protection_area.area_entered.connect(_on_tornado_collision_heal_protection_area_entered)
 	
 func _on_lifespan_timeout():
 	call_deferred("queue_free")
@@ -160,6 +163,9 @@ func transformation_heal():
 	skill_resource.effect_pull.pull_speed = 0
 	skill_resource.effect_knockback.knockback_friction = 4.5
 	skill_resource.effect_knockback.knockback_speed = 1800
+	
+	tornado_collision_heal_protection.set_deferred("disabled", false)
+	
 	transformation_heal_timer.start()
 
 func _on_transformation_heal_timer_timeout():
@@ -171,3 +177,7 @@ func _on_transformation_heal_timer_timeout():
 func _on_tornado_collision_knockback_entered(body: UnitParent):
 	if !body.is_in_group("Allied"):
 		skill_resource.effect_knockback.apply_push(global_position, body)
+
+func _on_tornado_collision_heal_protection_area_entered(projectile):
+	if projectile.is_in_group("EnemyProjectile"):
+		projectile.call_deferred("queue_free")
