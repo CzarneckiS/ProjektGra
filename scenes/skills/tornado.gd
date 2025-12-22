@@ -13,6 +13,7 @@ var target_position: Vector2
 var spawn_center: Vector2
 var thunderbolt_skill: Resource = preload("res://resources/thunderbolt_for_tornado.tres")
 var heal_skill: Resource = preload("res://resources/heal_for_tornado.tres")
+var fireball_skill: Resource = preload("res://resources/fireball_for_tornado.tres")
 
 var base_damage
 var damage_multiplier
@@ -124,8 +125,7 @@ func transform_skill(skill):
 	match skill:
 		_ when skill is FireballSpell:
 			transform_animation("006626ff")
-			ticks_per_sec.wait_time = 1.0/20.0
-			base_damage = 6
+			transformation_fireball()
 		_ when skill is ThunderboltSpell:
 			transform_animation("00ffffff")
 			transformation_thunderbolt()
@@ -152,7 +152,10 @@ func _get_new_direction() -> Vector2:
 
 func _on_get_new_direction_cooldown_timeout():
 	target_position = spawn_center + _get_new_direction()
-	
+
+func transformation_fireball():
+	fireball_skill.call_deferred("use", self, Vector2.ZERO)
+
 func transformation_thunderbolt():
 	transformation_thunderbolt_timer.start()
 	
