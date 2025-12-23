@@ -780,7 +780,7 @@ size = Vector2(40, 86)
 size = Vector2(106.666664, 57.685207)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7xcy8"]
-radius = 67.504166
+radius = 88.93291
 
 [node name="Iceblock" type="Node2D"]
 modulate = Color(1, 1, 1, 0.95686275)
@@ -814,7 +814,6 @@ scale = Vector2(0.15, 0.15)
 polygon = PackedVector2Array(-129.75, 420.25, 210.5, 80.25, 213.25, -22.5, 68, -23.25, -281, 272.75, -280.25, 409.25)
 
 [node name="damage_area" type="Area2D" parent="pivotpoint"]
-visible = false
 position = Vector2(-2, -22)
 collision_layer = 8
 collision_mask = 4
@@ -824,7 +823,6 @@ position = Vector2(0.875, 16.125)
 shape = SubResource("RectangleShape2D_5oucj")
 
 [node name="knockback_area" type="Area2D" parent="pivotpoint"]
-visible = false
 position = Vector2(-2, -22)
 collision_layer = 8
 collision_mask = 4
@@ -835,7 +833,6 @@ shape = SubResource("RectangleShape2D_7xcy8")
 debug_color = Color(0, 0.8352941, 0.35686275, 0.41960785)
 
 [node name="diagonal_damage_area" type="Area2D" parent="pivotpoint"]
-visible = false
 position = Vector2(-2, -22)
 collision_layer = 8
 collision_mask = 4
@@ -844,7 +841,6 @@ collision_mask = 4
 polygon = PackedVector2Array(-14.25, 69.25, 36.25, 15.25, 35.5, -9.25, 7, -8.75, -46.75, 36.25, -46, 69.25)
 
 [node name="diagonal_knockback_area" type="Area2D" parent="pivotpoint"]
-visible = false
 position = Vector2(-2, -22)
 collision_layer = 8
 collision_mask = 4
@@ -866,9 +862,9 @@ collision_mask = 8
 position = Vector2(-5, 0.25)
 polygon = PackedVector2Array(47, 12.75, 46.25, -4.5, -45.25, -5, -44.75, 13.75)
 
-[node name="iceblock_transformation_area" type="Area2D" parent="pivotpoint"]
+[node name="Area2D" type="Area2D" parent="pivotpoint"]
 collision_layer = 8
-collision_mask = 16
+collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="pivotpoint/iceblock_transformation_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivotpoint/Area2D"]
 shape = SubResource("CircleShape2D_7xcy8")

@@ -13,7 +13,8 @@ var lifespan: Timer = Timer.new()
 @onready var navigation_region_2d: NavigationRegion2D = get_node("../NavigationRegion2D")
 @onready var pivotpoint: Node2D = $pivotpoint
 @onready var iceblock_projectile_block_area: Area2D = $pivotpoint/iceblock_projectile_block_area
-
+@onready var area_2d: Area2D = $pivotpoint/Area2D
+	
 func initialize(spawn_position: Vector2, skill_res: Iceblock):
 	skill_resource = skill_res
 	global_position = spawn_position
@@ -34,6 +35,7 @@ func _ready():
 	diagonal_damage_area.body_entered.connect(_on_damage_area_entered)
 	diagonal_knockback_area.body_entered.connect(_on_knockback_area_entered)
 	iceblock_projectile_block_area.area_entered.connect(_on_iceblock_projectile_block_entered)
+	
 	lifespan.timeout.connect(_on_lifespan_timeout)
 	
 	navigation_region_2d.call_deferred("bake_navigation_polygon")

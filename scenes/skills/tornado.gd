@@ -132,7 +132,7 @@ func transform_skill(skill):
 		_ when skill is HealSpell:
 			transform_animation("52009aff")
 			transformation_heal()
-		_ when skill is IceblockSpell:
+		_ when skill.owner is IceblockSpell:
 			print("ajsblok")
 			transform_animation("0087bdff")
 			transformation_iceblock()
