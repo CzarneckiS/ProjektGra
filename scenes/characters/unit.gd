@@ -8,6 +8,7 @@ var push_velocity: Vector2
 var push_friction: float
 var bar_style = StyleBoxFlat.new()
 var icon_texture
+const default_speed = 300
 
 var can_attack: bool = true
 var status_effects_array = []

@@ -13,7 +13,7 @@ var lifespan: Timer = Timer.new()
 @onready var navigation_region_2d: NavigationRegion2D = get_node("../NavigationRegion2D")
 @onready var pivotpoint: Node2D = $pivotpoint
 @onready var iceblock_projectile_block_area: Area2D = $pivotpoint/iceblock_projectile_block_area
-@onready var area_2d: Area2D = $pivotpoint/Area2D
+@onready var iceblock_transformation_area: Area2D = $pivotpoint/iceblock_transformation_area
 	
 func initialize(spawn_position: Vector2, skill_res: Iceblock):
 	skill_resource = skill_res

@@ -862,9 +862,9 @@ collision_mask = 8
 position = Vector2(-5, 0.25)
 polygon = PackedVector2Array(47, 12.75, 46.25, -4.5, -45.25, -5, -44.75, 13.75)
 
-[node name="Area2D" type="Area2D" parent="pivotpoint"]
+[node name="iceblock_transformation_area" type="Area2D" parent="pivotpoint"]
 collision_layer = 8
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="pivotpoint/Area2D"]
+[node name="iceblock_transformation_collision" type="CollisionShape2D" parent="pivotpoint/iceblock_transformation_area"]
 shape = SubResource("CircleShape2D_7xcy8")

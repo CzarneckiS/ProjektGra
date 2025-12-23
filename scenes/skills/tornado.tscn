@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dmmwvpsouxvpv"]
+[gd_scene load_steps=21 format=3 uid="uid://dmmwvpsouxvpv"]
 
 [ext_resource type="Texture2D" uid="uid://d2h2rutoardr1" path="res://sprites/tornado/tornado_spritesheet.png" id="1_fec2i"]
 [ext_resource type="Script" uid="uid://dxcuij1guk6e5" path="res://scenes/skills/tornado.gd" id="1_hymgt"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b6nnel6neg6oh" path="res://sprites/tornado/protection_circle/protection_circle_002.png" id="5_lrrw7"]
 [ext_resource type="Texture2D" uid="uid://xvxcfpsx4na4" path="res://sprites/tornado/protection_circle/protection_circle_003.png" id="6_modja"]
 [ext_resource type="Texture2D" uid="uid://pahdlf1epjlf" path="res://sprites/tornado/protection_circle/protection_circle_004.png" id="7_vdx5d"]
+[ext_resource type="Texture2D" uid="uid://cobpq1hmhyt7m" path="res://sprites/tornado/tornado_iceblock_transformation_slow_area/tornado_iceblock_transformation_slow_area.png" id="8_lrrw7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrveb"]
 radius = 151.73505
@@ -180,6 +181,25 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_jed8l"]
 radius = 159.99998
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ms7ra"]
+radius = 122.84168
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lrrw7"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_lrrw7")
+}],
+"loop": true,
+"name": &"slow_area",
+"speed": 1.0
+}]
+
 [node name="Tornado" type="Area2D"]
 scale = Vector2(2.5, 2.5)
 collision_layer = 8
@@ -258,3 +278,14 @@ sprite_frames = SubResource("SpriteFrames_ew3ul")
 position = Vector2(0, -28)
 shape = SubResource("CircleShape2D_jed8l")
 disabled = true
+
+[node name="tornado_collision_iceblock_slow_area" type="Area2D" parent="."]
+position = Vector2(0, -28)
+collision_mask = 4
+
+[node name="tornado_collision_iceblock_slow" type="CollisionShape2D" parent="tornado_collision_iceblock_slow_area"]
+shape = SubResource("CircleShape2D_ms7ra")
+disabled = true
+
+[node name="tornado_collision_iceblock_slow_area_animation" type="AnimatedSprite2D" parent="tornado_collision_iceblock_slow_area"]
+sprite_frames = SubResource("SpriteFrames_lrrw7")

@@ -30,6 +30,9 @@ var damage_multiplier
 @onready var tornado_collision_heal_protection_area: Area2D = $tornado_collision_heal_protection_area
 @onready var tornado_collision_heal_protection: CollisionShape2D = $tornado_collision_heal_protection_area/tornado_collision_heal_protection
 @onready var tornado_heal_protection_animation: AnimatedSprite2D = $tornado_collision_heal_protection_area/tornado_heal_protection_animation
+@onready var tornado_collision_iceblock_slow: CollisionShape2D = $tornado_collision_iceblock_slow_area/tornado_collision_iceblock_slow
+@onready var tornado_collision_iceblock_slow_area: Area2D = $tornado_collision_iceblock_slow_area
+@onready var tornado_collision_iceblock_slow_area_animation: AnimatedSprite2D = $tornado_collision_iceblock_slow_area/tornado_collision_iceblock_slow_area_animation
 
 func initialize(spawn_position: Vector2, skill_res: Tornado):
 	skill_resource = skill_res.duplicate(true)
@@ -86,6 +89,8 @@ func _ready():
 	tornado_collision_transform_area.area_entered.connect(transform_skill)
 	tornado_collision_knockback_area.body_entered.connect(_on_tornado_collision_knockback_entered)
 	tornado_collision_heal_protection_area.area_entered.connect(_on_tornado_collision_heal_protection_area_entered)
+	tornado_collision_iceblock_slow_area.body_entered.connect(_on_tornado_collision_iceblock_slow_area_entered)
+	tornado_collision_iceblock_slow_area.body_exited.connect(_on_tornado_collision_iceblock_slow_area_exited)
 	
 func _on_lifespan_timeout():
 	call_deferred("queue_free")
@@ -197,6 +202,20 @@ func _on_tornado_collision_heal_protection_area_entered(projectile):
 
 func transformation_iceblock(skill):
 	skill.owner.call_deferred("queue_free")
+	tornado_collision_iceblock_slow_area_animation.play("slow_area")
+	skill_resource.effect_pull.pull_friction = 0
+	skill_resource.effect_pull.pull_speed = 0
 	self.scale *= 2.5
-	base_damage += 30
 	damage_multiplier += 0.2
+	base_damage += 5
+	tornado_collision_iceblock_slow.set_deferred("disabled", false)
+
+func _on_tornado_collision_iceblock_slow_area_entered(body):
+	var overlapping_bodies = get_overlapping_bodies()
+	if !overlapping_bodies.is_empty():
+		for bodies in overlapping_bodies:
+			if !bodies.is_in_group("Allied"):
+				body.speed -= 200
+
+func _on_tornado_collision_iceblock_slow_area_exited(body):
+	body.speed = body.default_speed
