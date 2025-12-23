@@ -141,7 +141,8 @@ func transform_skill(skill):
 			transform_animation("0087bdff")
 			transformation_iceblock(skill)
 		_ when skill is FieldSpell:
-			pass
+			transform_animation("79a300ff")
+			transformation_field(skill)
 		_ :
 			return
 	transformed = true
@@ -219,3 +220,6 @@ func _on_tornado_collision_iceblock_slow_area_entered(body):
 
 func _on_tornado_collision_iceblock_slow_area_exited(body):
 	body.speed = body.default_speed
+
+func transformation_field(skill):
+	pass
