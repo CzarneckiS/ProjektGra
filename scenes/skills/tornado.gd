@@ -14,6 +14,7 @@ var spawn_center: Vector2
 var thunderbolt_skill: Resource = preload("res://resources/thunderbolt_for_tornado.tres")
 var heal_skill: Resource = preload("res://resources/heal_for_tornado.tres")
 var fireball_skill: Resource = preload("res://resources/fireball_for_tornado.tres")
+var tornado_mini_skill: Resource = preload("res://resources/tornado_mini.tres")
 
 var base_damage
 var damage_multiplier
@@ -221,5 +222,7 @@ func _on_tornado_collision_iceblock_slow_area_entered(body):
 func _on_tornado_collision_iceblock_slow_area_exited(body):
 	body.speed = body.default_speed
 
-func transformation_field(skill):
-	pass
+func transformation_field(_skill):
+	var amount = tornado_mini_skill.amount
+	for i in range(amount):
+		tornado_mini_skill.call_deferred("use", self, global_position)
