@@ -108,3 +108,5 @@ func update_opacity_update(_body):
 func _on_iceblock_projectile_block_entered(projectile):
 	if projectile.is_in_group("EnemyProjectile"):
 		projectile.call_deferred("queue_free")
+	else:
+		return

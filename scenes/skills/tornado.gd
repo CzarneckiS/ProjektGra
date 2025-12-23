@@ -94,7 +94,7 @@ func _on_ticks_per_sec_timeout():
 	var overlapping_bodies = get_overlapping_bodies()
 	if !overlapping_bodies.is_empty():
 		for body in overlapping_bodies:
-			if !body.is_in_group("Allied"):
+			if !body.is_in_group("Allied") and body.has_method("hit"):
 				body.hit(base_damage * damage_multiplier, self)
 	else:
 		ticks_per_sec.stop()
