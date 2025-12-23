@@ -4,16 +4,18 @@ class_name FireballSpell
 var skill_resource: Fireball
 
 var start_position: Vector2
+var end_position: Vector2
 var direction: Vector2
 var hit: bool = false
 
-func initialize(start_pos: Vector2, target_pos: Vector2, skill_res: Fireball):
+func initialize(start_pos, target_pos: Vector2, skill_res: Fireball, _shift):
 	skill_resource = skill_res
 	
-	start_position = start_pos
-	global_position = start_pos
+	start_position = start_pos.global_position
+	global_position = start_pos.global_position
+	end_position = target_pos
 	
-	direction = (target_pos - start_pos).normalized()
+	direction = (end_position - start_position).normalized()
 	look_at(target_pos)
 	
 func _ready():

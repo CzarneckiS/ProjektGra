@@ -39,6 +39,8 @@ Selected=""
 Unit=""
 Allied=""
 Player=""
+Tornado=""
+EnemyProjectile=""
 
 [input]
 
