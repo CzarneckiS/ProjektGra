@@ -197,6 +197,30 @@ tracks/15/keys = {
 "update": 0,
 "values": [PackedVector2Array(-24, 22.75, -39.25, 22, 9.25, -22.5, 24, -22.75)]
 }
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("pivotpoint/iceblock_projectile_block_area/iceblock_projectile_block_collisioniceblock_projectile_block_collision:polygon")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(47, 12.75, 46.25, -4.5, -45.25, -5, -44.75, 13.75)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("pivotpoint/iceblock_projectile_block_area/iceblock_projectile_block_collisioniceblock_projectile_block_collision:position")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-5, 0.25)]
+}
 
 [sub_resource type="Animation" id="Animation_nn1yf"]
 resource_name = "ice_wall_diagonal"
@@ -333,6 +357,30 @@ tracks/10/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector2(0, 0), Vector2(3.5, 0), Vector2(2, 0), Vector2(-2.5, 0), Vector2(4.5, 0), Vector2(1.75, 0), Vector2(0.25, 0), Vector2(2.25, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("pivotpoint/iceblock_projectile_block_area/iceblock_projectile_block_collisioniceblock_projectile_block_collision:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-5, 0.25), Vector2(-0.75, 0.25), Vector2(-2.25, 0.25), Vector2(-7, 0.25), Vector2(0.5, 0.25), Vector2(-2.25, 0.25), Vector2(-4, 0.25), Vector2(-2.25, 0.25)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("pivotpoint/iceblock_projectile_block_area/iceblock_projectile_block_collisioniceblock_projectile_block_collision:polygon")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.1875, 0.375),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(-16.75, 41, 35.75, -11.25, 35, -25.25, 31, -25, -19.25, 22.5, -39, 21.75, -38.75, 38.25), PackedVector2Array(-16.75, 41, 35.75, -11.25, 35, -28.75, 32, -29, -18.5, 18, -39.25, 17.75, -38.75, 38.25), PackedVector2Array(-16.75, 41, 35.75, -11.25, 35.25, -41.25, -17.25, 5.25, -39.25, 5.25, -38.75, 38.25)]
 }
 
 [sub_resource type="Animation" id="Animation_a6g3u"]
@@ -507,6 +555,30 @@ tracks/13/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("pivotpoint/iceblock_projectile_block_area/iceblock_projectile_block_collisioniceblock_projectile_block_collision:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-5, 0.25), Vector2(3.5, 0.25), Vector2(0.5, 0.25), Vector2(-4.75, 0.25), Vector2(3.75, 0.25), Vector2(0.25, 0.25), Vector2(-3, 0.25), Vector2(-0.25, 0.25)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("pivotpoint/iceblock_projectile_block_area/iceblock_projectile_block_collisioniceblock_projectile_block_collision:polygon")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 0.1875, 0.375),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(47, 12.75, 46.25, -4.5, -45.25, -5, -44.75, 13.75), PackedVector2Array(47, 12.75, 46.5, -12.75, -45, -12.75, -44.75, 13.75), PackedVector2Array(47, 12.75, 47, -20, -45, -20.25, -44.75, 13.75)]
+}
 
 [sub_resource type="Animation" id="Animation_yje8c"]
 resource_name = "ice_wall_side"
@@ -668,6 +740,30 @@ tracks/12/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("pivotpoint/iceblock_projectile_block_area/iceblock_projectile_block_collisioniceblock_projectile_block_collision:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-5, 0.25), Vector2(1.25, 0.25), Vector2(-2.25, 0.25), Vector2(-6.75, 0.25), Vector2(1.5, 0.25), Vector2(-2.25, 0.25), Vector2(-5.25, 0.25), Vector2(-2.25, 0.25)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("pivotpoint/iceblock_projectile_block_area/iceblock_projectile_block_collisioniceblock_projectile_block_collision:polygon")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 0.1875, 0.375),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(16, 41.25, 14.5, -4.75, -15.5, -4.5, -15.75, 40.75), PackedVector2Array(16, 41.25, 15, -9.5, -15, -9.25, -15.75, 40.75), PackedVector2Array(16, 41.25, 15.75, -39.5, -15.5, -39.25, -15.75, 40.75)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0e8mw"]
 _data = {
@@ -758,3 +854,9 @@ collision_mask = 38
 
 [node name="opacity_collision" type="CollisionPolygon2D" parent="pivotpoint/opacity_area"]
 polygon = PackedVector2Array(-24, 22.75, -39.25, 22, 9.25, -22.5, 24, -22.75)
+
+[node name="iceblock_projectile_block_area" type="Area2D" parent="pivotpoint"]
+
+[node name="iceblock_projectile_block_collisioniceblock_projectile_block_collision" type="CollisionPolygon2D" parent="pivotpoint/iceblock_projectile_block_area"]
+position = Vector2(-5, 0.25)
+polygon = PackedVector2Array(47, 12.75, 46.25, -4.5, -45.25, -5, -44.75, 13.75)

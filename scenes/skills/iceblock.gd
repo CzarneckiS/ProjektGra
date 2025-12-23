@@ -13,6 +13,7 @@ var lifespan: Timer = Timer.new()
 @onready var navigation_region_2d: NavigationRegion2D = get_node("../NavigationRegion2D")
 @onready var pivotpoint: Node2D = $pivotpoint
 
+
 func initialize(spawn_position: Vector2, skill_res: Iceblock):
 	skill_resource = skill_res
 	global_position = spawn_position

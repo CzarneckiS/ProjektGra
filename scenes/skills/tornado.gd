@@ -132,6 +132,9 @@ func transform_skill(skill):
 		_ when skill is HealSpell:
 			transform_animation("52009a")
 			transformation_heal()
+		_ when skill is IceblockSpell:
+			transform_animation("0087bdff")
+			transformation_iceblock()
 		_ :
 			return
 	transformed = true
@@ -189,3 +192,6 @@ func _on_tornado_collision_knockback_entered(body: UnitParent):
 func _on_tornado_collision_heal_protection_area_entered(projectile):
 	if projectile.is_in_group("EnemyProjectile"):
 		projectile.call_deferred("queue_free")
+
+func transformation_iceblock():
+	pass
