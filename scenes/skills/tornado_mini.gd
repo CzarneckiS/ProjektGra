@@ -11,6 +11,9 @@ var transformed: bool = true
 var target_position: Vector2
 var spawn_center: Vector2
 
+var orb_skill: Resource = preload("res://resources/orb.tres")
+var orb_spawn_timer: Timer = Timer.new()
+
 var base_damage
 var damage_multiplier
 
@@ -51,6 +54,12 @@ func initialize(spawn_position: Vector2, skill_res: Tornado):
 	get_new_direction_cooldown.wait_time = skill_resource.time_before_new_direction
 	get_new_direction_cooldown.timeout.connect(_on_get_new_direction_cooldown_timeout)
 	
+	add_child(orb_spawn_timer)
+	orb_spawn_timer.one_shot = false
+	orb_spawn_timer.autostart = true
+	orb_spawn_timer.wait_time = 1.0/skill_resource.orb_spawn_frequency
+	orb_spawn_timer.timeout.connect(_on_transformation_orb_spawn_timer_timeout)
+	
 	if skill_resource.effect_aoe != null:
 		if tornado_collision_pull.shape:
 			var base_radius = skill_resource.effect_aoe.radius
@@ -61,6 +70,7 @@ func initialize(spawn_position: Vector2, skill_res: Tornado):
 	
 func _ready():
 	lifespan.call_deferred("start")
+	orb_spawn_timer.call_deferred("start")
 	
 	tornado_animation.play("default")
 	tornado_collision_pull_area.body_entered.connect(_on_tornado_collision_pull_entered)
@@ -110,3 +120,6 @@ func _on_get_new_direction_cooldown_timeout():
 func _on_tornado_collision_knockback_entered(body: UnitParent):
 	if !body.is_in_group("Allied"):
 		skill_resource.effect_knockback.apply_push(global_position, body)
+
+func _on_transformation_orb_spawn_timer_timeout():
+	orb_skill.call_deferred("use", self, global_position)

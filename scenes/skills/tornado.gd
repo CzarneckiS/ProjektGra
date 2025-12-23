@@ -7,6 +7,7 @@ var ticks_per_sec: Timer = Timer.new()
 var get_new_direction_cooldown: Timer = Timer.new()
 var transformation_thunderbolt_timer: Timer = Timer.new()
 var transformation_heal_timer: Timer = Timer.new()
+var orb_spawn_timer: Timer = Timer.new()
 var is_ticking: bool = false
 var transformed: bool = false
 var target_position: Vector2
@@ -74,6 +75,12 @@ func initialize(spawn_position: Vector2, skill_res: Tornado):
 	transformation_heal_timer.autostart = true
 	transformation_heal_timer.wait_time = skill_resource.transformation_heal_frequency
 	transformation_heal_timer.timeout.connect(_on_transformation_heal_timer_timeout)
+	
+	add_child(orb_spawn_timer)
+	orb_spawn_timer.one_shot = false
+	orb_spawn_timer.autostart = true
+	orb_spawn_timer.wait_time = 1.0/skill_resource.orb_spawn_frequency
+	orb_spawn_timer.timeout.connect(_on_transformation_orb_spawn_timer_timeout)
 	
 	if skill_resource.effect_aoe != null:
 		if tornado_collision_pull.shape:
@@ -224,7 +231,10 @@ func _on_tornado_collision_iceblock_slow_area_exited(body):
 	body.speed = body.default_speed
 
 func transformation_field(_skill):
+	orb_spawn_timer.start()
 	var amount = tornado_mini_skill.amount
 	for i in range(amount):
 		tornado_mini_skill.call_deferred("use", self, global_position)
-		orb_skill.call_deferred("use", self, global_position)
+
+func _on_transformation_orb_spawn_timer_timeout():
+	orb_skill.call_deferred("use", self, global_position)

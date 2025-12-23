@@ -12,6 +12,10 @@
 script = ExtResource("1_5t2vn")
 metadata/_custom_type_script = "uid://8g2g4sl8jw6l"
 
+[sub_resource type="Resource" id="Resource_5t2vn"]
+script = ExtResource("6_2ds3q")
+metadata/_custom_type_script = "uid://dnv5i0eq6rlp7"
+
 [sub_resource type="Resource" id="Resource_vfg75"]
 script = ExtResource("2_n67wr")
 metadata/_custom_type_script = "uid://02kqq8hqw2mm"
@@ -20,17 +24,14 @@ metadata/_custom_type_script = "uid://02kqq8hqw2mm"
 script = ExtResource("3_tj3ni")
 metadata/_custom_type_script = "uid://doefgekdmwu85"
 
-[sub_resource type="Resource" id="Resource_eyoao"]
-script = ExtResource("6_2ds3q")
-metadata/_custom_type_script = "uid://dnv5i0eq6rlp7"
-
 [resource]
 script = ExtResource("2_qpvd0")
-skill_effect_data = SubResource("Resource_eyoao")
+effect_damage = SubResource("Resource_5t2vn")
 effect_knockback = SubResource("Resource_rgbvj")
 effect_heal = SubResource("Resource_vfg75")
 effect_aoe = SubResource("Resource_rvqtk")
 give_exp_amount = 30.0
+orb_lifetime = 5.0
 skill_name = "orb"
 skill_desc = "orbisko"
 cooldown = 0.0

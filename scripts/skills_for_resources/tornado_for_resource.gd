@@ -13,6 +13,7 @@ class_name Tornado
 @export var transformation_heal_frequency: float
 @export var effect_heal: EffectHeal
 @export var amount: int
+@export var orb_spawn_frequency: int
 
 func use(player, target_position: Vector2) -> void:
 	var projectile_node = visual_effect.instantiate()

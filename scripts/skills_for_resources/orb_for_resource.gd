@@ -1,11 +1,12 @@
 extends SkillInstant
 class_name Orb
 
-@export var skill_effect_data: EffectDamage
+@export var effect_damage: EffectDamage
 @export var effect_knockback: EffectKnockback
 @export var effect_heal: EffectHeal
 @export var effect_aoe: EffectAreaOfEffect
 @export var give_exp_amount: float
+@export var orb_lifetime: float
 
 @export var unit_tags : PackedInt32Array = []
 @export var use_tags : PackedInt32Array = []
