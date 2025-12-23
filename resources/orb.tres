@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Orb" load_steps=3 format=3 uid="uid://b2jnh4uxirhd7"]
+
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_i4pfu"]
+[ext_resource type="Script" uid="uid://ckknjesqjyf5u" path="res://scripts/skills_for_resources/orb_for_resource.gd" id="2_qpvd0"]
+
+[resource]
+script = ExtResource("2_qpvd0")
+metadata/_custom_type_script = "uid://ckknjesqjyf5u"
