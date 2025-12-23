@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ca7j2rmm5tryu"]
+[gd_scene load_steps=11 format=3 uid="uid://ca7j2rmm5tryu"]
 
 [ext_resource type="Script" uid="uid://816i57r10wir" path="res://scenes/skills/iceblock.gd" id="1_1rhpg"]
 [ext_resource type="Texture2D" uid="uid://dno12f5cx80dm" path="res://sprites/iceblock/ice_wall.png" id="2_5oucj"]
@@ -221,18 +221,6 @@ tracks/17/keys = {
 "update": 0,
 "values": [Vector2(-5, 0.25)]
 }
-tracks/18/type = "value"
-tracks/18/imported = false
-tracks/18/enabled = true
-tracks/18/path = NodePath("pivotpoint/iceblock_transformation_area/iceblock_transformation_collision:polygon")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(-15, 45.25, 38.25, -8, 38.25, -31.75, 11.75, -31.5, -42, 14, -41.75, 42.25)]
-}
 
 [sub_resource type="Animation" id="Animation_nn1yf"]
 resource_name = "ice_wall_diagonal"
@@ -393,30 +381,6 @@ tracks/12/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [PackedVector2Array(-16.75, 41, 35.75, -11.25, 35, -25.25, 31, -25, -19.25, 22.5, -39, 21.75, -38.75, 38.25), PackedVector2Array(-16.75, 41, 35.75, -11.25, 35, -28.75, 32, -29, -18.5, 18, -39.25, 17.75, -38.75, 38.25), PackedVector2Array(-16.75, 41, 35.75, -11.25, 35.25, -41.25, -17.25, 5.25, -39.25, 5.25, -38.75, 38.25)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("pivotpoint/iceblock_transformation_area/iceblock_transformation_collision:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
-"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector2(-5, 0.25), Vector2(-0.75, 0.25), Vector2(-2.25, 0.25), Vector2(-7, 0.25), Vector2(0.5, 0.25), Vector2(-2.25, 0.25), Vector2(-4, 0.25), Vector2(-2.25, 0.25)]
-}
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("pivotpoint/iceblock_transformation_area/iceblock_transformation_collision:polygon")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
-"times": PackedFloat32Array(0, 0.1875, 0.375),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [PackedVector2Array(-15, 45.25, 38.25, -8, 38.25, -31.75, 11.75, -31.5, -42, 14, -41.75, 42.25), PackedVector2Array(-15, 45.25, 38.25, -8, 39.25, -38.75, 12.25, -38, -43.75, 8, -41.75, 42.25), PackedVector2Array(-15, 45.25, 38.25, -8, 37.75, -89.25, 10.25, -90.5, -44.75, -43.75, -42, 42.5)]
 }
 
 [sub_resource type="Animation" id="Animation_a6g3u"]
@@ -615,30 +579,6 @@ tracks/15/keys = {
 "update": 1,
 "values": [PackedVector2Array(47, 12.75, 46.25, -4.5, -45.25, -5, -44.75, 13.75), PackedVector2Array(47, 12.75, 46.5, -12.75, -45, -12.75, -44.75, 13.75), PackedVector2Array(47, 12.75, 47, -20, -45, -20.25, -44.75, 13.75)]
 }
-tracks/16/type = "value"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("pivotpoint/iceblock_transformation_area/iceblock_transformation_collision:position")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = {
-"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector2(-5, 0.25), Vector2(3.5, 0.25), Vector2(0.5, 0.25), Vector2(-4.75, 0.25), Vector2(3.75, 0.25), Vector2(0.25, 0.25), Vector2(-3, 0.25), Vector2(-0.25, 0.25)]
-}
-tracks/17/type = "value"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("pivotpoint/iceblock_transformation_area/iceblock_transformation_collision:polygon")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
-"times": PackedFloat32Array(0, 0.1875, 0.375),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [PackedVector2Array(47, 12.75, 46.25, -4.5, -45.25, -5, -44.75, 13.75), PackedVector2Array(47, 12.75, 46.5, -12.75, -45, -12.75, -44.75, 13.75), PackedVector2Array(47, 12.75, 47, -20, -45, -20.25, -44.75, 13.75)]
-}
 
 [sub_resource type="Animation" id="Animation_yje8c"]
 resource_name = "ice_wall_side"
@@ -824,30 +764,6 @@ tracks/14/keys = {
 "update": 1,
 "values": [PackedVector2Array(16, 41.25, 14.5, -4.75, -15.5, -4.5, -15.75, 40.75), PackedVector2Array(16, 41.25, 15, -9.5, -15, -9.25, -15.75, 40.75), PackedVector2Array(16, 41.25, 15.75, -39.5, -15.5, -39.25, -15.75, 40.75)]
 }
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("pivotpoint/iceblock_transformation_area/iceblock_transformation_collision:position")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
-"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector2(-5, 0.25), Vector2(1.25, 0.25), Vector2(-2.25, 0.25), Vector2(-6.75, 0.25), Vector2(1.5, 0.25), Vector2(-2.25, 0.25), Vector2(-5.25, 0.25), Vector2(-2.25, 0.25)]
-}
-tracks/16/type = "value"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("pivotpoint/iceblock_transformation_area/iceblock_transformation_collision:polygon")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = {
-"times": PackedFloat32Array(0, 0.1875, 0.375),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [PackedVector2Array(16, 41.25, 14.5, -4.75, -15.5, -4.5, -15.75, 40.75), PackedVector2Array(16, 41.25, 15, -9.5, -15, -9.25, -15.75, 40.75), PackedVector2Array(16, 41.25, 15.75, -39.5, -15.5, -39.25, -15.75, 40.75)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0e8mw"]
 _data = {
@@ -862,6 +778,9 @@ size = Vector2(40, 86)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7xcy8"]
 size = Vector2(106.666664, 57.685207)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7xcy8"]
+radius = 67.504166
 
 [node name="Iceblock" type="Node2D"]
 modulate = Color(1, 1, 1, 0.95686275)
@@ -949,8 +868,7 @@ polygon = PackedVector2Array(47, 12.75, 46.25, -4.5, -45.25, -5, -44.75, 13.75)
 
 [node name="iceblock_transformation_area" type="Area2D" parent="pivotpoint"]
 collision_layer = 8
-collision_mask = 8
+collision_mask = 16
 
-[node name="iceblock_transformation_collision" type="CollisionPolygon2D" parent="pivotpoint/iceblock_transformation_area"]
-position = Vector2(-5, 0.25)
-polygon = PackedVector2Array(-15, 45.25, 38.25, -8, 38.25, -31.75, 11.75, -31.5, -42, 14, -41.75, 42.25)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivotpoint/iceblock_transformation_area"]
+shape = SubResource("CircleShape2D_7xcy8")

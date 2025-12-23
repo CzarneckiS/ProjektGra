@@ -130,12 +130,14 @@ func transform_skill(skill):
 			transform_animation("00ffffff")
 			transformation_thunderbolt()
 		_ when skill is HealSpell:
-			transform_animation("52009a")
+			transform_animation("52009aff")
 			transformation_heal()
 		_ when skill is IceblockSpell:
 			print("ajsblok")
 			transform_animation("0087bdff")
 			transformation_iceblock()
+		_ when skill is FieldSpell:
+			pass
 		_ :
 			return
 	transformed = true
