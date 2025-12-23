@@ -856,6 +856,8 @@ collision_mask = 38
 polygon = PackedVector2Array(-24, 22.75, -39.25, 22, 9.25, -22.5, 24, -22.75)
 
 [node name="iceblock_projectile_block_area" type="Area2D" parent="pivotpoint"]
+collision_layer = 32
+collision_mask = 8
 
 [node name="iceblock_projectile_block_collisioniceblock_projectile_block_collision" type="CollisionPolygon2D" parent="pivotpoint/iceblock_projectile_block_area"]
 position = Vector2(-5, 0.25)
