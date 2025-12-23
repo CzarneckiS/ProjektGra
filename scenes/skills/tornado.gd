@@ -133,9 +133,8 @@ func transform_skill(skill):
 			transform_animation("52009aff")
 			transformation_heal()
 		_ when skill.owner is IceblockSpell:
-			print("ajsblok")
 			transform_animation("0087bdff")
-			transformation_iceblock()
+			transformation_iceblock(skill)
 		_ when skill is FieldSpell:
 			pass
 		_ :
@@ -196,5 +195,8 @@ func _on_tornado_collision_heal_protection_area_entered(projectile):
 	if projectile.is_in_group("EnemyProjectile"):
 		projectile.call_deferred("queue_free")
 
-func transformation_iceblock():
-	pass
+func transformation_iceblock(skill):
+	skill.owner.call_deferred("queue_free")
+	self.scale *= 2.5
+	base_damage += 30
+	damage_multiplier += 0.2
