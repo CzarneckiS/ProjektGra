@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerStatsUpSpellDamageUp" load_steps=4 format=3 uid="uid://eem4i58s2kui"]
+
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_ekw3x"]
+[ext_resource type="Texture2D" uid="uid://dw4egf10apgen" path="res://sprites/icons/spell damage upgrade icon.png" id="2_k32uh"]
+[ext_resource type="Script" uid="uid://cr0sxy17a7if6" path="res://scripts/skills_for_resources/player_spell_damage_up_for_resource.gd" id="3_hi32e"]
+
+[resource]
+script = ExtResource("3_hi32e")
+skill_name = "Phylacteric expansion"
+icon = ExtResource("2_k32uh")

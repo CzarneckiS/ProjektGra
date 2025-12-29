@@ -93,8 +93,7 @@ func level_up():
 	ui_hp_update_requested.emit()
 	lvl_up_menu_requested.emit()
 
-func update_player_hp(damage_taken):
-	health -= damage_taken
+func update_player_hp():
 	ui_hp_update_requested.emit()
 	if health <= 0:
 		pass # play death()

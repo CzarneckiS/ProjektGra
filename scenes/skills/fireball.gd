@@ -38,7 +38,7 @@ func _on_body_entered(body: UnitParent):
 		hit = true
 		$fireball_animation.play("splash")
 		$fireball_animation.scale = Vector2(1.5, 1.5)
-		body.hit(skill_resource.skill_effect_data.base_damage*skill_resource.skill_effect_data.damage_multiplier, self)
+		body.hit(skill_resource.skill_effect_data.base_damage**skill_resource.skill_effect_data.damage_multiplier, self)
 		skill_resource.effect_knockback.apply_push(global_position, body)
 
 func _on_animation_finished():

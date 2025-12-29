@@ -72,17 +72,23 @@ func on_unit_death(unit):
 				order.unit_array.erase(unit)
 	match unit:
 		Tags.UnitTag.SKELETON_MAGE:
-			await get_tree().create_timer(5.0).timeout
+			await get_tree().create_timer(5.0 * $Player.summon_respawn_timer_modifier).timeout
 			summon_skeleton_mage()
 		Tags.UnitTag.SKELETON_WARRIOR:
-			await get_tree().create_timer(5.0).timeout
+			print($Player.summon_respawn_timer_modifier)
+			print(5.0 * $Player.summon_respawn_timer_modifier)
+			await get_tree().create_timer(5.0 * $Player.summon_respawn_timer_modifier).timeout
 			summon_skeleton_warrior()
 		Tags.UnitTag.HUMAN_WARRIOR:
 			Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.HUMAN_WARRIOR)
+			$Player.handle_unit_death()
 		Tags.UnitTag.HUMAN_ARCHER:
 			Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.HUMAN_ARCHER)
+			$Player.handle_unit_death()
 		Tags.UnitTag.HUMAN_MAGE:
 			Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.HUMAN_MAGE)
+			$Player.handle_unit_death()
+		
 #Ta funkcja moze byc potencjalnie grozna bo uzywa WHILE !
 #uzywanie while podczas runtime gry moze oznaczac lagi i wtedy moze trzeba zrobic cos takiego:
 #funkcja w while ma np 60 prob zanim sie podda

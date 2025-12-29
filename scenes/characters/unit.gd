@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name UnitParent
 
-
+var base_max_health
 var max_health 
 var health 
 var push_velocity: Vector2

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://wvsdf8tuug6c"]
+
+[ext_resource type="Script" uid="uid://d3y22kys2vvoj" path="res://static_body_2d.gd" id="1_f8d35"]
+[ext_resource type="Texture2D" uid="uid://k0wnioefee6u" path="res://sprites/terrain/tree.png" id="2_pv53r"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qd6xs"]
+radius = 31.0
+height = 66.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ake3r"]
+radius = 105.0
+
+[node name="Tree" type="StaticBody2D"]
+collision_mask = 38
+script = ExtResource("1_f8d35")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-5.999996, 23.999992)
+scale = Vector2(0.27606955, 0.27606955)
+texture = ExtResource("2_pv53r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6, 182)
+shape = SubResource("CapsuleShape2D_qd6xs")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 38
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, -13)
+shape = SubResource("CircleShape2D_ake3r")

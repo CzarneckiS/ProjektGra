@@ -19,5 +19,6 @@ enum UseTag{
 	ACTIVE,
 	ON_HIT,
 	ON_DEATH,
-	SUMMON
+	SUMMON,
+	UNIT_DEATH
 }

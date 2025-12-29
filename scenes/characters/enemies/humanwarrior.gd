@@ -45,7 +45,8 @@ var mouse_hovering : bool = false #sluzy do sprawdzania czy myszka jest w clicka
 	#state_machine.set_state(state_machine.states.knockback)
 	
 func _ready() -> void:
-	max_health  = 60
+	base_max_health = 60
+	max_health  = base_max_health
 	health = max_health
 	health_bar.max_value = max_health
 	health_bar.value = max_health
@@ -59,7 +60,7 @@ func _ready() -> void:
 	bar_style.border_width_top = 2
 	bar_style.border_width_bottom = 2
 	bar_style.border_color = Color(0.0, 0.0, 0.0, 1.0)
-	health_bar.add_theme_stylebox_override("fill", bar_style)
+	health_bar.add_theme_stylebox_override(&"fill", bar_style)
 	
 	move_target = Globals.player_position
 	navigation_agent_2d.max_speed = speed
@@ -167,11 +168,11 @@ func _on_navigation_timer_timeout() -> void:
 #COMBAT ===============================================================================
 func hit(damage_taken, damage_source) -> bool:
 	if health > 0:
-		if damage_source != RefCounted:
-			$Sprite2D.material.set_shader_parameter('progress',1)
-		$Timers/HitFlashTimer.start()
-		$Particles/HitParticles.emitting = true
-		took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
+		if damage_source not in status_effects_array:
+			$Sprite2D.material.set_shader_parameter(&'progress',1)
+			$Timers/HitFlashTimer.start()
+			$Particles/HitParticles.emitting = true
+			took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
 	health_bar.visible = true
 	damage_bar.visible = true
 	
@@ -189,9 +190,9 @@ func hit(damage_taken, damage_source) -> bool:
 		dying = true
 		health_bar.visible = false
 		damage_bar.visible = false
-		state_machine.call_deferred("set_state", state_machine.states.dying) #zmiana na call_deferred bo przy spellach powodowało, że debugger nie był happy (przez sygnał _on_body_entered w fireball gdzie wywołujemy hit())
+		state_machine.call_deferred(&"set_state", state_machine.states.dying) #zmiana na call_deferred bo przy spellach powodowało, że debugger nie był happy (przez sygnał _on_body_entered w fireball gdzie wywołujemy hit())
 		navigation_agent_2d.avoidance_enabled = false
-		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów. Zmiana na call_deferred by debugger był happy, patrz wyżej.
+		$CollisionShape2D.call_deferred(&"set_deferred", &"disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów. Zmiana na call_deferred by debugger był happy, patrz wyżej.
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
@@ -217,7 +218,7 @@ func seek_enemies():
 	for unit in possible_targets:
 		if unit == null:
 			possible_targets.erase(unit)
-	for enemy in get_tree().get_nodes_in_group("Allied"):
+	for enemy in get_tree().get_nodes_in_group(&"Allied"):
 		if global_position.distance_to(enemy.global_position) > vision_range:
 			if possible_targets.has(enemy):
 				possible_targets.erase(enemy)
@@ -227,8 +228,8 @@ func seek_enemies():
 				
 
 func _on_vision_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Unit"): #sprawdza czy jednostka, która weszła w vision range to valid target
-		if body.is_in_group("Allied"): #Sprawdza czy jest to sojusznik głownego gracza
+	if body.is_in_group(&"Unit"): #sprawdza czy jednostka, która weszła w vision range to valid target
+		if body.is_in_group(&"Allied"): #Sprawdza czy jest to sojusznik głownego gracza
 			possible_targets.append(body) #dodajemy target do listy
 
 func _on_vision_area_body_exited(body: Node2D) -> void:
@@ -267,16 +268,16 @@ func _input(event: InputEvent) -> void:
 	if !event.is_released(): #sprawdzamy czy puściliśmy przycisk myszy
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if get_tree().get_nodes_in_group("Selected"): #jesli zselectowaliśmy jakąś allied jednostke
+		if get_tree().get_nodes_in_group(&"Selected"): #jesli zselectowaliśmy jakąś allied jednostke
 			target_clicked.emit(self) #emitujemy sygnal, ze cel zostal klikniety
-			$AnimationPlayerSelected.play("clicked_enemy") #odgrywamy animacje zaznaczenia humanwarriora
+			$AnimationPlayerSelected.play(&"clicked_enemy") #odgrywamy animacje zaznaczenia humanwarriora
 			get_viewport().set_input_as_handled()
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if !Globals.attack_move_input:
 			return
-		if get_tree().get_nodes_in_group("Selected"):
+		if get_tree().get_nodes_in_group(&"Selected"):
 			target_clicked.emit(self)
-			$AnimationPlayerSelected.play("clicked_enemy")
+			$AnimationPlayerSelected.play(&"clicked_enemy")
 
 #sprawdzamy czy myszka znajduje się w Area2D naszego ClickArea
 func _on_click_area_mouse_entered() -> void:
@@ -295,4 +296,4 @@ func _on_click_area_mouse_exited() -> void:
 #VISUALS ============================================================
 
 func _on_hit_flash_timer_timeout() -> void:
-	$Sprite2D.material.set_shader_parameter('progress',0)
+	$Sprite2D.material.set_shader_parameter(&'progress',0)

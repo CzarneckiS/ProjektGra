@@ -42,9 +42,9 @@ func _ready() -> void:
 
 	icon_texture = "res://sprites/ui/skeleton warrior icon.png"
 
-	handle_skills()
-	handle_starting_skills()
-	max_health  = 60
+
+	base_max_health = 60
+	max_health  = base_max_health
 	health = max_health
 	health_bar.max_value = max_health
 	health_bar.value = max_health
@@ -87,6 +87,9 @@ func _ready() -> void:
 	#dodac normalne przeszkody??
 	for raycast in raycast_array:
 		raycast.set_collision_mask(0b100000)
+		
+	handle_skills()
+	handle_starting_skills()
 func _physics_process(_delta: float) -> void:
 	return
 	match state_machine.state:
@@ -222,7 +225,8 @@ func move_to_target(delta,target_position): #CLOSE RANGE MOVEMENT
 				#print("im setting this stuff to true")
 				unit_stuck_boolean = true
 			else:
-				print("odleglosc byla wieksza niz epsilon")
+				pass
+				#print("odleglosc byla wieksza niz epsilon")
 		if unit_stuck_boolean:
 			pathfinding_raycast = send_out_raycasts(target_position)
 		last_position = global_position
@@ -288,12 +292,13 @@ func follow_player() -> void:
 		move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
 
 #COMBAT ===============================================================================
-func hit(damage_taken, _damage_source) -> bool:
+func hit(damage_taken, damage_source) -> bool:
 	if health > 0:
-		$Sprite2D.material.set_shader_parameter('progress',1)
-		$Timers/HitFlashTimer.start()
-		$Particles/HitParticles.emitting = true
-		took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
+		if damage_source not in status_effects_array:
+			$Sprite2D.material.set_shader_parameter(&'progress',1)
+			$Timers/HitFlashTimer.start()
+			$Particles/HitParticles.emitting = true
+			took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
 	health_bar.visible = true
 	damage_bar.visible = true
 	
@@ -316,6 +321,7 @@ func hit(damage_taken, _damage_source) -> bool:
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
+
 func forced_death():
 		Globals.ui_unit_died.emit(self)
 		dying = true
@@ -330,24 +336,17 @@ func death():
 		skill.use(self)
 
 func heal(heal_amount):
-	health_bar.visible = true
-	damage_bar.visible = true
-	
 	health += heal_amount
 	health_bar.value = health
-	
-	var tween = create_tween()
-	tween.tween_property(damage_bar, "value", health, 0.5) 
-	tween.set_trans(Tween.TRANS_SINE)
-	tween.set_ease(Tween.EASE_OUT)
-	if health <= 0: #hp poniżej 0 - umieranie
+	if health >= max_health:
+		health = max_health
 		health_bar.visible = false
 		damage_bar.visible = false
-		state_machine.call_deferred("set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
-		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
-		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
-		return true #jednostka ma ponad 0hp więc wciąż żyje
+		var tween = create_tween()
+		tween.tween_property(damage_bar, "value", health, 0.5) 
+		tween.set_trans(Tween.TRANS_SINE)
+		tween.set_ease(Tween.EASE_OUT)
 func attack():
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		#check czy cel nie odszedl za daleko
