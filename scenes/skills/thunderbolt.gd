@@ -2,12 +2,17 @@ extends Area2D
 class_name ThunderboltSpell
 
 var skill_resource: Thunderbolt
+var particles_scene = preload("res://vfx/thunderbolt_effects/gpu_particles_2d.tscn")
 
 func initialize(spawn_position: Vector2, skill_res: Thunderbolt):
 	skill_resource = skill_res
 	
 	global_position = spawn_position
 	
+	var particles = particles_scene.instantiate()
+	get_parent().add_child(particles)
+	particles.emitting = true
+	particles.global_position = global_position
 	if skill_resource.skill_effect_data2 != null:
 		if $thunderbolt_collision.shape:
 			var base_radius = skill_resource.skill_effect_data2.radius
@@ -20,7 +25,7 @@ func _ready():
 	$thunderbolt_animation.play("default")
 	$thunderbolt_animation.animation_finished.connect(_on_animation_finished)
 	body_entered.connect(_on_body_entered)
-	
+
 func _on_animation_finished():
 	call_deferred("queue_free")
 	

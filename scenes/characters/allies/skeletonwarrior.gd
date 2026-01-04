@@ -91,23 +91,8 @@ func _ready() -> void:
 	handle_skills()
 	handle_starting_skills()
 func _physics_process(_delta: float) -> void:
-	return
-	match state_machine.state:
-		0:
-			print("idle")
-		1:
-			print("moving")
-		2:
-			print("engaging")
-		3:
-			print("attacking")
-		4:
-			print("dying")
-		5:
-			print("mid_animation")
 	#seek_enemies()
 	if !dying:
-		return #TEMPORARY
 		follow_player()
 	#for unit in possible_targets:
 		#if unit == null:

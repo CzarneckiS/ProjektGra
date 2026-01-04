@@ -30,6 +30,7 @@ skill_effect_data2 = SubResource("Resource_hb6hf")
 skill_effect_data3 = SubResource("Resource_xqibp")
 skill_name = "Thunderbolt"
 skill_desc = "Zeus W"
+cooldown = 1.0
 visual_effect = ExtResource("5_f2p8b")
 icon = ExtResource("4_jdh3n")
 metadata/_custom_type_script = "uid://b6hgmwtiws7ea"

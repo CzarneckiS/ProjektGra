@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://qsh2h8nylba3"]
+[gd_scene load_steps=4 format=3 uid="uid://cjx171uymvuyc"]
 
 [ext_resource type="Script" uid="uid://br6sxwetcprto" path="res://scenes/xp_flower.gd" id="1_7rdu5"]
 [ext_resource type="Texture2D" uid="uid://jfoglto3hs66" path="res://sprites/terrain/flower.png" id="1_d1wv4"]

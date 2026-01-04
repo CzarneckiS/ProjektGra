@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UnitDeathTimer" load_steps=4 format=3 uid="uid://c10ek7nkqiba"]
+
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_m2tll"]
+[ext_resource type="Script" path="res://scripts/skills_for_resources/unit_death_timer_for_resource.gd" id="2_2um3n"]
+[ext_resource type="Texture2D" uid="uid://d03q7hps83ma3" path="res://sprites/placeholders/skeleton_death_timer_icon_placeholder.png" id="2_xyvht"]
+
+[resource]
+script = ExtResource("2_2um3n")
+skill_name = "Death Timer"
+icon = ExtResource("2_xyvht")

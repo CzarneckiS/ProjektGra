@@ -1,6 +1,6 @@
 extends Area2D
 
-var xp_value = 50
+var xp_value = (Globals.xp_to_level/2)
 
 func _ready() -> void:
 	connect("body_entered", _on_body_entered)

@@ -17,9 +17,9 @@ func initialize(start_pos: Vector2, target_pos: Vector2, skill_res: Fireball):
 	look_at(target_pos)
 	
 func _ready():
-	$fireball_animation.play("default")
 	body_entered.connect(_on_body_entered)
 	$fireball_animation.animation_finished.connect(_on_animation_finished)
+	$fireball_animation.play("on_creation")
 	
 func _physics_process(delta: float) -> void:
 	if skill_resource == null:
@@ -42,4 +42,7 @@ func _on_body_entered(body: UnitParent):
 		skill_resource.effect_knockback.apply_push(global_position, body)
 
 func _on_animation_finished():
-	call_deferred("queue_free")
+	if $fireball_animation.animation == "on_creation":
+		$fireball_animation.play("default")
+	if $fireball_animation.animation == "splash":
+		call_deferred("queue_free")

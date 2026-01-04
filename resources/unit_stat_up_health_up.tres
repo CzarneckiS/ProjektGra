@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_b88dl"]
 [ext_resource type="Texture2D" uid="uid://c4bvot03mwr47" path="res://sprites/icons/unit armor upgrade icon.png" id="2_dhful"]
-[ext_resource type="Script" uid="uid://djyiaesitvk5i" path="res://scripts/skills_for_resources/unit_stat_up_health_up_for_resource.gd" id="3_x8rr1"]
+[ext_resource type="Script" path="res://scripts/skills_for_resources/unit_stat_up_health_up_for_resource.gd" id="3_x8rr1"]
 
 [resource]
 script = ExtResource("3_x8rr1")

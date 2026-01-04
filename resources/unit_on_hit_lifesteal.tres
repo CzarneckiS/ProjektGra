@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_7xyxg"]
 [ext_resource type="Texture2D" uid="uid://ceg1m0aweretx" path="res://sprites/icons/unit life steal icon.png" id="2_r2s4u"]
-[ext_resource type="Script" uid="uid://mb2n2ee33yht" path="res://scripts/skills_for_resources/unit_on_hit_lifesteal_for_resource.gd" id="3_0kkev"]
+[ext_resource type="Script" path="res://scripts/skills_for_resources/unit_on_hit_lifesteal_for_resource.gd" id="3_0kkev"]
 [ext_resource type="PackedScene" uid="uid://clq5upgc5gvkr" path="res://vfx/heal_animation.tscn" id="4_r2s4u"]
 
 [resource]

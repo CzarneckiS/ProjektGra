@@ -86,8 +86,8 @@ func remove_overlapping_allies():
 #funkcja, ktora obsluguje to, co sie dzieje z postacia po lvl upie
 func level_up():
 	max_health += 20 #placeholder wartosc na zwiekszanie max hp
-	# czy jest sens dodać +helth na przykład +10 jak w docie?
-	xp_to_level += 5 #placeholder wartosc na zwiekszanie limitu do uzyskania kolejnego lvla
+	health = max_health
+	xp_to_level += 200 #placeholder wartosc na zwiekszanie limitu do uzyskania kolejnego lvla
 	level += 1 #nie było tego, dodałem, nie wiem czy coś innego myśleliście
 	
 	ui_hp_update_requested.emit()
