@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitUnholyFrenzy" load_steps=5 format=3 uid="uid://niqwpf5r4un3"]
+[gd_resource type="Resource" script_class="UnitUnholyFrenzy" load_steps=5 format=3 uid="uid://c0yuuyrfau4c4"]
 
 [ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_ruvns"]
 [ext_resource type="Texture2D" uid="uid://cgjkc6kdkju6n" path="res://sprites/icons/DeathTimer icon.png" id="2_6fb1d"]

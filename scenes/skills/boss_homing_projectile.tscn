@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://wdt343ugmi0c"]
+
+[ext_resource type="Script" uid="uid://d1kdfjinqwsje" path="res://scenes/skills/boss_homing_projectile.gd" id="1_hf2nh"]
+[ext_resource type="Texture2D" uid="uid://b0rx7rwkx6pqk" path="res://sprites/boss/homing/homing1.png" id="2_70lkb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lrya3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_70lkb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_70lkb")
+}],
+"loop": false,
+"name": &"on_creation",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cj314"]
+radius = 119.01681
+
+[node name="HomingProjectile" type="Area2D"]
+collision_layer = 8200
+collision_mask = 34
+script = ExtResource("1_hf2nh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-43.000004, -1.0000014)
+rotation = 0.007876373
+scale = Vector2(0.47687966, 0.5550399)
+sprite_frames = SubResource("SpriteFrames_lrya3")
+animation = &"on_creation"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 0)
+scale = Vector2(0.25, 0.25)
+shape = SubResource("CircleShape2D_cj314")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0149999999999997
+one_shot = true
+autostart = true

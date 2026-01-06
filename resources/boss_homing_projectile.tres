@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://bkxjppcpjatnj"]
+
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_wt6se"]
+[ext_resource type="Script" uid="uid://cq0qom6yv7lbd" path="res://scripts/skills_for_resources/boss_homing_projectile_for_resource.gd" id="2_tlbhx"]
+[ext_resource type="PackedScene" uid="uid://wdt343ugmi0c" path="res://scenes/skills/boss_homing_projectile.tscn" id="3_tlbhx"]
+
+[resource]
+script = ExtResource("2_tlbhx")
+visual_effect = ExtResource("3_tlbhx")

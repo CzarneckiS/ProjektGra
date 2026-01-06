@@ -10,6 +10,7 @@ signal ui_unit_died(unit)
 
 
 #statystyki głównej jednostki
+var player : CharacterBody2D
 var health : int = 100
 var max_health : int = health
 var player_position: Vector2

@@ -3,12 +3,11 @@ class_name ThunderboltSpell
 
 var skill_resource: Thunderbolt
 var particles_scene = preload("res://vfx/thunderbolt_effects/gpu_particles_2d.tscn")
-
+#var burn_mark = preload("res://sprites/thunderbolt/thunderbolt_burn_mark.tscn")
 func initialize(spawn_position: Vector2, skill_res: Thunderbolt):
 	skill_resource = skill_res
 	
 	global_position = spawn_position
-	
 	var particles = particles_scene.instantiate()
 	get_parent().add_child(particles)
 	particles.emitting = true
@@ -27,6 +26,9 @@ func _ready():
 	body_entered.connect(_on_body_entered)
 
 func _on_animation_finished():
+	#var mark = burn_mark.instantiate()
+	#get_parent().add_child(mark)
+	#mark.global_position = global_position
 	call_deferred("queue_free")
 	
 func _physics_process(_delta: float) -> void:
@@ -38,3 +40,12 @@ func _on_body_entered(body: UnitParent):
 	if !body.is_in_group("Allied"):
 		body.hit(skill_resource.skill_effect_data.base_damage*skill_resource.skill_effect_data.damage_multiplier, self)
 		skill_resource.skill_effect_data3.apply_push(global_position, body)
+
+func is_point_on_map(target_point: Vector2) -> bool:
+	var map = get_world_2d().navigation_map
+	var closest_point = NavigationServer2D.map_get_closest_point(map, target_point)
+	var difference = closest_point - target_point
+	if difference.is_zero_approx():
+		return true
+	else:
+		return false

@@ -19,9 +19,10 @@ scale_min = 3.0
 scale_max = 6.0
 
 [node name="GPUParticles2D" type="GPUParticles2D"]
+scale = Vector2(0.5999994, 0.5999994)
 emitting = false
 amount = 199
-lifetime = 0.26
+lifetime = 0.12
 one_shot = true
 speed_scale = 0.57
 process_material = SubResource("ParticleProcessMaterial_8r461")

@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ck1anminyig8o" path="res://sprites/units/human_mage/human_mage_head.png" id="7_7xbev"]
 [ext_resource type="Texture2D" uid="uid://c1re2skja0dgm" path="res://sprites/units/human_mage/human_mage_staff.png" id="8_sfuxj"]
 [ext_resource type="Texture2D" uid="uid://bcpn3yv78gi48" path="res://sprites/units/human_mage/human_mage_book.png" id="9_6j5mq"]
-[ext_resource type="Script" uid="uid://csr4x6mrcrwjc" path="res://scenes/characters/enemies/hum_warrior_state_machine.gd" id="10_3ql06"]
+[ext_resource type="Script" uid="uid://b7lk7fxfrl8pm" path="res://scenes/characters/enemies/boss_state_machine.gd" id="11_ydrmd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cw6kt"]
 resource_local_to_scene = true
@@ -454,8 +454,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_du7wb")
 }
 
-[node name="HumWarriorStateMachine" type="Node" parent="." index="9"]
-script = ExtResource("10_3ql06")
+[node name="BossStateMachine" type="Node" parent="." index="9"]
+script = ExtResource("11_ydrmd")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="10"]
 path_max_distance = 200.0

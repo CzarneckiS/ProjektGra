@@ -1,5 +1,4 @@
 extends Skill
-class_name BossExplosiveCircle
 
 @export var damage : int = 30
 func use(unit: CharacterBody2D, target_position: Vector2):

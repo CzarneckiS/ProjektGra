@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://bgmtxg0bv708r"]
+
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_vlfa2"]
+[ext_resource type="Script" uid="uid://o5drempnbjf7" path="res://scripts/skills_for_resources/boss_fire_wave_for_resource.gd" id="2_mocjq"]
+[ext_resource type="PackedScene" uid="uid://cewddkds06v85" path="res://scenes/skills/boss_fire_wave.tscn" id="3_mocjq"]
+
+[resource]
+script = ExtResource("2_mocjq")
+visual_effect = ExtResource("3_mocjq")

@@ -3,7 +3,8 @@ class_name Boss
 
 var projectile = preload("res://resources/human_mage_projectile.tres")
 var explosive_circle = preload("res://resources/boss_explosive_circle.tres")
-
+var homing_projectile = preload("res://resources/boss_homing_projectile.tres")
+var fire_wave = preload("res://resources/boss_fire_wave.tres")
 
 
 var skills_active : Array = [explosive_circle]
@@ -30,13 +31,13 @@ var possible_targets = [] #jednostki ktore wejda w VisionArea
 var attack_range = 400
 var vision_range = 400
 var dying : bool = false
-var attack_time = 1 #czas pomiędzy atakami
+var attack_time = 5 #czas pomiędzy atakami
 #clicking
 signal target_clicked(target_node: Node) #sygnał, który będzie wysyłany do naszych jednostek
 # aby weszły w engaging state jeśli klikniemy na wroga
 var mouse_hovering : bool = false #sluzy do sprawdzania czy myszka jest w clickarea humanwarriora
 
-@onready var state_machine = $HumWarriorStateMachine
+@onready var state_machine = $BossStateMachine
 @onready var health_bar: ProgressBar = $HealthBar 
 @onready var damage_bar: ProgressBar = $DamageBar
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
@@ -123,7 +124,8 @@ func move_to_target(delta,target_position): #CLOSE RANGE MOVEMENT
 				#print("im setting this stuff to true")
 				unit_stuck_boolean = true
 			else:
-				print("odleglosc byla wieksza niz epsilon")
+				pass
+				#print("odleglosc byla wieksza niz epsilon")
 		if unit_stuck_boolean:
 			pathfinding_raycast = send_out_raycasts(target_position)
 		last_position = global_position
@@ -167,7 +169,7 @@ func _on_navigation_timer_timeout() -> void:
 	can_navigate = true
 
 #COMBAT ===============================================================================
-var chunk_size : int = 100
+var chunk_size : int = 50
 var map_size : int = 800
 @warning_ignore("integer_division")
 var half_map_size : int = map_size / 2
@@ -180,21 +182,19 @@ func prepare_targeting_chunks() -> void:
 		for j in range(chunk_row_count):
 			chunks[i].append(0)
 func add_to_heatmap(target_position: Vector2):
-	print(chunk_row_count)
 	@warning_ignore("narrowing_conversion")
 	var chunk_x : int = (target_position.x - global_position.x + half_map_size) / chunk_size
 	@warning_ignore("narrowing_conversion")
 	var chunk_y : int = (target_position.y - global_position.y + half_map_size) / chunk_size
 	if chunk_x in range(chunk_row_count) and chunk_y in range(chunk_row_count):
 		chunks[chunk_x][chunk_y] += 1
-	if chunk_x-1 in range(chunk_row_count):
+	if chunk_x-1 in range(chunk_row_count) and chunk_y in range(chunk_row_count):
 		chunks[chunk_x-1][chunk_y] += 1
-	if chunk_x+1 in range(chunk_row_count):
+	if chunk_x+1 in range(chunk_row_count) and chunk_y in range(chunk_row_count):
 		chunks[chunk_x+1][chunk_y] += 1
-	if chunk_y-1 in range(chunk_row_count):
+	if chunk_x in range(chunk_row_count) and chunk_y-1 in range(chunk_row_count):
 		chunks[chunk_x][chunk_y-1] += 1
-	if chunk_y+1 in range(chunk_row_count):
-		#wywalilo error??? WHY????
+	if chunk_x in range(chunk_row_count) and chunk_y+1 in range(chunk_row_count):
 		chunks[chunk_x][chunk_y+1] += 1
 	if chunk_x-1 in range(chunk_row_count) and chunk_y-1 in range(chunk_row_count):
 		chunks[chunk_x-1][chunk_y-1] += 1
@@ -282,14 +282,51 @@ func death():
 	for skill in skills_on_death:
 		skill.use(self)
 
-func explosive_circle_single():
+func cast_explosive_circle_single():
 	for unit in possible_targets:
 		add_to_heatmap(unit.global_position)
 	explosive_circle.use(self, find_best_chunk())
 	clear_chunks()
 
+func cast_explosive_circle_grid():
+	#do przemyslenia
+	for unit in possible_targets:
+		add_to_heatmap(unit.global_position)
+	var best_chunk_pos : Vector2 = find_best_chunk()
+	explosive_circle.use(self, best_chunk_pos)
+	clear_chunks()
+	await get_tree().create_timer(0.5).timeout
+	explosive_circle.use(self, Vector2(best_chunk_pos.x - 300, best_chunk_pos.y - 300))
+	explosive_circle.use(self, Vector2(best_chunk_pos.x - 300, best_chunk_pos.y))
+	explosive_circle.use(self, Vector2(best_chunk_pos.x - 300, best_chunk_pos.y + 300))
+	explosive_circle.use(self, Vector2(best_chunk_pos.x, best_chunk_pos.y + 300))
+	explosive_circle.use(self, Vector2(best_chunk_pos.x, best_chunk_pos.y - 300))
+	explosive_circle.use(self, Vector2(best_chunk_pos.x + 300, best_chunk_pos.y - 300))
+	explosive_circle.use(self, Vector2(best_chunk_pos.x + 300, best_chunk_pos.y))
+	explosive_circle.use(self, Vector2(best_chunk_pos.x + 300, best_chunk_pos.y + 300))
+
+func cast_homing_projectile(projectile_amount : int):
+	for i in range(projectile_amount):
+		homing_projectile.use(self, Globals.player)
+		await get_tree().create_timer(0.2).timeout
+
+func cast_fire_wave_single():
+	fire_wave.use(self, Globals.player_position)
+
+func cast_fire_wave_around():
+	var pos = Globals.player_position
+	fire_wave.use(self, Vector2(pos *-1))
+	fire_wave.use(self, Vector2((pos.x*cos(PI/3)-pos.y*sin(PI/3)),(pos.x*sin(PI/3)+pos.y*cos(PI/3))))
+	fire_wave.use(self, Vector2((pos.x*cos(2*PI/3)-pos.y*sin(2*PI/3)),(pos.x*sin(2*PI/3)+pos.y*cos(2*PI/3))))
+	fire_wave.use(self, -Vector2((pos.x*cos(PI/3)-pos.y*sin(PI/3)),(pos.x*sin(PI/3)+pos.y*cos(PI/3))))
+	fire_wave.use(self, -Vector2((pos.x*cos(2*PI/3)-pos.y*sin(2*PI/3)),(pos.x*sin(2*PI/3)+pos.y*cos(2*PI/3))))
+	fire_wave.use(self, pos)
+
 func attack():
-	explosive_circle_single()
+	pass
+	#cast_fire_wave_around()
+	#cast_homing_projectile(1)
+	#cast_explosive_circle_grid()
 	#if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		#for skill in skills_on_hit:
 			#skill.use(self, attack_target.get_ref())

@@ -153,7 +153,7 @@ func _ready() -> void:
 			childs_child.use_parent_material = true
 	$MovementPushArea.connect("body_entered", _on_movement_push_area_body_entered)
 	$MovementPushArea.connect("body_exited", _on_movement_push_area_body_exited)
-
+	Globals.player = self
 func _physics_process(_delta: float) -> void:
 	if standing:
 		$AnimationPlayer.play("stand")

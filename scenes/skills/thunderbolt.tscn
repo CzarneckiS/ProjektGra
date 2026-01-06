@@ -58,20 +58,19 @@ collision_mask = 4
 script = ExtResource("1_oumkm")
 
 [node name="thunderbolt_animation" type="AnimatedSprite2D" parent="."]
-modulate = Color(1, 1, 0.77254903, 1)
 position = Vector2(2, -628)
 scale = Vector2(0.64666665, 0.64666665)
 sprite_frames = SubResource("SpriteFrames_gva5k")
-frame = 11
-frame_progress = 1.0
+frame = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 0.63529414, 1)
-position = Vector2(-1.9073486e-06, 1.9073486e-06)
-scale = Vector2(0.18332033, 0.18332033)
+position = Vector2(-4.9999995, -5.9999995)
+scale = Vector2(0.54166013, 0.54166013)
 texture = ExtResource("4_8r461")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(0.53, 0.53)
 texture = ExtResource("4_oumkm")
 
 [node name="thunderbolt_collision" type="CollisionShape2D" parent="."]
