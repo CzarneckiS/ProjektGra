@@ -28,10 +28,15 @@ func _ready():
 	#lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	$HudLayer.add_child(stats_hud)
 	$Player/EnemySpawnArea/Timer.connect("timeout", _on_timer_timeout)
-	   
+	add_child(timer_between_waves)
+	timer_between_waves.autostart = false
+	timer_between_waves.one_shot = true
+	timer_between_waves.wait_time = 1
+	
 func _process(_delta: float) -> void:
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
-
+	wave_logic()
+	
 func show_lvl_up_menu():  
 	get_tree().paused = true
 	var lvl_up_upgrades_menu = preload("res://scenes/ui/lvlup_menu.tscn").instantiate()
@@ -41,12 +46,61 @@ func show_lvl_up_menu():
 
 
 #SPAWNING JEDNOSTEK ================================================================
-func spawn_enemy(): # EnemySpawnFollow bierzemy jako unique name
-	var new_enemy = human_warrior.instantiate()
+var enemies_defeated: int = 0
+var enemies_spawned: int = 0
+var enemies_to_spawn: int = 0
+var wave_counter: int = 1
+var max_wave: int = 30
+var h_warriors_to_spawn: int = 2
+var h_mages_to_spawn: int = 1
+var h_archers_to_spawn: int = 1
+var timer_between_waves: Timer = Timer.new()
+
+func wave_logic():
+	print("ile pokonano: ", enemies_defeated)
+	print("ile zespawniono: ", enemies_spawned)
+	print("ile ma byc zespawnione: ", enemies_to_spawn)
+	
+	if wave_counter == max_wave:
+		return
+	if enemies_defeated == enemies_spawned:
+		timer_between_waves.start()
+		enemy_spawn_by_wave(wave_counter)
+		new_wave()
+		wave_counter += 1
+	
+func new_wave():
+	enemies_defeated = 0 #sygnał od unitów on_death aktualizuje zmienna
+	enemies_spawned = enemies_to_spawn
+	for warriors in range(h_warriors_to_spawn):
+		call_deferred("spawn_enemy", human_warrior)
+	for mages in range(h_mages_to_spawn):
+		call_deferred("spawn_enemy", human_mage)
+	for archers in range(h_archers_to_spawn):
+		call_deferred("spawn_enemy", human_archer)
+func enemy_spawn_by_wave(wave_number):
+	enemies_to_spawn = 0
+	wave_number = wave_counter
+	
+	var h_warriors_spawn_increase: int = 1
+	var h_mages_spawn_increase: int = 1
+	var h_archers_spawn_increase: int = 1
+	
+	if wave_number % 2 == 0:
+		h_warriors_to_spawn += h_warriors_spawn_increase
+	if wave_number % 3 == 0:
+		h_mages_to_spawn += h_mages_spawn_increase
+	if wave_number % 4 == 0:
+		h_archers_to_spawn += h_archers_spawn_increase
+	
+	enemies_to_spawn = h_warriors_to_spawn + h_mages_to_spawn + h_archers_to_spawn
+	
+func spawn_enemy(enemy_type): # EnemySpawnFollow bierzemy jako unique name
+	var new_enemy = enemy_type.instantiate()
 	$EnemyUnits.add_child(new_enemy)
 	%EnemySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
-	while !is_point_on_map(%EnemySpawnFollow.global_position):
-		%EnemySpawnFollow.progress_ratio = randf()
+	#while !is_point_on_map(%EnemySpawnFollow.global_position):
+	%EnemySpawnFollow.progress_ratio = randf()
 	new_enemy.global_position = %EnemySpawnFollow.global_position
 	new_enemy.connect("target_clicked", _on_target_clicked)
 	new_enemy.connect("took_damage", on_unit_damage_taken)
@@ -55,7 +109,7 @@ var test = 0
 #timer okresla co jaki czas bedzie respiony mob, feel free to change
 func _on_timer_timeout() -> void:
 	if test <= 300: #temporary, spawni mobki az nie bedzie ich 300
-		spawn_enemy()
+		#spawn_enemy(enemy_type)
 		test += 1
 		#print(test)
 
@@ -67,6 +121,7 @@ func on_summon_unit(unit):
 			summon_skeleton_mage()
 func on_unit_death(unit):
 	#narazie hardcoded 5 sekundowy timer
+	enemies_defeated += 1
 	for order in movement_orders:
 			if unit in order.unit_array:
 				order.unit_array.erase(unit)
@@ -192,7 +247,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("tmpSpawnAlly2"):
 		summon_skeleton_mage()
 	elif event.is_action_pressed("tmpSpawnEnemy"):
-		spawn_enemy()
+		spawn_enemy(human_warrior)
 	elif event.is_action_pressed("tmpSpawnEnemy2"):
 		var new_enemy = human_archer.instantiate()
 		$EnemyUnits.add_child(new_enemy)
