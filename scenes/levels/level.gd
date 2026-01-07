@@ -32,10 +32,11 @@ func _ready():
 	timer_between_waves.autostart = false
 	timer_between_waves.one_shot = true
 	timer_between_waves.wait_time = 1
+	timer_between_waves.timeout.connect(wave_logic)
+	timer_between_waves.start()
 	
 func _process(_delta: float) -> void:
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
-	wave_logic()
 	
 func show_lvl_up_menu():  
 	get_tree().paused = true
@@ -63,21 +64,22 @@ func wave_logic():
 	
 	if wave_counter == max_wave:
 		return
-	if enemies_defeated == enemies_spawned:
-		timer_between_waves.start()
+	if enemies_defeated >= enemies_spawned:
 		enemy_spawn_by_wave(wave_counter)
 		new_wave()
 		wave_counter += 1
+	timer_between_waves.call_deferred("start")
 	
 func new_wave():
 	enemies_defeated = 0 #sygnał od unitów on_death aktualizuje zmienna
-	enemies_spawned = enemies_to_spawn
 	for warriors in range(h_warriors_to_spawn):
-		call_deferred("spawn_enemy", human_warrior)
+		spawn_enemy(human_warrior)
 	for mages in range(h_mages_to_spawn):
-		call_deferred("spawn_enemy", human_mage)
+		spawn_enemy(human_mage)
 	for archers in range(h_archers_to_spawn):
-		call_deferred("spawn_enemy", human_archer)
+		spawn_enemy(human_archer)
+	enemies_spawned = enemies_to_spawn
+	
 func enemy_spawn_by_wave(wave_number):
 	enemies_to_spawn = 0
 	wave_number = wave_counter
@@ -119,9 +121,9 @@ func on_summon_unit(unit):
 			summon_skeleton_warrior()
 		"SkeletonMage":
 			summon_skeleton_mage()
+			
 func on_unit_death(unit):
 	#narazie hardcoded 5 sekundowy timer
-	enemies_defeated += 1
 	for order in movement_orders:
 			if unit in order.unit_array:
 				order.unit_array.erase(unit)
@@ -133,10 +135,13 @@ func on_unit_death(unit):
 			await get_tree().create_timer(5.0).timeout
 			summon_skeleton_warrior()
 		Tags.UnitTag.HUMAN_WARRIOR:
+			enemies_defeated += 1
 			Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.HUMAN_WARRIOR)
 		Tags.UnitTag.HUMAN_ARCHER:
+			enemies_defeated += 1
 			Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.HUMAN_ARCHER)
 		Tags.UnitTag.HUMAN_MAGE:
+			enemies_defeated += 1
 			Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.HUMAN_MAGE)
 #Ta funkcja moze byc potencjalnie grozna bo uzywa WHILE !
 #uzywanie while podczas runtime gry moze oznaczac lagi i wtedy moze trzeba zrobic cos takiego:
