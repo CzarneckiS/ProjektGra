@@ -1,8 +1,8 @@
 [gd_scene load_steps=21 format=3 uid="uid://oi7udmkhy0cl"]
 
-[ext_resource type="Script" uid="uid://dyqgocxdri5va" path="res://scenes/ui/lvlup_menu.gd" id="1_ra1c2"]
+[ext_resource type="Script" path="res://scenes/ui/lvlup_menu.gd" id="1_ra1c2"]
 [ext_resource type="Texture2D" uid="uid://dphc21aqf5r1m" path="res://sprites/ui/Button_neutral.png" id="2_6pxxg"]
-[ext_resource type="Texture2D" uid="uid://chy5d1g28au0x" path="res://sprites/thunderbolt/HUD_MenuTemplate.png" id="2_vuuuy"]
+[ext_resource type="Texture2D" uid="uid://chy5d1g28au0x" path="res://sprites/ui/HUD_MenuTemplate.png" id="2_vuuuy"]
 [ext_resource type="Texture2D" uid="uid://bpvowenbyhjyy" path="res://sprites/ui/Button_pressed.png" id="3_iygms"]
 [ext_resource type="Texture2D" uid="uid://cvilxq7eyc1kj" path="res://sprites/ui/Button_highlight.png" id="4_vuuuy"]
 [ext_resource type="Texture2D" uid="uid://csuu5qvhmmnvx" path="res://sprites/ui/HUD_MenuLine.png" id="6_w0jd5"]

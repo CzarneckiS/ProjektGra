@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_3d7v5"]
 [ext_resource type="Script" uid="uid://crq0fh3xh12hp" path="res://scripts/skills_for_resources/iceblock_for_resource.gd" id="2_8vg0c"]
-[ext_resource type="Script" uid="uid://doefgekdmwu85" path="res://scripts/skill_effects/effect_knockback.gd" id="2_i4gyf"]
+[ext_resource type="Script" path="res://scripts/skill_effects/effect_knockback.gd" id="2_i4gyf"]
 [ext_resource type="Script" uid="uid://dnv5i0eq6rlp7" path="res://scripts/skill_effects/effect_damage.gd" id="3_sxjjv"]
 [ext_resource type="PackedScene" uid="uid://ca7j2rmm5tryu" path="res://scenes/skills/iceblock.tscn" id="5_6v3ww"]
 

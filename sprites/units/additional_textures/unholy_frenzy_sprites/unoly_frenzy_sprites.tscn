@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://u0uqjjp5n1e3"]
+
+[ext_resource type="Texture2D" uid="uid://b7s2a1gp38c0p" path="res://sprites/units/additional_textures/unholy_frenzy_sprites/unholy frenzy flame 1.png" id="1_ni6db"]
+[ext_resource type="Texture2D" uid="uid://cxdy3hcxb6hp1" path="res://sprites/units/additional_textures/unholy_frenzy_sprites/unholy frenzy flame 2.png" id="2_do8t0"]
+[ext_resource type="Texture2D" uid="uid://chph0kq6jfna0" path="res://sprites/units/additional_textures/unholy_frenzy_sprites/unholy frenzy flame 3.png" id="3_mg446"]
+[ext_resource type="Texture2D" uid="uid://7nggtbtqdk3m" path="res://sprites/units/additional_textures/unholy_frenzy_sprites/unholy frenzy flame 4.png" id="4_ainwe"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_llq4f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ni6db")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_do8t0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mg446")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ainwe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="UnolyFrenzySprites" type="AnimatedSprite2D"]
+show_behind_parent = true
+sprite_frames = SubResource("SpriteFrames_llq4f")
+frame_progress = 0.12168278

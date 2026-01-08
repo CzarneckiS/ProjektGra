@@ -47,7 +47,7 @@ func update_selected_units():
 	#nie podoba mi sie juz ta funkcja, nie chce dodawac jednostek W TRAKCIE rysowania selection boxa
 	#do zmiany na przyszlosc - w trakcie rysowania tylko highlightuj, select przy puszczeniu LMB
 	var selected := []
-	for unit in get_tree().get_nodes_in_group('Selectable'): #przeszukaj wszystkie sojusznicze jednostki
+	for unit in get_tree().get_nodes_in_group(&'Selectable'): #przeszukaj wszystkie sojusznicze jednostki
 		if unit.is_in_selection_box(select_box): #sprawdź czy są w selection box
 			unit.select() #zaznacz je
 			selected.append(unit)

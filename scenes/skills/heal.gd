@@ -45,4 +45,4 @@ func display_heal_vfx(target: Node2D):
 		vfx_instance.position = Vector2.ZERO
 
 func heal_player():
-	Globals.health += skill_resource.skill_effect_data.base_heal * skill_resource.skill_effect_data.heal_multiplier
+	player_node.heal(skill_resource.skill_effect_data.base_heal * skill_resource.skill_effect_data.heal_multiplier)

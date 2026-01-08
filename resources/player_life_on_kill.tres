@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerLifeOnKill" load_steps=4 format=3 uid="uid://x83dsfygy8ch"]
+
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_fvadk"]
+[ext_resource type="Texture2D" uid="uid://q2uhk8bqlspo" path="res://sprites/icons/heal player on kill icon.png" id="2_6q027"]
+[ext_resource type="Script" uid="uid://cmrkhj26nhbsh" path="res://scripts/skills_for_resources/player_life_on_kill_for_resource.gd" id="2_coygp"]
+
+[resource]
+script = ExtResource("2_coygp")
+skill_name = "Essence drain"
+icon = ExtResource("2_6q027")

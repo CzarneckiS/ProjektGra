@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UnitOnHitBleed" load_steps=6 format=3 uid="uid://8osyg23ujdx1"]
+
+[ext_resource type="Texture2D" uid="uid://brynvktdsqt2r" path="res://sprites/icons/skeleton warrior bleed on hit icon.png" id="1_f5ede"]
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_l6e7f"]
+[ext_resource type="Script" path="res://scripts/skills_for_resources/unit_on_hit_bleed_for_resource.gd" id="2_l6e7f"]
+[ext_resource type="Script" uid="uid://dnv5i0eq6rlp7" path="res://scripts/skill_effects/effect_damage.gd" id="3_cfmxd"]
+
+[sub_resource type="Resource" id="Resource_rmfbc"]
+script = ExtResource("3_cfmxd")
+base_damage = 5
+metadata/_custom_type_script = "uid://dnv5i0eq6rlp7"
+
+[resource]
+script = ExtResource("2_l6e7f")
+skill_effect_data = SubResource("Resource_rmfbc")
+skill_name = "on_hit_bleed"
+icon = ExtResource("1_f5ede")

@@ -7,11 +7,15 @@ var unlocked_skills: Array = [] #Wszystkie skille ktore wybralismy przy level up
 var fireball = preload("res://resources/fireball.tres")
 var heal = preload("res://resources/heal.tres")
 var thunderbolt = preload("res://resources/thunderbolt.tres")
-var unit_on_hit_poison = preload("res://resources/unit_on_hit_poison.tres")
+var unit_on_hit_bleed = preload("res://resources/unit_on_hit_bleed.tres")
+var unit_on_hit_lifesteal = preload("res://resources/unit_on_hit_lifesteal.tres")
 var unit_stat_up_attack_up = preload("res://resources/unit_stat_up_attack_up.tres")
-var unit_death_timer = preload("res://resources/unit_death_timer.tres")
+var unit_stat_up_health_up = preload("res://resources/unit_stat_up_health_up.tres")
+var unit_unholy_frenzy = preload("res://resources/unit_unholy_frenzy.tres")
 var player_skeleton_warrior = preload("res://resources/player_skeleton_warrior.tres")
 var player_skeleton_mage = preload("res://resources/player_skeleton_mage.tres")
+var player_summon_respawn_time_up = preload("res://resources/player_summon_respawn_time_up.tres")
+var player_life_on_kill = preload("res://resources/player_life_on_kill.tres")
 
 
 func add_skill(skill):

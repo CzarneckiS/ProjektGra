@@ -1,0 +1,103 @@
+[gd_scene load_steps=18 format=3 uid="uid://qk6876fcyk1b"]
+
+[ext_resource type="Script" uid="uid://deiw4ahg7pi5" path="res://scenes/skills/boss_charge.gd" id="1_1i15n"]
+[ext_resource type="Texture2D" uid="uid://dmfdsefaj3m8f" path="res://sprites/boss/charge/charge1.png" id="2_1i15n"]
+[ext_resource type="Texture2D" uid="uid://dt8j4esmf6ln1" path="res://sprites/fireball/fireball_splash/fireball_splash_0.png" id="3_tc3qp"]
+[ext_resource type="Texture2D" uid="uid://dc8noe6etoqii" path="res://sprites/boss/charge/charge2.png" id="3_yxh1c"]
+[ext_resource type="Texture2D" uid="uid://c711slo7ve4d6" path="res://sprites/fireball/fireball_splash/fireball_splash_1.png" id="4_a1i4k"]
+[ext_resource type="Texture2D" uid="uid://cr08kn148jq0w" path="res://sprites/fireball/fireball_splash/fireball_splash_2.png" id="5_08hpu"]
+[ext_resource type="Texture2D" uid="uid://bvf6ij88sbhxm" path="res://sprites/fireball/fireball_splash/fireball_splash_3.png" id="6_df3xr"]
+[ext_resource type="Texture2D" uid="uid://iyvxgjd4d3xc" path="res://sprites/fireball/fireball_splash/fireball_splash_4.png" id="7_p75k2"]
+[ext_resource type="Texture2D" uid="uid://c2vjepcn1gmkq" path="res://sprites/fireball/fireball_splash/fireball_splash_5.png" id="8_ydoua"]
+[ext_resource type="Texture2D" uid="uid://d0f4bgq43i0vx" path="res://sprites/fireball/fireball_splash/fireball_splash_6.png" id="9_e4reh"]
+[ext_resource type="Texture2D" uid="uid://b7ajl3aqh8lsy" path="res://sprites/fireball/fireball_splash/fireball_splash_7.png" id="10_k1vjj"]
+[ext_resource type="Texture2D" uid="uid://cst2qqlmf4chg" path="res://sprites/fireball/fireball_splash/fireball_splash_8.png" id="11_o1cd7"]
+[ext_resource type="Texture2D" uid="uid://dlnhiy2fgpe1c" path="res://sprites/fireball/fireball_splash/fireball_splash_9.png" id="12_08e6q"]
+[ext_resource type="Texture2D" uid="uid://cmep0j61qpf3u" path="res://sprites/fireball/fireball_splash/fireball_splash_10.png" id="13_f62qh"]
+[ext_resource type="Texture2D" uid="uid://2pd6ciq5llqc" path="res://sprites/fireball/fireball_splash/fireball_splash_11.png" id="14_rxvpp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lrya3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1i15n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_yxh1c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"on_creation",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tc3qp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_a1i4k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_08hpu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_df3xr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_p75k2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ydoua")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_e4reh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_k1vjj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_o1cd7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_08e6q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_f62qh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_rxvpp")
+}],
+"loop": false,
+"name": &"splash",
+"speed": 48.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yxh1c"]
+radius = 16.0
+height = 160.0
+
+[node name="BossCharge" type="Area2D"]
+collision_layer = 8
+collision_mask = 34
+script = ExtResource("1_1i15n")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 3.8146973e-06)
+rotation = 0.007876373
+scale = Vector2(0.040681835, 0.047349565)
+sprite_frames = SubResource("SpriteFrames_lrya3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+scale = Vector2(0.25, 0.25)
+shape = SubResource("CapsuleShape2D_yxh1c")

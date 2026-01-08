@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerSummonRespawnTimeUp" load_steps=4 format=3 uid="uid://mi8y5bracfvf"]
+
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_gqtsx"]
+[ext_resource type="Texture2D" uid="uid://4enhhjfp5o4r" path="res://sprites/icons/unit respawn time upgrade icon.png" id="2_kv8va"]
+[ext_resource type="Script" path="res://scripts/skills_for_resources/player_summon_respawn_time_for_resource.gd" id="3_0qcc8"]
+
+[resource]
+script = ExtResource("3_0qcc8")
+skill_name = "Restless horde"
+icon = ExtResource("2_kv8va")

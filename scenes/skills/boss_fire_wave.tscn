@@ -1,0 +1,109 @@
+[gd_scene load_steps=20 format=3 uid="uid://cewddkds06v85"]
+
+[ext_resource type="Script" uid="uid://dyd8bn0ym6ulq" path="res://scenes/skills/boss_fire_wave.gd" id="1_3tfam"]
+[ext_resource type="Texture2D" uid="uid://y5mdei3qwtud" path="res://sprites/boss/firewave/wave1.png" id="2_3m4s2"]
+[ext_resource type="Texture2D" uid="uid://dy8vdee1hm78o" path="res://sprites/boss/firewave/wave2.png" id="3_nbgow"]
+[ext_resource type="Texture2D" uid="uid://dwck81kt85fey" path="res://sprites/boss/firewave/wave3.png" id="4_3tfam"]
+[ext_resource type="Texture2D" uid="uid://isp1vpai5j5t" path="res://sprites/boss/firewave/wave0.png" id="5_m6cj6"]
+[ext_resource type="Texture2D" uid="uid://dt8j4esmf6ln1" path="res://sprites/fireball/fireball_splash/fireball_splash_0.png" id="7_t7lyp"]
+[ext_resource type="Texture2D" uid="uid://c711slo7ve4d6" path="res://sprites/fireball/fireball_splash/fireball_splash_1.png" id="8_bw3g8"]
+[ext_resource type="Texture2D" uid="uid://cr08kn148jq0w" path="res://sprites/fireball/fireball_splash/fireball_splash_2.png" id="9_c342w"]
+[ext_resource type="Texture2D" uid="uid://bvf6ij88sbhxm" path="res://sprites/fireball/fireball_splash/fireball_splash_3.png" id="10_xqbf2"]
+[ext_resource type="Texture2D" uid="uid://iyvxgjd4d3xc" path="res://sprites/fireball/fireball_splash/fireball_splash_4.png" id="11_pxidb"]
+[ext_resource type="Texture2D" uid="uid://c2vjepcn1gmkq" path="res://sprites/fireball/fireball_splash/fireball_splash_5.png" id="12_7j4qx"]
+[ext_resource type="Texture2D" uid="uid://d0f4bgq43i0vx" path="res://sprites/fireball/fireball_splash/fireball_splash_6.png" id="13_14e86"]
+[ext_resource type="Texture2D" uid="uid://b7ajl3aqh8lsy" path="res://sprites/fireball/fireball_splash/fireball_splash_7.png" id="14_v7gxl"]
+[ext_resource type="Texture2D" uid="uid://cst2qqlmf4chg" path="res://sprites/fireball/fireball_splash/fireball_splash_8.png" id="15_6uwji"]
+[ext_resource type="Texture2D" uid="uid://dlnhiy2fgpe1c" path="res://sprites/fireball/fireball_splash/fireball_splash_9.png" id="16_3d4lj"]
+[ext_resource type="Texture2D" uid="uid://cmep0j61qpf3u" path="res://sprites/fireball/fireball_splash/fireball_splash_10.png" id="17_s4os3"]
+[ext_resource type="Texture2D" uid="uid://2pd6ciq5llqc" path="res://sprites/fireball/fireball_splash/fireball_splash_11.png" id="18_xyrow"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lrya3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3m4s2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nbgow")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3tfam")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_m6cj6")
+}],
+"loop": false,
+"name": &"on_creation",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_t7lyp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_bw3g8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_c342w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_xqbf2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_pxidb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_7j4qx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_14e86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_v7gxl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_6uwji")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_3d4lj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_s4os3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_xyrow")
+}],
+"loop": false,
+"name": &"splash",
+"speed": 48.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nbgow"]
+radius = 276.0
+height = 864.0
+
+[node name="FireWave" type="Area2D"]
+collision_layer = 8
+collision_mask = 34
+script = ExtResource("1_3tfam")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(4, -7)
+rotation = 0.007876373
+scale = Vector2(0.32687888, 0.38045406)
+sprite_frames = SubResource("SpriteFrames_lrya3")
+frame_progress = 0.56665266
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 0)
+scale = Vector2(0.25, 0.25)
+shape = SubResource("CapsuleShape2D_nbgow")

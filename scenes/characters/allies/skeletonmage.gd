@@ -42,9 +42,9 @@ var state_machine
 func _ready() -> void:
 	unit_hud_order = 3
 	icon_texture = "res://sprites/ui/skeleton mage icon.png"
-	handle_skills()
-	handle_starting_skills()
-	max_health  = 60
+
+	base_max_health = 60
+	max_health  = base_max_health
 	health = max_health
 	health_bar.max_value = max_health
 	health_bar.value = max_health
@@ -58,7 +58,7 @@ func _ready() -> void:
 	bar_style.border_width_top = 2
 	bar_style.border_width_bottom = 2
 	bar_style.border_color = Color(0.0, 0.0, 0.0, 1.0)
-	health_bar.add_theme_stylebox_override("fill", bar_style)
+	health_bar.add_theme_stylebox_override(&"fill", bar_style)
 
 	navigation_agent_2d.max_speed = speed
 	move_target = global_position
@@ -75,14 +75,16 @@ func _ready() -> void:
 	$Timers/NavigationTimer.timeout.connect(_on_navigation_timer_timeout)
 	$Timers/AttackTimer.timeout.connect(_on_attack_timer_timeout)
 	$Timers/HitFlashTimer.timeout.connect(_on_hit_flash_timer_timeout)
-	$MovementPushArea.connect("body_entered", _on_movement_push_area_body_entered)
-	$MovementPushArea.connect("body_exited", _on_movement_push_area_body_exited)
+	$MovementPushArea.connect(&"body_entered", _on_movement_push_area_body_entered)
+	$MovementPushArea.connect(&"body_exited", _on_movement_push_area_body_exited)
 	
 	#dodawanie shaderow to wszystkich spritow
 	for child in $Sprite2D.get_children():
 		child.use_parent_material = true
 	for raycast in raycast_array:
 		raycast.set_collision_mask(0b100000)
+	handle_skills()
+	handle_starting_skills()
 func _physics_process(_delta: float) -> void:
 	#seek_enemies()
 	if !dying:
@@ -131,25 +133,25 @@ func handle_inputs(event):
 	if state_machine.state == state_machine.states.dying:
 		return #jeśli jednostka umiera to nie możemy jej wydać rozkazów
 	match event:
-		"left_click":
+		&"left_click":
 			if !state_machine.command_key == state_machine.command_keys.ATTACK_MOVE:
 				return
 			state_machine.command_key = state_machine.command_keys.NONE
 			state_machine.command = state_machine.commands.ATTACK_MOVE
 			move_target = get_global_mouse_position()
 			state_machine.set_state(state_machine.states.moving)
-		"right_click":
+		&"right_click":
 			state_machine.command = state_machine.commands.MOVE
 			state_machine.command_key = state_machine.command_keys.NONE
 			move_target = get_global_mouse_position()
 			state_machine.set_state(state_machine.states.moving)
-		"attack_move":
+		&"attack_move":
 			state_machine.command_key = state_machine.command_keys.ATTACK_MOVE
-		"stop":
+		&"stop":
 			state_machine.command = state_machine.commands.NONE
 			state_machine.command_key = state_machine.command_keys.NONE
 			state_machine.set_state(state_machine.states.idle)
-		"hold":
+		&"hold":
 			state_machine.command = state_machine.commands.HOLD
 			state_machine.command_key = state_machine.command_keys.NONE
 			state_machine.set_state(state_machine.states.idle)
@@ -201,7 +203,8 @@ func move_to_target(delta,target_position): #CLOSE RANGE MOVEMENT
 				#print("im setting this stuff to true")
 				unit_stuck_boolean = true
 			else:
-				print("odleglosc byla wieksza niz epsilon")
+				pass
+				#print("odleglosc byla wieksza niz epsilon")
 		if unit_stuck_boolean:
 			pathfinding_raycast = send_out_raycasts(target_position)
 		last_position = global_position
@@ -267,12 +270,13 @@ func follow_player() -> void:
 		move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
 
 #COMBAT ===============================================================================
-func hit(damage_taken, _damage_source) -> bool:
+func hit(damage_taken, damage_source) -> bool:
 	if health > 0:
-		$Sprite2D.material.set_shader_parameter('progress',1)
-		$Timers/HitFlashTimer.start()
-		$Particles/HitParticles.emitting = true
-		took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
+		if damage_source not in status_effects_array:
+			$Sprite2D.material.set_shader_parameter(&'progress',1)
+			$Timers/HitFlashTimer.start()
+			$Particles/HitParticles.emitting = true
+			took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
 	health_bar.visible = true
 	damage_bar.visible = true
 	health -= damage_taken
@@ -287,9 +291,9 @@ func hit(damage_taken, _damage_source) -> bool:
 		dying = true
 		health_bar.visible = false
 		damage_bar.visible = false
-		state_machine.call_deferred("set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
+		state_machine.call_deferred(&"set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
 		navigation_agent_2d.avoidance_enabled = false
-		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
+		$CollisionShape2D.call_deferred(&"set_deferred", &"disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
@@ -299,8 +303,8 @@ func forced_death():
 		dying = true
 		health_bar.visible = false
 		damage_bar.visible = false
-		state_machine.call_deferred("set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
-		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
+		state_machine.call_deferred(&"set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
+		$CollisionShape2D.call_deferred(&"set_deferred", &"disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
 
 func death():
 	unit_died.emit(Tags.UnitTag.SKELETON_MAGE)
@@ -308,24 +312,17 @@ func death():
 		skill.use(self)
 
 func heal(heal_amount):
-	health_bar.visible = true
-	damage_bar.visible = true
-	
 	health += heal_amount
 	health_bar.value = health
-	
-	var tween = create_tween()
-	tween.tween_property(damage_bar, "value", health, 0.5) 
-	tween.set_trans(Tween.TRANS_SINE)
-	tween.set_ease(Tween.EASE_OUT)
-	if health <= 0: #hp poniżej 0 - umieranie
+	if health >= max_health:
+		health = max_health
 		health_bar.visible = false
 		damage_bar.visible = false
-		state_machine.call_deferred("set_state", state_machine.states.dying) #tu i niżej musimy zmienić na call_deferred(), i don't make the rules
-		$CollisionShape2D.call_deferred("set_deferred", "disabled", true) #disablujemy collision zeby przeciwnicy nie atakowali martwych unitów
-		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
-		return true #jednostka ma ponad 0hp więc wciąż żyje
+		var tween = create_tween()
+		tween.tween_property(damage_bar, "value", health, 0.5) 
+		tween.set_trans(Tween.TRANS_SINE)
+		tween.set_ease(Tween.EASE_OUT)
 func attack():
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		for skill in skills_on_hit:
@@ -343,8 +340,8 @@ func seek_enemies():
 	for unit in possible_targets:
 		if unit == null:
 			possible_targets.erase(unit)
-	for enemy in get_tree().get_nodes_in_group("Unit"):
-		if enemy not in get_tree().get_nodes_in_group("Allied"):
+	for enemy in get_tree().get_nodes_in_group(&"Unit"):
+		if enemy not in get_tree().get_nodes_in_group(&"Allied"):
 			if global_position.distance_to(enemy.global_position) > vision_range:
 				if possible_targets.has(enemy):
 					possible_targets.erase(enemy)
@@ -353,8 +350,8 @@ func seek_enemies():
 					possible_targets.append(enemy)
 
 func _on_vision_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Unit"): #sprawdza czy jednostka, która weszła w vision range to valid target
-		if not body.is_in_group("Allied"): #Sprawdza czy nie jest sojusznikiem
+	if body.is_in_group(&"Unit"): #sprawdza czy jednostka, która weszła w vision range to valid target
+		if not body.is_in_group(&"Allied"): #Sprawdza czy nie jest sojusznikiem
 			possible_targets.append(body) #dodajemy target do listy
 
 func _on_vision_area_body_exited(body: Node2D) -> void:
@@ -396,13 +393,13 @@ func closest_enemy_within_attack_range():
 #dodawanie i usuwanie z grupy Selected, wywoływane albo w scenie unit selector w levelu
 #albo poprzez left click
 func select() -> void:
-	add_to_group("Selected")
+	add_to_group(&"Selected")
 	selected = true
 	$Selected.visible = true
 
 func deselect() -> void:
 	if !state_machine.command_key == state_machine.command_keys.ATTACK_MOVE:
-		remove_from_group("Selected")
+		remove_from_group(&"Selected")
 		selected = false
 		$Selected.visible = false
 
@@ -417,10 +414,10 @@ func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 			return #jesli chcemy zrobic attack move to nie selectujemy jednostki left clickowanej
 		if event.is_released:
 			#troche nasty style, potencjalnie do poprawy
-			for unit in get_tree().get_nodes_in_group("Selected"):
+			for unit in get_tree().get_nodes_in_group(&"Selected"):
 				unit.deselect()
 			select()
-			Globals.units_selection_changed.emit(get_tree().get_nodes_in_group("Selected"))
+			Globals.units_selection_changed.emit(get_tree().get_nodes_in_group(&"Selected"))
 
 #sprawdzamy czy myszka znajduje się w Area2D naszego ClickArea
 func _on_click_area_mouse_entered() -> void:
@@ -439,4 +436,4 @@ func _on_click_area_mouse_exited() -> void:
 #VISUALS ============================================================
 
 func _on_hit_flash_timer_timeout() -> void:
-	$Sprite2D.material.set_shader_parameter('progress',0)
+	$Sprite2D.material.set_shader_parameter(&'progress',0)

@@ -3,22 +3,26 @@ extends CharacterBody2D
 #! ! ! 90% rzeczy tutaj jest temporary ! ! ! 
 #wiec nie bede tego komentować 
 
-var speed = 500
-var standing: bool = true
-var selected = false
+var speed : int = 500
+var standing : bool = true
+var selected : bool = false
 var dying : bool = false
 
 var skills_summon : Array = []
 var skills_stat_up : Array = []
 var skills_passive : Array = []
 var skills_active : Array = []
+var skills_on_unit_death : Array = []
 var own_tags : PackedInt32Array = [Tags.UnitTag.PLAYER]
 
 #Unit spawning
-var skeleton_warrior_count = 0
-var skeleton_mage_count = 0
+var skeleton_warrior_count : int = 0
+var skeleton_mage_count : int = 0
+var summon_respawn_timer_modifier : float = 1
 signal summon_unit()
 signal took_damage(damage, unit)
+
+var spell_damage_multiplier = 1
 
 var unit_collision_push_array : Array = []
 var direction : Vector2
@@ -149,7 +153,7 @@ func _ready() -> void:
 			childs_child.use_parent_material = true
 	$MovementPushArea.connect("body_entered", _on_movement_push_area_body_entered)
 	$MovementPushArea.connect("body_exited", _on_movement_push_area_body_exited)
-
+	Globals.player = self
 func _physics_process(_delta: float) -> void:
 	if standing:
 		$AnimationPlayer.play("stand")
@@ -186,6 +190,8 @@ func handle_skills():
 					skills_active.append(skill)
 				if skill.use_tags.has(Tags.UseTag.SUMMON):
 					skills_summon.append(skill)
+				if skill.use_tags.has(Tags.UseTag.UNIT_DEATH):
+					skills_on_unit_death.append(skill)
 				break
 func handle_skill_update(skill):
 	for i in range(own_tags.size()):
@@ -201,6 +207,8 @@ func handle_skill_update(skill):
 			if skill.use_tags.has(Tags.UseTag.SUMMON):
 				skills_summon.append(skill)
 				skill.use(self)
+			if skill.use_tags.has(Tags.UseTag.UNIT_DEATH):
+				skills_on_unit_death.append(skill)
 			break
 func handle_starting_skills():
 	for skill in skills_stat_up:
@@ -211,6 +219,7 @@ func handle_starting_skills():
 		skill.use(self)
 
 func hit(damage_taken, _damage_source) -> void:
+	Globals.health -= damage_taken
 	took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
 	$SpriteRoot.material.set_shader_parameter('progress',1)
 	$Timers/HitFlashTimer.start()
@@ -221,7 +230,17 @@ func hit(damage_taken, _damage_source) -> void:
 	health_tween.tween_property(damage_bar, "value", Globals.health, 0.5)
 	health_tween.set_trans(Tween.TRANS_SINE)
 	health_tween.set_ease(Tween.EASE_OUT)
-	Globals.update_player_hp(damage_taken)
+	Globals.update_player_hp()
+
+func heal(heal_amount) -> void:
+	#chowac pasek kiedy jest pelny?
+	Globals.health += heal_amount
+	health_bar.value = Globals.health
+	var health_tween = create_tween()
+	health_tween.tween_property(damage_bar, "value", Globals.health, 0.5)
+	health_tween.set_trans(Tween.TRANS_SINE)
+	health_tween.set_ease(Tween.EASE_OUT)
+	Globals.update_player_hp()
 
 func flip() -> void:
 	if $SpriteRoot.scale.x > 0:
@@ -234,7 +253,9 @@ func unflip() -> void:
 func _on_hit_flash_timer_timeout() -> void:
 	$SpriteRoot.material.set_shader_parameter('progress',0)
 
-
+func handle_unit_death() -> void:
+	for skill in skills_on_unit_death:
+		skill.use(self)
 
 func _push_units():
 	for body in unit_collision_push_array:
