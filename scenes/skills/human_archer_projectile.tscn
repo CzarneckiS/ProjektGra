@@ -7,7 +7,7 @@
 radius = 4.0
 height = 38.0
 
-[node name="HumanArcherProjectile" type="Area2D"]
+[node name="HumanArcherProjectile" type="Area2D" groups=["EnemyProjectile"]]
 collision_layer = 8
 collision_mask = 34
 script = ExtResource("1_tkdvm")

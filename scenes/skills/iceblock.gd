@@ -12,7 +12,9 @@ var lifespan: Timer = Timer.new()
 @onready var iceblock_animation: AnimationPlayer = $pivotpoint/iceblock_animation
 @onready var navigation_region_2d: NavigationRegion2D = get_node("../NavigationRegion2D")
 @onready var pivotpoint: Node2D = $pivotpoint
-
+@onready var iceblock_projectile_block_area: Area2D = $pivotpoint/iceblock_projectile_block_area
+@onready var iceblock_transformation_area: Area2D = $pivotpoint/iceblock_transformation_area
+	
 func initialize(spawn_position: Vector2, skill_res: Iceblock):
 	skill_resource = skill_res
 	global_position = spawn_position
@@ -32,6 +34,8 @@ func _ready():
 	knockback_area.body_entered.connect(_on_knockback_area_entered)
 	diagonal_damage_area.body_entered.connect(_on_damage_area_entered)
 	diagonal_knockback_area.body_entered.connect(_on_knockback_area_entered)
+	iceblock_projectile_block_area.area_entered.connect(_on_iceblock_projectile_block_entered)
+	
 	lifespan.timeout.connect(_on_lifespan_timeout)
 	
 	navigation_region_2d.call_deferred("bake_navigation_polygon")
@@ -102,3 +106,9 @@ func update_opacity_update(_body):
 		opacity_tween.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 0.5), 0.15)
 	opacity_tween.set_trans(Tween.TRANS_SINE)
 	opacity_tween.set_ease(Tween.EASE_OUT)
+
+func _on_iceblock_projectile_block_entered(projectile):
+	if projectile.is_in_group("EnemyProjectile"):
+		projectile.call_deferred("queue_free")
+	else:
+		return

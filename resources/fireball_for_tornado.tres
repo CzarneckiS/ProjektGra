@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="Fireball" load_steps=9 format=3 uid="uid://bfbdlwosyiocw"]
+
+[ext_resource type="Script" uid="uid://doefgekdmwu85" path="res://scripts/skill_effects/effect_knockback.gd" id="1_40m70"]
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="2_xp2gp"]
+[ext_resource type="Texture2D" uid="uid://bx0lq38r2rgxe" path="res://sprites/icons/fireball icon.png" id="3_ygv7x"]
+[ext_resource type="Script" uid="uid://bl3vupanbhx08" path="res://scripts/skills_for_resources/fireball_for_resource.gd" id="4_u6fpd"]
+[ext_resource type="Script" uid="uid://dnv5i0eq6rlp7" path="res://scripts/skill_effects/effect_damage.gd" id="5_621ug"]
+[ext_resource type="PackedScene" uid="uid://csqq1uc6vu2nt" path="res://scenes/skills/fireball_for_tornado.tscn" id="6_40m70"]
+
+[sub_resource type="Resource" id="Resource_40t6d"]
+script = ExtResource("1_40m70")
+knockback_friction = 10.0
+knockback_speed = 300.0
+metadata/_custom_type_script = "uid://doefgekdmwu85"
+
+[sub_resource type="Resource" id="Resource_6la2a"]
+script = ExtResource("5_621ug")
+metadata/_custom_type_script = "uid://dnv5i0eq6rlp7"
+
+[resource]
+script = ExtResource("4_u6fpd")
+skill_effect_data = SubResource("Resource_6la2a")
+effect_knockback = SubResource("Resource_40t6d")
+amount = 5
+offset = Vector2(0, 150)
+max_range = 500.0
+speed = 600.0
+skill_name = "fireball"
+cooldown = 0.3
+visual_effect = ExtResource("6_40m70")
+icon = ExtResource("3_ygv7x")
+metadata/_custom_type_script = "uid://bl3vupanbhx08"

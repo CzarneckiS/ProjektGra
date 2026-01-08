@@ -2,14 +2,18 @@ extends Area2D
 class_name HealSpell
 
 var skill_resource: Heal
-var player_node: CharacterBody2D
+var player_pos
 const heal_vfx = preload("res://scenes/skills/heal_vfx.tscn")
 
-func initialize(player: CharacterBody2D, skill_res: Heal):
+func initialize(player, skill_res: Heal):
 	skill_resource = skill_res
-	player_node = player
+	player_pos = player
 	global_position = player.global_position
-	heal_player()
+	if player is CharacterBody2D:
+		$heal_animation.play("player")
+		heal_player()
+	else:
+		$heal_animation.play("default")
 	if skill_resource.skill_effect_data2 != null:
 		if $heal_collision.shape:
 			var base_radius = skill_resource.skill_effect_data2.radius
@@ -19,10 +23,10 @@ func initialize(player: CharacterBody2D, skill_res: Heal):
 			shape_duplicate.radius = base_radius * skill_resource.skill_effect_data2.radius_multiplier
 	
 func _process(_delta):
-	global_position = player_node.global_position
+	if player_pos != null:
+		global_position = player_pos.global_position
 	
 func _ready():
-	$heal_animation.play("default")
 	$heal_animation.animation_finished.connect(_on_animation_finished)
 	body_entered.connect(_on_body_entered)
 	
