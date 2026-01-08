@@ -1,17 +1,12 @@
 extends UnitParent
 class_name Boss
 
-var projectile = preload("res://resources/human_mage_projectile.tres")
+var projectile = preload("res://resources/boss_basic_projectile.tres")
 var explosive_circle = preload("res://resources/boss_explosive_circle.tres")
 var homing_projectile = preload("res://resources/boss_homing_projectile.tres")
 var fire_wave = preload("res://resources/boss_fire_wave.tres")
+var melee_attack_vfx = preload("res://vfx/melee_attack_slash/boss_attack_slash_vfx.tres")
 
-
-var skills_active : Array = [explosive_circle]
-var skills_stat_up : Array = []
-var skills_passive : Array = []
-var skills_on_hit : Array = [projectile]
-var skills_on_death : Array = []
 var own_tags : PackedInt32Array = []
 #exp ktory daje warrior, wykorzystywany przekazywany do fsm w dying state
 const experience_value = 50
@@ -25,11 +20,11 @@ var next_path_position
 var can_navigate:bool = true
 
 #combat
-var damage = 10
+var damage = 20
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UŻYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
-var attack_range = 400
-var vision_range = 400
+var attack_range = 230
+var vision_range = 800
 var dying : bool = false
 var attack_time = 5 #czas pomiędzy atakami
 #clicking
@@ -44,7 +39,7 @@ var mouse_hovering : bool = false #sluzy do sprawdzania czy myszka jest w clicka
 @onready var unstick_timer: Timer = $Timers/UnstickTimer
 
 func _ready() -> void:
-	base_max_health = 60
+	base_max_health = 600
 	max_health  = base_max_health
 	health = max_health
 	health_bar.max_value = max_health
@@ -78,7 +73,6 @@ func _ready() -> void:
 	$Timers/AttackTimer.timeout.connect(_on_attack_timer_timeout)
 	$Timers/HitFlashTimer.timeout.connect(_on_hit_flash_timer_timeout)
 	$Particles/HitParticles.modulate = Color(1.0, 0.0, 0.0, 1.0)
-	
 	prepare_targeting_chunks()
 	
 	#dodawanie shaderow to wszystkich spritow
@@ -170,7 +164,7 @@ func _on_navigation_timer_timeout() -> void:
 
 #COMBAT ===============================================================================
 var chunk_size : int = 50
-var map_size : int = 800
+var map_size : int = 1600
 @warning_ignore("integer_division")
 var half_map_size : int = map_size / 2
 @warning_ignore("integer_division")
@@ -236,12 +230,17 @@ func find_best_chunk() -> Vector2:
 				@warning_ignore("integer_division")
 				potential_chunks.append(Vector2(i*chunk_size+global_position.x-half_map_size + chunk_size/2, j*chunk_size+global_position.y-half_map_size + chunk_size/2))
 			temp_value = 0
-	return potential_chunks[randi()%potential_chunks.size()]
-func _draw():
-	for i in chunks.size():
-		for j in chunks.size():
-			draw_circle(Vector2(i*chunk_size+global_position.x-half_map_size + chunk_size/2, j*chunk_size+global_position.y-half_map_size + chunk_size/2),10,Color())
-			
+	var best_position: Vector2
+	if biggest_value == 0:
+		best_position = global_position.direction_to(Globals.player_position) * 800
+	else:
+		best_position = potential_chunks[randi()%potential_chunks.size()]
+	return best_position
+#func _draw():
+	#for i in chunks.size():
+		#for j in chunks.size():
+			#draw_circle(Vector2(i*chunk_size+global_position.x-half_map_size + chunk_size/2, j*chunk_size+global_position.y-half_map_size + chunk_size/2),10,Color())
+
 func clear_chunks():
 	for i in chunks.size():
 		for j in chunks.size():
@@ -276,34 +275,29 @@ func hit(damage_taken, damage_source) -> bool:
 		return false #returnuje false dla przeciwnika, który sprawdza czy jednostka wciąż żyje
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
-
 func death():
-	unit_died.emit(Tags.UnitTag.HUMAN_MAGE)
-	for skill in skills_on_death:
-		skill.use(self)
-
+	pass #koniec gry tutaj :p
+var best_chunk_position: Vector2 #setowane w state machine bo potrzebna jest mi pozycja do obracania
 func cast_explosive_circle_single():
-	for unit in possible_targets:
-		add_to_heatmap(unit.global_position)
-	explosive_circle.use(self, find_best_chunk())
+	explosive_circle.use(self, best_chunk_position)
 	clear_chunks()
 
-func cast_explosive_circle_grid():
+#func cast_explosive_circle_grid():
 	#do przemyslenia
-	for unit in possible_targets:
-		add_to_heatmap(unit.global_position)
-	var best_chunk_pos : Vector2 = find_best_chunk()
-	explosive_circle.use(self, best_chunk_pos)
-	clear_chunks()
-	await get_tree().create_timer(0.5).timeout
-	explosive_circle.use(self, Vector2(best_chunk_pos.x - 300, best_chunk_pos.y - 300))
-	explosive_circle.use(self, Vector2(best_chunk_pos.x - 300, best_chunk_pos.y))
-	explosive_circle.use(self, Vector2(best_chunk_pos.x - 300, best_chunk_pos.y + 300))
-	explosive_circle.use(self, Vector2(best_chunk_pos.x, best_chunk_pos.y + 300))
-	explosive_circle.use(self, Vector2(best_chunk_pos.x, best_chunk_pos.y - 300))
-	explosive_circle.use(self, Vector2(best_chunk_pos.x + 300, best_chunk_pos.y - 300))
-	explosive_circle.use(self, Vector2(best_chunk_pos.x + 300, best_chunk_pos.y))
-	explosive_circle.use(self, Vector2(best_chunk_pos.x + 300, best_chunk_pos.y + 300))
+	#for unit in possible_targets:
+		#add_to_heatmap(unit.global_position)
+	#var best_chunk_pos : Vector2 = find_best_chunk()
+	#explosive_circle.use(self, best_chunk_pos)
+	#clear_chunks()
+	#await get_tree().create_timer(0.5).timeout
+	#explosive_circle.use(self, Vector2(best_chunk_pos.x - 300, best_chunk_pos.y - 300))
+	#explosive_circle.use(self, Vector2(best_chunk_pos.x - 300, best_chunk_pos.y))
+	#explosive_circle.use(self, Vector2(best_chunk_pos.x - 300, best_chunk_pos.y + 300))
+	#explosive_circle.use(self, Vector2(best_chunk_pos.x, best_chunk_pos.y + 300))
+	#explosive_circle.use(self, Vector2(best_chunk_pos.x, best_chunk_pos.y - 300))
+	#explosive_circle.use(self, Vector2(best_chunk_pos.x + 300, best_chunk_pos.y - 300))
+	#explosive_circle.use(self, Vector2(best_chunk_pos.x + 300, best_chunk_pos.y))
+	#explosive_circle.use(self, Vector2(best_chunk_pos.x + 300, best_chunk_pos.y + 300))
 
 func cast_homing_projectile(projectile_amount : int):
 	for i in range(projectile_amount):
@@ -314,6 +308,7 @@ func cast_fire_wave_single():
 	fire_wave.use(self, Globals.player_position)
 
 func cast_fire_wave_around():
+	#nie ma czerwonych prostokatow
 	var pos = Globals.player_position
 	fire_wave.use(self, Vector2(pos *-1))
 	fire_wave.use(self, Vector2((pos.x*cos(PI/3)-pos.y*sin(PI/3)),(pos.x*sin(PI/3)+pos.y*cos(PI/3))))
@@ -321,19 +316,21 @@ func cast_fire_wave_around():
 	fire_wave.use(self, -Vector2((pos.x*cos(PI/3)-pos.y*sin(PI/3)),(pos.x*sin(PI/3)+pos.y*cos(PI/3))))
 	fire_wave.use(self, -Vector2((pos.x*cos(2*PI/3)-pos.y*sin(2*PI/3)),(pos.x*sin(2*PI/3)+pos.y*cos(2*PI/3))))
 	fire_wave.use(self, pos)
+func cast_dash(unit, target_destination : Vector2):
+	state_machine.set_state(state_machine.states.moving)
+	move_target = 5#TODO
+func ranged_attack():
+	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
+		projectile.use(self, attack_target.get_ref())
+func melee_attack():
+	melee_attack_vfx.use(self, attack_target.get_ref())
+	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
+		#check czy cel nie odszedl za daleko
+		if global_position.distance_to(attack_target.get_ref().global_position) < 300:
+			attack_target.get_ref().hit(damage, self)
+	else:
+		state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle
 
-func attack():
-	pass
-	#cast_fire_wave_around()
-	#cast_homing_projectile(1)
-	#cast_explosive_circle_grid()
-	#if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
-		#for skill in skills_on_hit:
-			#skill.use(self, attack_target.get_ref())
-	#else:
-		#state_machine.set_state(state_machine.states.idle) #cel zmarł - przejdź do stanu idle
-	#can_attack = false
-	#$Timers/AttackTimer.start()
 func seek_enemies():
 	for unit in possible_targets:
 		if unit == null:

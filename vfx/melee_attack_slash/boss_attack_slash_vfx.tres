@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cy86xcvjl1g6e"]
+
+[ext_resource type="Script" uid="uid://cgmgxv6oi57pw" path="res://vfx/melee_attack_slash/melee_attack_slash_vfx_resource.gd" id="1_gbuhh"]
+[ext_resource type="PackedScene" uid="uid://ikvtm6djsken" path="res://vfx/melee_attack_slash/boss_attack_slash_vfx.tscn" id="2_gbuhh"]
+
+[resource]
+script = ExtResource("1_gbuhh")
+visual_effect = ExtResource("2_gbuhh")

@@ -10,4 +10,5 @@ func apply_push(attack_position: Vector2, body):
 	body.push_velocity = knockback_direction * knockback_speed
 	body.push_friction = knockback_friction
 	
-	body.state_machine.set_state(body.state_machine.states.push)
+	if body.state_machine.states.has("push"):
+		body.state_machine.set_state(body.state_machine.states.push)

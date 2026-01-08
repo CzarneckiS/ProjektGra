@@ -4,13 +4,12 @@ extends Area2D
 var start_position: Vector2
 var direction: Vector2
 var hit: bool = false
-var damage: int
-var starting_distance: float = 100
-var speed: float = 100
-var max_range: float = 800
-var acceleration: float = 400
+var damage
+var starting_distance = 100
+var speed = 100
+var max_range = 800
+var acceleration = 400
 var units_hit_array : Array[CharacterBody2D] = []
-
 func initialize(start_pos: Vector2, target_pos: Vector2, _damage: int):
 	damage = _damage
 	start_position = start_pos

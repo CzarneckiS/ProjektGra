@@ -1,7 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://cewddkds06v85"]
+[gd_scene load_steps=20 format=3 uid="uid://cewddkds06v85"]
 
 [ext_resource type="Script" uid="uid://dyd8bn0ym6ulq" path="res://scenes/skills/boss_fire_wave.gd" id="1_3tfam"]
 [ext_resource type="Texture2D" uid="uid://y5mdei3qwtud" path="res://sprites/boss/firewave/wave1.png" id="2_3m4s2"]
+[ext_resource type="Texture2D" uid="uid://dy8vdee1hm78o" path="res://sprites/boss/firewave/wave2.png" id="3_nbgow"]
+[ext_resource type="Texture2D" uid="uid://dwck81kt85fey" path="res://sprites/boss/firewave/wave3.png" id="4_3tfam"]
+[ext_resource type="Texture2D" uid="uid://isp1vpai5j5t" path="res://sprites/boss/firewave/wave0.png" id="5_m6cj6"]
 [ext_resource type="Texture2D" uid="uid://dt8j4esmf6ln1" path="res://sprites/fireball/fireball_splash/fireball_splash_0.png" id="7_t7lyp"]
 [ext_resource type="Texture2D" uid="uid://c711slo7ve4d6" path="res://sprites/fireball/fireball_splash/fireball_splash_1.png" id="8_bw3g8"]
 [ext_resource type="Texture2D" uid="uid://cr08kn148jq0w" path="res://sprites/fireball/fireball_splash/fireball_splash_2.png" id="9_c342w"]
@@ -20,6 +23,12 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_3m4s2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nbgow")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3tfam")
 }],
 "loop": true,
 "name": &"default",
@@ -30,7 +39,7 @@ animations = [{
 "texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_3m4s2")
+"texture": ExtResource("5_m6cj6")
 }],
 "loop": false,
 "name": &"on_creation",
@@ -78,8 +87,9 @@ animations = [{
 "speed": 48.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cj314"]
-radius = 119.01681
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nbgow"]
+radius = 276.0
+height = 864.0
 
 [node name="FireWave" type="Area2D"]
 collision_layer = 8
@@ -87,12 +97,13 @@ collision_mask = 34
 script = ExtResource("1_3tfam")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-43.000004, -1.0000014)
+position = Vector2(4, -7)
 rotation = 0.007876373
-scale = Vector2(0.47687966, 0.5550399)
+scale = Vector2(0.32687888, 0.38045406)
 sprite_frames = SubResource("SpriteFrames_lrya3")
+frame_progress = 0.56665266
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(20, 0)
 scale = Vector2(0.25, 0.25)
-shape = SubResource("CircleShape2D_cj314")
+shape = SubResource("CapsuleShape2D_nbgow")

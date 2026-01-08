@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bhf8r5as37ld0" path="res://sprites/terrain/Tileset.png" id="3_mbbpy"]
 [ext_resource type="PackedScene" uid="uid://cjx171uymvuyc" path="res://scenes/xp_flower.tscn" id="3_urvlt"]
 [ext_resource type="PackedScene" uid="uid://so7ninglpdtm" path="res://scenes/tree.tscn" id="4_d4w6o"]
-[ext_resource type="PackedScene" uid="uid://wvsdf8tuug6c" path="res://scenes/tree_with_collision.tscn" id="4_mbbpy"]
+[ext_resource type="PackedScene" uid="uid://c8sjbgmeh1l0m" path="res://scenes/tree_with_collision.tscn" id="4_mbbpy"]
 [ext_resource type="Script" uid="uid://rkcfoq2ddkxw" path="res://scenes/levels/unit_selector.gd" id="4_xb4v1"]
 [ext_resource type="PackedScene" uid="uid://qs8u8j50ijce" path="res://scenes/characters/enemies/boss.tscn" id="7_ouxo3"]
 
@@ -2332,10 +2332,8 @@ K = Spawn Mage
 L = Spawn Human Warrior
 N = Spawn Human Archer
 M = Spawn Human Mage
-P = Level up
-Q = fireball
-E = lightning bolt
-R = Heal"
+; = Spawn Boss
+P = Level up"
 
 [node name="Label2" type="Label" parent="HudLayer"]
 anchors_preset = 1

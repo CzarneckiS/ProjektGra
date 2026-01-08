@@ -16,7 +16,7 @@ func initialize(start_pos: Vector2, target_unit: CharacterBody2D, _damage):
 	start_position = start_pos
 	global_position = start_pos
 	target = target_unit
-	var starting_velocity = (target.global_position - start_pos).normalized() * speed
+	var starting_velocity = (target.global_position - start_pos).normalized() * speed*1
 	current_velocity = Vector2((starting_velocity.x*cos(randf_range(-3,3))-starting_velocity.y*sin(randf_range(-3,3))),(starting_velocity.x*sin(randf_range(-3,3))+starting_velocity.y*cos(randf_range(-3,3))))
 	#look_at(target_pos)
 func _ready():
