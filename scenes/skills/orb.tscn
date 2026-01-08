@@ -1,10 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://cddb1dw4rrfap"]
+[gd_scene load_steps=10 format=3 uid="uid://cddb1dw4rrfap"]
 
 [ext_resource type="Texture2D" uid="uid://dhxnke7ppkry8" path="res://sprites/orb/orb_001.png" id="1_t2h6j"]
-[ext_resource type="Script" uid="uid://dqp1lpdnsan5k" path="res://scenes/skills/orb.gd" id="1_wes3q"]
+[ext_resource type="Script" path="res://scenes/skills/orb.gd" id="1_wes3q"]
 [ext_resource type="Texture2D" uid="uid://bpimwrrt1byjs" path="res://sprites/orb/orb_002.png" id="2_wes3q"]
 [ext_resource type="Texture2D" uid="uid://ccb68ovgbsvou" path="res://sprites/orb/orb_003.png" id="3_b5ke4"]
 [ext_resource type="Texture2D" uid="uid://dxyocstpsi7tx" path="res://sprites/orb/orb_004.png" id="4_1w802"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wes3q"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 32.61
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, -2.71, 0)
+spread = 0.0
+initial_velocity_min = 194.11
+initial_velocity_max = 194.11
+gravity = Vector3(0, 98, 0)
+scale_min = 3.1499999
+scale_max = 3.4499998
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_60575"]
 animations = [{
@@ -20,6 +34,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("4_1w802")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_b5ke4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_wes3q")
 }],
 "loop": true,
 "name": &"default",
@@ -35,11 +55,16 @@ radius = 769.0527
 [node name="Orb" type="Node2D"]
 script = ExtResource("1_wes3q")
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(1, 0.8627451, 0.45882353, 1)
+amount = 17
+lifetime = 0.24000000000000002
+process_material = SubResource("ParticleProcessMaterial_wes3q")
+
 [node name="orb_animation" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_60575")
-frame = 3
-frame_progress = 0.75165653
+frame_progress = 0.6313512
 
 [node name="orb_collision_area" type="Area2D" parent="."]
 visible = false

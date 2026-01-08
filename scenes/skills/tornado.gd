@@ -151,7 +151,7 @@ func transform_skill(skill):
 			transform_animation(Color("5ec9ffff"))
 			transformation_iceblock(skill)
 		_ when skill is FieldSpell:
-			transform_animation(Color("151519ff"))
+			transform_animation(Color("181528ff"))
 			transformation_field(skill)
 		_ :
 			return

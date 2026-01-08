@@ -270,7 +270,7 @@ func on_allied_unit_spawn_animation(unit):
 	await spawn_animation.animation_finished
 	spawn_animation.queue_free()
 
-func on_unit_damage_taken(damage, unit):
+func on_unit_damage_taken(damage: int, unit):
 	var damage_number = Label.new()
 	add_child(damage_number)
 	damage_number.text = str(damage)

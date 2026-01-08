@@ -285,15 +285,15 @@ animations = [{
 "speed": 1.0
 }]
 
-[node name="Tornado" type="Area2D"]
+[node name="Tornado2" type="Area2D"]
 scale = Vector2(2.5, 2.5)
 collision_layer = 8
 collision_mask = 12
 script = ExtResource("1_hymgt")
 
 [node name="tornado_sprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(1.6000004, -45.999996)
-scale = Vector2(0.2982082, 0.2982082)
+position = Vector2(-2.7999992, -34)
+scale = Vector2(0.22418943, 0.22418942)
 sprite_frames = SubResource("SpriteFrames_2ibcm")
 
 [node name="tornado_collision_damage" type="CollisionShape2D" parent="."]
