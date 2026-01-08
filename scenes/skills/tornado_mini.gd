@@ -30,7 +30,7 @@ func initialize(spawn_position: Vector2, skill_res: Tornado):
 	base_damage = skill_resource.effect_dot.damage_per_tick
 	damage_multiplier = skill_resource.effect_dot.damage_multiplier
 	
-	self.modulate = Color("79a300ff") * 5.0
+	self.modulate = Color("151519ff") * 2.0
 	
 	global_position = spawn_position
 	spawn_center = spawn_position

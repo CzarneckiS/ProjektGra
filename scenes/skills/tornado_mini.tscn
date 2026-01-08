@@ -1,13 +1,14 @@
 [gd_scene load_steps=21 format=3 uid="uid://u5r4358ij0mx"]
 
-[ext_resource type="Script" uid="uid://ddcch85fti7gn" path="res://scenes/skills/tornado_mini.gd" id="1_28mfd"]
-[ext_resource type="Texture2D" uid="uid://d2h2rutoardr1" path="res://sprites/tornado/tornado_spritesheet.png" id="2_qkr0p"]
+[ext_resource type="Script" path="res://scenes/skills/tornado_mini.gd" id="1_28mfd"]
 [ext_resource type="Shape2D" uid="uid://d0cuc6fxx8hw7" path="res://resources/tornado_shape_pull.tres" id="3_agl6q"]
 [ext_resource type="Texture2D" uid="uid://cdjo4vurbujal" path="res://sprites/tornado/protection_circle/protection_circle_001.png" id="4_3opby"]
 [ext_resource type="Texture2D" uid="uid://b6nnel6neg6oh" path="res://sprites/tornado/protection_circle/protection_circle_002.png" id="5_13to5"]
 [ext_resource type="Texture2D" uid="uid://xvxcfpsx4na4" path="res://sprites/tornado/protection_circle/protection_circle_003.png" id="6_q76q1"]
 [ext_resource type="Texture2D" uid="uid://pahdlf1epjlf" path="res://sprites/tornado/protection_circle/protection_circle_004.png" id="7_aovi2"]
 [ext_resource type="Texture2D" uid="uid://cobpq1hmhyt7m" path="res://sprites/tornado/tornado_iceblock_transformation_slow_area/tornado_iceblock_transformation_slow_area.png" id="8_bc4yv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2ea6s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrveb"]
 radius = 151.73505
@@ -206,11 +207,10 @@ collision_layer = 8
 collision_mask = 12
 script = ExtResource("1_28mfd")
 
-[node name="tornado_sprite" type="Sprite2D" parent="."]
+[node name="tornado_sprite" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.4745098, 0.6392157, 0, 1)
 position = Vector2(0, -43)
-texture = ExtResource("2_qkr0p")
-hframes = 6
+sprite_frames = SubResource("SpriteFrames_2ea6s")
 
 [node name="tornado_collision_damage" type="CollisionShape2D" parent="."]
 position = Vector2(0, -27.999998)

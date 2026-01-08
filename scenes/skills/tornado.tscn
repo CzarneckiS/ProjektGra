@@ -1,13 +1,98 @@
-[gd_scene load_steps=21 format=3 uid="uid://dmmwvpsouxvpv"]
+[gd_scene load_steps=38 format=3 uid="uid://dmmwvpsouxvpv"]
 
-[ext_resource type="Texture2D" uid="uid://d2h2rutoardr1" path="res://sprites/tornado/tornado_spritesheet.png" id="1_fec2i"]
 [ext_resource type="Script" uid="uid://dxcuij1guk6e5" path="res://scenes/skills/tornado.gd" id="1_hymgt"]
+[ext_resource type="Texture2D" uid="uid://b5ppkdiinua5h" path="res://sprites/tornado/tornado_sprites/TornadoWhite9.png" id="2_i0487"]
+[ext_resource type="Texture2D" uid="uid://cq0dk7gvojkhj" path="res://sprites/tornado/tornado_sprites/TornadoWhite10.png" id="3_l6416"]
 [ext_resource type="Shape2D" uid="uid://d0cuc6fxx8hw7" path="res://resources/tornado_shape_pull.tres" id="3_xrveb"]
+[ext_resource type="Texture2D" uid="uid://b21glm5jes5dc" path="res://sprites/tornado/tornado_sprites/TornadoWhite11.png" id="4_kelog"]
 [ext_resource type="Texture2D" uid="uid://cdjo4vurbujal" path="res://sprites/tornado/protection_circle/protection_circle_001.png" id="4_ms7ra"]
 [ext_resource type="Texture2D" uid="uid://b6nnel6neg6oh" path="res://sprites/tornado/protection_circle/protection_circle_002.png" id="5_lrrw7"]
+[ext_resource type="Texture2D" uid="uid://b7myj1diiqs6s" path="res://sprites/tornado/tornado_sprites/TornadoWhite12.png" id="5_o62e6"]
+[ext_resource type="Texture2D" uid="uid://dh6q0asf0qeur" path="res://sprites/tornado/tornado_sprites/TornadoWhite13.png" id="6_d6fxk"]
 [ext_resource type="Texture2D" uid="uid://xvxcfpsx4na4" path="res://sprites/tornado/protection_circle/protection_circle_003.png" id="6_modja"]
+[ext_resource type="Texture2D" uid="uid://dnwdpk1oykc0p" path="res://sprites/tornado/tornado_sprites/TornadoWhite14.png" id="7_0b3qd"]
 [ext_resource type="Texture2D" uid="uid://pahdlf1epjlf" path="res://sprites/tornado/protection_circle/protection_circle_004.png" id="7_vdx5d"]
+[ext_resource type="Texture2D" uid="uid://dn2m6y6q35wml" path="res://sprites/tornado/tornado_sprites/TornadoWhite15.png" id="8_6687j"]
 [ext_resource type="Texture2D" uid="uid://cobpq1hmhyt7m" path="res://sprites/tornado/tornado_iceblock_transformation_slow_area/tornado_iceblock_transformation_slow_area.png" id="8_lrrw7"]
+[ext_resource type="Texture2D" uid="uid://dioa06gb33t3y" path="res://sprites/tornado/tornado_sprites/TornadoWhite16.png" id="9_l8cta"]
+[ext_resource type="Texture2D" uid="uid://1tevw0ustejh" path="res://sprites/tornado/tornado_sprites/TornadoWhite17.png" id="10_bx5tb"]
+[ext_resource type="Texture2D" uid="uid://bemn5inqofqyl" path="res://sprites/tornado/tornado_sprites/TornadoWhite1.png" id="11_k7gwk"]
+[ext_resource type="Texture2D" uid="uid://ciculq4cyrbio" path="res://sprites/tornado/tornado_sprites/TornadoWhite2.png" id="12_f0rgs"]
+[ext_resource type="Texture2D" uid="uid://yq1qxxaeai0u" path="res://sprites/tornado/tornado_sprites/TornadoWhite3.png" id="13_exmuv"]
+[ext_resource type="Texture2D" uid="uid://cplvtdofb06p5" path="res://sprites/tornado/tornado_sprites/TornadoWhite4.png" id="14_la4f7"]
+[ext_resource type="Texture2D" uid="uid://da7fc4bdret65" path="res://sprites/tornado/tornado_sprites/TornadoWhite5.png" id="15_sp73a"]
+[ext_resource type="Texture2D" uid="uid://byuaqtytd6pur" path="res://sprites/tornado/tornado_sprites/TornadoWhite6.png" id="16_xeyqw"]
+[ext_resource type="Texture2D" uid="uid://clq0qkwbleeit" path="res://sprites/tornado/tornado_sprites/TornadoWhite7.png" id="17_yqrrk"]
+[ext_resource type="Texture2D" uid="uid://ds4kyttrq20hd" path="res://sprites/tornado/tornado_sprites/TornadoWhite8.png" id="18_w522q"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2ibcm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i0487")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_l6416")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_kelog")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_o62e6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_d6fxk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_0b3qd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6687j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_l8cta")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_bx5tb")
+}],
+"loop": false,
+"name": &"ending",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_k7gwk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_f0rgs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_exmuv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_la4f7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_sp73a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_xeyqw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_yqrrk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_w522q")
+}],
+"loop": false,
+"name": &"on_creation",
+"speed": 18.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrveb"]
 radius = 151.73505
@@ -206,10 +291,10 @@ collision_layer = 8
 collision_mask = 12
 script = ExtResource("1_hymgt")
 
-[node name="tornado_sprite" type="Sprite2D" parent="."]
-position = Vector2(0, -43)
-texture = ExtResource("1_fec2i")
-hframes = 6
+[node name="tornado_sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.6000004, -45.999996)
+scale = Vector2(0.2982082, 0.2982082)
+sprite_frames = SubResource("SpriteFrames_2ibcm")
 
 [node name="tornado_collision_damage" type="CollisionShape2D" parent="."]
 position = Vector2(0, -27.999998)

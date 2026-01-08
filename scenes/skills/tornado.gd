@@ -92,7 +92,8 @@ func initialize(spawn_position: Vector2, skill_res: Tornado):
 	
 func _ready():
 	lifespan.call_deferred("start")
-	
+	$tornado_sprite.animation_finished.connect(_on_tornado_animation_finished)
+	$tornado_sprite.play("on_creation")
 	tornado_animation.play("default")
 	tornado_collision_pull_area.body_entered.connect(_on_tornado_collision_pull_entered)
 	tornado_collision_transform_area.area_entered.connect(transform_skill)
@@ -138,29 +139,29 @@ func transform_skill(skill):
 		return
 	match skill:
 		_ when skill is FireballSpell:
-			transform_animation("006626ff")
+			transform_animation(Color("00ce8dff"))
 			transformation_fireball()
 		_ when skill is ThunderboltSpell:
-			transform_animation("00ffffff")
+			transform_animation(Color("7cfffeff"))
 			transformation_thunderbolt()
 		_ when skill is HealSpell:
-			transform_animation("52009aff")
+			transform_animation(Color("ca57ffff"))
 			transformation_heal()
 		_ when skill.owner is IceblockSpell:
-			transform_animation("0087bdff")
+			transform_animation(Color("5ec9ffff"))
 			transformation_iceblock(skill)
 		_ when skill is FieldSpell:
-			transform_animation("79a300ff")
+			transform_animation(Color("151519ff"))
 			transformation_field(skill)
 		_ :
 			return
 	transformed = true
 
-func transform_animation(color: String):
+func transform_animation(color: Color):
 	var transform_color: Color = Color.WHITE
 	var transform_tween = create_tween()
 	
-	transform_color = Color(color) * 5.0
+	transform_color = Color(color) * 2.0
 	transform_tween.tween_property($tornado_sprite, "modulate", transform_color, 0.35)
 	transform_tween.set_ease(Tween.EASE_OUT)
 	
@@ -238,3 +239,7 @@ func transformation_field(_skill):
 
 func _on_transformation_orb_spawn_timer_timeout():
 	orb_skill.call_deferred("use", self, global_position)
+
+func _on_tornado_animation_finished():
+	if $tornado_sprite.animation == "on_creation":
+		$tornado_sprite.play("default")
