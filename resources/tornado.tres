@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://eb2n0krmxsn8" path="res://scripts/skill_effects/effect_dot.gd" id="2_5qvuc"]
 [ext_resource type="Script" uid="uid://02kqq8hqw2mm" path="res://scripts/skill_effects/effect_heal.gd" id="3_ki3mb"]
 [ext_resource type="Script" uid="uid://doefgekdmwu85" path="res://scripts/skill_effects/effect_knockback.gd" id="3_p3lq7"]
-[ext_resource type="Script" uid="uid://b8hvxjgf4wq4l" path="res://scripts/skill_effects/effect_pull.gd" id="4_ki3mb"]
+[ext_resource type="Script" path="res://scripts/skill_effects/effect_pull.gd" id="4_ki3mb"]
 [ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="5_p3lq7"]
 [ext_resource type="PackedScene" uid="uid://dmmwvpsouxvpv" path="res://scenes/skills/tornado.tscn" id="6_5qvuc"]
 

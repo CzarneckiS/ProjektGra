@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitStatUpHealthUp" load_steps=4 format=3 uid="uid://cq51gmnk4v6nr"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://cq51gmnk4v6nr"]
 
 [ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_6ljtq"]
 [ext_resource type="Script" uid="uid://cmilrs63wa2cf" path="res://scripts/skills_for_resources/boss_explosive_circle_for_resource.gd" id="2_wjpsw"]

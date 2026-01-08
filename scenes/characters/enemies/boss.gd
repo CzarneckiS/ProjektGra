@@ -248,8 +248,9 @@ func clear_chunks():
 func hit(damage_taken, damage_source) -> bool:
 	if health > 0:
 		if damage_source not in status_effects_array:
-			$Sprite2D.material.set_shader_parameter(&'progress',1)
-			$Timers/HitFlashTimer.start()
+			#to hitflash or not to hitflash
+			#$Sprite2D.material.set_shader_parameter(&'progress',1)
+			#$Timers/HitFlashTimer.start()
 			$Particles/HitParticles.emitting = true
 			took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
 	health_bar.visible = true

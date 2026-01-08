@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dnv5i0eq6rlp7" path="res://scripts/skill_effects/effect_damage.gd" id="2_jvauk"]
 [ext_resource type="Script" uid="uid://b6hgmwtiws7ea" path="res://scripts/skills_for_resources/thunderbolt_for_resource.gd" id="2_y4w00"]
 [ext_resource type="Script" uid="uid://8g2g4sl8jw6l" path="res://scripts/skill_effects/effect_aoe.gd" id="3_f2p8b"]
-[ext_resource type="Script" path="res://scripts/skill_effects/effect_knockback.gd" id="4_f2p8b"]
+[ext_resource type="Script" uid="uid://doefgekdmwu85" path="res://scripts/skill_effects/effect_knockback.gd" id="4_f2p8b"]
 [ext_resource type="Texture2D" uid="uid://bqkm6nmsyxh1l" path="res://sprites/icons/thunderbolt icon.png" id="4_jdh3n"]
 [ext_resource type="PackedScene" uid="uid://loqryqxp6f73" path="res://scenes/skills/thunderbolt.tscn" id="5_f2p8b"]
 
