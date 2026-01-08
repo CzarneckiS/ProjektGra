@@ -14,19 +14,21 @@ func _on_body_entered(body: Node2D) -> void:
 		check_if_can_stop(body)
 
 func check_if_can_stop(body : Node2D):
-	if body in units_inside:
-		return
-	if units_inside.size() == 0:
-		stop_body(body)
-	else:
-		for unit in units_inside:
-			if body.global_position.distance_to(unit.global_position) < STOP_DISTANCE and unit != body:
-				stop_body(body)
-				return
-		if body.state_machine.state != body.state_machine.states.idle:
-			await body.get_tree().create_timer(0.3).timeout
-			if body:
-				check_if_can_stop(body)
+	if body:
+		if body in units_inside:
+			return
+		if units_inside.size() == 0:
+			stop_body(body)
+		else:
+			for unit in units_inside:
+				if unit:
+					if body.global_position.distance_to(unit.global_position) < STOP_DISTANCE and unit != body:
+						stop_body(body)
+						return
+			if body.state_machine.state != body.state_machine.states.idle:
+				await body.get_tree().create_timer(0.3).timeout
+				if body:
+					check_if_can_stop(body)
 
 func stop_body(body : Node2D):
 	body.state_machine.set_state(body.state_machine.states.idle)

@@ -30,7 +30,7 @@ func initialize(spawn_position: Vector2, skill_res: Tornado):
 	base_damage = skill_resource.effect_dot.damage_per_tick
 	damage_multiplier = skill_resource.effect_dot.damage_multiplier
 	
-	self.modulate = Color("79a300ff") * 5.0
+	self.modulate = Color("181528ff") * 2.0
 	
 	global_position = spawn_position
 	spawn_center = spawn_position
@@ -71,7 +71,8 @@ func initialize(spawn_position: Vector2, skill_res: Tornado):
 func _ready():
 	lifespan.call_deferred("start")
 	orb_spawn_timer.call_deferred("start")
-	
+	$tornado_sprite.animation_finished.connect(_on_tornado_animation_finished)
+	$tornado_sprite.play("on_creation")
 	tornado_animation.play("default")
 	tornado_collision_pull_area.body_entered.connect(_on_tornado_collision_pull_entered)
 	tornado_collision_knockback_area.body_entered.connect(_on_tornado_collision_knockback_entered)
@@ -123,3 +124,7 @@ func _on_tornado_collision_knockback_entered(body: UnitParent):
 
 func _on_transformation_orb_spawn_timer_timeout():
 	orb_skill.call_deferred("use", self, global_position)
+
+func _on_tornado_animation_finished():
+	if $tornado_sprite.animation == "on_creation":
+		$tornado_sprite.play("default")
