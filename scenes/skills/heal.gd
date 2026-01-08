@@ -2,7 +2,7 @@ extends Area2D
 class_name HealSpell
 
 var skill_resource: Heal
-var player_pos
+var player_pos #player_pos? to nie jest pozycja, chyba powinno byc zmienione?
 const heal_vfx = preload("res://scenes/skills/heal_vfx.tscn")
 
 func initialize(player, skill_res: Heal):
@@ -45,4 +45,4 @@ func display_heal_vfx(target: Node2D):
 		vfx_instance.position = Vector2.ZERO
 
 func heal_player():
-	player_node.heal(skill_resource.skill_effect_data.base_heal * skill_resource.skill_effect_data.heal_multiplier)
+	player_pos.heal(skill_resource.skill_effect_data.base_heal * skill_resource.skill_effect_data.heal_multiplier)
