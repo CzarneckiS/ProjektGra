@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://cq51gmnk4v6nr"]
+
+[ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_6ljtq"]
+[ext_resource type="Script" uid="uid://cmilrs63wa2cf" path="res://scripts/skills_for_resources/boss_explosive_circle_for_resource.gd" id="2_wjpsw"]
+[ext_resource type="PackedScene" uid="uid://bq0a7rycfipvg" path="res://scenes/skills/boss_explosive_circle.tscn" id="3_sjpju"]
+
+[resource]
+script = ExtResource("2_wjpsw")
+visual_effect = ExtResource("3_sjpju")

@@ -5,9 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://dphc21aqf5r1m" path="res://sprites/ui/Button_neutral.png" id="2_ll4mt"]
 [ext_resource type="Texture2D" uid="uid://bpvowenbyhjyy" path="res://sprites/ui/Button_pressed.png" id="4_0a75a"]
 [ext_resource type="Texture2D" uid="uid://cvilxq7eyc1kj" path="res://sprites/ui/Button_highlight.png" id="4_5cnrf"]
-[ext_resource type="Texture2D" uid="uid://chy5d1g28au0x" path="res://sprites/thunderbolt/HUD_MenuTemplate.png" id="6_hlpig"]
+[ext_resource type="Texture2D" uid="uid://chy5d1g28au0x" path="res://sprites/ui/HUD_MenuTemplate.png" id="6_hlpig"]
 [ext_resource type="Texture2D" uid="uid://c6a6cymtsl4cd" path="res://sprites/ui/EmptyIcon.png" id="7_svu7p"]
 [ext_resource type="Texture2D" uid="uid://csuu5qvhmmnvx" path="res://sprites/ui/HUD_MenuLine.png" id="8_2rfcd"]
+
 
 [sub_resource type="FontVariation" id="FontVariation_0a75a"]
 base_font = ExtResource("2_jml7r")

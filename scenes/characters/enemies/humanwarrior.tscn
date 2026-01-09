@@ -511,7 +511,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_x0uns")
 }
 autoplay = "idle"
-blend_times = [&"attack", &"idle", 0.5, &"attack", &"walk", 0.5, &"idle", &"attack", 0.5, &"idle", &"walk", 0.5, &"walk", &"attack", 0.5, &"walk", &"idle", 0.5]
+blend_times = [&"RESET", &"attack", 0.5, &"RESET", &"dying", 0.5, &"RESET", &"idle", 0.5, &"RESET", &"walk", 0.5, &"attack", &"attack", 0.5, &"attack", &"dying", 0.5, &"attack", &"idle", 0.5, &"attack", &"walk", 0.5, &"idle", &"attack", 0.5, &"idle", &"walk", 0.5, &"walk", &"attack", 0.5, &"walk", &"idle", 0.5]
 
 [node name="AnimationPlayerSelected" type="AnimationPlayer" parent="." index="8"]
 libraries = {

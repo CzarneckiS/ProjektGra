@@ -1,0 +1,105 @@
+[gd_scene load_steps=16 format=3 uid="uid://bq0a7rycfipvg"]
+
+[ext_resource type="Script" path="res://scenes/skills/boss_explosive_circle.gd" id="1_l3xk6"]
+[ext_resource type="Texture2D" uid="uid://dpys442bixxm1" path="res://sprites/boss/explosion/explosion1.png" id="2_df367"]
+[ext_resource type="Texture2D" uid="uid://1sa8n7olpm4w" path="res://sprites/boss/explosion/pyroExplosion1.png" id="3_dgtbu"]
+[ext_resource type="Texture2D" uid="uid://btiv81vgl5o0m" path="res://sprites/boss/explosion/pyroExplosion2.png" id="4_a5onw"]
+[ext_resource type="Texture2D" uid="uid://c71h8evd3ymce" path="res://sprites/boss/explosion/pyroExplosion3.png" id="5_xn740"]
+[ext_resource type="Texture2D" uid="uid://bshnr3k47wmqm" path="res://sprites/boss/explosion/pyroExplosion4.png" id="6_ne114"]
+[ext_resource type="Texture2D" uid="uid://cjlrisevns5df" path="res://sprites/boss/explosion/pyroExplosion5.png" id="7_n1ebg"]
+[ext_resource type="Texture2D" uid="uid://cau84mhp6eeb" path="res://sprites/boss/explosion/pyroExplosion6.png" id="8_n14pd"]
+[ext_resource type="Texture2D" uid="uid://d28vci8ly45n" path="res://sprites/boss/explosion/pyroExplosion7.png" id="9_iesgx"]
+[ext_resource type="Texture2D" uid="uid://chnc00tdk5tp1" path="res://sprites/boss/explosion/pyroExplosion8.png" id="10_k2pfh"]
+[ext_resource type="Texture2D" uid="uid://bmr0se3p7qwg4" path="res://sprites/boss/explosion/pyroExplosion9.png" id="11_dvkqf"]
+[ext_resource type="Texture2D" uid="uid://d1xmktrqyiqk" path="res://sprites/boss/explosion/pyroExplosion10.png" id="12_soia0"]
+[ext_resource type="Texture2D" uid="uid://bgj20sw62t3kb" path="res://sprites/boss/explosion/pyroExplosion11.png" id="13_lhbyy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gva5k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_df367")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_df367")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_df367")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_df367")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_df367")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_df367")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_df367")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_df367")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dgtbu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_a5onw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_xn740")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ne114")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_n1ebg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_n14pd")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_iesgx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_k2pfh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_dvkqf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_soia0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_lhbyy")
+}],
+"loop": false,
+"name": &"exploding",
+"speed": 12.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n17iy"]
+radius = 127.0
+height = 317.97504
+
+[node name="BossExplosiveCircle" type="Area2D"]
+collision_layer = 8
+collision_mask = 34
+monitoring = false
+monitorable = false
+script = ExtResource("1_l3xk6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-6.000001, -45)
+scale = Vector2(0.65272063, 0.65272075)
+sprite_frames = SubResource("SpriteFrames_gva5k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5785377
+shape = SubResource("CapsuleShape2D_n17iy")

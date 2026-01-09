@@ -1,13 +1,98 @@
-[gd_scene load_steps=21 format=3 uid="uid://u5r4358ij0mx"]
+[gd_scene load_steps=38 format=3 uid="uid://u5r4358ij0mx"]
 
 [ext_resource type="Script" uid="uid://ddcch85fti7gn" path="res://scenes/skills/tornado_mini.gd" id="1_28mfd"]
-[ext_resource type="Texture2D" uid="uid://d2h2rutoardr1" path="res://sprites/tornado/tornado_spritesheet.png" id="2_qkr0p"]
+[ext_resource type="Texture2D" uid="uid://b5ppkdiinua5h" path="res://sprites/tornado/tornado_sprites/TornadoWhite9.png" id="2_1dlys"]
 [ext_resource type="Shape2D" uid="uid://d0cuc6fxx8hw7" path="res://resources/tornado_shape_pull.tres" id="3_agl6q"]
+[ext_resource type="Texture2D" uid="uid://cq0dk7gvojkhj" path="res://sprites/tornado/tornado_sprites/TornadoWhite10.png" id="3_s6bnm"]
 [ext_resource type="Texture2D" uid="uid://cdjo4vurbujal" path="res://sprites/tornado/protection_circle/protection_circle_001.png" id="4_3opby"]
+[ext_resource type="Texture2D" uid="uid://b21glm5jes5dc" path="res://sprites/tornado/tornado_sprites/TornadoWhite11.png" id="4_sre6y"]
 [ext_resource type="Texture2D" uid="uid://b6nnel6neg6oh" path="res://sprites/tornado/protection_circle/protection_circle_002.png" id="5_13to5"]
+[ext_resource type="Texture2D" uid="uid://b7myj1diiqs6s" path="res://sprites/tornado/tornado_sprites/TornadoWhite12.png" id="5_j5noc"]
+[ext_resource type="Texture2D" uid="uid://dh6q0asf0qeur" path="res://sprites/tornado/tornado_sprites/TornadoWhite13.png" id="6_cxljq"]
 [ext_resource type="Texture2D" uid="uid://xvxcfpsx4na4" path="res://sprites/tornado/protection_circle/protection_circle_003.png" id="6_q76q1"]
 [ext_resource type="Texture2D" uid="uid://pahdlf1epjlf" path="res://sprites/tornado/protection_circle/protection_circle_004.png" id="7_aovi2"]
+[ext_resource type="Texture2D" uid="uid://dnwdpk1oykc0p" path="res://sprites/tornado/tornado_sprites/TornadoWhite14.png" id="7_wqp8d"]
 [ext_resource type="Texture2D" uid="uid://cobpq1hmhyt7m" path="res://sprites/tornado/tornado_iceblock_transformation_slow_area/tornado_iceblock_transformation_slow_area.png" id="8_bc4yv"]
+[ext_resource type="Texture2D" uid="uid://dn2m6y6q35wml" path="res://sprites/tornado/tornado_sprites/TornadoWhite15.png" id="8_q0xtg"]
+[ext_resource type="Texture2D" uid="uid://dioa06gb33t3y" path="res://sprites/tornado/tornado_sprites/TornadoWhite16.png" id="9_v0mhy"]
+[ext_resource type="Texture2D" uid="uid://1tevw0ustejh" path="res://sprites/tornado/tornado_sprites/TornadoWhite17.png" id="10_fqv23"]
+[ext_resource type="Texture2D" uid="uid://bemn5inqofqyl" path="res://sprites/tornado/tornado_sprites/TornadoWhite1.png" id="11_ono5x"]
+[ext_resource type="Texture2D" uid="uid://ciculq4cyrbio" path="res://sprites/tornado/tornado_sprites/TornadoWhite2.png" id="12_3nnmo"]
+[ext_resource type="Texture2D" uid="uid://yq1qxxaeai0u" path="res://sprites/tornado/tornado_sprites/TornadoWhite3.png" id="13_ag73i"]
+[ext_resource type="Texture2D" uid="uid://cplvtdofb06p5" path="res://sprites/tornado/tornado_sprites/TornadoWhite4.png" id="14_m2dms"]
+[ext_resource type="Texture2D" uid="uid://da7fc4bdret65" path="res://sprites/tornado/tornado_sprites/TornadoWhite5.png" id="15_ccnhf"]
+[ext_resource type="Texture2D" uid="uid://byuaqtytd6pur" path="res://sprites/tornado/tornado_sprites/TornadoWhite6.png" id="16_gdd67"]
+[ext_resource type="Texture2D" uid="uid://clq0qkwbleeit" path="res://sprites/tornado/tornado_sprites/TornadoWhite7.png" id="17_mlq7u"]
+[ext_resource type="Texture2D" uid="uid://ds4kyttrq20hd" path="res://sprites/tornado/tornado_sprites/TornadoWhite8.png" id="18_4o116"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ttnyg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1dlys")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_s6bnm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_sre6y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_j5noc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_cxljq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_wqp8d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_q0xtg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_v0mhy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_fqv23")
+}],
+"loop": false,
+"name": &"ending",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_ono5x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_3nnmo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ag73i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_m2dms")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ccnhf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_gdd67")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_mlq7u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_4o116")
+}],
+"loop": false,
+"name": &"on_creation",
+"speed": 18.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrveb"]
 radius = 151.73505
@@ -17,132 +102,24 @@ radius = 71.82043
 
 [sub_resource type="Animation" id="Animation_hymgt"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("tornado_sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("tornado_sprite:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_fec2i"]
 resource_name = "default"
 length = 0.5
 step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("tornado_sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
 
 [sub_resource type="Animation" id="Animation_xrveb"]
 resource_name = "fireballed"
 length = 0.50001
 step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("tornado_sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("tornado_sprite:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(0, 0.9882353, 0.40784314, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_jed8l"]
 resource_name = "healed"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("tornado_sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("tornado_sprite:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.32049313, 0.0012809518, 0.6022583, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_x00ro"]
 resource_name = "thunderbolted"
 length = 0.50001
 step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("tornado_sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("tornado_sprite:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(0, 1.974, 4.3, 1)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xrveb"]
 _data = {
@@ -206,11 +183,10 @@ collision_layer = 8
 collision_mask = 12
 script = ExtResource("1_28mfd")
 
-[node name="tornado_sprite" type="Sprite2D" parent="."]
-modulate = Color(0.4745098, 0.6392157, 0, 1)
-position = Vector2(0, -43)
-texture = ExtResource("2_qkr0p")
-hframes = 6
+[node name="tornado_sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2.8, -34)
+scale = Vector2(0.224, 0.224)
+sprite_frames = SubResource("SpriteFrames_ttnyg")
 
 [node name="tornado_collision_damage" type="CollisionShape2D" parent="."]
 position = Vector2(0, -27.999998)

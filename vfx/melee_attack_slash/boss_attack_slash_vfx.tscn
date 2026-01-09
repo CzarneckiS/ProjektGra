@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ikvtm6djsken"]
+
+[ext_resource type="Script" uid="uid://dh1qwmfmpt0qn" path="res://vfx/melee_attack_slash/melee_attack_slash_vfx.gd" id="1_0m6qr"]
+[ext_resource type="Texture2D" uid="uid://jdf8qxesm201" path="res://vfx/melee_attack_slash/melee_attack_slash_vfx.png" id="2_6dql0"]
+
+[node name="MeleeAttackSlashVfx" type="Node2D"]
+script = ExtResource("1_0m6qr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(164, 0)
+texture = ExtResource("2_6dql0")

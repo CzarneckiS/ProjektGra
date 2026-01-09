@@ -10,6 +10,7 @@ signal ui_unit_died(unit)
 
 
 #statystyki głównej jednostki
+var player : CharacterBody2D
 var health : int = 100
 var max_health : int = health
 var player_position: Vector2
@@ -86,15 +87,14 @@ func remove_overlapping_allies():
 #funkcja, ktora obsluguje to, co sie dzieje z postacia po lvl upie
 func level_up():
 	max_health += 20 #placeholder wartosc na zwiekszanie max hp
-	# czy jest sens dodać +helth na przykład +10 jak w docie?
-	xp_to_level += 5 #placeholder wartosc na zwiekszanie limitu do uzyskania kolejnego lvla
+	health = max_health
+	xp_to_level += 200 #placeholder wartosc na zwiekszanie limitu do uzyskania kolejnego lvla
 	level += 1 #nie było tego, dodałem, nie wiem czy coś innego myśleliście
 	
 	ui_hp_update_requested.emit()
 	lvl_up_menu_requested.emit()
 
-func update_player_hp(damage_taken):
-	health -= damage_taken
+func update_player_hp():
 	ui_hp_update_requested.emit()
 	if health <= 0:
 		pass # play death()

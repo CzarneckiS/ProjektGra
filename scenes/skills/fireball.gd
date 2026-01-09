@@ -19,9 +19,9 @@ func initialize(start_pos, target_pos: Vector2, skill_res: Fireball, _shift):
 	look_at(target_pos)
 	
 func _ready():
-	$fireball_animation.play("default")
 	body_entered.connect(_on_body_entered)
 	$fireball_animation.animation_finished.connect(_on_animation_finished)
+	$fireball_animation.play("on_creation")
 	
 func _physics_process(delta: float) -> void:
 	if skill_resource == null:
@@ -40,8 +40,11 @@ func _on_body_entered(body: UnitParent):
 		hit = true
 		$fireball_animation.play("splash")
 		$fireball_animation.scale = Vector2(1.5, 1.5)
-		body.hit(skill_resource.skill_effect_data.base_damage*skill_resource.skill_effect_data.damage_multiplier, self)
+		body.hit(skill_resource.skill_effect_data.base_damage**skill_resource.skill_effect_data.damage_multiplier, self)
 		skill_resource.effect_knockback.apply_push(global_position, body)
 
 func _on_animation_finished():
-	call_deferred("queue_free")
+	if $fireball_animation.animation == "on_creation":
+		$fireball_animation.play("default")
+	if $fireball_animation.animation == "splash":
+		call_deferred("queue_free")

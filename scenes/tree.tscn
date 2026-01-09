@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://so7ninglpdtm"]
+
+[ext_resource type="Texture2D" uid="uid://k0wnioefee6u" path="res://sprites/terrain/tree.png" id="2_vplca"]
+
+[node name="Tree" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-6, -106)
+scale = Vector2(0.27606955, 0.27606955)
+texture = ExtResource("2_vplca")

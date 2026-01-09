@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ditdede78u4ax"]
+
+[ext_resource type="Texture2D" uid="uid://bu5anfcrbqk3k" path="res://sprites/thunderbolt/burn_mark.png" id="1_tykar"]
+[ext_resource type="Script" uid="uid://d08do3ebedxto" path="res://sprites/thunderbolt/thunderbolt_burn_mark.gd" id="2_aap5x"]
+
+[node name="ThunderboltBurnMark" type="Sprite2D"]
+visible = false
+scale = Vector2(0.22666667, 0.22666667)
+texture = ExtResource("1_tykar")
+script = ExtResource("2_aap5x")

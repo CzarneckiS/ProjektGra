@@ -7,6 +7,7 @@ var hud = load("res://scenes/levels/hud.tscn").instantiate()
 var human_warrior = preload("res://scenes/characters/enemies/humanwarrior.tscn")
 var human_archer = preload("res://scenes/characters/enemies/humanarcher.tscn")
 var human_mage = preload("res://scenes/characters/enemies/humanmage.tscn")
+var boss = preload("res://scenes/characters/enemies/boss.tscn")
 var skeleton_warrior = preload("res://scenes/characters/allies/skeletonwarrior.tscn")
 var skeleton_mage = preload("res://scenes/characters/allies/skeletonmage.tscn")
 
@@ -22,7 +23,6 @@ func _ready():
 	$Player.connect("took_damage", on_unit_damage_taken)
 	hud.process_mode = Node.PROCESS_MODE_ALWAYS
 	$HudLayer.add_child(hud)
-	#tu chyba nie powinno byc podlogi przed nazwa sygnalu? idk juz sie w tym pogubilem
 	Globals.lvl_up_menu_requested.connect(show_lvl_up_menu)
 	stats_hud.process_mode = Node.PROCESS_MODE_ALWAYS
 	#lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -129,20 +129,26 @@ func on_unit_death(unit):
 				order.unit_array.erase(unit)
 	match unit:
 		Tags.UnitTag.SKELETON_MAGE:
-			await get_tree().create_timer(5.0).timeout
+			await get_tree().create_timer(5.0 * $Player.summon_respawn_timer_modifier).timeout
 			summon_skeleton_mage()
 		Tags.UnitTag.SKELETON_WARRIOR:
-			await get_tree().create_timer(5.0).timeout
+			print($Player.summon_respawn_timer_modifier)
+			print(5.0 * $Player.summon_respawn_timer_modifier)
+			await get_tree().create_timer(5.0 * $Player.summon_respawn_timer_modifier).timeout
 			summon_skeleton_warrior()
 		Tags.UnitTag.HUMAN_WARRIOR:
 			enemies_defeated += 1
 			Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.HUMAN_WARRIOR)
+			$Player.handle_unit_death()
 		Tags.UnitTag.HUMAN_ARCHER:
 			enemies_defeated += 1
 			Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.HUMAN_ARCHER)
+			$Player.handle_unit_death()
 		Tags.UnitTag.HUMAN_MAGE:
 			enemies_defeated += 1
 			Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.HUMAN_MAGE)
+			$Player.handle_unit_death()
+		
 #Ta funkcja moze byc potencjalnie grozna bo uzywa WHILE !
 #uzywanie while podczas runtime gry moze oznaczac lagi i wtedy moze trzeba zrobic cos takiego:
 #funkcja w while ma np 60 prob zanim sie podda
@@ -239,6 +245,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			$MenuLayer.add_child(esc_menu)
 			get_tree().paused = true
 		#TEMPORARY INPUTY ==================
+	elif event.is_action_pressed("scroll_down"):
+		if $Player/Camera2D.zoom.x > 0.7:
+			var tween = create_tween()
+			tween.tween_property($Player/Camera2D, "zoom", Vector2($Player/Camera2D.zoom.x - 0.1, $Player/Camera2D.zoom.y - 0.1), 0.1)
+	elif event.is_action_pressed("scroll_up"):
+		if $Player/Camera2D.zoom.x < 1.3:
+			var tween = create_tween()
+			tween.tween_property($Player/Camera2D, "zoom", Vector2($Player/Camera2D.zoom.x + 0.1, $Player/Camera2D.zoom.y + 0.1), 0.1)
 	elif event.is_action_pressed("tmpLvlUp"):
 		if not $MenuLayer.has_node("LvlUpMenu"):
 			var lvlup_scene = load("res://scenes/ui/lvlup_menu.tscn")
@@ -265,6 +279,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		new_enemy.connect("unit_died", on_unit_death)
 	elif event.is_action_pressed("tmpSpawnEnemy3"):
 		var new_enemy = human_mage.instantiate()
+		$EnemyUnits.add_child(new_enemy)
+		%EnemySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
+		while !is_point_on_map(%EnemySpawnFollow.global_position):
+			%EnemySpawnFollow.progress_ratio = randf()
+		new_enemy.global_position = %EnemySpawnFollow.global_position
+		new_enemy.connect("target_clicked", _on_target_clicked)
+		new_enemy.connect("took_damage", on_unit_damage_taken)
+		new_enemy.connect("unit_died", on_unit_death)
+	elif event.is_action_pressed("tmpSpawnBoss"):
+		var new_enemy = boss.instantiate()
 		$EnemyUnits.add_child(new_enemy)
 		%EnemySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
 		while !is_point_on_map(%EnemySpawnFollow.global_position):
@@ -305,7 +329,7 @@ func on_allied_unit_spawn_animation(unit):
 	await spawn_animation.animation_finished
 	spawn_animation.queue_free()
 
-func on_unit_damage_taken(damage, unit):
+func on_unit_damage_taken(damage: int, unit):
 	var damage_number = Label.new()
 	add_child(damage_number)
 	damage_number.text = str(damage)
@@ -327,7 +351,7 @@ func on_unit_damage_taken(damage, unit):
 	damage_number.pivot_offset = Vector2(damage_number.size / 2)
 	damage_number.label_settings.font = preload("res://misc/fonts/upheavtt.ttf")
 	
-	var tween = get_tree().create_tween()
+	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(damage_number,"global_position:y",damage_number.global_position.y - 20, 0.5)
 	tween.tween_property(damage_number,"global_position:x",damage_number.global_position.x + randi_range(-20, 20), 0.5)
