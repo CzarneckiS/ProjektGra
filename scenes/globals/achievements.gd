@@ -15,11 +15,12 @@ enum Event{
 
 var achievement_list : Dictionary = {
 	"default_unlock": true, #jako jedyny true bo odnosi sie do skilli odblokowanych na start
-	"mages_killed": false,
-	"skeletons_summoned": false,
-	"level_5_skill_unlocked": false,
-	"wave_10_reached": false,
-	"boss_killed": false
+	"mages_killed": true,
+	"skeletons_summoned": true,
+	"level_5_skill_unlocked": true,
+	"wave_10_reached": true,
+	"boss_wave_reached": true,
+	"boss_killed": true
 }
 
 var achievement_description_list : Dictionary = {
@@ -28,6 +29,7 @@ var achievement_description_list : Dictionary = {
 	"skeletons_summoned": "Przyzwij jednocześnie 5 jednostek",
 	"level_5_skill_unlocked": "Ulepsz umiejętność do poziomu 5",
 	"wave_10_reached": "Dotrzyj do fali 10",
+	"boss_wave_reached": "Dotrzyj do Bossa",
 	"boss_killed": "Pokonaj Bossa"
 }
 
@@ -38,6 +40,7 @@ func _process(delta: float) -> void:
 	pass #do debuggowania
 
 func _ready() -> void:
+	save_game() #TEMPORARY, DO WYWALENIA
 	print("template")
 	print(OS.has_feature("template"))
 	create_save_directory() #jesli template:  build exportowany do pliku .exe

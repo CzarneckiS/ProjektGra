@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="Iceblock" load_steps=8 format=3 uid="uid://clncq4tpiyuec"]
+[gd_resource type="Resource" script_class="Iceblock" load_steps=9 format=3 uid="uid://clncq4tpiyuec"]
 
 [ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_3d7v5"]
 [ext_resource type="Script" uid="uid://crq0fh3xh12hp" path="res://scripts/skills_for_resources/iceblock_for_resource.gd" id="2_8vg0c"]
 [ext_resource type="Script" uid="uid://doefgekdmwu85" path="res://scripts/skill_effects/effect_knockback.gd" id="2_i4gyf"]
 [ext_resource type="Script" uid="uid://dnv5i0eq6rlp7" path="res://scripts/skill_effects/effect_damage.gd" id="3_sxjjv"]
+[ext_resource type="Texture2D" uid="uid://ciq413kx7jaqg" path="res://sprites/icons/wall icon.png" id="4_3oprw"]
 [ext_resource type="PackedScene" uid="uid://ca7j2rmm5tryu" path="res://scenes/skills/iceblock.tscn" id="5_6v3ww"]
 
 [sub_resource type="Resource" id="Resource_sxjjv"]
@@ -21,8 +22,9 @@ metadata/_custom_type_script = "uid://doefgekdmwu85"
 script = ExtResource("2_8vg0c")
 effect_damage = SubResource("Resource_sxjjv")
 effect_knockback = SubResource("Resource_3oprw")
-skill_name = "iceblock"
+skill_name = "Glacial barrier"
 skill_desc = "lodowy klocuch"
 cooldown = 0.1
 visual_effect = ExtResource("5_6v3ww")
+icon = ExtResource("4_3oprw")
 metadata/_custom_type_script = "uid://crq0fh3xh12hp"

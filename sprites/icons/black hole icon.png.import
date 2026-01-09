@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c08ycsh3vq1tw"
-path="res://.godot/imported/DeathTimer icon.png-3a18b715b0ddc7a148f64e7136fa2b93.ctex"
+uid="uid://f6qlso7a65fe"
+path="res://.godot/imported/black hole icon.png-b50ab6dc4b785b96a81e4a9e2d1def36.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/icons/DeathTimer icon.png"
-dest_files=["res://.godot/imported/DeathTimer icon.png-3a18b715b0ddc7a148f64e7136fa2b93.ctex"]
+source_file="res://sprites/icons/black hole icon.png"
+dest_files=["res://.godot/imported/black hole icon.png-b50ab6dc4b785b96a81e4a9e2d1def36.ctex"]
 
 [params]
 

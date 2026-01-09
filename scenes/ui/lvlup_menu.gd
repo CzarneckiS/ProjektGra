@@ -53,6 +53,7 @@ func level_up():
 		self.get("description_" + str(i + 1)).text = skills_to_show[i].skill_desc
 		
 		# !!! TRZEBA PRZETESTOWAĆ !!!
+		#przetestowalem, nie dziala
 		if Skills.unlocked_skills.has(skills_to_show[i].skill_name):
 			self.get("option_" + str(i + 1)).text = "Upgrade skill"
 		else:

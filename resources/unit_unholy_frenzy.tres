@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UnitUnholyFrenzy" load_steps=5 format=3 uid="uid://c0yuuyrfau4c4"]
 
 [ext_resource type="Script" uid="uid://b5xg88gwkuebs" path="res://scripts/skill_effects/effect_base.gd" id="1_ruvns"]
-[ext_resource type="Texture2D" uid="uid://cgjkc6kdkju6n" path="res://sprites/icons/DeathTimer icon.png" id="2_6fb1d"]
+[ext_resource type="Texture2D" uid="uid://c08ycsh3vq1tw" path="res://sprites/icons/DeathTimer icon.png" id="2_6fb1d"]
 [ext_resource type="Script" uid="uid://bjbafcoj7q5re" path="res://scripts/skills_for_resources/unit_unholy_frenzy_for_resource.gd" id="3_jclac"]
 [ext_resource type="PackedScene" uid="uid://u0uqjjp5n1e3" path="res://sprites/units/additional_textures/unholy_frenzy_sprites/unoly_frenzy_sprites.tscn" id="4_mcf3h"]
 
