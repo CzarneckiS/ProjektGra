@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://loqryqxp6f73"]
+[gd_scene load_steps=10 format=3 uid="uid://loqryqxp6f73"]
 
 [ext_resource type="Script" uid="uid://ckel3qrcfaaek" path="res://scenes/skills/thunderbolt.gd" id="1_oumkm"]
 [ext_resource type="Texture2D" uid="uid://bv0in35htnhxg" path="res://sprites/thunderbolt/thunderbolt1.png" id="2_1aqtv"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dx0fjfthwc6xj" path="res://sprites/thunderbolt/thunderbolt3.png" id="4_lfvv3"]
 [ext_resource type="Texture2D" uid="uid://cfq0a260dqqcn" path="res://sprites/circle.png" id="4_oumkm"]
 [ext_resource type="Shape2D" uid="uid://csuftt5wts1y5" path="res://resources/thunderbolt_shape.tres" id="6_8r461"]
+[ext_resource type="AudioStream" uid="uid://dcv3dfk84n2gf" path="res://sfx/thunderbolt.ogg" id="8_gva5k"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gva5k"]
 animations = [{
@@ -76,3 +77,6 @@ texture = ExtResource("4_oumkm")
 [node name="thunderbolt_collision" type="CollisionShape2D" parent="."]
 visible = false
 shape = ExtResource("6_8r461")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_gva5k")
