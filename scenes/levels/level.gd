@@ -101,8 +101,8 @@ func spawn_enemy(enemy_type): # EnemySpawnFollow bierzemy jako unique name
 	var new_enemy = enemy_type.instantiate()
 	$EnemyUnits.add_child(new_enemy)
 	%EnemySpawnFollow.progress_ratio = randf() #wybiera losowy punkt na sciezce i z tego miejsca bedzie respiony mobek
-	#while !is_point_on_map(%EnemySpawnFollow.global_position):
-	%EnemySpawnFollow.progress_ratio = randf()
+	while !is_point_on_map(%EnemySpawnFollow.global_position):
+		%EnemySpawnFollow.progress_ratio = randf()
 	new_enemy.global_position = %EnemySpawnFollow.global_position
 	new_enemy.connect("target_clicked", _on_target_clicked)
 	new_enemy.connect("took_damage", on_unit_damage_taken)

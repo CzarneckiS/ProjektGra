@@ -170,8 +170,6 @@ func _physics_process(_delta: float) -> void:
 		direction = Vector2.ZERO
 	Globals.player_position = global_position
 
-
-
 #SKILLS ===============================================================================
 func handle_skills():
 	#dodaj do odpowiednich list umiejetnosci odblokowane
