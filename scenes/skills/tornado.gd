@@ -101,6 +101,7 @@ func _ready():
 	tornado_collision_heal_protection_area.area_entered.connect(_on_tornado_collision_heal_protection_area_entered)
 	tornado_collision_iceblock_slow_area.body_entered.connect(_on_tornado_collision_iceblock_slow_area_entered)
 	tornado_collision_iceblock_slow_area.body_exited.connect(_on_tornado_collision_iceblock_slow_area_exited)
+	$tornado_sfx.play()
 	
 func _on_lifespan_timeout():
 	call_deferred("queue_free")
