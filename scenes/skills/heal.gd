@@ -28,10 +28,12 @@ func _process(_delta):
 	
 func _ready():
 	$heal_animation.animation_finished.connect(_on_animation_finished)
+	$heal_sfx.play()
+	$heal_sfx.finished.connect(_on_sfx_finished)
 	body_entered.connect(_on_body_entered)
 	
 func _on_animation_finished():
-	call_deferred("queue_free")
+	call_deferred("hide")
 
 func _on_body_entered(body: UnitParent):
 	if body.is_in_group("Allied"):
@@ -46,3 +48,6 @@ func display_heal_vfx(target: Node2D):
 
 func heal_player():
 	player_pos.heal(skill_resource.skill_effect_data.base_heal * skill_resource.skill_effect_data.heal_multiplier)
+
+func _on_sfx_finished():
+	call_deferred("queue_free")
