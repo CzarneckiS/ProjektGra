@@ -22,6 +22,8 @@ func _ready():
 	body_entered.connect(_on_body_entered)
 	$fireball_animation.animation_finished.connect(_on_animation_finished)
 	$fireball_animation.play("on_creation")
+	$fireball_sfx.play()
+	$fireball_sfx.finished.connect(_on_sfx_finished)
 	
 func _physics_process(delta: float) -> void:
 	if skill_resource == null:
@@ -33,7 +35,7 @@ func _physics_process(delta: float) -> void:
 	
 	var current_distance: float = start_position.distance_to(global_position)
 	if current_distance >= skill_resource.max_range:
-		queue_free()
+		hide()
 	
 func _on_body_entered(body: UnitParent):
 	if !body.is_in_group("Allied"):
@@ -47,4 +49,7 @@ func _on_animation_finished():
 	if $fireball_animation.animation == "on_creation":
 		$fireball_animation.play("default")
 	if $fireball_animation.animation == "splash":
-		call_deferred("queue_free")
+		call_deferred("hide")
+
+func _on_sfx_finished():
+	call_deferred("queue_free")
