@@ -229,7 +229,7 @@ func _on_tornado_collision_iceblock_slow_area_entered(body):
 	if !overlapping_bodies.is_empty():
 		for bodies in overlapping_bodies:
 			if !bodies.is_in_group("Allied"):
-				body.speed -= 200
+				body.speed = body.default_speed - 100
 
 func _on_tornado_collision_iceblock_slow_area_exited(body):
 	body.speed = body.default_speed
