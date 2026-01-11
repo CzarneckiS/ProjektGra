@@ -39,6 +39,8 @@ func _ready():
 	lifespan.timeout.connect(_on_lifespan_timeout)
 	
 	navigation_region_2d.call_deferred("bake_navigation_polygon")
+	
+	$pivotpoint/iceblock_sfx.play()
 
 func _on_lifespan_timeout():
 	call_deferred("queue_free")
