@@ -213,14 +213,16 @@ func _on_tornado_collision_heal_protection_area_entered(projectile):
 
 func transformation_iceblock(skill):
 	skill.owner.call_deferred("queue_free")
+	tornado_collision_iceblock_slow.set_deferred("disabled", false)
 	tornado_collision_iceblock_slow_area_animation.play("slow_area")
 	skill_resource.effect_pull.pull_friction = 0
 	skill_resource.effect_pull.pull_speed = 0
+	skill_resource.effect_knockback.knockback_speed = 0
+	skill_resource.effect_knockback.knockback_friction = 0
 	self.scale *= 2.5
 	damage_multiplier += 0.2
 	base_damage += 5
-	tornado_collision_iceblock_slow.set_deferred("disabled", false)
-
+	
 func _on_tornado_collision_iceblock_slow_area_entered(body):
 	var overlapping_bodies = get_overlapping_bodies()
 	if !overlapping_bodies.is_empty():
@@ -234,7 +236,7 @@ func _on_tornado_collision_iceblock_slow_area_exited(body):
 func transformation_field(_skill):
 	orb_spawn_timer.start()
 	var amount = tornado_mini_skill.amount
-	for i in range(amount):
+	for orb in range(amount):
 		tornado_mini_skill.call_deferred("use", self, global_position)
 
 func _on_transformation_orb_spawn_timer_timeout():

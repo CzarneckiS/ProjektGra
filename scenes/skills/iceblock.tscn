@@ -879,3 +879,4 @@ shape = SubResource("CircleShape2D_7xcy8")
 
 [node name="iceblock_sfx" type="AudioStreamPlayer2D" parent="pivotpoint"]
 stream = SubResource("AudioStreamOggVorbis_7xcy8")
+volume_db = 9.0

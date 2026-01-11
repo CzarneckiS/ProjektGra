@@ -93,7 +93,7 @@ position = Vector2(2.0000076, -7.999996)
 scale = Vector2(0.814, 0.814)
 sprite_frames = SubResource("SpriteFrames_nk1qw")
 animation = &"attack"
-frame_progress = 0.13506548
+frame_progress = 0.5880587
 
 [node name="field_collision" type="CollisionShape2D" parent="."]
 visible = false
@@ -109,3 +109,4 @@ process_material = SubResource("ParticleProcessMaterial_4q3dd")
 
 [node name="field_sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("13_a0qyj")
+volume_db = 4.608
