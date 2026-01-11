@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://816i57r10wir" path="res://scenes/skills/iceblock.gd" id="1_1rhpg"]
 [ext_resource type="Texture2D" uid="uid://dno12f5cx80dm" path="res://sprites/iceblock/ice_wall.png" id="2_5oucj"]
-[ext_resource type="AudioStream" uid="uid://dcpumr8scn4xr" path="res://sfx/iceblock.ogg" id="3_5oucj"]
+[ext_resource type="AudioStream" uid="uid://bil0x5blimtio" path="res://sfx/iceblockfinal.ogg" id="3_5oucj"]
 
 [sub_resource type="Animation" id="Animation_1rhpg"]
 length = 0.001
