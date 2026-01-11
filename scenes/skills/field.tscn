@@ -1,6 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://33qbkro5dgyq"]
+[gd_scene load_steps=16 format=3 uid="uid://33qbkro5dgyq"]
 
-[ext_resource type="Script" path="res://scenes/skills/field.gd" id="1_4q3dd"]
+[ext_resource type="Script" uid="uid://c1gv00tvrpvx" path="res://scenes/skills/field.gd" id="1_4q3dd"]
 [ext_resource type="Texture2D" uid="uid://bnahvfom3t8bs" path="res://sprites/dot_field/circle_attack/circle_1.png" id="2_4q3dd"]
 [ext_resource type="Texture2D" uid="uid://cvrwqigyny2u7" path="res://sprites/dot_field/circle_attack/circle_15.png" id="3_6ev8s"]
 [ext_resource type="Texture2D" uid="uid://wlqvbocq0c7q" path="res://sprites/dot_field/circle_attack/circle_2.png" id="3_hj32k"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bpl1gw1e04bly" path="res://sprites/dot_field/circle_start/circle_3.png" id="8_txx61"]
 [ext_resource type="Texture2D" uid="uid://6y41ukqyvyba" path="res://sprites/dot_field/circle_start/circle_4.png" id="9_vbhg8"]
 [ext_resource type="Shape2D" uid="uid://ccwys0jcff6b7" path="res://resources/field_shape.tres" id="11_hj32k"]
+[ext_resource type="AudioStream" uid="uid://d0guown8fhiy0" path="res://sfx/field.ogg" id="13_a0qyj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nk1qw"]
 animations = [{
@@ -92,7 +93,7 @@ position = Vector2(2.0000076, -7.999996)
 scale = Vector2(0.814, 0.814)
 sprite_frames = SubResource("SpriteFrames_nk1qw")
 animation = &"attack"
-frame_progress = 0.17521071
+frame_progress = 0.13506548
 
 [node name="field_collision" type="CollisionShape2D" parent="."]
 visible = false
@@ -105,3 +106,6 @@ modulate = Color(1, 1, 0.7921569, 1)
 emitting = false
 amount = 10
 process_material = SubResource("ParticleProcessMaterial_4q3dd")
+
+[node name="field_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_a0qyj")
