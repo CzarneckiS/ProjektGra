@@ -7,7 +7,8 @@ signal lvl_up_menu_requested
 signal units_selection_changed(new_units)
 signal ui_unit_died(unit)
 
-
+#sprawdzamy czy gracz widzial czaszke na start
+var opening_shown = false
 
 #statystyki głównej jednostki
 var player : CharacterBody2D

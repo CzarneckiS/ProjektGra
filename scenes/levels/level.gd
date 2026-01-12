@@ -18,7 +18,8 @@ var command_spells_hud = load("res://scenes/levels/hud.tscn").instantiate()
 
 
 func _ready():
-	print()
+	var tween = create_tween()
+	tween.tween_property($BlackScreen,"modulate:a",0,2)
 	$Player.connect("summon_unit", on_summon_unit)
 	$Player.connect("took_damage", on_unit_damage_taken)
 	hud.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -33,8 +34,12 @@ func _ready():
 	timer_between_waves.one_shot = true
 	timer_between_waves.wait_time = 1
 	timer_between_waves.timeout.connect(wave_logic)
+	await tween.finished
 	timer_between_waves.start()
 	
+#BARDZO TEMPORARY
+var starting_skill_chosen = true
+signal starting_skill()
 func _process(_delta: float) -> void:
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
 	

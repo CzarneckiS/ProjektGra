@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://csiooq6i76p0o"]
+
+[ext_resource type="Script" uid="uid://wbj0el5pl6q0" path="res://scenes/first_skill_selection_screen.gd" id="1_kkjmd"]
+[ext_resource type="Texture2D" uid="uid://bxuerlbo6xe3n" path="res://sprites/ui/black_screen.png" id="2_x7uyi"]
+[ext_resource type="Texture2D" uid="uid://c60fi3uv00wog" path="res://sprites/ui/skull.png" id="3_x7uyi"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_kkjmd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(820, 452)
+texture = ExtResource("2_x7uyi")
+
+[node name="Skull" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(796.00006, 451)
+scale = Vector2(0.249, 0.249)
+texture = ExtResource("3_x7uyi")
+
+[node name="LvlUpUpgradesLayer" type="Node2D" parent="."]

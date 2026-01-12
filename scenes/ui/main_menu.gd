@@ -11,6 +11,20 @@ extends Control
 @onready var highlight_4: TextureRect = $ButtonExit/Highlight
 
 func _ready() -> void:
+	#opening z czaszka na start
+	if !Globals.opening_shown:
+		$BlackScreen.visible = true
+		await get_tree().create_timer(1).timeout
+		var tween1 = create_tween()
+		tween1.tween_property($Skull,"modulate:a",1,0.5)
+		await get_tree().create_timer(1).timeout
+		var tween2 = create_tween()
+		tween2.tween_property($Skull,"modulate:a",0,0.5)
+		tween2.tween_property($BlackScreen,"modulate:a",0,0.5)
+		Globals.opening_shown = true
+	else:
+		$BlackScreen.visible = false
+
 	$ButtonStart.pressed.connect(_on_button_start_pressed)
 	$ButtonExit.pressed.connect(_on_button_exit_pressed)
 	$ButtonAchievments.pressed.connect(_on_button_achievements_pressed)
@@ -20,10 +34,10 @@ func _ready() -> void:
 	button_options.focus_mode = Control.FOCUS_NONE
 	button_exit.focus_mode = Control.FOCUS_NONE
 	
-	_setup_hover(button_start, highlight_1)
-	_setup_hover(button_achievments, highlight_2)
-	_setup_hover(button_options, highlight_3)
-	_setup_hover(button_exit, highlight_4)
+	#_setup_hover(button_start, highlight_1)
+	#_setup_hover(button_achievments, highlight_2)
+	#_setup_hover(button_options, highlight_3)
+	#_setup_hover(button_exit, highlight_4)
 
 	
 func _setup_hover(btn: Button, highlight: TextureRect) -> void:
@@ -50,4 +64,4 @@ func start_new_game():
 	Globals.reset_globals()
 	Skills.reset_unlocked_skills()
 	Achievements.skill_unlock_handler.handle_unlocked_skills()
-	get_tree().change_scene_to_file("res://scenes/levels/level.tscn")
+	get_tree().change_scene_to_file("res://scenes/first_skill_selection_screen.tscn")

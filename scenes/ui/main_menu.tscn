@@ -1,49 +1,55 @@
-[gd_scene load_steps=19 format=3 uid="uid://ddpgrokjjk1w7"]
+[gd_scene load_steps=27 format=3 uid="uid://ddpgrokjjk1w7"]
 
 [ext_resource type="Script" uid="uid://cufg7pkrkpvoi" path="res://scenes/ui/main_menu.gd" id="1_sl1te"]
 [ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="2_1g8jr"]
-[ext_resource type="Texture2D" uid="uid://dphc21aqf5r1m" path="res://sprites/ui/Button_neutral.png" id="2_fe2o3"]
-[ext_resource type="Texture2D" uid="uid://bpvowenbyhjyy" path="res://sprites/ui/Button_pressed.png" id="4_m1kxf"]
+[ext_resource type="Texture2D" uid="uid://chrl1qvrttfk3" path="res://sprites/ui/main menu screen3.png" id="2_uhagc"]
 [ext_resource type="Texture2D" uid="uid://cvilxq7eyc1kj" path="res://sprites/ui/Button_highlight.png" id="5_x2yvf"]
+[ext_resource type="Texture2D" uid="uid://bxuerlbo6xe3n" path="res://sprites/ui/black_screen.png" id="6_btxxm"]
+[ext_resource type="Texture2D" uid="uid://c60fi3uv00wog" path="res://sprites/ui/skull.png" id="7_wb0q5"]
 
 [sub_resource type="FontVariation" id="FontVariation_fe2o3"]
 base_font = ExtResource("2_1g8jr")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1g8jr"]
-texture = ExtResource("2_fe2o3")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btxxm"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uhagc"]
-texture = ExtResource("4_m1kxf")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wb0q5"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btxxm"]
-texture = ExtResource("2_fe2o3")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q85j6"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wb0q5"]
-texture = ExtResource("2_fe2o3")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8g5eo"]
 
 [sub_resource type="FontVariation" id="FontVariation_x2yvf"]
 base_font = ExtResource("2_1g8jr")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m1kxf"]
-texture = ExtResource("2_fe2o3")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7suek"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q85j6"]
-texture = ExtResource("4_m1kxf")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_otr3d"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8g5eo"]
-texture = ExtResource("2_fe2o3")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ekit"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7suek"]
-texture = ExtResource("2_fe2o3")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n4uci"]
 
 [sub_resource type="FontVariation" id="FontVariation_m1kxf"]
 base_font = ExtResource("2_1g8jr")
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_877pj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ayp64"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y2j7i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y1h5l"]
+
 [sub_resource type="FontVariation" id="FontVariation_uhagc"]
 base_font = ExtResource("2_1g8jr")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x2yvf"]
-texture = ExtResource("2_fe2o3")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pw24t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5dct7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qilvv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jbte4"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -54,21 +60,28 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sl1te")
 
+[node name="MainMenuIllustration" type="Sprite2D" parent="."]
+position = Vector2(799.8334, 449.68753)
+scale = Vector2(0.41675347, 0.41695607)
+texture = ExtResource("2_uhagc")
+
 [node name="ButtonStart" type="Button" parent="."]
 layout_mode = 0
-offset_left = 630.0
-offset_top = 370.0
-offset_right = 970.0
-offset_bottom = 434.0
+offset_left = 1165.0
+offset_top = 513.0
+offset_right = 1505.0
+offset_bottom = 577.0
 theme_override_fonts/font = SubResource("FontVariation_fe2o3")
-theme_override_font_sizes/font_size = 23
-theme_override_styles/normal = SubResource("StyleBoxTexture_1g8jr")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_uhagc")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btxxm")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_wb0q5")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_btxxm")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wb0q5")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_q85j6")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_8g5eo")
 text = "START"
+alignment = 0
 
 [node name="Highlight" type="TextureRect" parent="ButtonStart"]
+visible = false
 layout_mode = 0
 offset_left = -3.0
 offset_top = -3.0
@@ -79,19 +92,21 @@ texture = ExtResource("5_x2yvf")
 
 [node name="ButtonAchievments" type="Button" parent="."]
 layout_mode = 0
-offset_left = 630.0
-offset_top = 432.0
-offset_right = 970.0
-offset_bottom = 496.0
+offset_left = 1165.0
+offset_top = 575.0
+offset_right = 1508.0
+offset_bottom = 639.0
 theme_override_fonts/font = SubResource("FontVariation_x2yvf")
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxTexture_m1kxf")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_q85j6")
-theme_override_styles/hover = SubResource("StyleBoxTexture_8g5eo")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_7suek")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7suek")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_otr3d")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8ekit")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_n4uci")
 text = "ACHIEVMENTS"
+alignment = 0
 
 [node name="Highlight" type="TextureRect" parent="ButtonAchievments"]
+visible = false
 layout_mode = 0
 offset_left = -3.0
 offset_top = -3.0
@@ -102,19 +117,21 @@ texture = ExtResource("5_x2yvf")
 
 [node name="ButtonOptions" type="Button" parent="."]
 layout_mode = 0
-offset_left = 630.0
-offset_top = 494.0
-offset_right = 970.0
-offset_bottom = 558.0
+offset_left = 1165.0
+offset_top = 637.0
+offset_right = 1505.0
+offset_bottom = 701.0
 theme_override_fonts/font = SubResource("FontVariation_m1kxf")
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxTexture_m1kxf")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_q85j6")
-theme_override_styles/hover = SubResource("StyleBoxTexture_8g5eo")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_7suek")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_877pj")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ayp64")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_y2j7i")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_y1h5l")
 text = "OPTIONS"
+alignment = 0
 
 [node name="Highlight" type="TextureRect" parent="ButtonOptions"]
+visible = false
 layout_mode = 0
 offset_left = -3.0
 offset_top = -3.0
@@ -125,19 +142,21 @@ texture = ExtResource("5_x2yvf")
 
 [node name="ButtonExit" type="Button" parent="."]
 layout_mode = 0
-offset_left = 630.0
-offset_top = 556.0
-offset_right = 970.0
-offset_bottom = 620.0
+offset_left = 1165.0
+offset_top = 746.0
+offset_right = 1505.0
+offset_bottom = 810.0
 theme_override_fonts/font = SubResource("FontVariation_uhagc")
-theme_override_font_sizes/font_size = 22
-theme_override_styles/normal = SubResource("StyleBoxTexture_x2yvf")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_q85j6")
-theme_override_styles/hover = SubResource("StyleBoxTexture_8g5eo")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_7suek")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pw24t")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_5dct7")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qilvv")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_jbte4")
 text = "EXIT"
+alignment = 0
 
 [node name="Highlight" type="TextureRect" parent="ButtonExit"]
+visible = false
 layout_mode = 0
 offset_left = -3.0
 offset_top = -3.0
@@ -145,3 +164,14 @@ offset_right = 827.0
 offset_bottom = 203.0
 scale = Vector2(0.417, 0.341)
 texture = ExtResource("5_x2yvf")
+
+[node name="BlackScreen" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(839, 451)
+texture = ExtResource("6_btxxm")
+
+[node name="Skull" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(796.00006, 451)
+scale = Vector2(0.444, 0.444)
+texture = ExtResource("7_wb0q5")
