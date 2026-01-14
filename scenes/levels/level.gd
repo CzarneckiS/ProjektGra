@@ -18,8 +18,6 @@ var command_spells_hud = load("res://scenes/levels/hud.tscn").instantiate()
 
 
 func _ready():
-	var tween = create_tween()
-	tween.tween_property($BlackScreen,"modulate:a",0,2)
 	$Player.connect("summon_unit", on_summon_unit)
 	$Player.connect("took_damage", on_unit_damage_taken)
 	hud.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -34,7 +32,6 @@ func _ready():
 	timer_between_waves.one_shot = true
 	timer_between_waves.wait_time = 1
 	timer_between_waves.timeout.connect(wave_logic)
-	await tween.finished
 	timer_between_waves.start()
 	
 #BARDZO TEMPORARY
@@ -349,6 +346,8 @@ func on_unit_damage_taken(damage: int, unit):
 		color = "#F00"
 		if unit in get_tree().get_nodes_in_group("Player"):
 			damage_number.label_settings.font_size = 36
+	else: #jesli  
+		create_blood_splatter(unit.global_position)
 	damage_number.label_settings.font_color = color
 
 	damage_number.label_settings.outline_color = "#000"
@@ -362,6 +361,25 @@ func on_unit_damage_taken(damage: int, unit):
 	tween.tween_property(damage_number,"global_position:x",damage_number.global_position.x + randi_range(-20, 20), 0.5)
 	await tween.finished
 	damage_number.queue_free()
+func create_blood_splatter(unit_position: Vector2):
+	if randi_range(0,5) != 1: #20 procent szansy ze pojawi sie blood splatter
+		return
+	var blood_splatter_array: Array = [preload("res://sprites/terrain/blood_splatter1.png"),
+		preload("res://sprites/terrain/blood_splatter2.png"),
+		preload("res://sprites/terrain/blood_splatter3.png"),
+		preload("res://sprites/terrain/blood_splatter4.png"),
+		preload("res://sprites/terrain/blood_splatter5.png"),]
+	var blood_node:= Sprite2D.new()
+	blood_node.texture = blood_splatter_array[randi()%blood_splatter_array.size()]
+	blood_node.scale *= randf_range(0.15,0.25)
+	$Ground/BloodLayer.add_child(blood_node)
+	blood_node.global_position = unit_position
+	await get_tree().create_timer(5).timeout
+	var tween = create_tween()
+	tween.tween_property(blood_node,"modulate:a",0,0.5)
+	await tween.finished
+	blood_node.queue_free()
+	
 func _on_target_clicked(body): #Sygnał od human warriora, czy został kliknięty
 	for unit in get_tree().get_nodes_in_group("Selected"): #Jeśli jednostka jest zaznaczona
 		unit.attack_target = weakref(body) #wyślij do niej human warriora jako cel ataku

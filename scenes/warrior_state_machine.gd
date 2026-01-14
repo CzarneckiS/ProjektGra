@@ -27,7 +27,7 @@ func _ready():
 	add_state("dying")
 	add_state("mid_animation")
 	call_deferred("set_state", states.idle)
-
+	dying_state = states.dying
 #quick 'n' dirty 'n' nasty fix zeby jednostki mniej wibrowaly
 #tutaj musi byc 0, zeby nie bylo delayu przy wydawaniu rozkazu
 var turn_left_timer = 0

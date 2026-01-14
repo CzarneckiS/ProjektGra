@@ -1,11 +1,21 @@
-[gd_scene load_steps=27 format=3 uid="uid://ddpgrokjjk1w7"]
+[gd_scene load_steps=33 format=3 uid="uid://ddpgrokjjk1w7"]
 
 [ext_resource type="Script" uid="uid://cufg7pkrkpvoi" path="res://scenes/ui/main_menu.gd" id="1_sl1te"]
 [ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="2_1g8jr"]
-[ext_resource type="Texture2D" uid="uid://chrl1qvrttfk3" path="res://sprites/ui/main menu screen3.png" id="2_uhagc"]
+[ext_resource type="Shader" uid="uid://dwrfcgla05yjq" path="res://scenes/ui/main_menu.gdshader" id="2_btxxm"]
+[ext_resource type="Texture2D" uid="uid://b0pj1fv33822n" path="res://sprites/ui/main menu screen clouds.png" id="3_7suek"]
+[ext_resource type="Texture2D" uid="uid://l0wv3ycgahuw" path="res://sprites/ui/main menu screen castle.png" id="4_otr3d"]
+[ext_resource type="Texture2D" uid="uid://ctueq1x0nlkvk" path="res://sprites/ui/main menu screen logo.png" id="5_8ekit"]
 [ext_resource type="Texture2D" uid="uid://cvilxq7eyc1kj" path="res://sprites/ui/Button_highlight.png" id="5_x2yvf"]
 [ext_resource type="Texture2D" uid="uid://bxuerlbo6xe3n" path="res://sprites/ui/black_screen.png" id="6_btxxm"]
+[ext_resource type="Texture2D" uid="uid://dfsi2pqp2e8sb" path="res://sprites/ui/main menu screen skellington.png" id="6_n4uci"]
+[ext_resource type="Texture2D" uid="uid://xypveoj6a0rd" path="res://sprites/ui/main menu screen girl.png" id="7_877pj"]
 [ext_resource type="Texture2D" uid="uid://c60fi3uv00wog" path="res://sprites/ui/skull.png" id="7_wb0q5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wb0q5"]
+shader = ExtResource("2_btxxm")
+shader_parameter/direction = Vector2(1, 0)
+shader_parameter/speed = 0.007
 
 [sub_resource type="FontVariation" id="FontVariation_fe2o3"]
 base_font = ExtResource("2_1g8jr")
@@ -60,10 +70,36 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sl1te")
 
-[node name="MainMenuIllustration" type="Sprite2D" parent="."]
+[node name="Clouds" type="Sprite2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_wb0q5")
 position = Vector2(799.8334, 449.68753)
 scale = Vector2(0.41675347, 0.41695607)
-texture = ExtResource("2_uhagc")
+texture = ExtResource("3_7suek")
+
+[node name="Castle" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(791.3333, 458.90622)
+scale = Vector2(0.42100692, 0.4388021)
+texture = ExtResource("4_otr3d")
+
+[node name="Logo" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(799.8334, 449.68753)
+scale = Vector2(0.41675347, 0.41695607)
+texture = ExtResource("5_8ekit")
+
+[node name="Skellington" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(799.8334, 449.68753)
+scale = Vector2(0.41675347, 0.41695607)
+texture = ExtResource("6_n4uci")
+
+[node name="Girl" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(799.8334, 449.68753)
+scale = Vector2(0.41675347, 0.41695607)
+texture = ExtResource("7_877pj")
 
 [node name="ButtonStart" type="Button" parent="."]
 layout_mode = 0
@@ -102,7 +138,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_7suek")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_otr3d")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_8ekit")
 theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_n4uci")
-text = "ACHIEVMENTS"
+text = "ACHIEVEMENTS"
 alignment = 0
 
 [node name="Highlight" type="TextureRect" parent="ButtonAchievments"]

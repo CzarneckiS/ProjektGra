@@ -10,6 +10,9 @@ extends Control
 @onready var highlight_3: TextureRect = $ButtonOptions/Highlight
 @onready var highlight_4: TextureRect = $ButtonExit/Highlight
 
+var screen_starting_pos
+var parallax_speed = 5
+
 func _ready() -> void:
 	#opening z czaszka na start
 	if !Globals.opening_shown:
@@ -34,12 +37,20 @@ func _ready() -> void:
 	button_options.focus_mode = Control.FOCUS_NONE
 	button_exit.focus_mode = Control.FOCUS_NONE
 	
+	screen_starting_pos = $Clouds.global_position
+	
 	#_setup_hover(button_start, highlight_1)
 	#_setup_hover(button_achievments, highlight_2)
 	#_setup_hover(button_options, highlight_3)
 	#_setup_hover(button_exit, highlight_4)
 
-	
+func _process(delta: float) -> void:
+	if screen_starting_pos:
+		var target_position: Vector2 = screen_starting_pos - (get_global_mouse_position()-get_viewport_rect().size)*0.01
+		var castle_target_position: Vector2 = screen_starting_pos - (get_global_mouse_position()-get_viewport_rect().size)*0.003
+		$Girl.global_position = $Girl.global_position.lerp(target_position, delta * parallax_speed)
+		$Skellington.global_position = $Skellington.global_position.lerp(target_position, delta * parallax_speed)
+		$Castle.global_position = $Castle.global_position.lerp(castle_target_position, delta * parallax_speed)
 func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 	highlight.visible = false
 	btn.mouse_entered.connect(func(): highlight.visible = true)
@@ -64,4 +75,4 @@ func start_new_game():
 	Globals.reset_globals()
 	Skills.reset_unlocked_skills()
 	Achievements.skill_unlock_handler.handle_unlocked_skills()
-	get_tree().change_scene_to_file("res://scenes/first_skill_selection_screen.tscn")
+	get_tree().change_scene_to_file("res://scenes/levels/level.tscn")
