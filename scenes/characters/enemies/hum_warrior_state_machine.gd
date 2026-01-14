@@ -15,7 +15,7 @@ func _ready():
 	#to po prostu oznacza ze startujemy ze statem idle jak cos, call deferred wywoluje sie jako ostatni
 	#kiedy juz inne states sie ladnie dodadza do słownia
 	call_deferred("set_state", states.idle)
-
+	dying_state = states.dying
 #quick 'n' dirty 'n' nasty fix zeby jednostki mniej wibrowaly kiedy sa bodyblockowane
 #tutaj musi byc 0, zeby nie bylo delayu przy wydawaniu rozkazu
 var turn_left_timer = 0

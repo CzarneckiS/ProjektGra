@@ -23,8 +23,6 @@ extends Control
 var skills_to_show: Array
 
 func _ready() -> void:
-	if Globals.level == 1:
-		$StartingAbilityText.visible = true
 	option_1.focus_mode = Control.FOCUS_NONE
 	option_2.focus_mode = Control.FOCUS_NONE
 	option_3.focus_mode = Control.FOCUS_NONE

@@ -108,7 +108,9 @@ func update_units_panel(new_units: Array) -> void:
 	# zakres jednostek aktualnej strony
 	var start = (current_page - 1) * 12
 	var end = min(start + 12, selected_units.size())
-	var visible_units = selected_units.slice(start, end)
+	var visible_units = []
+	if start <= end:
+		visible_units = selected_units.slice(start, end)
 
 		
 	# reset slotów
