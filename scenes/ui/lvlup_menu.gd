@@ -23,6 +23,8 @@ extends Control
 var skills_to_show: Array
 
 func _ready() -> void:
+	$sfx_lvlup.play()
+	$sfx_lvlup.finished.connect(_on_sfx_finished)
 	option_1.focus_mode = Control.FOCUS_NONE
 	option_2.focus_mode = Control.FOCUS_NONE
 	option_3.focus_mode = Control.FOCUS_NONE
@@ -64,18 +66,21 @@ func _on_option_1_pressed() -> void:
 	get_tree().paused = false
 	Skills.unlock_skill(skills_to_show[0])
 	Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[0])
-	queue_free()   
+	hide()  
 
 
 func _on_option_2_pressed() -> void:
 	get_tree().paused = false
 	Skills.unlock_skill(skills_to_show[1])
 	Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[1])
-	queue_free()   
+	hide()
 
 
 func _on_option_3_pressed() -> void:
 	get_tree().paused = false
 	Skills.unlock_skill(skills_to_show[2])
 	Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[2])
-	queue_free()   
+	hide()
+	
+func _on_sfx_finished():
+	queue_free()  

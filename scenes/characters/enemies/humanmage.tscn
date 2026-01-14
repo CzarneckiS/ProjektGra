@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b473xxxuxt8cd"]
+[gd_scene load_steps=25 format=3 uid="uid://b473xxxuxt8cd"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_48pmx"]
 [ext_resource type="Script" uid="uid://bw72a5n5s0rhc" path="res://scenes/characters/enemies/humanmage.gd" id="2_48pmx"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ck1anminyig8o" path="res://sprites/units/human_mage/human_mage_head.png" id="6_vmh5w"]
 [ext_resource type="Texture2D" uid="uid://c1re2skja0dgm" path="res://sprites/units/human_mage/human_mage_staff.png" id="7_cw6kt"]
 [ext_resource type="Texture2D" uid="uid://bcpn3yv78gi48" path="res://sprites/units/human_mage/human_mage_book.png" id="8_85avr"]
+[ext_resource type="AudioStream" uid="uid://brgcmwa4rhrn8" path="res://sfx/enemies/human_mage/mage_projectile.ogg" id="11_cw6kt"]
 [ext_resource type="Script" uid="uid://csr4x6mrcrwjc" path="res://scenes/characters/enemies/hum_warrior_state_machine.gd" id="16_yxcxk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cw6kt"]
@@ -476,3 +477,6 @@ shape = SubResource("CircleShape2D_vuace")
 
 [node name="AttackTimer" parent="Timers" index="2"]
 wait_time = 0.5
+
+[node name="sfx_attack" type="AudioStreamPlayer2D" parent="." index="16"]
+stream = ExtResource("11_cw6kt")

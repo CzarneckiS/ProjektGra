@@ -209,6 +209,7 @@ func death():
 		skill.use(self)
 
 func attack():
+	$sfx_attack.play()
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		for skill in skills_on_hit:
 			skill.use(self, attack_target.get_ref())
