@@ -15,7 +15,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wb0q5"]
 shader = ExtResource("2_btxxm")
 shader_parameter/direction = Vector2(1, 0)
-shader_parameter/speed = 0.015
+shader_parameter/speed = 0.007
 
 [sub_resource type="FontVariation" id="FontVariation_fe2o3"]
 base_font = ExtResource("2_1g8jr")
