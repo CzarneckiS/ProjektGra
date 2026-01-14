@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://byuaqtytd6pur" path="res://sprites/tornado/tornado_sprites/TornadoWhite6.png" id="16_xeyqw"]
 [ext_resource type="Texture2D" uid="uid://clq0qkwbleeit" path="res://sprites/tornado/tornado_sprites/TornadoWhite7.png" id="17_yqrrk"]
 [ext_resource type="Texture2D" uid="uid://ds4kyttrq20hd" path="res://sprites/tornado/tornado_sprites/TornadoWhite8.png" id="18_w522q"]
-[ext_resource type="AudioStream" uid="uid://cupoxm78cicr" path="res://sfx/tornado.ogg" id="25_l6416"]
+[ext_resource type="AudioStream" uid="uid://cupoxm78cicr" path="res://sfx/skills/tornado.ogg" id="25_l6416"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2ibcm"]
 animations = [{

@@ -218,6 +218,7 @@ func handle_starting_skills():
 
 func hit(damage_taken, _damage_source) -> void:
 	Globals.health -= damage_taken
+	$player_sfx.play()
 	took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
 	$SpriteRoot.material.set_shader_parameter('progress',1)
 	$Timers/HitFlashTimer.start()

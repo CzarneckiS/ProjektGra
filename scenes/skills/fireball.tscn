@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dlnhiy2fgpe1c" path="res://sprites/fireball/fireball_splash/fireball_splash_9.png" id="15_505u0"]
 [ext_resource type="Texture2D" uid="uid://cmep0j61qpf3u" path="res://sprites/fireball/fireball_splash/fireball_splash_10.png" id="16_gg4w2"]
 [ext_resource type="Texture2D" uid="uid://2pd6ciq5llqc" path="res://sprites/fireball/fireball_splash/fireball_splash_11.png" id="17_jspke"]
-[ext_resource type="AudioStream" uid="uid://cm5k8d8igp4bo" path="res://sfx/fireball.ogg" id="19_x8v3f"]
+[ext_resource type="AudioStream" uid="uid://cm5k8d8igp4bo" path="res://sfx/skills/fireball.ogg" id="19_x8v3f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lrya3"]
 animations = [{

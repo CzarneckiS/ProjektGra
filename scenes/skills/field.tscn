@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bpl1gw1e04bly" path="res://sprites/dot_field/circle_start/circle_3.png" id="8_txx61"]
 [ext_resource type="Texture2D" uid="uid://6y41ukqyvyba" path="res://sprites/dot_field/circle_start/circle_4.png" id="9_vbhg8"]
 [ext_resource type="Shape2D" uid="uid://ccwys0jcff6b7" path="res://resources/field_shape.tres" id="11_hj32k"]
-[ext_resource type="AudioStream" uid="uid://d0guown8fhiy0" path="res://sfx/field.ogg" id="13_a0qyj"]
+[ext_resource type="AudioStream" uid="uid://d0guown8fhiy0" path="res://sfx/skills/field.ogg" id="13_a0qyj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nk1qw"]
 animations = [{
