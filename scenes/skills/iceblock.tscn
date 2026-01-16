@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://ca7j2rmm5tryu"]
+[gd_scene load_steps=12 format=3 uid="uid://ca7j2rmm5tryu"]
 
 [ext_resource type="Script" uid="uid://816i57r10wir" path="res://scenes/skills/iceblock.gd" id="1_1rhpg"]
 [ext_resource type="Texture2D" uid="uid://dno12f5cx80dm" path="res://sprites/iceblock/ice_wall.png" id="2_5oucj"]
+[ext_resource type="AudioStream" uid="uid://bil0x5blimtio" path="res://sfx/skills/iceblockfinal.ogg" id="3_5oucj"]
 
 [sub_resource type="Animation" id="Animation_1rhpg"]
 length = 0.001
@@ -868,3 +869,7 @@ collision_mask = 8
 
 [node name="iceblock_transformation_collision" type="CollisionShape2D" parent="pivotpoint/iceblock_transformation_area"]
 shape = SubResource("CircleShape2D_7xcy8")
+
+[node name="iceblock_sfx" type="AudioStreamPlayer2D" parent="pivotpoint"]
+stream = ExtResource("3_5oucj")
+volume_db = 9.0

@@ -203,6 +203,7 @@ func death():
 		skill.use(self)
 
 func attack():
+	$sfx_attack.play()
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		#check czy cel nie odszedl za daleko
 		if global_position.distance_to(attack_target.get_ref().global_position) < 300:

@@ -36,6 +36,7 @@ func _ready():
 	
 	$field_animation.play("default")
 	$field_animation.animation_finished.connect(_on_animation_finished)
+	$field_sfx.play()
 	body_entered.connect(_on_body_entered)
 
 func _on_lifespan_timeout():

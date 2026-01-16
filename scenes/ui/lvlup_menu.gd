@@ -23,6 +23,8 @@ extends Control
 var skills_to_show: Array
 
 func _ready() -> void:
+	$sfx_lvlup.play()
+	$sfx_lvlup.finished.connect(_on_sfx_finished)
 	option_1.focus_mode = Control.FOCUS_NONE
 	option_2.focus_mode = Control.FOCUS_NONE
 	option_3.focus_mode = Control.FOCUS_NONE
@@ -33,6 +35,10 @@ func _ready() -> void:
 
 	level_up()
 
+var pressed: bool = false
+func _process(_delta):
+	if pressed and sfx_finished:
+		queue_free()
 
 func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 	highlight.visible = false
@@ -64,18 +70,25 @@ func _on_option_1_pressed() -> void:
 	get_tree().paused = false
 	Skills.unlock_skill(skills_to_show[0])
 	Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[0])
-	queue_free()   
+	hide()
+	pressed = true
 
 
 func _on_option_2_pressed() -> void:
 	get_tree().paused = false
 	Skills.unlock_skill(skills_to_show[1])
 	Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[1])
-	queue_free()   
-
-
+	hide()
+	pressed = true
+	
 func _on_option_3_pressed() -> void:
 	get_tree().paused = false
 	Skills.unlock_skill(skills_to_show[2])
 	Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[2])
-	queue_free()   
+	hide()
+	pressed = true
+	
+var sfx_finished: bool = false
+
+func _on_sfx_finished():
+	sfx_finished = true
