@@ -28,8 +28,8 @@ var unit_collision_push_array : Array = []
 var direction : Vector2
 
 func cast_skill(skill_index: int):
-	if skill_index < Skills.active_skills.size():
-		var skill = Skills.active_skills[skill_index]
+	if skill_index < skills_active.size():
+		var skill = skills_active[skill_index]
 		if skill == null:
 			return
 		match skill.skill_name:
@@ -41,6 +41,8 @@ func cast_skill(skill_index: int):
 				cast_heal()
 			iceblock_skill.skill_name:
 				cast_iceblock()
+			field_skill.skill_name:
+				cast_field()
 			tornado_skill.skill_name:
 				cast_tornado()
 	else:
@@ -78,7 +80,7 @@ func set_cooldown(skill: Resource):
 	skill_cooldowns[key] = current_time + skill.cooldown
 	
 func cast_fireball():
-	if !Skills.active_skills.has(fireball_skill):
+	if !skills_active.has(fireball_skill):
 		return
 	else:
 		if !can_cast(fireball_skill):
@@ -91,7 +93,7 @@ func cast_fireball():
 		fireball_skill.use(self, target_pos)
 
 func cast_thunderbolt():
-	if !Skills.active_skills.has(thunderbolt_skill):
+	if !skills_active.has(thunderbolt_skill):
 		return
 	else:
 		if !can_cast(thunderbolt_skill):
@@ -104,7 +106,7 @@ func cast_thunderbolt():
 		thunderbolt_skill.use(self, target_pos)
 		
 func cast_heal():
-	if !Skills.active_skills.has(heal_skill):
+	if !skills_active.has(heal_skill):
 		return
 	else:
 		if !can_cast(heal_skill):
@@ -117,7 +119,7 @@ func cast_heal():
 		heal_skill.use(self, player_pos)
 		
 func cast_iceblock():
-	if !Skills.active_skills.has(iceblock_skill):
+	if !skills_active.has(iceblock_skill):
 		return
 	else:
 		if !can_cast(iceblock_skill):
@@ -130,7 +132,7 @@ func cast_iceblock():
 		iceblock_skill.use(self, target_pos)
 		
 func cast_field():
-	if !Skills.active_skills.has(field_skill):
+	if !skills_active.has(field_skill):
 		return
 	else:
 		if !can_cast(field_skill):
@@ -143,7 +145,7 @@ func cast_field():
 		field_skill.use(self, target_pos)
 
 func cast_tornado():
-	if !Skills.active_skills.has(tornado_skill):
+	if !skills_active.has(tornado_skill):
 		return
 	else:
 		if !can_cast(tornado_skill):
