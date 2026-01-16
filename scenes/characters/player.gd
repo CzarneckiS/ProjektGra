@@ -123,10 +123,10 @@ func cast_heal():
 		heal_skill.use(self, player_pos)
 		
 func cast_iceblock():
-	#if !skills_active.has(iceblock_skill):
-		#return
-	#else:
-	if !can_cast(iceblock_skill):
+	if !skills_active.has(iceblock_skill):
+		return
+	else:
+		if !can_cast(iceblock_skill):
 			return
 	
 	set_cooldown(iceblock_skill)
@@ -149,10 +149,10 @@ func cast_field():
 		field_skill.use(self, target_pos)
 
 func cast_tornado():
-	#if !skills_active.has(tornado_skill):
-		#return
-	#else:
-	if !can_cast(tornado_skill):
+	if !skills_active.has(tornado_skill):
+		return
+	else:
+		if !can_cast(tornado_skill):
 			return
 	
 	set_cooldown(tornado_skill)
