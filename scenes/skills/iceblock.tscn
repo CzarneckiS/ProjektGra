@@ -1,8 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://ca7j2rmm5tryu"]
+[gd_scene load_steps=15 format=3 uid="uid://ca7j2rmm5tryu"]
 
 [ext_resource type="Script" uid="uid://816i57r10wir" path="res://scenes/skills/iceblock.gd" id="1_1rhpg"]
 [ext_resource type="Texture2D" uid="uid://dno12f5cx80dm" path="res://sprites/iceblock/ice_wall.png" id="2_5oucj"]
 [ext_resource type="AudioStream" uid="uid://bil0x5blimtio" path="res://sfx/skills/iceblockfinal.ogg" id="3_5oucj"]
+[ext_resource type="Texture2D" uid="uid://dyviu50oq8g1v" path="res://sprites/iceblock/IceWallVerticalCracked.png" id="4_a6g3u"]
+[ext_resource type="Texture2D" uid="uid://bbic2kma0woyg" path="res://sprites/iceblock/IceWallDiagonalCracked.png" id="5_yje8c"]
+[ext_resource type="Texture2D" uid="uid://c4es04akeei5l" path="res://sprites/iceblock/IceWallHorizontalCracked.png" id="6_0e8mw"]
 
 [sub_resource type="Animation" id="Animation_1rhpg"]
 length = 0.001
@@ -873,3 +876,21 @@ shape = SubResource("CircleShape2D_7xcy8")
 [node name="iceblock_sfx" type="AudioStreamPlayer2D" parent="pivotpoint"]
 stream = ExtResource("3_5oucj")
 volume_db = 9.0
+
+[node name="broken_side" type="Sprite2D" parent="pivotpoint"]
+visible = false
+position = Vector2(-5, -21.5)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("4_a6g3u")
+
+[node name="broken_diagonal" type="Sprite2D" parent="pivotpoint"]
+visible = false
+position = Vector2(-4.25, -21.75)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("5_yje8c")
+
+[node name="broken_front" type="Sprite2D" parent="pivotpoint"]
+visible = false
+position = Vector2(-6.75, -21.75)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("6_0e8mw")

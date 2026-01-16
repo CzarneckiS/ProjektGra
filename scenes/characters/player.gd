@@ -57,6 +57,10 @@ func _unhandled_input(event):
 		cast_skill(2)
 	if event.is_action_pressed("skill4"):
 		cast_skill(3)
+	if event.is_action_pressed("iceblock"):
+		cast_iceblock()
+	if event.is_action_pressed("tornado"):
+		cast_tornado()
 
 var fireball_skill: Resource = preload("res://resources/fireball.tres")
 var thunderbolt_skill: Resource = preload("res://resources/thunderbolt.tres")
@@ -119,10 +123,10 @@ func cast_heal():
 		heal_skill.use(self, player_pos)
 		
 func cast_iceblock():
-	if !skills_active.has(iceblock_skill):
-		return
-	else:
-		if !can_cast(iceblock_skill):
+	#if !skills_active.has(iceblock_skill):
+		#return
+	#else:
+	if !can_cast(iceblock_skill):
 			return
 	
 	set_cooldown(iceblock_skill)
@@ -145,10 +149,10 @@ func cast_field():
 		field_skill.use(self, target_pos)
 
 func cast_tornado():
-	if !skills_active.has(tornado_skill):
-		return
-	else:
-		if !can_cast(tornado_skill):
+	#if !skills_active.has(tornado_skill):
+		#return
+	#else:
+	if !can_cast(tornado_skill):
 			return
 	
 	set_cooldown(tornado_skill)
