@@ -19,6 +19,8 @@ var player_skeleton_mage = preload("res://resources/player_skeleton_mage.tres")
 var player_summon_respawn_time_up = preload("res://resources/player_summon_respawn_time_up.tres")
 var player_life_on_kill = preload("res://resources/player_life_on_kill.tres")
 
+var active_skills: Array = []
+
 var legendary: float = 0.15
 var rare: float = 0.35
 var common: float = 0.5
@@ -46,7 +48,10 @@ func add_skill(skill):
 
 func unlock_skill(skill):
 	if !(skill in unlocked_skills):
-		unlocked_skills.append(skill)
+		if skill.use_tags.has(Tags.UseTag.ACTIVE):
+			active_skills.append(skill)
+		else:
+			unlocked_skills.append(skill)
 	else:
 		skill.skill_level += 1
 	for unit in get_tree().get_nodes_in_group("Allied"):
