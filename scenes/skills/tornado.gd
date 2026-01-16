@@ -213,7 +213,7 @@ func _on_tornado_collision_heal_protection_area_entered(projectile):
 		projectile.call_deferred("queue_free")
 
 func transformation_iceblock(skill):
-	skill.owner.call_deferred("queue_free")
+	skill.owner.change_sprite_to_broken()
 	tornado_collision_iceblock_slow.set_deferred("disabled", false)
 	tornado_collision_iceblock_slow_area_animation.play("slow_area")
 	skill_resource.effect_pull.pull_friction = 0

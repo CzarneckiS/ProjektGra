@@ -57,6 +57,10 @@ func _unhandled_input(event):
 		cast_skill(2)
 	if event.is_action_pressed("skill4"):
 		cast_skill(3)
+	if event.is_action_pressed("iceblock"):
+		cast_iceblock()
+	if event.is_action_pressed("tornado"):
+		cast_tornado()
 
 var fireball_skill: Resource = preload("res://resources/fireball.tres")
 var thunderbolt_skill: Resource = preload("res://resources/thunderbolt.tres")
