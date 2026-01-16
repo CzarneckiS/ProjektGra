@@ -62,13 +62,6 @@ func set_cooldown(skill: Resource):
 	var current_time = Time.get_ticks_msec() / 1000.0
 	skill_cooldowns[key] = current_time + skill.cooldown
 	
-var unlocked_fireball: bool = false
-var unlocked_thunderbolt: bool = false
-var unlocked_heal: bool = false
-var unlocked_iceblock: bool = false
-var unlocked_field: bool = false
-var unlocked_tornado: bool = false
-	
 func cast_fireball():
 	if !Skills.unlocked_skills.has(fireball_skill):
 		return
