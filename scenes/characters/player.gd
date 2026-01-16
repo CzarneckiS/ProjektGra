@@ -62,9 +62,19 @@ func set_cooldown(skill: Resource):
 	var current_time = Time.get_ticks_msec() / 1000.0
 	skill_cooldowns[key] = current_time + skill.cooldown
 	
+var unlocked_fireball: bool = false
+var unlocked_thunderbolt: bool = false
+var unlocked_heal: bool = false
+var unlocked_iceblock: bool = false
+var unlocked_field: bool = false
+var unlocked_tornado: bool = false
+	
 func cast_fireball():
-	if !can_cast(fireball_skill):
+	if !Skills.unlocked_skills.has(fireball_skill):
 		return
+	else:
+		if !can_cast(fireball_skill):
+			return
 	
 	set_cooldown(fireball_skill)
 	
@@ -73,8 +83,11 @@ func cast_fireball():
 		fireball_skill.use(self, target_pos)
 
 func cast_thunderbolt():
-	if !can_cast(thunderbolt_skill):
+	if !Skills.unlocked_skills.has(thunderbolt_skill):
 		return
+	else:
+		if !can_cast(thunderbolt_skill):
+			return
 	
 	set_cooldown(thunderbolt_skill)
 	
@@ -83,8 +96,11 @@ func cast_thunderbolt():
 		thunderbolt_skill.use(self, target_pos)
 		
 func cast_heal():
-	if !can_cast(heal_skill):
+	if !Skills.unlocked_skills.has(heal_skill):
 		return
+	else:
+		if !can_cast(heal_skill):
+			return
 	
 	set_cooldown(heal_skill)
 	
@@ -93,8 +109,11 @@ func cast_heal():
 		heal_skill.use(self, player_pos)
 		
 func cast_iceblock():
-	if !can_cast(iceblock_skill):
+	if !Skills.unlocked_skills.has(iceblock_skill):
 		return
+	else:
+		if !can_cast(iceblock_skill):
+			return
 	
 	set_cooldown(iceblock_skill)
 	
@@ -103,8 +122,11 @@ func cast_iceblock():
 		iceblock_skill.use(self, target_pos)
 		
 func cast_field():
-	if !can_cast(field_skill):
+	if !Skills.unlocked_skills.has(field_skill):
 		return
+	else:
+		if !can_cast(field_skill):
+			return
 	
 	set_cooldown(field_skill)
 	
@@ -113,8 +135,11 @@ func cast_field():
 		field_skill.use(self, target_pos)
 
 func cast_tornado():
-	if !can_cast(tornado_skill):
+	if !Skills.unlocked_skills.has(tornado_skill):
 		return
+	else:
+		if !can_cast(tornado_skill):
+			return
 	
 	set_cooldown(tornado_skill)
 	
