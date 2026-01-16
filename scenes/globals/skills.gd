@@ -47,10 +47,10 @@ func add_skill(skill):
 func unlock_skill(skill):
 	if !(skill in unlocked_skills):
 		unlocked_skills.append(skill)
+		for unit in get_tree().get_nodes_in_group("Allied"):
+			unit.handle_skill_update(skill)
 	else:
 		skill.skill_level += 1
-	for unit in get_tree().get_nodes_in_group("Allied"):
-		unit.handle_skill_update(skill)
 
 func reset_unlocked_skills():
 	for skill in unlocked_skills:
