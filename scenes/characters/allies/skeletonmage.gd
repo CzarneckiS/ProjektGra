@@ -272,10 +272,10 @@ func follow_player() -> void:
 #COMBAT ===============================================================================
 func hit(damage_taken, damage_source) -> bool:
 	if health > 0:
-		Audio.play_audio($sfx_receive_hit)
 		if damage_source not in status_effects_array:
 			$Sprite2D.material.set_shader_parameter(&'progress',1)
 			$Timers/HitFlashTimer.start()
+			Audio.play_audio($sfx_receive_hit)
 			$Particles/HitParticles.emitting = true
 			took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
 	health_bar.visible = true
