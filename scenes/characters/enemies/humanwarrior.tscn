@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://crrf60xb54uea"]
+[gd_scene load_steps=28 format=3 uid="uid://crrf60xb54uea"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_km2sc"]
 [ext_resource type="Script" uid="uid://178j0odpensc" path="res://scenes/characters/enemies/humanwarrior.gd" id="2_ds4t1"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bwyarkpn2hya8" path="res://sprites/units/human_warrior/human_warrior_sword.png" id="9_ru2nh"]
 [ext_resource type="Script" uid="uid://csr4x6mrcrwjc" path="res://scenes/characters/enemies/hum_warrior_state_machine.gd" id="10_o7qs6"]
 [ext_resource type="AudioStream" uid="uid://cvutg74gh6yhg" path="res://sfx/enemies/human_warrior/sword_slash.ogg" id="13_du7wb"]
+[ext_resource type="AudioStream" uid="uid://dnbkstjtttss1" path="res://sfx/enemies/human_warrior/enemy_hit_receive.ogg" id="13_ru2nh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_du7wb"]
 resource_local_to_scene = true
@@ -545,5 +546,8 @@ shape = SubResource("CircleShape2D_vuace")
 [node name="AttackTimer" parent="Timers" index="2"]
 wait_time = 0.3
 
-[node name="sfx_attack" type="AudioStreamPlayer2D" parent="." index="16"]
+[node name="sfx_receive_dmg" type="AudioStreamPlayer2D" parent="." index="16"]
+stream = ExtResource("13_ru2nh")
+
+[node name="sfx_attack" type="AudioStreamPlayer2D" parent="." index="17"]
 stream = ExtResource("13_du7wb")

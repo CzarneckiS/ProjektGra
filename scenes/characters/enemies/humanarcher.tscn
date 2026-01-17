@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://c3t26w6wbs8i0"]
+[gd_scene load_steps=33 format=3 uid="uid://c3t26w6wbs8i0"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_y1d6m"]
 [ext_resource type="Script" uid="uid://cfpdv8d50j0j8" path="res://scenes/characters/enemies/humanarcher.gd" id="2_dkfy2"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://bauwii7eq6o7q" path="res://sprites/units/human_archer/human_archer_arrow.png" id="14_tpfln"]
 [ext_resource type="Texture2D" uid="uid://bkvjd3jr4htwx" path="res://sprites/units/human_archer/human_archer_right_arm.png" id="15_csiw2"]
 [ext_resource type="AudioStream" uid="uid://de7koltfc3vh8" path="res://sfx/enemies/human_archer/arrow.ogg" id="18_u0omj"]
+[ext_resource type="AudioStream" uid="uid://ce3tfgdrqvu5p" path="res://sfx/enemies/human_archer/enemy_archer_hit_received.ogg" id="18_u3t7y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u0omj"]
 resource_local_to_scene = true
@@ -994,5 +995,8 @@ shape = SubResource("CircleShape2D_vuace")
 [node name="AttackTimer" parent="Timers" index="2"]
 wait_time = 0.5
 
-[node name="sfx_attack" type="AudioStreamPlayer2D" parent="." index="16"]
+[node name="sfx_receive_dmg" type="AudioStreamPlayer2D" parent="." index="16"]
+stream = ExtResource("18_u3t7y")
+
+[node name="sfx_attack" type="AudioStreamPlayer2D" parent="." index="17"]
 stream = ExtResource("18_u0omj")
