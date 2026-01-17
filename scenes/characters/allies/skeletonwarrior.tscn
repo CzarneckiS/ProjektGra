@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c6wxbv4ruot4l"]
+[gd_scene load_steps=26 format=3 uid="uid://c6wxbv4ruot4l"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_2674o"]
 [ext_resource type="Script" uid="uid://cwci7wyh3g6yl" path="res://scenes/characters/allies/skeletonwarrior.gd" id="2_f3pgp"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://chk2x4f7c6xvb" path="res://sprites/units/skeleton_warrior/skellington_warrior_left_boot.png" id="7_24fhp"]
 [ext_resource type="Texture2D" uid="uid://dd80gild66mgj" path="res://sprites/units/skeleton_warrior/skellington_warrior_right_boot.png" id="8_6bcrf"]
 [ext_resource type="Texture2D" uid="uid://c5guqovle2c50" path="res://sprites/units/skeleton_warrior/skellington_warrior_head.png" id="9_ksuwf"]
+[ext_resource type="AudioStream" uid="uid://dhi6146j6ag4q" path="res://sfx/allies/ally_hit_receive.ogg" id="13_6bcrf"]
+[ext_resource type="AudioStream" uid="uid://0gx87gjspyj5" path="res://sfx/allies/ally_warrior/ally_sword_slash.ogg" id="14_ksuwf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_24fhp"]
 resource_local_to_scene = true
@@ -666,5 +668,11 @@ collision_mask = 32
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovementPushArea" index="0"]
 position = Vector2(0, 15)
 shape = SubResource("CircleShape2D_152ed")
+
+[node name="sfx_receive_hit" type="AudioStreamPlayer2D" parent="." index="16"]
+stream = ExtResource("13_6bcrf")
+
+[node name="sfx_attack" type="AudioStreamPlayer2D" parent="." index="17"]
+stream = ExtResource("14_ksuwf")
 
 [connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]
