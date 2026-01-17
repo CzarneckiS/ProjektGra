@@ -168,7 +168,7 @@ func _on_navigation_timer_timeout() -> void:
 #COMBAT ===============================================================================
 func hit(damage_taken, damage_source) -> bool:
 	if health > 0:
-		$sfx_receive_dmg.play()
+		Audio.play_audio($sfx_receive_dmg)
 		if damage_source not in status_effects_array:
 			$Sprite2D.material.set_shader_parameter(&'progress',1)
 			$Timers/HitFlashTimer.start()
@@ -204,7 +204,7 @@ func death():
 		skill.use(self)
 
 func attack():
-	$sfx_attack.play()
+	Audio.play_audio($sfx_attack)
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		#check czy cel nie odszedl za daleko
 		if global_position.distance_to(attack_target.get_ref().global_position) < 300:

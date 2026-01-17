@@ -272,7 +272,7 @@ func follow_player() -> void:
 #COMBAT ===============================================================================
 func hit(damage_taken, damage_source) -> bool:
 	if health > 0:
-		$sfx_receive_hit.play()
+		Audio.play_audio($sfx_receive_hit)
 		if damage_source not in status_effects_array:
 			$Sprite2D.material.set_shader_parameter(&'progress',1)
 			$Timers/HitFlashTimer.start()
@@ -325,7 +325,7 @@ func heal(heal_amount):
 		tween.set_trans(Tween.TRANS_SINE)
 		tween.set_ease(Tween.EASE_OUT)
 func attack():
-	$sfx_projectile.play()
+	Audio.play_audio($sfx_projectile)
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		for skill in skills_on_hit:
 			skill.use(self, attack_target.get_ref())

@@ -48,7 +48,7 @@ func _physics_process(_delta: float) -> void:
 	
 func _on_body_entered(player):
 	if player.is_in_group("Player") and !used:
-		$sfx_pickup.play()
+		Audio.play_audio($sfx_pickup)
 		apply_effect(player)
 		used = true
 		used_timer.start()
