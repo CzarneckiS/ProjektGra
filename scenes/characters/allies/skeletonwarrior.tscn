@@ -671,8 +671,10 @@ shape = SubResource("CircleShape2D_152ed")
 
 [node name="sfx_receive_hit" type="AudioStreamPlayer2D" parent="." index="16"]
 stream = ExtResource("13_6bcrf")
+bus = &"sfx"
 
 [node name="sfx_attack" type="AudioStreamPlayer2D" parent="." index="17"]
 stream = ExtResource("14_ksuwf")
+bus = &"sfx"
 
 [connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]

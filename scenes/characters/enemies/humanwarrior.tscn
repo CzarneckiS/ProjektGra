@@ -548,6 +548,8 @@ wait_time = 0.3
 
 [node name="sfx_receive_dmg" type="AudioStreamPlayer2D" parent="." index="16"]
 stream = ExtResource("13_ru2nh")
+bus = &"sfx"
 
 [node name="sfx_attack" type="AudioStreamPlayer2D" parent="." index="17"]
 stream = ExtResource("13_du7wb")
+bus = &"sfx"
