@@ -16,9 +16,19 @@ var minions_selections_hud = load("res://scenes/levels/hud.tscn").instantiate()
 var command_spells_hud = load("res://scenes/levels/hud.tscn").instantiate() 
 #var lvl_up_upgrades_menu = load("res://scenes/ui/lvlup_menu.tscn").instantiate()
 
+var first_ost_play: bool = true
 
 func _ready():
-	$level_ost.play()
+	if first_ost_play:
+		first_ost_play = false
+		var music_tween = create_tween()
+		music_tween.tween_property($level_ost, "volume_db", -35.0, 0.0)
+		music_tween.tween_property($level_ost, "volume_db", 0.0, 6.0)
+	
+		music_tween.set_ease(Tween.EASE_IN)
+		$level_ost.play()
+	else:
+		$level_ost.play()
 	$Player.connect("summon_unit", on_summon_unit)
 	$Player.connect("took_damage", on_unit_damage_taken)
 	hud.process_mode = Node.PROCESS_MODE_ALWAYS
