@@ -92,4 +92,3 @@ frame_progress = 1.0
 
 [node name="heal_sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_6fwmb")
-volume_db = 16.71

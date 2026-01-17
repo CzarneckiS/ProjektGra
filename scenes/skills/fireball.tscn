@@ -113,4 +113,3 @@ shape = SubResource("CircleShape2D_cj314")
 
 [node name="fireball_sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("19_x8v3f")
-volume_db = 11.899
