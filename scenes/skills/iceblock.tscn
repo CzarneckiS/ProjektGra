@@ -875,7 +875,6 @@ shape = SubResource("CircleShape2D_7xcy8")
 
 [node name="iceblock_sfx" type="AudioStreamPlayer2D" parent="pivotpoint"]
 stream = ExtResource("3_5oucj")
-volume_db = 9.0
 
 [node name="broken_side" type="Sprite2D" parent="pivotpoint"]
 visible = false

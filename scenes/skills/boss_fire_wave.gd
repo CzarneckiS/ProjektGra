@@ -24,6 +24,7 @@ func _physics_process(delta: float) -> void:
 	if global_position.distance_to(start_position) > max_range:
 		call_deferred("queue_free")
 func _ready():
+	Audio.play_audio($sfx_firewave)
 	body_entered.connect(_on_body_entered)
 	$AnimatedSprite2D.animation_finished.connect(_on_animation_finished)
 	$AnimatedSprite2D.play("on_creation")

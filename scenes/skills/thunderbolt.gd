@@ -23,7 +23,7 @@ func initialize(spawn_position: Vector2, skill_res: Thunderbolt):
 func _ready():
 	$thunderbolt_animation.play("default")
 	$thunderbolt_animation.animation_finished.connect(_on_animation_finished)
-	$thunderbolt_sfx.play()
+	Audio.play_audio($thunderbolt_sfx)
 	$thunderbolt_sfx.finished.connect(_on_sfx_finished)
 	body_entered.connect(_on_body_entered)
 

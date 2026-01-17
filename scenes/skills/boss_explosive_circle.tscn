@@ -1,6 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://bq0a7rycfipvg"]
+[gd_scene load_steps=17 format=3 uid="uid://bq0a7rycfipvg"]
 
-[ext_resource type="Script" path="res://scenes/skills/boss_explosive_circle.gd" id="1_l3xk6"]
+[ext_resource type="Script" uid="uid://w8r0th6p85e8" path="res://scenes/skills/boss_explosive_circle.gd" id="1_l3xk6"]
 [ext_resource type="Texture2D" uid="uid://dpys442bixxm1" path="res://sprites/boss/explosion/explosion1.png" id="2_df367"]
 [ext_resource type="Texture2D" uid="uid://1sa8n7olpm4w" path="res://sprites/boss/explosion/pyroExplosion1.png" id="3_dgtbu"]
 [ext_resource type="Texture2D" uid="uid://btiv81vgl5o0m" path="res://sprites/boss/explosion/pyroExplosion2.png" id="4_a5onw"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bmr0se3p7qwg4" path="res://sprites/boss/explosion/pyroExplosion9.png" id="11_dvkqf"]
 [ext_resource type="Texture2D" uid="uid://d1xmktrqyiqk" path="res://sprites/boss/explosion/pyroExplosion10.png" id="12_soia0"]
 [ext_resource type="Texture2D" uid="uid://bgj20sw62t3kb" path="res://sprites/boss/explosion/pyroExplosion11.png" id="13_lhbyy"]
+[ext_resource type="AudioStream" uid="uid://d1n7tgjwyt1j0" path="res://sfx/enemies/boss/boss_explosion_circle/boss_explosion_circle.ogg" id="14_a5onw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gva5k"]
 animations = [{
@@ -103,3 +104,7 @@ sprite_frames = SubResource("SpriteFrames_gva5k")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5785377
 shape = SubResource("CapsuleShape2D_n17iy")
+
+[node name="sfx_explosivecircle" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_a5onw")
+bus = &"boss"

@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://qk6876fcyk1b"]
 
-[ext_resource type="Script" path="res://scenes/skills/boss_charge.gd" id="1_1i15n"]
+[ext_resource type="Script" uid="uid://deiw4ahg7pi5" path="res://scenes/skills/boss_charge.gd" id="1_1i15n"]
 [ext_resource type="Texture2D" uid="uid://dmfdsefaj3m8f" path="res://sprites/boss/charge/charge1.png" id="2_1i15n"]
 [ext_resource type="Texture2D" uid="uid://dt8j4esmf6ln1" path="res://sprites/fireball/fireball_splash/fireball_splash_0.png" id="3_tc3qp"]
 [ext_resource type="Texture2D" uid="uid://dc8noe6etoqii" path="res://sprites/boss/charge/charge2.png" id="3_yxh1c"]
@@ -101,3 +101,6 @@ sprite_frames = SubResource("SpriteFrames_lrya3")
 position = Vector2(0, -2)
 scale = Vector2(0.25, 0.25)
 shape = SubResource("CapsuleShape2D_yxh1c")
+
+[node name="sfx_charge" type="AudioStreamPlayer2D" parent="."]
+bus = &"sfx"

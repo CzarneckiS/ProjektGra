@@ -281,9 +281,11 @@ func hit(damage_taken, damage_source) -> bool:
 	if health > 0:
 		if damage_source not in status_effects_array:
 			$Sprite2D.material.set_shader_parameter(&'progress',1)
+			Audio.play_audio($sfx_receive_hit)
 			$Timers/HitFlashTimer.start()
 			$Particles/HitParticles.emitting = true
 			took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
+			
 	health_bar.visible = true
 	damage_bar.visible = true
 	
@@ -333,6 +335,7 @@ func heal(heal_amount):
 		tween.set_trans(Tween.TRANS_SINE)
 		tween.set_ease(Tween.EASE_OUT)
 func attack():
+	Audio.play_audio($sfx_attack)
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		#check czy cel nie odszedl za daleko
 		if global_position.distance_to(attack_target.get_ref().global_position) < 300:

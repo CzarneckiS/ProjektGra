@@ -378,4 +378,3 @@ sprite_frames = SubResource("SpriteFrames_lrrw7")
 
 [node name="tornado_sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("25_l6416")
-volume_db = 7.899

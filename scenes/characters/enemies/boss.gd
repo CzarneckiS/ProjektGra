@@ -247,6 +247,7 @@ func clear_chunks():
 			chunks[i][j] = 0
 func hit(damage_taken, damage_source) -> bool:
 	if health > 0:
+		Audio.play_audio($sfx_receive_dmg)
 		if damage_source not in status_effects_array:
 			#to hitflash or not to hitflash
 			#$Sprite2D.material.set_shader_parameter(&'progress',1)
@@ -324,6 +325,7 @@ func ranged_attack():
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		projectile.use(self, attack_target.get_ref())
 func melee_attack():
+	Audio.play_audio($sfx_slash)
 	melee_attack_vfx.use(self, attack_target.get_ref())
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		#check czy cel nie odszedl za daleko
