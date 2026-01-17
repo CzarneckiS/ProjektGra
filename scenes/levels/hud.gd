@@ -1,5 +1,7 @@
 extends Control
 
+@onready var hp_value: Label = $HPValue
+@onready var xp_value: Label = $XPValue
 @onready var main_damage_bar: ProgressBar = $DamageBar
 @onready var xp_gain_bar: ProgressBar = $ExpGainBar
 @onready var player_level: Label = $LabelPlayerLevel
@@ -7,6 +9,7 @@ extends Control
 @onready var icon_page_1: TextureRect = $HudLeftCorner/IconPage1
 @onready var icon_page_2: TextureRect = $HudLeftCorner/IconPage2
 @onready var icon_page_3: TextureRect = $HudLeftCorner/IconPage3
+
 
 var hp_bar_style = StyleBoxFlat.new()
 var xp_bar_style = StyleBoxFlat.new()
@@ -41,7 +44,9 @@ func _ready() -> void:
 	xp_gain_bar.visible = true
 
 	player_level.text = "LVL: %d" % Globals.level
-
+	hp_value.text = "%d / %d" % [Globals.health, Globals.max_health]
+	xp_value.text = "%d / %d" % [Globals.accumulated_xp, Globals.xp_to_level]
+	
 	set_process_unhandled_input(true)  # aby działało _unhandled_input
 	
 	icon_page_1.visible = false 
@@ -76,13 +81,15 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func update_hp_bar():
 	main_damage_bar.value = Globals.max_health - Globals.health 
+	hp_value.text = "%d / %d" % [Globals.health, Globals.max_health]
 	var main_health_tween = create_tween()
 	main_health_tween.tween_property(main_damage_bar, "value", Globals.max_health - Globals.health, 0.5)
 	main_health_tween.set_trans(Tween.TRANS_SINE)
 	main_health_tween.set_ease(Tween.EASE_IN_OUT)
-
+		
 func update_exp_bar():
 	xp_gain_bar.value = Globals.xp_to_level - Globals.accumulated_xp
+	xp_value.text = "%d / %d" % [Globals.accumulated_xp, Globals.xp_to_level]
 	var xp_tween = create_tween()
 	xp_tween.tween_property(xp_gain_bar, "value", Globals.xp_to_level - Globals.accumulated_xp, 0.5)
 	xp_tween.set_trans(Tween.TRANS_SINE)
@@ -108,7 +115,11 @@ func update_units_panel(new_units: Array) -> void:
 	# zakres jednostek aktualnej strony
 	var start = (current_page - 1) * 12
 	var end = min(start + 12, selected_units.size())
-	var visible_units = selected_units.slice(start, end)
+	var visible_units = []
+	
+	if start <= end:
+		visible_units = selected_units.slice(start, end)
+		
 
 		
 	# reset slotów

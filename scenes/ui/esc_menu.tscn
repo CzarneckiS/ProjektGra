@@ -8,7 +8,6 @@
 [ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="4_viui7"]
 [ext_resource type="Texture2D" uid="uid://cvilxq7eyc1kj" path="res://sprites/ui/Button_highlight.png" id="4_wo83s"]
 
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oy65n"]
 texture = ExtResource("2_1apln")
 

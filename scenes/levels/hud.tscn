@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dow75ifqnaejo"]
+[gd_scene load_steps=22 format=3 uid="uid://dow75ifqnaejo"]
 
 [ext_resource type="Script" uid="uid://bh80at3wk5jxc" path="res://scenes/levels/hud.gd" id="1_h1s5m"]
 [ext_resource type="Texture2D" uid="uid://bvafebvu6h5ix" path="res://sprites/ui/HUD lifebar XP BAR purple.png" id="2_16vcj"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c1w42wxnnjnow" path="res://sprites/ui/hold icon.png" id="8_x77mw"]
 [ext_resource type="Texture2D" uid="uid://clj1o87ll6lr4" path="res://sprites/ui/move icon.png" id="9_862nl"]
 [ext_resource type="Texture2D" uid="uid://c3a1s8si78c2t" path="res://sprites/ui/stop icon.png" id="10_36mnu"]
+[ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="12_862nl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2y6e"]
 bg_color = Color(0.6, 0.6, 0.6, 0.039215688)
@@ -40,6 +41,12 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.96035105, 0.96035105, 0.96035093, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_36mnu"]
+base_font = ExtResource("12_862nl")
+
+[sub_resource type="FontVariation" id="FontVariation_6sdlk"]
+base_font = ExtResource("12_862nl")
 
 [node name="Hud" type="Control"]
 z_index = 4
@@ -567,6 +574,26 @@ offset_right = 1405.0
 offset_bottom = 396.0
 scale = Vector2(0.13, 0.13)
 texture = ExtResource("10_36mnu")
+
+[node name="HPValue" type="Label" parent="."]
+z_index = 5
+layout_mode = 0
+offset_left = 205.0
+offset_top = 41.0
+offset_right = 290.0
+offset_bottom = 64.0
+theme_override_fonts/font = SubResource("FontVariation_36mnu")
+text = "000/000"
+
+[node name="XPValue" type="Label" parent="."]
+z_index = 5
+layout_mode = 0
+offset_left = 205.0
+offset_top = 73.0
+offset_right = 290.0
+offset_bottom = 96.0
+theme_override_fonts/font = SubResource("FontVariation_6sdlk")
+text = "000/000"
 
 [connection signal="pressed" from="UnitsPanel/Slot1" to="." method="_on_unit_slot_pressed"]
 [connection signal="pressed" from="UnitsPanel/Slot2" to="." method="_on_unit_slot_pressed"]

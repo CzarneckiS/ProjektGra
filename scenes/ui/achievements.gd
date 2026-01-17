@@ -6,8 +6,7 @@ extends Node2D
 @onready var ach_icons: Array = [
 	$AchIcon1, $AchIcon2, $AchIcon3, $AchIcon4, $AchIcon5,
 	$AchIcon6, $AchIcon7, $AchIcon8, $AchIcon9, $AchIcon10,
-	$AchIcon11, $AchIcon12, $AchIcon13, $AchIcon14, $AchIcon15,
-	$AchIcon16, $AchIcon17, $AchIcon18, $AchIcon19, $AchIcon20
+	$AchIcon11, $AchIcon12, $AchIcon13, $AchIcon14, $AchIcon15
 ]
 
 @onready var text_c: Label = $TextC
@@ -22,9 +21,12 @@ func _ready() -> void:
 	button_back_to_menu.focus_mode = Control.FOCUS_NONE
 	_setup_hover(button_back_to_menu, button_back_to_menu_highlight)
 	
+	Achievements.achievement_unlocked.connect(_on_achievement_unlocked)
 	
 	await get_tree().process_frame
 	populate_skill_icons()
+	await get_tree().create_timer(1.0).timeout
+	Achievements.unlock_achievement("mages_killed")
 	
 func _on_button_backto_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
@@ -45,30 +47,40 @@ func populate_skill_icons() -> void:
 		var skill = skills[i]
 		var is_unlocked = Achievements.achievement_list[dict[skill]]
 		var icon_node: TextureRect = ach_icons[i]
-
+		icon_node.visible = false
 		icon_node.set_meta("skill_ref", skill)
 		icon_node.set_meta("unlocked", is_unlocked)
-
+		
+		
 		if is_unlocked:
 			icon_node.texture = skill.icon
 		else:
 			icon_node.texture = EMPTY_ICON
 
-		#ustawienia rozmiaru
+		
 		icon_node.custom_minimum_size = Vector2(50, 50)
+		icon_node.visible = true
 		icon_node.expand = true
 		icon_node.stretch_mode = TextureRect.STRETCH_SCALE
 
 		icon_node.update_minimum_size()
 
-		icon_node.mouse_entered.connect(_on_icon_hover.bind(icon_node))
-		icon_node.mouse_exited.connect(_clear_spell_data)
+		if not icon_node.mouse_entered.is_connected(_on_icon_hover):
+			icon_node.mouse_entered.connect(_on_icon_hover.bind(icon_node))
+
+		if not icon_node.mouse_exited.is_connected(_clear_spell_data):
+			icon_node.mouse_exited.connect(_clear_spell_data)
+
 
 
 func _on_icon_hover(icon_node: TextureRect) -> void:
 	var skill = icon_node.get_meta("skill_ref")
 	var is_unlocked = icon_node.get_meta("unlocked")
-
+	var achievement_key = icon_node.get_meta("achievement_key", "")
+	
+	if icon_node.has_meta("achievement_key"):
+		achievement_key = icon_node.get_meta("achievement_key", "")
+	
 	if skill == null:
 		return
 
@@ -76,12 +88,13 @@ func _on_icon_hover(icon_node: TextureRect) -> void:
 		spell_data_icon.texture = skill.icon
 		text_c.text = skill.skill_name
 		text_d.text = skill.skill_desc
-		text_e.text = "Odblokowano przez: TODO"
+		text_e.text = Achievements.achievement_description_list.get(achievement_key, "")
 	else:
 		spell_data_icon.texture = EMPTY_ICON
 		text_c.text = ""
 		text_d.text = ""
-		text_e.text = "Aby odblokować: TODO"
+		text_e.text = "For unlock:\n" + Achievements.achievement_description_list.get(achievement_key, "")
+
 
 	spell_data_icon.custom_minimum_size = Vector2(50, 50)
 	spell_data_icon.expand = true
@@ -95,3 +108,19 @@ func _clear_spell_data() -> void:
 	text_c.text = ""
 	text_d.text = ""
 	text_e.text = ""
+
+
+func _on_achievement_unlocked(achievement_key: String) -> void:
+	print("ACHIEVEMENT UNLOCKED:", achievement_key)
+
+	var skill = Achievements.skill_unlock_handler.skill_unlock_dictionary.find_key(achievement_key)
+	if skill == null:
+		return
+
+	var description = Achievements.achievement_description_list.get(achievement_key, "")
+
+	print("Skill:", skill.skill_name)
+	print("Description:", description)
+
+
+	populate_skill_icons() 
