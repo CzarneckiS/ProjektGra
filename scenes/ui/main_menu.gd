@@ -25,8 +25,10 @@ func _ready() -> void:
 		tween2.tween_property($Skull,"modulate:a",0,0.5)
 		tween2.tween_property($BlackScreen,"modulate:a",0,0.5)
 		Globals.opening_shown = true
+		await get_tree().create_timer(0.7).timeout
 		$main_menu_ost.play()
 	else:
+		$main_menu_ost.play()
 		$BlackScreen.visible = false
 	$ButtonStart.pressed.connect(_on_button_start_pressed)
 	$ButtonExit.pressed.connect(_on_button_exit_pressed)
@@ -58,17 +60,24 @@ func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 
 	
 func _on_button_start_pressed() -> void:
+	$menu_click.play()
+	await $menu_click.finished
 	start_new_game()
 
 
 func _on_button_options_pressed() -> void:
 	#get_tree().change_scene_to_file("ZAMIENIĆ NA LOKALIZACJE")
-	pass
+	$menu_click_deny.play()
+	await $menu_click_deny.finished
 	
 func _on_button_achievements_pressed() -> void:
+	$menu_click.play()
+	await $menu_click.finished
 	get_tree().change_scene_to_file("res://scenes/ui/achievements.tscn")
 
 func _on_button_exit_pressed() -> void:
+	$menu_click.play()
+	await $menu_click.finished
 	get_tree().quit()
 
 func start_new_game():

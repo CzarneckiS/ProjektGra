@@ -67,6 +67,8 @@ func level_up():
 
 
 func _on_option_1_pressed() -> void:
+	$menu_click.play()
+	await $menu_click.finished
 	get_tree().paused = false
 	Skills.unlock_skill(skills_to_show[0])
 	Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[0])
@@ -75,6 +77,8 @@ func _on_option_1_pressed() -> void:
 
 
 func _on_option_2_pressed() -> void:
+	$menu_click.play()
+	await $menu_click.finished
 	get_tree().paused = false
 	Skills.unlock_skill(skills_to_show[1])
 	Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[1])
@@ -82,6 +86,8 @@ func _on_option_2_pressed() -> void:
 	pressed = true
 	
 func _on_option_3_pressed() -> void:
+	$menu_click.play()
+	await $menu_click.finished
 	get_tree().paused = false
 	Skills.unlock_skill(skills_to_show[2])
 	Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[2])

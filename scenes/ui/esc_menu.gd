@@ -48,14 +48,20 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_button_continue_pressed() -> void:
+	$menu_click.play()
+	await $menu_click.finished
 	get_tree().paused = false
 	queue_free()
 
 
 func _on_button_main_menu_pressed() -> void:
+	$menu_click.play()
+	await $menu_click.finished
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
 
 
 func _on_button_exit_pressed() -> void:
+	$menu_click.play()
+	await $menu_click.finished
 	get_tree().quit()

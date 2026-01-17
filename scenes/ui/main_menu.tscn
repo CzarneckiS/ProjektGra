@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ddpgrokjjk1w7"]
+[gd_scene load_steps=36 format=3 uid="uid://ddpgrokjjk1w7"]
 
 [ext_resource type="Script" uid="uid://cufg7pkrkpvoi" path="res://scenes/ui/main_menu.gd" id="1_sl1te"]
 [ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="2_1g8jr"]
@@ -11,7 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://dfsi2pqp2e8sb" path="res://sprites/ui/main menu screen skellington.png" id="6_n4uci"]
 [ext_resource type="Texture2D" uid="uid://xypveoj6a0rd" path="res://sprites/ui/main menu screen girl.png" id="7_877pj"]
 [ext_resource type="Texture2D" uid="uid://c60fi3uv00wog" path="res://sprites/ui/skull.png" id="7_wb0q5"]
+[ext_resource type="AudioStream" uid="uid://bgaj7l2ut0y5e" path="res://sfx/menu/menu_click.ogg" id="12_n4uci"]
 [ext_resource type="AudioStream" uid="uid://d1e8u61dy8a5n" path="res://soundtrack/main_menu_normalized.ogg" id="12_otr3d"]
+[ext_resource type="AudioStream" uid="uid://ce8x8vmf0nwyv" path="res://sfx/menu/menu_clickDENY.ogg" id="14_877pj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wb0q5"]
 shader = ExtResource("2_btxxm")
@@ -213,6 +215,12 @@ position = Vector2(796.00006, 451)
 scale = Vector2(0.444, 0.444)
 texture = ExtResource("7_wb0q5")
 
+[node name="menu_click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_n4uci")
+
 [node name="main_menu_ost" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_otr3d")
 parameters/looping = true
+
+[node name="menu_click_deny" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_877pj")
