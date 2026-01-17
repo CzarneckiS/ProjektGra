@@ -13,6 +13,7 @@ func initialize(start_pos: Vector2, target_pos: Vector2):
 	look_at(target_pos)
 	
 func _ready():
+	Audio.play_audio($sfx_basicprojectile)
 	body_entered.connect(_on_body_entered)
 	$AnimatedSprite2D.animation_finished.connect(_on_animation_finished)
 	$AnimatedSprite2D.play("on_creation")

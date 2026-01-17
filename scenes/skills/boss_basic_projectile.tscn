@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://o751e72vd01b"]
+[gd_scene load_steps=19 format=3 uid="uid://o751e72vd01b"]
 
 [ext_resource type="Script" uid="uid://bm7376g1xvxwo" path="res://scenes/skills/boss_basic_projectile.gd" id="1_603qa"]
 [ext_resource type="Texture2D" uid="uid://dmfdsefaj3m8f" path="res://sprites/boss/charge/charge1.png" id="2_6dujc"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dlnhiy2fgpe1c" path="res://sprites/fireball/fireball_splash/fireball_splash_9.png" id="13_hqd30"]
 [ext_resource type="Texture2D" uid="uid://cmep0j61qpf3u" path="res://sprites/fireball/fireball_splash/fireball_splash_10.png" id="14_5lq8q"]
 [ext_resource type="Texture2D" uid="uid://2pd6ciq5llqc" path="res://sprites/fireball/fireball_splash/fireball_splash_11.png" id="15_w6881"]
+[ext_resource type="AudioStream" uid="uid://ccvdeq2lt11ny" path="res://sfx/enemies/boss/boss_small_projectile/boss_small_projectile.ogg" id="16_pbiru"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m4xq2"]
 animations = [{
@@ -101,3 +102,7 @@ sprite_frames = SubResource("SpriteFrames_m4xq2")
 position = Vector2(36, -3)
 scale = Vector2(0.25, 0.25)
 shape = SubResource("CapsuleShape2D_plats")
+
+[node name="sfx_basicprojectile" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_pbiru")
+bus = &"boss"

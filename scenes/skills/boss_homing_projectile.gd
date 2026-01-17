@@ -20,6 +20,7 @@ func initialize(start_pos: Vector2, target_unit: CharacterBody2D, _damage):
 	current_velocity = Vector2((starting_velocity.x*cos(randf_range(-3,3))-starting_velocity.y*sin(randf_range(-3,3))),(starting_velocity.x*sin(randf_range(-3,3))+starting_velocity.y*cos(randf_range(-3,3))))
 	#look_at(target_pos)
 func _ready():
+	Audio.play_audio($sfx_homingprojectile)
 	body_entered.connect(_on_body_entered)
 	$AnimatedSprite2D.animation_finished.connect(_on_animation_finished)
 	$AnimatedSprite2D.play("on_creation")

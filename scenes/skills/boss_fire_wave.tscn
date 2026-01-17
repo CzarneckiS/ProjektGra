@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cewddkds06v85"]
+[gd_scene load_steps=21 format=3 uid="uid://cewddkds06v85"]
 
 [ext_resource type="Script" uid="uid://dyd8bn0ym6ulq" path="res://scenes/skills/boss_fire_wave.gd" id="1_3tfam"]
 [ext_resource type="Texture2D" uid="uid://y5mdei3qwtud" path="res://sprites/boss/firewave/wave1.png" id="2_3m4s2"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cst2qqlmf4chg" path="res://sprites/fireball/fireball_splash/fireball_splash_8.png" id="15_6uwji"]
 [ext_resource type="Texture2D" uid="uid://dlnhiy2fgpe1c" path="res://sprites/fireball/fireball_splash/fireball_splash_9.png" id="16_3d4lj"]
 [ext_resource type="Texture2D" uid="uid://cmep0j61qpf3u" path="res://sprites/fireball/fireball_splash/fireball_splash_10.png" id="17_s4os3"]
+[ext_resource type="AudioStream" uid="uid://ds4eerfrvpkq4" path="res://sfx/enemies/boss/boss_big_projectile/boss_big_projectile.ogg" id="18_3tfam"]
 [ext_resource type="Texture2D" uid="uid://2pd6ciq5llqc" path="res://sprites/fireball/fireball_splash/fireball_splash_11.png" id="18_xyrow"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lrya3"]
@@ -107,3 +108,7 @@ frame_progress = 0.56665266
 position = Vector2(20, 0)
 scale = Vector2(0.25, 0.25)
 shape = SubResource("CapsuleShape2D_nbgow")
+
+[node name="sfx_firewave" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_3tfam")
+bus = &"boss"

@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://wdt343ugmi0c"]
+[gd_scene load_steps=8 format=3 uid="uid://wdt343ugmi0c"]
 
 [ext_resource type="Script" uid="uid://d1kdfjinqwsje" path="res://scenes/skills/boss_homing_projectile.gd" id="1_hf2nh"]
 [ext_resource type="Texture2D" uid="uid://b2g3lwfba0kjf" path="res://sprites/boss/homing/homing2.png" id="2_6i1c1"]
 [ext_resource type="Texture2D" uid="uid://b0rx7rwkx6pqk" path="res://sprites/boss/homing/homing1.png" id="2_70lkb"]
 [ext_resource type="Texture2D" uid="uid://dc80ec03wpkug" path="res://sprites/boss/homing/homing3.png" id="3_v5r4q"]
+[ext_resource type="AudioStream" uid="uid://byfg1poar85jb" path="res://sfx/enemies/boss/boss_homing_projectiles/boss_homing_projectiles.ogg" id="5_v5r4q"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lrya3"]
 animations = [{
@@ -57,3 +58,7 @@ shape = SubResource("CircleShape2D_cj314")
 wait_time = 2.0149999999999997
 one_shot = true
 autostart = true
+
+[node name="sfx_homingprojectile" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_v5r4q")
+bus = &"boss"
