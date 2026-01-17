@@ -287,7 +287,7 @@ offset_bottom = 479.0
 texture = SubResource("CompressedTexture2D_6pxxg")
 expand_mode = 3
 
-[node name="sfx_lvlup" type="AudioStreamPlayer2D" parent="."]
+[node name="sfx_lvlup" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_h1lrv")
 
 [connection signal="pressed" from="Option1" to="." method="_on_option_1_pressed"]

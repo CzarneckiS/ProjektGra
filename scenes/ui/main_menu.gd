@@ -25,9 +25,9 @@ func _ready() -> void:
 		tween2.tween_property($Skull,"modulate:a",0,0.5)
 		tween2.tween_property($BlackScreen,"modulate:a",0,0.5)
 		Globals.opening_shown = true
+		$main_menu_ost.play()
 	else:
 		$BlackScreen.visible = false
-
 	$ButtonStart.pressed.connect(_on_button_start_pressed)
 	$ButtonExit.pressed.connect(_on_button_exit_pressed)
 	$ButtonAchievments.pressed.connect(_on_button_achievements_pressed)
