@@ -67,9 +67,9 @@ texture = ExtResource("2_uhagc")
 
 [node name="ButtonStart" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1165.0
+offset_left = 1152.0
 offset_top = 513.0
-offset_right = 1505.0
+offset_right = 1492.0
 offset_bottom = 577.0
 theme_override_fonts/font = SubResource("FontVariation_fe2o3")
 theme_override_font_sizes/font_size = 40
@@ -92,9 +92,9 @@ texture = ExtResource("5_x2yvf")
 
 [node name="ButtonAchievments" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1165.0
+offset_left = 1152.0
 offset_top = 575.0
-offset_right = 1508.0
+offset_right = 1524.0
 offset_bottom = 639.0
 theme_override_fonts/font = SubResource("FontVariation_x2yvf")
 theme_override_font_sizes/font_size = 40
@@ -102,7 +102,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_7suek")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_otr3d")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_8ekit")
 theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_n4uci")
-text = "ACHIEVMENTS"
+text = "ACHIEVEMENTS"
 alignment = 0
 
 [node name="Highlight" type="TextureRect" parent="ButtonAchievments"]
@@ -117,9 +117,9 @@ texture = ExtResource("5_x2yvf")
 
 [node name="ButtonOptions" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1165.0
+offset_left = 1152.0
 offset_top = 637.0
-offset_right = 1505.0
+offset_right = 1492.0
 offset_bottom = 701.0
 theme_override_fonts/font = SubResource("FontVariation_m1kxf")
 theme_override_font_sizes/font_size = 40
@@ -142,9 +142,9 @@ texture = ExtResource("5_x2yvf")
 
 [node name="ButtonExit" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1165.0
+offset_left = 1152.0
 offset_top = 746.0
-offset_right = 1505.0
+offset_right = 1492.0
 offset_bottom = 810.0
 theme_override_fonts/font = SubResource("FontVariation_uhagc")
 theme_override_font_sizes/font_size = 40

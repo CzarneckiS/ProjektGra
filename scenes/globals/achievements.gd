@@ -17,7 +17,7 @@ enum Event{
 var achievement_list : Dictionary = {
 	"default_unlock": true, #jako jedyny true bo odnosi sie do skilli odblokowanych na start
 	"mages_killed": false,
-	"skeletons_summoned": true,
+	"skeletons_summoned": false,
 	"level_5_skill_unlocked": true,
 	"wave_10_reached": false,
 	"boss_wave_reached": false,
@@ -60,14 +60,14 @@ func achievement_update(event : Event, entity) -> void :
 				Tags.UnitTag.HUMAN_MAGE:
 					human_mage_kill_count += 1
 					if human_mage_kill_count >= 5:
-						unlock_achievement("mages_killed")
+						Achievements.unlock_achievement("mages_killed")
 		Event.WAVE_CLEARED:
 			pass
 		Event.SKILL_UPDATED:
 			match entity.skill_name:
 				"skeleton_warrior":
 					if entity.skill_level >= 3:
-						unlock_achievement("skeletons_summoned")
+						Achievements.unlock_achievement("skeletons_summoned")
 						
 						
 #na przyszlosc ladniejsza funkcja od unlockowania
@@ -80,11 +80,11 @@ func unlock_achievement(achievement):
 		return
 		
 	achievement_list[achievement] = true
-	save_game()
+	
 	
 	print("$EMITTING ACHIEVEMENT:", achievement)
 	emit_signal("achievement_unlocked", achievement)
-	
+	save_game()
 		
 func create_save_directory():
 	if OS.has_feature("template"):

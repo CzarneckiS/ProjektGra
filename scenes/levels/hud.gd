@@ -53,7 +53,7 @@ func _ready() -> void:
 	icon_page_2.visible = false 
 	icon_page_3.visible = false 
 	
-	
+	#AchievementsPopupManager.register_popup_root(self)
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select_next_group"):
 		_cycle_unit_group()

@@ -11,6 +11,7 @@ base_font = ExtResource("3_804wp")
 base_font = ExtResource("3_804wp")
 
 [node name="AchievmentsPopup" type="Control"]
+z_index = 4096
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -137,6 +137,7 @@ theme_override_font_sizes/font_size = 19
 text = "NAME
 
 "
+autowrap_mode = 2
 
 [node name="Description" type="Label" parent="Option1"]
 layout_mode = 0
@@ -196,6 +197,7 @@ theme_override_font_sizes/font_size = 19
 text = "NAME
 
 "
+autowrap_mode = 2
 
 [node name="Description" type="Label" parent="Option2"]
 layout_mode = 0
@@ -257,6 +259,7 @@ theme_override_font_sizes/font_size = 19
 text = "NAME
 
 "
+autowrap_mode = 2
 
 [node name="Description" type="Label" parent="Option3"]
 layout_mode = 0

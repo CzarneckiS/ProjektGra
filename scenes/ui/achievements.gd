@@ -14,8 +14,6 @@ extends Node2D
 @onready var text_e: Label = $TextE
 @onready var spell_data_icon: TextureRect = $SpellDataIcon
 
-var EMPTY_ICON = preload("res://sprites/ui/EmptyIcon.png")
-
 func _ready() -> void:
 	button_back_to_menu.pressed.connect(_on_button_backto_menu_pressed)
 	button_back_to_menu.focus_mode = Control.FOCUS_NONE
@@ -26,7 +24,7 @@ func _ready() -> void:
 	await get_tree().process_frame
 	populate_skill_icons()
 	await get_tree().create_timer(1.0).timeout
-	Achievements.unlock_achievement("mages_killed")
+	#Achievements.unlock_achievement("mages_killed")
 	
 func _on_button_backto_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
@@ -55,7 +53,7 @@ func populate_skill_icons() -> void:
 		if is_unlocked:
 			icon_node.texture = skill.icon
 		else:
-			icon_node.texture = EMPTY_ICON
+			icon_node.visible = false
 
 		
 		icon_node.custom_minimum_size = Vector2(50, 50)
@@ -86,11 +84,12 @@ func _on_icon_hover(icon_node: TextureRect) -> void:
 
 	if is_unlocked:
 		spell_data_icon.texture = skill.icon
+		spell_data_icon.visible = true
 		text_c.text = skill.skill_name
 		text_d.text = skill.skill_desc
 		text_e.text = Achievements.achievement_description_list.get(achievement_key, "")
 	else:
-		spell_data_icon.texture = EMPTY_ICON
+		spell_data_icon.visible = false
 		text_c.text = ""
 		text_d.text = ""
 		text_e.text = "For unlock:\n" + Achievements.achievement_description_list.get(achievement_key, "")
@@ -104,7 +103,7 @@ func _on_icon_hover(icon_node: TextureRect) -> void:
 
 
 func _clear_spell_data() -> void:
-	spell_data_icon.texture = preload("res://sprites/ui/EmptyIcon.png")
+	spell_data_icon.visible = false
 	text_c.text = ""
 	text_d.text = ""
 	text_e.text = ""

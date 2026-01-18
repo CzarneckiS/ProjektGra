@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cegf2xnvik2q2" path="res://sprites/ui/HUD lifebar HP BAR.png" id="2_f2y6e"]
 [ext_resource type="Texture2D" uid="uid://cfof88wjy0pfx" path="res://sprites/ui/HUD left corner.png" id="3_16vcj"]
 [ext_resource type="Texture2D" uid="uid://c7jajlc2ay5ur" path="res://sprites/ui/HUD_middle.png" id="5_0jkms"]
-[ext_resource type="Texture2D" uid="uid://c6a6cymtsl4cd" path="res://sprites/ui/EmptyIcon.png" id="5_x77mw"]
+[ext_resource type="Texture2D" uid="uid://p0fx2271621o" path="res://sprites/tornado/gem.bmp" id="5_862nl"]
 [ext_resource type="Texture2D" uid="uid://bpcd50fq8syjh" path="res://sprites/ui/HUD right corner.png" id="6_xjlsw"]
 [ext_resource type="Texture2D" uid="uid://b4oegmy842s8l" path="res://sprites/ui/attack icon.png" id="7_npjfx"]
 [ext_resource type="Texture2D" uid="uid://c1w42wxnnjnow" path="res://sprites/ui/hold icon.png" id="8_x77mw"]
@@ -492,27 +492,27 @@ modulate = Color(1, 1, 1, 0.7647059)
 layout_mode = 0
 offset_left = 506.5503
 offset_top = 711.33984
-offset_right = 556.5503
-offset_bottom = 761.33984
-texture = ExtResource("5_x77mw")
+offset_right = 573.5503
+offset_bottom = 781.33984
+texture = ExtResource("5_862nl")
 
 [node name="IconPage2" type="TextureRect" parent="HudLeftCorner"]
 modulate = Color(1, 1, 1, 0.7647059)
 layout_mode = 0
 offset_left = 834.0615
 offset_top = 711.33984
-offset_right = 884.0615
-offset_bottom = 761.33984
-texture = ExtResource("5_x77mw")
+offset_right = 901.0615
+offset_bottom = 781.33984
+texture = ExtResource("5_862nl")
 
 [node name="IconPage3" type="TextureRect" parent="HudLeftCorner"]
 modulate = Color(1, 1, 1, 0.7647059)
 layout_mode = 0
 offset_left = 1148.4717
 offset_top = 711.33984
-offset_right = 1198.4717
-offset_bottom = 761.33984
-texture = ExtResource("5_x77mw")
+offset_right = 1215.4717
+offset_bottom = 781.33984
+texture = ExtResource("5_862nl")
 
 [node name="HudMiddle" type="TextureRect" parent="."]
 layout_mode = 0
@@ -594,6 +594,8 @@ offset_right = 290.0
 offset_bottom = 96.0
 theme_override_fonts/font = SubResource("FontVariation_6sdlk")
 text = "000/000"
+
+[node name="PopUp" type="CanvasLayer" parent="."]
 
 [connection signal="pressed" from="UnitsPanel/Slot1" to="." method="_on_unit_slot_pressed"]
 [connection signal="pressed" from="UnitsPanel/Slot2" to="." method="_on_unit_slot_pressed"]

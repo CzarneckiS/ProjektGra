@@ -37,6 +37,7 @@ func _ready():
 	await tween.finished
 	timer_between_waves.start()
 	
+
 #BARDZO TEMPORARY
 var starting_skill_chosen = true
 signal starting_skill()
@@ -128,6 +129,7 @@ func on_summon_unit(unit):
 			summon_skeleton_mage()
 			
 func on_unit_death(unit):
+	Achievements.unlock_achievement("mages_killed")
 	#narazie hardcoded 5 sekundowy timer
 	for order in movement_orders:
 			if unit in order.unit_array:
