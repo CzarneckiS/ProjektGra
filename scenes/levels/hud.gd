@@ -9,7 +9,7 @@ extends Control
 @onready var icon_page_1: TextureRect = $HudLeftCorner/IconPage1
 @onready var icon_page_2: TextureRect = $HudLeftCorner/IconPage2
 @onready var icon_page_3: TextureRect = $HudLeftCorner/IconPage3
-
+@export var popup_scene: PackedScene = preload("res://scenes/ui/achievements_popup.tscn")
 
 var hp_bar_style = StyleBoxFlat.new()
 var xp_bar_style = StyleBoxFlat.new()
@@ -52,8 +52,8 @@ func _ready() -> void:
 	icon_page_1.visible = false 
 	icon_page_2.visible = false 
 	icon_page_3.visible = false 
-	
-	#AchievementsPopupManager.register_popup_root(self)
+	Achievements.achievement_unlocked.connect(_on_achievement_unlocked)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select_next_group"):
 		_cycle_unit_group()
@@ -78,6 +78,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		for unit in selected_units:
 			unit.select()
 		return
+		
+
 
 func update_hp_bar():
 	main_damage_bar.value = Globals.max_health - Globals.health 
@@ -86,7 +88,8 @@ func update_hp_bar():
 	main_health_tween.tween_property(main_damage_bar, "value", Globals.max_health - Globals.health, 0.5)
 	main_health_tween.set_trans(Tween.TRANS_SINE)
 	main_health_tween.set_ease(Tween.EASE_IN_OUT)
-		
+	Achievements.unlock_achievement("mages_killed")
+	
 func update_exp_bar():
 	xp_gain_bar.value = Globals.xp_to_level - Globals.accumulated_xp
 	xp_value.text = "%d / %d" % [Globals.accumulated_xp, Globals.xp_to_level]
@@ -260,3 +263,14 @@ func _refresh_visible_borders() -> void:
 			var unit = slot.get_meta("unit_ref")
 			border.visible = true
 			border.modulate = Color("dcdcdc") if unit in groups_in_selection else Color(1.0, 1.0, 1.0, 0.004)
+
+func _on_achievement_unlocked(achievement_key: String) -> void:
+	var skill = Achievements.skill_unlock_handler.skill_unlock_dictionary.find_key(achievement_key)
+	if skill == null:
+		return
+
+	var desc = Achievements.achievement_description_list.get(achievement_key, "")
+
+	var popup = popup_scene.instantiate()
+	add_child(popup)
+	popup.show_popup(skill, desc)

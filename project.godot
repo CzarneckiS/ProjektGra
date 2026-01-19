@@ -19,7 +19,6 @@ config/features=PackedStringArray("4.5", "Forward Plus")
 Globals="*res://scenes/globals/globals.gd"
 Skills="*res://scenes/globals/skills.gd"
 Achievements="*res://scenes/globals/achievements.gd"
-AchievementsPopupManager="*res://scenes/ui/achievments_popup_manager.gd"
 
 [display]
 
