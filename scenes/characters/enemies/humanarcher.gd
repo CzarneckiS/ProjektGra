@@ -120,7 +120,8 @@ func move_to_target(delta,target_position): #CLOSE RANGE MOVEMENT
 				#print("im setting this stuff to true")
 				unit_stuck_boolean = true
 			else:
-				print("odleglosc byla wieksza niz epsilon")
+				pass
+				#print("odleglosc byla wieksza niz epsilon")
 		if unit_stuck_boolean:
 			pathfinding_raycast = send_out_raycasts(target_position)
 		last_position = global_position

@@ -76,6 +76,8 @@ func _ready() -> void:
 	#dodawanie shaderow to wszystkich spritow
 	for child in $Sprite2D.get_children():
 		child.use_parent_material = true
+		for child_deeper in child.get_children():
+			child_deeper.use_parent_material = true
 	for raycast in raycast_array:
 		raycast.set_collision_mask(0b100)
 #VISUALSY ===============================================================================
@@ -116,7 +118,8 @@ func move_to_target(delta,target_position): #CLOSE RANGE MOVEMENT
 				#print("im setting this stuff to true")
 				unit_stuck_boolean = true
 			else:
-				print("odleglosc byla wieksza niz epsilon")
+				pass
+				#print("odleglosc byla wieksza niz epsilon")
 		if unit_stuck_boolean:
 			pathfinding_raycast = send_out_raycasts(target_position)
 		last_position = global_position

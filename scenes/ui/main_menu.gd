@@ -82,6 +82,6 @@ func _on_button_exit_pressed() -> void:
 
 func start_new_game():
 	Globals.reset_globals()
-	Skills.reset_unlocked_skills()
+	Skills.reset_skills()
 	Achievements.skill_unlock_handler.handle_unlocked_skills()
 	get_tree().change_scene_to_file("res://scenes/levels/level.tscn")
