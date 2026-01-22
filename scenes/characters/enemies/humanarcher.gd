@@ -76,6 +76,8 @@ func _ready() -> void:
 	#dodawanie shaderow to wszystkich spritow
 	for child in $Sprite2D.get_children():
 		child.use_parent_material = true
+		for child_deeper in child.get_children():
+			child_deeper.use_parent_material = true
 	for raycast in raycast_array:
 		raycast.set_collision_mask(0b100)
 #VISUALSY ===============================================================================
