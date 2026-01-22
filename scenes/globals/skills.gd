@@ -44,19 +44,60 @@ func add_skill(skill):
 	if skill not in all_skills:
 		all_skills.append(skill)
 
+
 func unlock_skill(skill):
 	if !(skill in unlocked_skills):
 		unlocked_skills.append(skill)
+		handle_skill_choice_limits()
 		for unit in get_tree().get_nodes_in_group("Allied"):
 			unit.handle_skill_update(skill)
 	else:
 		skill.skill_level += 1
 
-func reset_unlocked_skills():
+func reset_skills():
+	active_skill_slots_limit_reached = false
+	passive_skill_slots_limit_reached = false
 	for skill in unlocked_skills:
 		skill.skill_level = 1
 	unlocked_skills = []
 
+
+
+var active_skill_slots_limit: int = 4
+var passive_skill_slots_limit: int = 4
+var active_skill_slots_limit_reached: bool = false
+var passive_skill_slots_limit_reached: bool = false
+func handle_skill_choice_limits():
+	#jesli osiagniemy limit skilli to usuwamy dany typ z dostepnych skilli do wybrania(all_skills)
+	var active_skills_chosen: int = 0
+	var passive_skills_chosen: int = 0
+	if !active_skill_slots_limit_reached: #sprawdzamy ilosc aktywnych skilli
+		for skill in unlocked_skills:
+			if skill.use_tags.has(Tags.UseTag.ACTIVE):
+				active_skills_chosen += 1
+		if active_skills_chosen >= active_skill_slots_limit:
+			active_skill_slots_limit_reached = true
+			#usuwanie
+			for _skill in all_skills:
+				if _skill in unlocked_skills:
+					continue
+				if _skill.use_tags.has(Tags.UseTag.ACTIVE):
+					all_skills.erase(_skill)
+	if !passive_skill_slots_limit_reached:
+		for skill in unlocked_skills:
+			if !skill.use_tags.has(Tags.UseTag.ACTIVE) and !skill.use_tags.has(Tags.UseTag.SUMMON):
+				passive_skills_chosen += 1
+		if passive_skills_chosen >= passive_skill_slots_limit:
+			passive_skill_slots_limit_reached = true
+			#usuwanie
+			for _skill in all_skills:
+				if _skill in unlocked_skills:
+					continue
+				if !_skill.use_tags.has(Tags.UseTag.ACTIVE) and !_skill.use_tags.has(Tags.UseTag.SUMMON):
+					all_skills.erase(_skill)
+
+func _physics_process(delta: float) -> void:
+	print("size %s" %all_skills.size())
 #DODAC BOOL = CZY OSIAGNELISMY LIMIT SPELL SLOTOW ! ! ! 
 func get_skill() -> Array:
 	var total_weight = calculate_total_weight() #sprawdzamy laczna wage skilli
