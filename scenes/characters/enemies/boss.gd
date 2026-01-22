@@ -10,6 +10,7 @@ var melee_attack_vfx = preload("res://vfx/melee_attack_slash/boss_attack_slash_v
 var own_tags : PackedInt32Array = []
 #exp ktory daje warrior, wykorzystywany przekazywany do fsm w dying state
 const experience_value = 50
+signal boss_died()
 
 #movement
 var speed = 300
@@ -278,7 +279,7 @@ func hit(damage_taken, damage_source) -> bool:
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
 func death():
-	pass #koniec gry tutaj :p
+	boss_died.emit()
 var best_chunk_position: Vector2 #setowane w state machine bo potrzebna jest mi pozycja do obracania
 func cast_explosive_circle_single():
 	explosive_circle.use(self, best_chunk_position)
