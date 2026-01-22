@@ -12,7 +12,7 @@ var opening_shown = false
 
 #statystyki głównej jednostki
 var player : CharacterBody2D
-var health : int = 100
+var health : int = 200
 var max_health : int = health
 var player_position: Vector2
 
@@ -29,6 +29,9 @@ const evil_cursor = preload("res://sprites/cursors/KursorRekaSmallEvil.png")
 const allied_cursor = preload("res://sprites/cursors/KursorRekaSmallAllied.png")
 const target_cursor = preload("res://sprites/cursors/KursorTarget.png")
 var attack_move_input : bool = false
+
+var wave_count = 0
+signal wave_count_update()
 
 func reset_globals():
 	health = 100

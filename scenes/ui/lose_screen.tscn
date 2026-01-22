@@ -1,0 +1,106 @@
+[gd_scene load_steps=13 format=3 uid="uid://s5xfr7bs2i6t"]
+
+[ext_resource type="Script" uid="uid://drbay6kmyncbk" path="res://scenes/ui/lose_screen.gd" id="1_im7qs"]
+[ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="2_5vopv"]
+[ext_resource type="Texture2D" uid="uid://bxuerlbo6xe3n" path="res://sprites/ui/black_screen.png" id="2_07wby"]
+[ext_resource type="Texture2D" uid="uid://dphc21aqf5r1m" path="res://sprites/ui/Button_neutral.png" id="2_ki61e"]
+[ext_resource type="Texture2D" uid="uid://bpvowenbyhjyy" path="res://sprites/ui/Button_pressed.png" id="3_5vopv"]
+[ext_resource type="Texture2D" uid="uid://c60fi3uv00wog" path="res://sprites/ui/skull.png" id="3_ed3k8"]
+[ext_resource type="Texture2D" uid="uid://cvilxq7eyc1kj" path="res://sprites/ui/Button_highlight.png" id="4_s8sbk"]
+[ext_resource type="Texture2D" uid="uid://dwqfhd1igdfdi" path="res://sprites/ui/end game screen text holder.png" id="7_w6607"]
+[ext_resource type="AudioStream" uid="uid://bgaj7l2ut0y5e" path="res://sfx/menu/menu_click.ogg" id="9_s8sbk"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xtaa4"]
+texture = ExtResource("2_ki61e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tbkc4"]
+texture = ExtResource("3_5vopv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cndvq"]
+texture = ExtResource("2_ki61e")
+
+[node name="LoseScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_im7qs")
+
+[node name="BlackScreen" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(782, 456)
+texture = ExtResource("2_07wby")
+
+[node name="MainMenu" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 685.0
+offset_top = 502.0
+offset_right = 913.0
+offset_bottom = 563.0
+theme_override_fonts/font = ExtResource("2_5vopv")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxTexture_xtaa4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_tbkc4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cndvq")
+disabled = true
+text = "MAIN MENU"
+
+[node name="Highlight" type="TextureRect" parent="MainMenu"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 829.0
+offset_bottom = 242.82764
+scale = Vector2(0.278, 0.265)
+texture = ExtResource("4_s8sbk")
+
+[node name="Exit" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 685.0
+offset_top = 582.0
+offset_right = 913.0
+offset_bottom = 643.0
+theme_override_fonts/font = ExtResource("2_5vopv")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxTexture_xtaa4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_tbkc4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cndvq")
+disabled = true
+text = "EXIT"
+
+[node name="Highlight" type="TextureRect" parent="Exit"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 829.0
+offset_bottom = 242.82764
+scale = Vector2(0.278, 0.265)
+texture = ExtResource("4_s8sbk")
+
+[node name="Skull" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(796.00006, 451)
+scale = Vector2(0.444, 0.444)
+texture = ExtResource("3_ed3k8")
+
+[node name="LoseTextHolder" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(798, 398.00003)
+scale = Vector2(0.2960526, 0.29605263)
+texture = ExtResource("7_w6607")
+
+[node name="Label" type="Label" parent="LoseTextHolder"]
+offset_left = -317.5111
+offset_top = -84.44454
+offset_right = 580.9779
+offset_bottom = 85.55546
+theme_override_fonts/font = ExtResource("2_5vopv")
+theme_override_font_sizes/font_size = 128
+text = "DEFEAT"
+
+[node name="menu_click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_s8sbk")
