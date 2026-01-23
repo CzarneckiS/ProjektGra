@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cbodjjoib2qrn"]
+[gd_scene load_steps=33 format=3 uid="uid://cbodjjoib2qrn"]
 
 [ext_resource type="Script" uid="uid://bi5nwihkqq2pp" path="res://scenes/characters/player.gd" id="1_rp718"]
 [ext_resource type="Texture2D" uid="uid://dylf6bubhlan2" path="res://sprites/units/additional_textures/shadow.png" id="2_3wg1y"]
@@ -73,6 +73,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [-174.71036]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SpriteRoot:material")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("ShaderMaterial_xhtjm")]
 }
 
 [sub_resource type="Animation" id="Animation_rpnd8"]
@@ -180,9 +192,25 @@ tracks/3/keys = {
 "values": [-163.0, -175.0, -163.0]
 }
 
+[sub_resource type="Animation" id="Animation_k4v7y"]
+resource_name = "dying"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteRoot:material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [SubResource("ShaderMaterial_xhtjm"), SubResource("ShaderMaterial_xhtjm")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3wg1y"]
 _data = {
 &"RESET": SubResource("Animation_d6tgn"),
+&"dying": SubResource("Animation_k4v7y"),
 &"stand": SubResource("Animation_rpnd8"),
 &"walk": SubResource("Animation_7vyk4")
 }

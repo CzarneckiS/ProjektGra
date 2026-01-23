@@ -21,6 +21,7 @@ var skeleton_mage_count : int = 0
 var summon_respawn_timer_modifier : float = 1
 signal summon_unit()
 signal took_damage(damage, unit)
+signal player_died()
 
 var spell_damage_multiplier = 1
 
@@ -265,6 +266,10 @@ func hit(damage_taken, _damage_source) -> void:
 	health_tween.set_trans(Tween.TRANS_SINE)
 	health_tween.set_ease(Tween.EASE_OUT)
 	Globals.update_player_hp()
+	if Globals.health <= 0:
+		$AnimationPlayer.play("dying")
+		dying = true
+		player_died.emit()
 
 func heal(heal_amount) -> void:
 	#chowac pasek kiedy jest pelny?

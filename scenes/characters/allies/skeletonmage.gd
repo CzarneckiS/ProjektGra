@@ -40,7 +40,7 @@ var state_machine
 @onready var unstick_timer: Timer = $Timers/UnstickTimer
 
 func _ready() -> void:
-	unit_hud_order = 3
+	unit_hud_order = 1
 	icon_texture = "res://sprites/ui/skeleton mage icon.png"
 
 	base_max_health = 60
@@ -81,6 +81,8 @@ func _ready() -> void:
 	#dodawanie shaderow to wszystkich spritow
 	for child in $Sprite2D.get_children():
 		child.use_parent_material = true
+		for child_deeper in child.get_children():
+			child_deeper.use_parent_material = true
 	for raycast in raycast_array:
 		raycast.set_collision_mask(0b100000)
 	handle_skills()

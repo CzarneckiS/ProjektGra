@@ -14,8 +14,8 @@ const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position
 var next_path_position
 var can_navigate:bool = true
-var follow_distance_idle:int = 400
-var follow_distance_absolute:int = 1000
+var follow_distance_idle:int = 500
+var follow_distance_absolute:int = 1200
 var movement_order #rozkaz tworzony w levelu przy right clickowaniu
 #combat
 var base_damage = 15
@@ -38,7 +38,7 @@ var state_machine
 @onready var unstick_timer: Timer = $Timers/UnstickTimer
 
 func _ready() -> void:
-	unit_hud_order = 1
+	unit_hud_order = 2
 
 	icon_texture = "res://sprites/ui/skeleton warrior icon.png"
 
@@ -81,7 +81,8 @@ func _ready() -> void:
 	#dodawanie shaderow to wszystkich spritow
 	for child in $Sprite2D.get_children():
 		child.use_parent_material = true
-		
+		for child_deeper in child.get_children():
+			child_deeper.use_parent_material = true
 	#ustawianie maski dla raycastów
 	#1 znajduje sie na 6 bicie czyli collision mask = 6 (Allies)
 	#dodac normalne przeszkody??

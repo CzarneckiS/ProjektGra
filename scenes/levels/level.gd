@@ -38,6 +38,7 @@ func _ready():
 	#lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	$HudLayer.add_child(stats_hud)
 	$Player/EnemySpawnArea/Timer.connect("timeout", _on_timer_timeout)
+	$Player.connect("player_died", _on_player_died)
 	add_child(timer_between_waves)
 	timer_between_waves.autostart = false
 	timer_between_waves.one_shot = true
@@ -46,8 +47,6 @@ func _ready():
 	timer_between_waves.start()
 	
 #BARDZO TEMPORARY
-var starting_skill_chosen = true
-signal starting_skill()
 func _process(_delta: float) -> void:
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
 	
@@ -57,14 +56,25 @@ func show_lvl_up_menu():
 	lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	$LvlUpUpgradesLayer.add_child(lvl_up_upgrades_menu)
 
+func _on_player_died():
+	var lose_screen = preload("res://scenes/ui/lose_screen.tscn").instantiate()             
+	lose_screen.process_mode = Node.PROCESS_MODE_ALWAYS
+	$MenuLayer.add_child(lose_screen)
+	get_tree().paused = true
 
+func _on_boss_killed():
+	await get_tree().create_timer(0.5).timeout
+	var win_screen = preload("res://scenes/ui/win_screen.tscn").instantiate()          
+	win_screen.process_mode = Node.PROCESS_MODE_ALWAYS
+	$MenuLayer.add_child(win_screen)
+	get_tree().paused = true
 
 #SPAWNING JEDNOSTEK ================================================================
 var enemies_defeated: int = 0
 var enemies_spawned: int = 0
 var enemies_to_spawn: int = 0
 var wave_counter: int = 1
-var max_wave: int = 30
+var max_wave: int = 20
 var h_warriors_to_spawn: int = 2
 var h_mages_to_spawn: int = 1
 var h_archers_to_spawn: int = 1
@@ -81,6 +91,9 @@ func wave_logic():
 		enemy_spawn_by_wave(wave_counter)
 		new_wave()
 		wave_counter += 1
+		#stworzylem abominacje, may lord have mercy upon my soul
+		Globals.wave_count += 1
+		Globals.wave_count_update.emit()
 	timer_between_waves.call_deferred("start")
 	
 func new_wave():
@@ -310,6 +323,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		new_enemy.connect("target_clicked", _on_target_clicked)
 		new_enemy.connect("took_damage", on_unit_damage_taken)
 		new_enemy.connect("unit_died", on_unit_death)
+		new_enemy.connect("boss_died", _on_boss_killed)
+		Globals.boss_appeared.emit()
 
 #MOVEMENT ======================================================================================
 var movement_orders : Array = []

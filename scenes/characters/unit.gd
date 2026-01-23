@@ -116,22 +116,24 @@ func find_best_raycast_to_follow(closest_raycast : RayCast2D):
 			else:
 				break
 		else:
-			print("analizowany raycast kolidował")
+			pass
+			#print("analizowany raycast kolidował")
 		if right_raycast_position + 1 > 7:
 			right_raycast_position = 0
 		else:
 			right_raycast_position += 1
 			if !raycast_array[right_raycast_position].is_colliding():
-				print("analizowany raycast NIE koliduje")
+				#print("analizowany raycast NIE koliduje")
 				first_open_raycast = raycast_array[left_raycast_position]
-				print("w funkcji sprawdzam wybrany raycast %s" %first_open_raycast)
-				print("i czy koliduje %s" %first_open_raycast.is_colliding())
+				#print("w funkcji sprawdzam wybrany raycast %s" %first_open_raycast)
+				#print("i czy koliduje %s" %first_open_raycast.is_colliding())
 				if first_open_raycast.is_colliding():
 					pass
 				else:
 					break
 			else:
-				print("analizowany raycast kolidował")
+				pass
+				#print("analizowany raycast kolidował")
 	return first_open_raycast
 	
 func _process(_delta: float) -> void:

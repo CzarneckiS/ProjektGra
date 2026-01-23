@@ -1,0 +1,200 @@
+[gd_scene load_steps=23 format=3 uid="uid://c0uvbgbv1h6eq"]
+
+[ext_resource type="Script" uid="uid://dkorcdojyuldt" path="res://scenes/ui/win_screen.gd" id="1_t57qk"]
+[ext_resource type="Texture2D" uid="uid://bxuerlbo6xe3n" path="res://sprites/ui/black_screen.png" id="2_t57qk"]
+[ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="3_mi4sw"]
+[ext_resource type="Texture2D" uid="uid://pj1hdsei1oot" path="res://vfx/confetti/confetti.png" id="3_sx1dq"]
+[ext_resource type="Texture2D" uid="uid://dphc21aqf5r1m" path="res://sprites/ui/Button_neutral.png" id="4_sx1dq"]
+[ext_resource type="Texture2D" uid="uid://bpvowenbyhjyy" path="res://sprites/ui/Button_pressed.png" id="5_yelun"]
+[ext_resource type="Texture2D" uid="uid://cvilxq7eyc1kj" path="res://sprites/ui/Button_highlight.png" id="6_ym8ah"]
+[ext_resource type="Texture2D" uid="uid://c60fi3uv00wog" path="res://sprites/ui/skull.png" id="7_suo63"]
+[ext_resource type="Texture2D" uid="uid://dwqfhd1igdfdi" path="res://sprites/ui/end game screen text holder.png" id="8_dcwam"]
+[ext_resource type="AudioStream" uid="uid://bgaj7l2ut0y5e" path="res://sfx/menu/menu_click.ogg" id="9_qiy78"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yelun"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Curve" id="Curve_ym8ah"]
+_data = [Vector2(0.77215195, 0.9950563), 0.0, 0.0, 0, 0, Vector2(1, 0.41573036), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_suo63"]
+curve = SubResource("Curve_ym8ah")
+
+[sub_resource type="Gradient" id="Gradient_dcwam"]
+offsets = PackedFloat32Array(0.3127962, 0.31753555, 0.6824645, 0.68720376)
+colors = PackedColorArray(0.6392157, 0.31764707, 1, 1, 1, 0.4117647, 0.42745098, 1, 1, 0.4117647, 0.42745098, 1, 1, 0.74509805, 0.02745098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qiy78"]
+gradient = SubResource("Gradient_dcwam")
+
+[sub_resource type="Curve" id="Curve_k4h4f"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.28691983, 0.42696643), 0.0, 0.0, 0, 0, Vector2(0.81434596, 1.5505619), 0.5917603, 0.5917603, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_hliow"]
+curve = SubResource("Curve_k4h4f")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_03ipa"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(908.405, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 970.0
+initial_velocity_max = 1000.0
+angular_velocity_min = -180.00002
+angular_velocity_max = 179.99998
+gravity = Vector3(0, 75, 0)
+linear_accel_min = 9.999997
+linear_accel_max = 29.999996
+damping_max = 1.0
+damping_curve = SubResource("CurveTexture_hliow")
+scale_min = 0.5
+color_initial_ramp = SubResource("GradientTexture1D_qiy78")
+alpha_curve = SubResource("CurveTexture_suo63")
+hue_variation_min = -0.020000022
+hue_variation_max = 0.019999977
+anim_speed_min = 2.0
+anim_speed_max = 5.0
+anim_offset_max = 1.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xtaa4"]
+texture = ExtResource("4_sx1dq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tbkc4"]
+texture = ExtResource("5_yelun")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cndvq"]
+texture = ExtResource("4_sx1dq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w4e6m"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 130.0
+initial_velocity_max = 160.0
+angular_velocity_min = -180.00002
+angular_velocity_max = 179.99998
+gravity = Vector3(0, 75, 0)
+linear_accel_min = 9.999997
+linear_accel_max = 29.999996
+damping_max = 1.0
+damping_curve = SubResource("CurveTexture_hliow")
+color_initial_ramp = SubResource("GradientTexture1D_qiy78")
+alpha_curve = SubResource("CurveTexture_suo63")
+hue_variation_min = -0.020000022
+hue_variation_max = 0.019999977
+anim_speed_min = 2.0
+anim_speed_max = 5.0
+anim_offset_max = 1.0
+
+[node name="WinScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t57qk")
+
+[node name="BlackScreen" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(782, 456)
+texture = ExtResource("2_t57qk")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_yelun")
+position = Vector2(783, 7)
+scale = Vector2(1, 0.081)
+amount = 350
+texture = ExtResource("3_sx1dq")
+lifetime = 4.0
+fixed_fps = 60
+visibility_rect = Rect2(-100, -100, 100, 100)
+process_material = SubResource("ParticleProcessMaterial_03ipa")
+
+[node name="MainMenu" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 685.0
+offset_top = 502.0
+offset_right = 913.0
+offset_bottom = 563.0
+theme_override_fonts/font = ExtResource("3_mi4sw")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxTexture_xtaa4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_tbkc4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cndvq")
+disabled = true
+text = "MAIN MENU"
+
+[node name="Highlight" type="TextureRect" parent="MainMenu"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 829.0
+offset_bottom = 242.82764
+scale = Vector2(0.278, 0.265)
+texture = ExtResource("6_ym8ah")
+
+[node name="Exit" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 685.0
+offset_top = 582.0
+offset_right = 913.0
+offset_bottom = 643.0
+theme_override_fonts/font = ExtResource("3_mi4sw")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxTexture_xtaa4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_tbkc4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cndvq")
+disabled = true
+text = "EXIT"
+
+[node name="Highlight" type="TextureRect" parent="Exit"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 829.0
+offset_bottom = 242.82764
+scale = Vector2(0.278, 0.265)
+texture = ExtResource("6_ym8ah")
+
+[node name="Skull" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(796.00006, 451)
+scale = Vector2(0.444, 0.444)
+texture = ExtResource("7_suo63")
+
+[node name="WinTextHolder" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(798, 398.00003)
+scale = Vector2(0.2960526, 0.29605263)
+texture = ExtResource("8_dcwam")
+
+[node name="Label" type="Label" parent="WinTextHolder"]
+offset_left = -317.5111
+offset_top = -84.44454
+offset_right = 580.9779
+offset_bottom = 85.55546
+theme_override_fonts/font = ExtResource("3_mi4sw")
+theme_override_font_sizes/font_size = 128
+text = "VICTORY"
+
+[node name="menu_click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_qiy78")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_yelun")
+position = Vector2(1149, 725)
+amount = 60
+texture = ExtResource("3_sx1dq")
+lifetime = 4.0
+explosiveness = 0.97
+process_material = SubResource("ParticleProcessMaterial_w4e6m")
