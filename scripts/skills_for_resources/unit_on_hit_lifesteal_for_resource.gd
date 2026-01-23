@@ -19,3 +19,6 @@ func use(unit: CharacterBody2D, target: CharacterBody2D) -> void:
 func _init() -> void:
 	unit_tags.append(Tags.UnitTag.ALLIED)
 	use_tags.append(Tags.UseTag.ON_HIT)
+func get_desc() -> String:
+	return "your units gain lifesteal\n\n heal per hit: %s" \
+ %[skill_level*3]

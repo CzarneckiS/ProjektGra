@@ -10,6 +10,7 @@ func _ready() -> void:
 	$MainMenu.focus_mode = Control.FOCUS_NONE
 	$Exit.focus_mode = Control.FOCUS_NONE
 	
+	$win_sfx.play()
 	var tween2 = create_tween()
 	tween2.tween_property($BlackScreen,"modulate:a",1,0.5)
 	await get_tree().create_timer(1).timeout
@@ -27,7 +28,6 @@ func _ready() -> void:
 	tween4.tween_property($WinTextHolder,"modulate:a",1,0.2)
 	$MainMenu.disabled = false
 	$Exit.disabled = false
-	$win_sfx.play()
 
 func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 	highlight.visible = false

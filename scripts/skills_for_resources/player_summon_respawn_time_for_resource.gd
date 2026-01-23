@@ -10,3 +10,6 @@ func use(player: CharacterBody2D):
 func _init() -> void:
 	unit_tags.append(Tags.UnitTag.PLAYER)
 	use_tags.append(Tags.UseTag.STAT_UP)
+func get_desc() -> String:
+	return "idk" \
+ %[]

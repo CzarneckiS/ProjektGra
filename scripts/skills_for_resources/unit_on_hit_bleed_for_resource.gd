@@ -13,3 +13,6 @@ func use(unit: CharacterBody2D, target: CharacterBody2D) -> void:
 func _init() -> void:
 	unit_tags.append(Tags.UnitTag.SKELETON_WARRIOR)
 	use_tags.append(Tags.UseTag.ON_HIT)
+func get_desc() -> String:
+	return "your melee units gain exceptionally sharp blades...\n\n bleed per second: %s" \
+ %[hit_amount/damage_interval]
