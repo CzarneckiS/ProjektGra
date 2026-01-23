@@ -78,13 +78,13 @@ var enemies_defeated: int = 0
 var enemies_spawned: int = 0
 var enemies_to_spawn: int = 0
 var wave_counter: int = 1
-var max_wave: int = 4
+var max_wave: int = 20
 var h_warriors_to_spawn: int = 2
 var h_mages_to_spawn: int = 1
 var h_archers_to_spawn: int = 1
 var timer_between_waves: Timer = Timer.new()
 @warning_ignore("integer_division")
-var half_of_waves: int = max_wave/2
+var half_of_max_waves: int = max_wave/2
 
 var is_night: bool = false
 
@@ -123,7 +123,7 @@ func wave_logic():
 	print("ile pokonano: ", enemies_defeated)
 	print("ile zespawniono: ", enemies_spawned)
 	print("ile ma byc zespawnione: ", enemies_to_spawn)
-	if wave_counter == 2:
+	if wave_counter == half_of_max_waves:
 		make_night()
 	if wave_counter == max_wave:
 		wave_counter += 1
