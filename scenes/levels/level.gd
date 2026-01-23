@@ -324,6 +324,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		new_enemy.connect("took_damage", on_unit_damage_taken)
 		new_enemy.connect("unit_died", on_unit_death)
 		new_enemy.connect("boss_died", _on_boss_killed)
+		Globals.boss_appeared.emit()
 
 #MOVEMENT ======================================================================================
 var movement_orders : Array = []

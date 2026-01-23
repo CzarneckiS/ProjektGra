@@ -43,6 +43,8 @@ func _ready() -> void:
 	base_max_health = 600
 	max_health  = base_max_health
 	health = max_health
+	Globals.boss_max_health = max_health
+	Globals.health = max_health
 	health_bar.max_value = max_health
 	health_bar.value = max_health
 	health_bar.visible = false
@@ -260,7 +262,8 @@ func hit(damage_taken, damage_source) -> bool:
 	
 	health -= damage_taken
 	health_bar.value = health
-	
+	Globals.boss_current_health = health
+	Globals.boss_health_changed.emit()
 	if damage_source is Area2D:
 		start_hit_flash(damage_source)
 	

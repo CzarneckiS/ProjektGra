@@ -32,6 +32,10 @@ var attack_move_input : bool = false
 
 var wave_count = 0
 signal wave_count_update()
+signal boss_appeared()
+signal boss_health_changed()
+var boss_current_health
+var boss_max_health
 
 func reset_globals():
 	health = 100

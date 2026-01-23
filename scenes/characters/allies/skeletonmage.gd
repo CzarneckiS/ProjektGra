@@ -40,7 +40,7 @@ var state_machine
 @onready var unstick_timer: Timer = $Timers/UnstickTimer
 
 func _ready() -> void:
-	unit_hud_order = 3
+	unit_hud_order = 1
 	icon_texture = "res://sprites/ui/skeleton mage icon.png"
 
 	base_max_health = 60
