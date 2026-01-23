@@ -24,3 +24,7 @@ func use(player, target_position: Vector2) -> void:
 func _init() -> void:
 	unit_tags.append(Tags.UnitTag.PLAYER)
 	use_tags.append(Tags.UseTag.ACTIVE)
+
+func get_desc() -> String:
+	return "other spells can bring its full potential\n\ndamage per second: %s\ndamage multiplier: %s\nduration: %s\ncooldown: %s\nskill level: %s" \
+ %[effect_dot.damage_per_tick*effect_dot.ticks_per_second, effect_dot.damage_multiplier, effect_dot.duration, cooldown, skill_level]

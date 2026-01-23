@@ -14,3 +14,6 @@ func use(player: CharacterBody2D, target_position: Vector2) -> void:
 func _init() -> void:
 	unit_tags.append(Tags.UnitTag.PLAYER)
 	use_tags.append(Tags.UseTag.ACTIVE)
+func get_desc() -> String:
+	return "pull enemies inside and watch them die\n\ndamage per second: %s\ndamage multiplier: %s\nduration: %s\n\ncooldown: %s\nskill level: %s" \
+ %[dot_effect.damage_per_tick*dot_effect.ticks_per_second, dot_effect.damage_multiplier, dot_effect.duration, cooldown, skill_level]
