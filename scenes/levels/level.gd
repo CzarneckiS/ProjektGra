@@ -111,13 +111,13 @@ func change_ost():
 		tween.parallel().tween_property($level_ost, "volume_db", -80, 3)
 		tween.parallel().tween_property($level_ost_night, "volume_db", 0, 3)
 		tween.chain().tween_callback($level_ost.stop)
-	else:
+	elif !is_night:
 		$level_ost.play($level_ost_night.get_playback_position())
 		$level_ost.volume_db = -35.0
-		var tween = create_tween()
-		tween.parallel().tween_property($level_ost_night, "volume_db", -80, 3)
-		tween.parallel().tween_property($level_ost, "volume_db", 0, 3)
-		tween.chain().tween_callback($level_ost_night.stop)
+		var tween_2 = create_tween()
+		tween_2.parallel().tween_property($level_ost_night, "volume_db", -80, 3)
+		tween_2.parallel().tween_property($level_ost, "volume_db", 0, 3)
+		tween_2.chain().tween_callback($level_ost_night.stop)
 
 func wave_logic():
 	print("ile pokonano: ", enemies_defeated)
