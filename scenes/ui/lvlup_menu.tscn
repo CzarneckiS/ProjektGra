@@ -142,12 +142,13 @@ text = "NAME
 
 [node name="Description" type="Label" parent="Option1"]
 layout_mode = 0
-offset_left = -28.0
-offset_top = -226.00003
-offset_right = 201.0
-offset_bottom = -151.0
+offset_left = -38.0
+offset_top = -227.0
+offset_right = 262.0
+offset_bottom = -11.0
 theme_override_fonts/font = ExtResource("8_fssdh")
-text = "DESCRIPTION"
+text = "DESCRIPTION "
+autowrap_mode = 3
 
 [node name="Option2" type="Button" parent="."]
 layout_mode = 0
@@ -201,12 +202,13 @@ text = "NAME
 
 [node name="Description" type="Label" parent="Option2"]
 layout_mode = 0
-offset_left = -28.0
-offset_top = -226.00003
-offset_right = 201.0
-offset_bottom = -151.0
+offset_left = -38.0
+offset_top = -227.0
+offset_right = 262.0
+offset_bottom = -11.0
 theme_override_fonts/font = ExtResource("8_fssdh")
 text = "DESCRIPTION"
+autowrap_mode = 3
 
 [node name="Option3" type="Button" parent="."]
 layout_mode = 0
@@ -262,13 +264,13 @@ text = "NAME
 
 [node name="Description" type="Label" parent="Option3"]
 layout_mode = 0
-offset_left = -43.0
-offset_top = -226.00003
-offset_right = 186.0
-offset_bottom = -151.0
+offset_left = -38.0
+offset_top = -227.0
+offset_right = 262.0
+offset_bottom = -11.0
 theme_override_fonts/font = ExtResource("8_fssdh")
-text = "DESCRIPTION
-"
+text = "DESCRIPTION"
+autowrap_mode = 3
 
 [node name="TextureRect3" type="TextureRect" parent="."]
 layout_mode = 0
