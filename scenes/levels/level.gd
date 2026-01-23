@@ -45,7 +45,15 @@ func _ready():
 	timer_between_waves.one_shot = true
 	timer_between_waves.wait_time = 1
 	timer_between_waves.timeout.connect(wave_logic)
+	var big_text = preload("res://scenes/ui/big_text_animation.tscn").instantiate()
+	await get_tree().create_timer(0.5).timeout
+	$HudLayer.add_child(big_text)
+	await get_tree().create_timer(3).timeout
+	var tween = create_tween()
+	tween.tween_property(big_text, "modulate:a", 0, 1)
+	await tween.finished
 	timer_between_waves.start()
+	big_text.queue_free()
 	
 #BARDZO TEMPORARY
 func _process(_delta: float) -> void:
@@ -372,6 +380,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		new_enemy.connect("unit_died", on_unit_death)
 		new_enemy.connect("boss_died", _on_boss_killed)
 		Globals.boss_appeared.emit()
+
 
 #MOVEMENT ======================================================================================
 var movement_orders : Array = []

@@ -92,6 +92,10 @@ func _ready() -> void:
 	handle_skills()
 	handle_starting_skills()
 func _physics_process(_delta: float) -> void:
+	print("state")
+	print(state_machine.state)
+	print("command")
+	print(state_machine.command)
 	#seek_enemies()
 	if !dying:
 		follow_player()
@@ -265,18 +269,20 @@ func _on_navigation_timer_timeout() -> void:
 
 func follow_player() -> void:
 	if global_position.distance_to(Globals.player_position) > follow_distance_absolute:
-		state_machine.command = state_machine.commands.NONE
-		move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
-		state_machine.state = state_machine.states.moving
-		return
-	if state_machine.state == state_machine.states.idle: #powrót nawet podczas walki
+		global_position = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
+		attack_target = null
+		move_target = null
+		state_machine.state = state_machine.states.idle
+		#state_machine.command = state_machine.commands.FOLLOW_PLAYER
+		#move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
+		#state_machine.state = state_machine.states.moving
+	if state_machine.state == state_machine.states.idle:
 		if global_position.distance_to(Globals.player_position) > follow_distance_idle:
 			state_machine.command = state_machine.commands.FOLLOW_PLAYER
 			move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
 			state_machine.state = state_machine.states.moving
 	elif state_machine.command == state_machine.commands.FOLLOW_PLAYER:
 		move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
-
 #COMBAT ===============================================================================
 func hit(damage_taken, damage_source) -> bool:
 	if health > 0:
