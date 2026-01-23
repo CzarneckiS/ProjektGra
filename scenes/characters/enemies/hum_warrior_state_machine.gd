@@ -84,15 +84,27 @@ func _state_logic(delta):
 func _enter_state(_new_state, _previous_state):
 		match state:
 			states.idle:
+				if animation_player.current_animation != "idle":
+					animation_player.play("RESET")
+					animation_player.seek(1,true)
 				animation_player.play("idle")
 			states.moving:
 				parent.reset_stuck_pathfinding_timer() #proper reset wszystkich zmiennych
+				if animation_player.current_animation != "walk":
+					animation_player.play("RESET")
+					animation_player.seek(1,true)
 				animation_player.play("walk")
 			states.engaging:
+				if animation_player.current_animation != "walk":
+					animation_player.play("RESET")
+					animation_player.seek(1,true)
 				animation_player.play("walk")
 			states.attacking:
 				pass
 			states.dying:
+				if animation_player.current_animation != "dying":
+					animation_player.play("RESET")
+					animation_player.seek(1,true)
 				animation_player.play("dying") #Kiedy wejdziesz w state, rozpocznij animację
 			states.push:
 				pass
