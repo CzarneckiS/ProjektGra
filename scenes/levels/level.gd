@@ -78,7 +78,7 @@ var enemies_defeated: int = 0
 var enemies_spawned: int = 0
 var enemies_to_spawn: int = 0
 var wave_counter: int = 1
-var max_wave: int = 20
+var max_wave: int = 4
 var h_warriors_to_spawn: int = 2
 var h_mages_to_spawn: int = 1
 var h_archers_to_spawn: int = 1
@@ -86,16 +86,50 @@ var timer_between_waves: Timer = Timer.new()
 @warning_ignore("integer_division")
 var half_of_waves: int = max_wave/2
 
+var is_night: bool = false
+
+func make_night():
+	$StageLightingNight.visible = true
+	$StageLightingNight.energy = 0.0
+	var tween = create_tween()
+	tween.tween_property($StageLightingNight, "energy", 1.25, 5)
+	is_night = true
+	change_ost()
+	
+func make_day():
+	var tween = create_tween()
+	tween.tween_property($StageLightingNight, "energy", 0.0, 5)
+	$StageLightingNight.visible = false
+	is_night = false
+	change_ost()
+
+func change_ost():
+	if is_night:
+		$level_ost_night.play($level_ost.get_playback_position())
+		$level_ost_night.volume_db = -35.0
+		var tween = create_tween()
+		tween.parallel().tween_property($level_ost, "volume_db", -80, 3)
+		tween.parallel().tween_property($level_ost_night, "volume_db", 0, 3)
+		tween.chain().tween_callback($level_ost.stop)
+	else:
+		$level_ost.play($level_ost_night.get_playback_position())
+		$level_ost.volume_db = -35.0
+		var tween = create_tween()
+		tween.parallel().tween_property($level_ost_night, "volume_db", -80, 3)
+		tween.parallel().tween_property($level_ost, "volume_db", 0, 3)
+		tween.chain().tween_callback($level_ost_night.stop)
+
 func wave_logic():
 	print("ile pokonano: ", enemies_defeated)
 	print("ile zespawniono: ", enemies_spawned)
 	print("ile ma byc zespawnione: ", enemies_to_spawn)
-	if wave_counter == half_of_waves:
-		$StageLightingNight.visible = true
+	if wave_counter == 2:
+		make_night()
 	if wave_counter == max_wave:
 		wave_counter += 1
 		Globals.wave_count = wave_counter
 		Globals.wave_count_update.emit()
+		make_day()
 		spawn_enemy(boss)
 	if enemies_defeated >= enemies_spawned and wave_counter < max_wave:
 		enemy_spawn_by_wave(wave_counter)
