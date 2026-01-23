@@ -17,6 +17,7 @@ var command_spells_hud = load("res://scenes/levels/hud.tscn").instantiate()
 #var lvl_up_upgrades_menu = load("res://scenes/ui/lvlup_menu.tscn").instantiate()
 
 var first_ost_play: bool = true
+var wave_switch: bool = false
 
 func _ready():
 	if first_ost_play:
@@ -49,6 +50,9 @@ func _ready():
 #BARDZO TEMPORARY
 func _process(_delta: float) -> void:
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
+	if enemies_defeated == enemies_to_spawn and wave_switch:
+		wave_switch = false
+		timer_between_waves.start()
 	
 func show_lvl_up_menu():  
 	get_tree().paused = true
@@ -86,15 +90,18 @@ func wave_logic():
 	print("ile ma byc zespawnione: ", enemies_to_spawn)
 	
 	if wave_counter == max_wave:
-		return
-	if enemies_defeated >= enemies_spawned:
+		wave_counter += 1
+		Globals.wave_count = wave_counter
+		Globals.wave_count_update.emit()
+		spawn_enemy(boss)
+	if enemies_defeated >= enemies_spawned and wave_counter < max_wave:
 		enemy_spawn_by_wave(wave_counter)
 		new_wave()
 		wave_counter += 1
 		#stworzylem abominacje, may lord have mercy upon my soul
-		Globals.wave_count += 1
+		Globals.wave_count = wave_counter
 		Globals.wave_count_update.emit()
-	timer_between_waves.call_deferred("start")
+	wave_switch = true
 	
 func new_wave():
 	enemies_defeated = 0 #sygnał od unitów on_death aktualizuje zmienna
@@ -133,6 +140,9 @@ func spawn_enemy(enemy_type): # EnemySpawnFollow bierzemy jako unique name
 	new_enemy.connect("target_clicked", _on_target_clicked)
 	new_enemy.connect("took_damage", on_unit_damage_taken)
 	new_enemy.connect("unit_died", on_unit_death)
+	if enemy_type == boss:
+		new_enemy.connect("boss_died", _on_boss_killed)
+		Globals.boss_appeared.emit()
 var test = 0
 #timer okresla co jaki czas bedzie respiony mob, feel free to change
 func _on_timer_timeout() -> void:

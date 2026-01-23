@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c0uvbgbv1h6eq"]
+[gd_scene load_steps=24 format=3 uid="uid://c0uvbgbv1h6eq"]
 
 [ext_resource type="Script" uid="uid://dkorcdojyuldt" path="res://scenes/ui/win_screen.gd" id="1_t57qk"]
 [ext_resource type="Texture2D" uid="uid://bxuerlbo6xe3n" path="res://sprites/ui/black_screen.png" id="2_t57qk"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c60fi3uv00wog" path="res://sprites/ui/skull.png" id="7_suo63"]
 [ext_resource type="Texture2D" uid="uid://dwqfhd1igdfdi" path="res://sprites/ui/end game screen text holder.png" id="8_dcwam"]
 [ext_resource type="AudioStream" uid="uid://bgaj7l2ut0y5e" path="res://sfx/menu/menu_click.ogg" id="9_qiy78"]
+[ext_resource type="AudioStream" uid="uid://s3l204snx2ec" path="res://sfx/misc/win_sound.ogg" id="11_mi4sw"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yelun"]
 particles_animation = true
@@ -198,3 +199,6 @@ texture = ExtResource("3_sx1dq")
 lifetime = 4.0
 explosiveness = 0.97
 process_material = SubResource("ParticleProcessMaterial_w4e6m")
+
+[node name="win_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_mi4sw")

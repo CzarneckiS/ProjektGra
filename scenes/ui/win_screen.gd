@@ -27,6 +27,7 @@ func _ready() -> void:
 	tween4.tween_property($WinTextHolder,"modulate:a",1,0.2)
 	$MainMenu.disabled = false
 	$Exit.disabled = false
+	$win_sfx.play()
 
 func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 	highlight.visible = false

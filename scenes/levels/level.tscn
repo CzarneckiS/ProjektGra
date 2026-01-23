@@ -2248,7 +2248,7 @@ position_smoothing_enabled = true
 
 [node name="EnemySpawnArea" type="Path2D" parent="Player"]
 position = Vector2(8.406794, 6.915554)
-scale = Vector2(0.98756087, 0.9860853)
+scale = Vector2(1.2, 1.198)
 curve = SubResource("Curve2D_urvlt")
 
 [node name="EnemySpawnFollow" type="PathFollow2D" parent="Player/EnemySpawnArea"]
