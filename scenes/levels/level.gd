@@ -11,9 +11,9 @@ var boss = preload("res://scenes/characters/enemies/boss.tscn")
 var skeleton_warrior = preload("res://scenes/characters/allies/skeletonwarrior.tscn")
 var skeleton_mage = preload("res://scenes/characters/allies/skeletonmage.tscn")
 
-var stats_hud = load("res://scenes/levels/hud.tscn").instantiate() 
-var minions_selections_hud = load("res://scenes/levels/hud.tscn").instantiate()
-var command_spells_hud = load("res://scenes/levels/hud.tscn").instantiate() 
+#var stats_hud = load("res://scenes/levels/hud.tscn").instantiate() 
+#var minions_selections_hud = load("res://scenes/levels/hud.tscn").instantiate()
+#var command_spells_hud = load("res://scenes/levels/hud.tscn").instantiate() 
 #var lvl_up_upgrades_menu = load("res://scenes/ui/lvlup_menu.tscn").instantiate()
 
 
@@ -22,12 +22,10 @@ func _ready():
 	tween.tween_property($BlackScreen,"modulate:a",0,2)
 	$Player.connect("summon_unit", on_summon_unit)
 	$Player.connect("took_damage", on_unit_damage_taken)
-	hud.process_mode = Node.PROCESS_MODE_ALWAYS
-	$HudLayer.add_child(hud)
 	Globals.lvl_up_menu_requested.connect(show_lvl_up_menu)
-	stats_hud.process_mode = Node.PROCESS_MODE_ALWAYS
+	hud.process_mode = Node.PROCESS_MODE_ALWAYS
 	#lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
-	$HudLayer.add_child(stats_hud)
+	$HudLayer.add_child(hud)
 	$Player/EnemySpawnArea/Timer.connect("timeout", _on_timer_timeout)
 	add_child(timer_between_waves)
 	timer_between_waves.autostart = false

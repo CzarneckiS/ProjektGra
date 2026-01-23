@@ -67,6 +67,7 @@ func cast_fireball():
 		return
 	
 	set_cooldown(fireball_skill)
+	Globals.emit_skill_cast(fireball_skill)
 	
 	var target_pos: Vector2 = get_global_mouse_position()
 	if fireball_skill is Fireball:
@@ -77,7 +78,8 @@ func cast_thunderbolt():
 		return
 	
 	set_cooldown(thunderbolt_skill)
-	
+	Globals.emit_skill_cast(thunderbolt_skill)
+
 	var target_pos: Vector2 = get_global_mouse_position()
 	if thunderbolt_skill is Thunderbolt:
 		thunderbolt_skill.use(self, target_pos)
@@ -87,6 +89,7 @@ func cast_heal():
 		return
 	
 	set_cooldown(heal_skill)
+	Globals.emit_skill_cast(heal_skill)
 	
 	var player_pos: Vector2 = global_position
 	if heal_skill is Heal:
@@ -97,6 +100,7 @@ func cast_iceblock():
 		return
 	
 	set_cooldown(iceblock_skill)
+	Globals.emit_skill_cast(iceblock_skill)
 	
 	var target_pos: Vector2 = get_global_mouse_position()
 	if iceblock_skill is Iceblock:
@@ -107,6 +111,7 @@ func cast_field():
 		return
 	
 	set_cooldown(field_skill)
+	Globals.emit_skill_cast(field_skill)
 	
 	var target_pos: Vector2 = get_global_mouse_position()
 	if field_skill is Field:
@@ -117,6 +122,7 @@ func cast_tornado():
 		return
 	
 	set_cooldown(tornado_skill)
+	Globals.emit_skill_cast(tornado_skill)
 	
 	var target_pos: Vector2 = get_global_mouse_position()
 	if tornado_skill is Tornado:
@@ -191,6 +197,7 @@ func handle_skills():
 				if skill.use_tags.has(Tags.UseTag.UNIT_DEATH):
 					skills_on_unit_death.append(skill)
 				break
+				
 func handle_skill_update(skill):
 	for i in range(own_tags.size()):
 		if skill.unit_tags.has(own_tags[i]):
@@ -208,6 +215,7 @@ func handle_skill_update(skill):
 			if skill.use_tags.has(Tags.UseTag.UNIT_DEATH):
 				skills_on_unit_death.append(skill)
 			break
+			
 func handle_starting_skills():
 	for skill in skills_stat_up:
 		skill.use(self)

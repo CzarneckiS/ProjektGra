@@ -43,15 +43,16 @@ var skill_rarity_table : Dictionary = {
 func add_skill(skill):
 	if skill not in all_skills:
 		all_skills.append(skill)
-
+		
 func unlock_skill(skill):
 	if !(skill in unlocked_skills):
 		unlocked_skills.append(skill)
+		print("*EMIT unlock:", skill.skill_name)
+		Globals.emit_skill_unlocked(skill)
 	else:
 		skill.skill_level += 1
-	for unit in get_tree().get_nodes_in_group("Allied"):
-		unit.handle_skill_update(skill)
 
+		
 func reset_unlocked_skills():
 	for skill in unlocked_skills:
 		skill.skill_level = 1

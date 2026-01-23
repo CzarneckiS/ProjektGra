@@ -9,8 +9,19 @@ extends Control
 @onready var icon_page_1: TextureRect = $HudLeftCorner/IconPage1
 @onready var icon_page_2: TextureRect = $HudLeftCorner/IconPage2
 @onready var icon_page_3: TextureRect = $HudLeftCorner/IconPage3
+@onready var spell_bar: Control = $HudRightCorner
 @export var popup_scene: PackedScene = preload("res://scenes/ui/achievements_popup.tscn")
+@export var spell_slot_scene: PackedScene = preload("res://scenes/ui/spell_slot.tscn")
+@onready var scena_spell_slot_1: SpellSlot = $"ScenaSpellSlot1"
+@onready var scena_spell_slot_2: SpellSlot = $"ScenaSpellSlot2"
+@onready var scena_spell_slot_3: SpellSlot = $"ScenaSpellSlot3"
+@onready var scena_spell_slot_4: SpellSlot = $"ScenaSpellSlot4"
+@export var skill_tooltip_scene: PackedScene = preload("res://scenes/ui/tooltip_scene.tscn")
 
+
+var skill_tooltip: SkillTooltip
+var spell_slots: Array[SpellSlot] = []
+var max_spell_slots := 4
 var hp_bar_style = StyleBoxFlat.new()
 var xp_bar_style = StyleBoxFlat.new()
 var unit_slots: Array = []
@@ -22,13 +33,22 @@ var current_group_index = -1
 var current_page = 1
 var total_pages = 1
 
+const SPELL_SLOT_POSITIONS := [
+	Vector2(708, 27),
+	Vector2(774, 27),
+	Vector2(840, 27),
+	Vector2(905, 27)
+]
+
 func _ready() -> void:
+	print("~HUD READY", self)
+
 	# połączenie z globalnymi sygnałami
 	Globals.ui_hp_update_requested.connect(update_hp_bar)
 	Globals.ui_exp_update_requested.connect(update_exp_bar)
 	Globals.ui_unit_died.connect(_on_unit_died)
 	Globals.units_selection_changed.connect(update_units_panel)
-
+	
 	# zapisanie slotów jednostek
 	for child in units_panel.get_children():
 		if child is TextureButton:
@@ -49,9 +69,41 @@ func _ready() -> void:
 	
 	set_process_unhandled_input(true)  # aby działało _unhandled_input
 	
-	icon_page_1.visible = false 
-	icon_page_2.visible = false 
-	icon_page_3.visible = false 
+	icon_page_1.visible = false
+	icon_page_2.visible = false
+	icon_page_3.visible = false
+	
+	spell_slots = [
+		scena_spell_slot_1,
+		scena_spell_slot_2,
+		scena_spell_slot_3,
+		scena_spell_slot_4
+	]
+
+
+	for i in range(spell_slots.size()):
+		var slot := spell_slots[i]
+		slot.position = SPELL_SLOT_POSITIONS[i]		
+		slot.slot_position = slot.position
+		slot.visible = false
+		slot.clear()
+		slot.hovered.connect(_on_spell_slot_hovered)
+		slot.unhovered.connect(_on_spell_slot_unhovered)
+
+		
+	Globals.skill_casted.connect(_on_skill_casted)
+	Globals.skill_unlocked.connect(update_spell_bar)
+
+	update_spell_bar()
+
+	skill_tooltip = skill_tooltip_scene.instantiate()
+	add_child(skill_tooltip)
+	skill_tooltip.visible = false
+	skill_tooltip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	skill_tooltip.position = Vector2(690, -155)
+
+
+
 	Achievements.achievement_unlocked.connect(_on_achievement_unlocked)
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -274,3 +326,37 @@ func _on_achievement_unlocked(achievement_key: String) -> void:
 	var popup = popup_scene.instantiate()
 	add_child(popup)
 	popup.show_popup(skill, desc)
+
+
+func update_spell_bar(_skill: Skill = null) -> void:
+	# patrzymy na unlocked_skills i filtrujemy tylko ACTIVE
+	var active_spells: Array = Skills.unlocked_skills.filter(func(s):
+		return s.use_tags.has(Tags.UseTag.ACTIVE)
+	)
+
+	print("*Active spells:", active_spells.map(func(s): return s.skill_name))
+
+	for i in range(spell_slots.size()):
+		var slot := spell_slots[i]
+
+		if i < active_spells.size():
+			slot.visible = true
+			slot.set_skill(active_spells[i])
+		else:
+			slot.visible = false
+			slot.clear()
+
+
+
+func _on_skill_casted(skill: Skill, cooldown: float):
+	for slot in spell_slots:
+		if slot.skill == skill:
+			slot.start_cooldown(cooldown)
+
+
+
+func _on_spell_slot_hovered(skill: Skill) -> void:
+	skill_tooltip.show_text(skill.skill_name)
+
+func _on_spell_slot_unhovered() -> void:
+	skill_tooltip.hide_tooltip()

@@ -6,6 +6,9 @@ signal ui_exp_update_requested
 signal lvl_up_menu_requested
 signal units_selection_changed(new_units)
 signal ui_unit_died(unit)
+signal skill_casted(skill: Skill, cooldown: float)
+signal skill_unlocked()
+
 
 #sprawdzamy czy gracz widzial czaszke na start
 var opening_shown = false
@@ -109,3 +112,8 @@ func update_player_exp(xp_given): #funkcja przyjmuje wartosc expa, zaleznie od j
 	
 	ui_exp_update_requested.emit()
 	
+func emit_skill_cast(skill: Skill):
+	skill_casted.emit(skill, skill.cooldown)
+	
+func emit_skill_unlocked(skill: Skill):
+	skill_unlocked.emit(skill)

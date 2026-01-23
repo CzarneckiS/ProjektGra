@@ -54,12 +54,10 @@ func level_up():
 		self.get("texture_rect_" + str(i + 1)).texture = skills_to_show[i].icon
 		self.get("description_" + str(i + 1)).text = skills_to_show[i].skill_desc
 		
-		# !!! TRZEBA PRZETESTOWAĆ !!!
-		#przetestowalem, nie dziala
 		if Skills.unlocked_skills.has(skills_to_show[i]):
-			self.get("option_" + str(i + 1)).text = "Upgrade skill"
+			self.get("option_" + str(i + 1)).text = "Upgrade"
 		else:
-			self.get("option_" + str(i + 1)).text = "Unlock skill"
+			self.get("option_" + str(i + 1)).text = "Unlock"
 
 
 func _on_option_1_pressed() -> void:
