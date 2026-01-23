@@ -83,12 +83,15 @@ var h_warriors_to_spawn: int = 2
 var h_mages_to_spawn: int = 1
 var h_archers_to_spawn: int = 1
 var timer_between_waves: Timer = Timer.new()
+@warning_ignore("integer_division")
+var half_of_waves: int = max_wave/2
 
 func wave_logic():
 	print("ile pokonano: ", enemies_defeated)
 	print("ile zespawniono: ", enemies_spawned)
 	print("ile ma byc zespawnione: ", enemies_to_spawn)
-	
+	if wave_counter == half_of_waves:
+		$StageLightingNight.visible = true
 	if wave_counter == max_wave:
 		wave_counter += 1
 		Globals.wave_count = wave_counter
