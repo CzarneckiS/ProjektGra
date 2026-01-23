@@ -259,10 +259,13 @@ func _on_navigation_timer_timeout() -> void:
 
 func follow_player() -> void:
 	if global_position.distance_to(Globals.player_position) > follow_distance_absolute:
-		state_machine.command = state_machine.commands.NONE
-		move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
-		state_machine.state = state_machine.states.moving
-		return
+		global_position = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
+		attack_target = null
+		move_target = null
+		state_machine.state = state_machine.states.idle
+		#state_machine.command = state_machine.commands.FOLLOW_PLAYER
+		#move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
+		#state_machine.state = state_machine.states.moving
 	if state_machine.state == state_machine.states.idle: #powrót nawet podczas walki
 		if global_position.distance_to(Globals.player_position) > follow_distance_idle:
 			state_machine.command = state_machine.commands.FOLLOW_PLAYER

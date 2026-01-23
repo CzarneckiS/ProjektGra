@@ -169,7 +169,7 @@ func _on_navigation_timer_timeout() -> void:
 var chunk_size : int = 50
 var map_size : int = 1600
 @warning_ignore("integer_division")
-var half_map_size : int = map_size / 2
+var half_map_size = map_size / 2
 @warning_ignore("integer_division")
 var chunk_row_count : int = map_size / chunk_size
 var chunks : Array = []
@@ -179,9 +179,7 @@ func prepare_targeting_chunks() -> void:
 		for j in range(chunk_row_count):
 			chunks[i].append(0)
 func add_to_heatmap(target_position: Vector2):
-	@warning_ignore("narrowing_conversion")
 	var chunk_x : int = (target_position.x - global_position.x + half_map_size) / chunk_size
-	@warning_ignore("narrowing_conversion")
 	var chunk_y : int = (target_position.y - global_position.y + half_map_size) / chunk_size
 	if chunk_x in range(chunk_row_count) and chunk_y in range(chunk_row_count):
 		chunks[chunk_x][chunk_y] += 1
