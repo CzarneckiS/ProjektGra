@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=4 uid="uid://di31cuiaxvo7s"]
+[gd_scene load_steps=46 format=4 uid="uid://di31cuiaxvo7s"]
 
 [ext_resource type="PackedScene" uid="uid://cbodjjoib2qrn" path="res://scenes/characters/player.tscn" id="1_377w7"]
 [ext_resource type="Script" uid="uid://dek8k2fbphrnu" path="res://scenes/levels/level.gd" id="1_xb4v1"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://wvsdf8tuug6c" path="res://scenes/tree_with_collision.tscn" id="4_mbbpy"]
 [ext_resource type="Script" uid="uid://rkcfoq2ddkxw" path="res://scenes/levels/unit_selector.gd" id="4_xb4v1"]
 [ext_resource type="AudioStream" uid="uid://bj0o5dple42pu" path="res://soundtrack/new_battle_theme_normalized.ogg" id="8_ouxo3"]
+[ext_resource type="AudioStream" uid="uid://2l5xuelebfrw" path="res://soundtrack/new_battle_theme_night_normalized.ogg" id="9_icy5c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5mi6g"]
 texture = ExtResource("3_mbbpy")
@@ -2248,7 +2249,7 @@ position_smoothing_enabled = true
 
 [node name="EnemySpawnArea" type="Path2D" parent="Player"]
 position = Vector2(8.406794, 6.915554)
-scale = Vector2(0.98756087, 0.9860853)
+scale = Vector2(1.2, 1.198)
 curve = SubResource("Curve2D_urvlt")
 
 [node name="EnemySpawnFollow" type="PathFollow2D" parent="Player/EnemySpawnArea"]
@@ -2293,7 +2294,7 @@ energy = 0.05
 
 [node name="StageLightingNight" type="DirectionalLight2D" parent="."]
 visible = false
-color = Color(0.65654224, 0.73087066, 0.9042677, 1)
+color = Color(0.65882355, 0.7254902, 0.9019608, 1)
 energy = 1.23
 blend_mode = 2
 
@@ -2349,4 +2350,8 @@ grow_horizontal = 0
 
 [node name="level_ost" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_ouxo3")
+parameters/looping = true
+
+[node name="level_ost_night" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_icy5c")
 parameters/looping = true

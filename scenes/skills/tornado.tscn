@@ -296,6 +296,7 @@ script = ExtResource("1_hymgt")
 position = Vector2(-2.7999992, -34)
 scale = Vector2(0.22418943, 0.22418942)
 sprite_frames = SubResource("SpriteFrames_2ibcm")
+animation = &"ending"
 
 [node name="tornado_collision_damage" type="CollisionShape2D" parent="."]
 position = Vector2(0, -27.999998)

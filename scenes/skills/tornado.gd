@@ -104,7 +104,7 @@ func _ready():
 	$tornado_sfx.play()
 	
 func _on_lifespan_timeout():
-	call_deferred("queue_free")
+	$tornado_sprite.play("ending")
 	
 func _on_ticks_per_sec_timeout():
 	var overlapping_bodies = get_overlapping_bodies()
@@ -246,3 +246,5 @@ func _on_transformation_orb_spawn_timer_timeout():
 func _on_tornado_animation_finished():
 	if $tornado_sprite.animation == "on_creation":
 		$tornado_sprite.play("default")
+	if $tornado_sprite.animation == "ending":
+		call_deferred("queue_free")
