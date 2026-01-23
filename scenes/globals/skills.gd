@@ -96,9 +96,7 @@ func handle_skill_choice_limits():
 				if !_skill.use_tags.has(Tags.UseTag.ACTIVE) and !_skill.use_tags.has(Tags.UseTag.SUMMON):
 					all_skills.erase(_skill)
 
-func _physics_process(delta: float) -> void:
-	print("size %s" %all_skills.size())
-#DODAC BOOL = CZY OSIAGNELISMY LIMIT SPELL SLOTOW ! ! ! 
+
 func get_skill() -> Array:
 	var total_weight = calculate_total_weight() #sprawdzamy laczna wage skilli
 	var available_skills: Dictionary = {}
