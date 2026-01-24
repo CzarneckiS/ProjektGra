@@ -9,10 +9,11 @@ class_name UnitOnHitBleed
 @export var skill_tags : PackedInt32Array = []
 func use(unit: CharacterBody2D, target: CharacterBody2D) -> void:
 	var bleed_status_effect = BleedStatusEffect.new()
+	skill_effect_data.base_damage = 5 + skill_level
 	bleed_status_effect.initialize(unit, target, damage_interval, skill_effect_data.base_damage, hit_amount)
 func _init() -> void:
 	unit_tags.append(Tags.UnitTag.SKELETON_WARRIOR)
 	use_tags.append(Tags.UseTag.ON_HIT)
 func get_desc() -> String:
 	return "your melee units gain exceptionally sharp blades...\n\nbleed per second: %s\nskill level: %s" \
- %[hit_amount/damage_interval, skill_level]
+ %[skill_effect_data.base_damage/damage_interval, skill_level]

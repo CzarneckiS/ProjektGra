@@ -11,5 +11,5 @@ func _init() -> void:
 	unit_tags.append(Tags.UnitTag.PLAYER)
 	use_tags.append(Tags.UseTag.STAT_UP)
 func get_desc() -> String:
-	return "if your units die they come back faster\n\n respawn timer: %s\nskill level: %s" \
+	return "if your units die they come back faster\n\nrespawn timer: %s\nskill level: %s" \
  %[str(5 * snappedf((0.5 + 0.5/((skill_level+1)+1)), 0.01)), skill_level]
