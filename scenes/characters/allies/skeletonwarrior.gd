@@ -92,8 +92,6 @@ func _ready() -> void:
 	handle_skills()
 	handle_starting_skills()
 func _physics_process(_delta: float) -> void:
-	print(attack_speed_modifier)
-	print(damage)
 	#seek_enemies()
 	if !dying:
 		follow_player()

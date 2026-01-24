@@ -15,7 +15,7 @@ func _ready() -> void:
 	await tween1.finished
 	$GPUParticles2D.one_shot = true
 	$GPUParticles2D2.one_shot = true
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.3,false).timeout
 	$GPUParticles2D3.emitting = true
 	$TextureProgressBar3.visible = true
 	$TextureProgressBar4.visible = true

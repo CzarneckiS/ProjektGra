@@ -306,7 +306,7 @@ func cast_explosive_circle_single():
 func cast_homing_projectile(projectile_amount : int):
 	for i in range(projectile_amount):
 		homing_projectile.use(self, Globals.player)
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 
 func cast_fire_wave_single():
 	fire_wave.use(self, Globals.player_position)

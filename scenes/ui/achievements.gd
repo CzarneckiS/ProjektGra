@@ -28,7 +28,7 @@ func _ready() -> void:
 	populate_skill_icons()
 	
 func _on_button_backto_menu_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
+	get_tree().call_deferred("change_scene_to_file","res://scenes/ui/main_menu.tscn")
 
 func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 	highlight.visible = false
