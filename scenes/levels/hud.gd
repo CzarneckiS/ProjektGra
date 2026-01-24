@@ -16,11 +16,22 @@ extends Control
 @onready var scena_spell_slot_2: SpellSlot = $"ScenaSpellSlot2"
 @onready var scena_spell_slot_3: SpellSlot = $"ScenaSpellSlot3"
 @onready var scena_spell_slot_4: SpellSlot = $"ScenaSpellSlot4"
+@onready var scena_passive_slot_1: SpellSlot = $ScenaPassiveSlot1
+@onready var scena_passive_slot_2: SpellSlot = $ScenaPassiveSlot2
+@onready var scena_passive_slot_3: SpellSlot = $ScenaPassiveSlot3
+@onready var scena_passive_slot_4: SpellSlot = $ScenaPassiveSlot4
 @export var skill_tooltip_scene: PackedScene = preload("res://scenes/ui/tooltip_scene.tscn")
+@onready var attack_icon: TextureRect = $AttackIcon
+@onready var hold_icon: TextureRect = $HoldIcon
+@onready var move_icon: TextureRect = $MoveIcon
+@onready var stop_icon: TextureRect = $StopIcon
+
 
 
 var skill_tooltip: SkillTooltip
 var spell_slots: Array[SpellSlot] = []
+var passive_slots: Array[SpellSlot] = []
+var action_slots: Array[SpellSlot] = []
 var max_spell_slots := 4
 var hp_bar_style = StyleBoxFlat.new()
 var xp_bar_style = StyleBoxFlat.new()
@@ -38,6 +49,20 @@ const SPELL_SLOT_POSITIONS := [
 	Vector2(774, 27),
 	Vector2(840, 27),
 	Vector2(905, 27)
+]
+
+const PASSIVE_SLOT_POSITIONS := [
+	Vector2(708, -38),
+	Vector2(774, -38),
+	Vector2(840, -38),
+	Vector2(905, -38)
+]
+
+const ACTION_SLOT_POSITIONS := [
+	Vector2(708, -104),
+	Vector2(774, -104),
+	Vector2(840, -104),
+	Vector2(905, -104)
 ]
 
 func _ready() -> void:
@@ -79,18 +104,31 @@ func _ready() -> void:
 		scena_spell_slot_3,
 		scena_spell_slot_4
 	]
-
-
+	
+	passive_slots = [
+		scena_passive_slot_1,
+		scena_passive_slot_2,
+		scena_passive_slot_3,
+		scena_passive_slot_4
+	]	
+	
 	for i in range(spell_slots.size()):
 		var slot := spell_slots[i]
-		slot.position = SPELL_SLOT_POSITIONS[i]		
-		slot.slot_position = slot.position
+		slot.position = SPELL_SLOT_POSITIONS[i]
 		slot.visible = false
 		slot.clear()
 		slot.hovered.connect(_on_spell_slot_hovered)
 		slot.unhovered.connect(_on_spell_slot_unhovered)
+	
+	for i in range(passive_slots.size()):
+		var slot := passive_slots[i]
+		slot.position = PASSIVE_SLOT_POSITIONS[i]
+		slot.visible = false
+		slot.clear()
+		slot.hovered.connect(_on_spell_slot_hovered)
+		slot.unhovered.connect(_on_spell_slot_unhovered)
+	
 
-		
 	Globals.skill_casted.connect(_on_skill_casted)
 	Globals.skill_unlocked.connect(update_spell_bar)
 
@@ -102,6 +140,16 @@ func _ready() -> void:
 	skill_tooltip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	skill_tooltip.position = Vector2(690, -155)
 
+
+	attack_icon.mouse_entered.connect(_on_action_icon_hovered.bind("Attack"))
+	hold_icon.mouse_entered.connect(_on_action_icon_hovered.bind("Hold"))
+	move_icon.mouse_entered.connect(_on_action_icon_hovered.bind("Move"))
+	stop_icon.mouse_entered.connect(_on_action_icon_hovered.bind("Stop"))
+	
+	attack_icon.mouse_exited.connect(_on_action_icon_unhovered)
+	hold_icon.mouse_exited.connect(_on_action_icon_unhovered)
+	move_icon.mouse_exited.connect(_on_action_icon_unhovered)
+	stop_icon.mouse_exited.connect(_on_action_icon_unhovered)
 
 
 	Achievements.achievement_unlocked.connect(_on_achievement_unlocked)
@@ -333,8 +381,14 @@ func update_spell_bar(_skill: Skill = null) -> void:
 	var active_spells: Array = Skills.unlocked_skills.filter(func(s):
 		return s.use_tags.has(Tags.UseTag.ACTIVE)
 	)
+	# tu tylko PASIVE
+	var passive_spells: Array = Skills.unlocked_skills.filter(func(s):
+		return !s.use_tags.has(Tags.UseTag.ACTIVE) and !s.use_tags.has(Tags.UseTag.SUMMON)
+	)
+	
 
 	print("*Active spells:", active_spells.map(func(s): return s.skill_name))
+	print("*Passive spells:", passive_spells.map(func(s): return s.skill_name))
 
 	for i in range(spell_slots.size()):
 		var slot := spell_slots[i]
@@ -347,6 +401,16 @@ func update_spell_bar(_skill: Skill = null) -> void:
 			slot.clear()
 
 
+	for i in range(passive_slots.size()):
+		var slot := passive_slots[i]
+
+		if i < passive_spells.size():
+			slot.visible = true
+			slot.set_skill(passive_spells[i])
+		else:
+			slot.visible = false
+			slot.clear()
+
 
 func _on_skill_casted(skill: Skill, cooldown: float):
 	for slot in spell_slots:
@@ -356,7 +420,16 @@ func _on_skill_casted(skill: Skill, cooldown: float):
 
 
 func _on_spell_slot_hovered(skill: Skill) -> void:
-	skill_tooltip.show_text(skill.skill_name)
+	skill_tooltip.show_spell_text(skill)
 
 func _on_spell_slot_unhovered() -> void:
 	skill_tooltip.hide_tooltip()
+
+
+func _on_action_icon_hovered(icon_name: String) -> void:
+	skill_tooltip.show_text(icon_name)
+
+
+func _on_action_icon_unhovered() -> void:
+	skill_tooltip.hide_tooltip()
+	

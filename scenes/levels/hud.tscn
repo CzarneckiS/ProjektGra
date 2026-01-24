@@ -540,6 +540,46 @@ grow_vertical = 0
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("6_xjlsw")
 
+[node name="AttackIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 707.0
+offset_top = -104.0
+offset_right = 1207.0
+offset_bottom = 396.00037
+scale = Vector2(0.13, 0.13)
+mouse_filter = 0
+texture = ExtResource("7_npjfx")
+
+[node name="HoldIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 774.0
+offset_top = -104.0
+offset_right = 1274.0
+offset_bottom = 396.0
+scale = Vector2(0.13, 0.13)
+mouse_filter = 0
+texture = ExtResource("8_x77mw")
+
+[node name="MoveIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 840.0
+offset_top = -104.0
+offset_right = 1340.0
+offset_bottom = 396.0
+scale = Vector2(0.13, 0.13)
+mouse_filter = 0
+texture = ExtResource("9_862nl")
+
+[node name="StopIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 905.0
+offset_top = -104.0
+offset_right = 1405.0
+offset_bottom = 396.0
+scale = Vector2(0.13, 0.13)
+mouse_filter = 0
+texture = ExtResource("10_36mnu")
+
 [node name="ScenaSpellSlot1" parent="." instance=ExtResource("8_36mnu")]
 layout_mode = 0
 anchors_preset = 0
@@ -588,6 +628,54 @@ offset_bottom = 93.0
 grow_horizontal = 1
 grow_vertical = 1
 
+[node name="ScenaPassiveSlot1" parent="." instance=ExtResource("8_36mnu")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 708.0
+offset_top = -38.0
+offset_right = 772.0
+offset_bottom = 26.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="ScenaPassiveSlot2" parent="." instance=ExtResource("8_36mnu")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 774.0
+offset_top = -38.0
+offset_right = 838.0
+offset_bottom = 26.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="ScenaPassiveSlot3" parent="." instance=ExtResource("8_36mnu")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 840.0
+offset_top = -38.0
+offset_right = 904.0
+offset_bottom = 26.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="ScenaPassiveSlot4" parent="." instance=ExtResource("8_36mnu")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 905.0
+offset_top = -38.0
+offset_right = 969.0
+offset_bottom = 26.0
+grow_horizontal = 1
+grow_vertical = 1
+
 [node name="HPValue" type="Label" parent="."]
 z_index = 5
 layout_mode = 0
@@ -609,42 +697,6 @@ theme_override_fonts/font = SubResource("FontVariation_6sdlk")
 text = "000/000"
 
 [node name="PopUp" type="CanvasLayer" parent="."]
-
-[node name="AttackIcon" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 707.0
-offset_top = -104.0
-offset_right = 1207.0
-offset_bottom = 396.00037
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("7_npjfx")
-
-[node name="HoldIcon" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 774.0
-offset_top = -104.0
-offset_right = 1274.0
-offset_bottom = 396.0
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("8_x77mw")
-
-[node name="MoveIcon" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 840.0
-offset_top = -104.0
-offset_right = 1340.0
-offset_bottom = 396.0
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("9_862nl")
-
-[node name="StopIcon" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 905.0
-offset_top = -104.0
-offset_right = 1405.0
-offset_bottom = 396.0
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("10_36mnu")
 
 [connection signal="pressed" from="UnitsPanel/Slot1" to="." method="_on_unit_slot_pressed"]
 [connection signal="pressed" from="UnitsPanel/Slot2" to="." method="_on_unit_slot_pressed"]

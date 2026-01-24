@@ -8,7 +8,6 @@ class_name SpellSlot
 var skill: Skill
 var cooldown_time := 0.0
 var remaining := 0.0
-var slot_position := Vector2(0, 0)
 
 signal hovered(skill: Skill)
 signal unhovered()
@@ -16,15 +15,19 @@ signal unhovered()
 
 func set_skill(_skill: Skill):
 	skill = _skill
-	icon.texture = skill.icon
+	if _skill.icon != null:
+		icon.texture = skill.icon
 
-	icon.scale = Vector2.ONE
-	icon.scale = Vector2(0.13, 0.13)
-	icon.expand_mode = TextureRect.EXPAND_KEEP_SIZE
-	icon.stretch_mode = TextureRect.STRETCH_SCALE
+		icon.scale = Vector2.ONE
+		icon.scale = Vector2(0.13, 0.13)
+		icon.expand_mode = TextureRect.EXPAND_KEEP_SIZE
+		icon.stretch_mode = TextureRect.STRETCH_SCALE
 
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
+	if not mouse_entered.is_connected(_on_mouse_entered):
+		mouse_entered.connect(_on_mouse_entered)
+
+	if not mouse_exited.is_connected(_on_mouse_exited):
+		mouse_exited.connect(_on_mouse_exited)
 
 
 	reset_cooldown()
