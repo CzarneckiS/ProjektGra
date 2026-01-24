@@ -2,20 +2,20 @@ class_name SkillUnlockHandler
 
 var skill_unlock_dictionary : Dictionary = {
 	Skills.fireball: "default_unlock",
-	Skills.heal: "wave_10_reached",
-	Skills.thunderbolt: "mages_killed",
-	Skills.icewall: "default_unlock",
-	Skills.blackhole: "boss_wave_reached",
-	Skills.tornado: "boss_killed",
-	Skills.unit_on_hit_bleed: "wave_10_reached",
-	Skills.unit_on_hit_lifesteal: "default_unlock",
-	Skills.unit_stat_up_attack_up: "wave_10_reached",
-	Skills.unit_stat_up_health_up: "default_unlock",
-	Skills.unit_unholy_frenzy: "default_unlock", #kiedy umrze duzo naszych jednostek
+	Skills.heal: "default_unlock",
+	Skills.thunderbolt: "default_unlock",
 	Skills.player_skeleton_warrior: "default_unlock",
-	Skills.player_skeleton_mage: "skeletons_summoned",
-	Skills.player_life_on_kill: "default_unlock",
-	Skills.player_summon_respawn_time_up: "default_unlock"
+	Skills.player_skeleton_mage: "army_size_reached",
+	Skills.icewall: "boss_wave_reached",
+	Skills.blackhole: "mages_killed",
+	Skills.tornado: "boss_killed",
+	Skills.unit_on_hit_bleed: "level_3_skill_unlocked",
+	Skills.unit_on_hit_lifesteal: "skeletons_summoned",
+	Skills.unit_stat_up_attack_up: "units_killed_50",
+	Skills.unit_stat_up_health_up: "wave_5_reached",
+	Skills.unit_unholy_frenzy: "units_killed_100",
+	Skills.player_life_on_kill: "wave_10_reached",
+	Skills.player_summon_respawn_time_up: "flowers_collected"
 }
 func update_skill_unlock_handler():
 	#taka funkcja bo bool jest przekazywany przez value, nie reference
@@ -24,20 +24,20 @@ func update_skill_unlock_handler():
 	#to, co odblokowuje dany achievement jest temporary :)
 	skill_unlock_dictionary = {
 	Skills.fireball: "default_unlock",
-	Skills.heal: "wave_10_reached",
-	Skills.thunderbolt: "mages_killed",
-	Skills.icewall: "default_unlock",
-	Skills.blackhole: "boss_wave_reached",
-	Skills.tornado: "boss_killed",
-	Skills.unit_on_hit_bleed: "wave_10_reached",
-	Skills.unit_on_hit_lifesteal: "default_unlock",
-	Skills.unit_stat_up_attack_up: "wave_10_reached",
-	Skills.unit_stat_up_health_up: "default_unlock",
-	Skills.unit_unholy_frenzy: "default_unlock", #kiedy umrze duzo naszych jednostek
+	Skills.heal: "default_unlock",
+	Skills.thunderbolt: "default_unlock",
 	Skills.player_skeleton_warrior: "default_unlock",
-	Skills.player_skeleton_mage: "skeletons_summoned",
-	Skills.player_life_on_kill: "default_unlock",
-	Skills.player_summon_respawn_time_up: "default_unlock"
+	Skills.player_skeleton_mage: "army_size_reached",
+	Skills.icewall: "boss_wave_reached",
+	Skills.blackhole: "mages_killed",
+	Skills.tornado: "boss_killed",
+	Skills.unit_on_hit_bleed: "level_3_skill_unlocked",
+	Skills.unit_on_hit_lifesteal: "skeletons_summoned",
+	Skills.unit_stat_up_attack_up: "units_killed_50",
+	Skills.unit_stat_up_health_up: "wave_5_reached",
+	Skills.unit_unholy_frenzy: "units_killed_100",
+	Skills.player_life_on_kill: "wave_10_reached",
+	Skills.player_summon_respawn_time_up: "flowers_collected"
 }
 
 func handle_unlocked_skills():
