@@ -11,4 +11,4 @@ func _init() -> void:
 	unit_tags.append(Tags.UnitTag.PLAYER)
 	use_tags.append(Tags.UseTag.UNIT_DEATH)
 func get_desc() -> String:
-	return "heal yourself by killing\n\nheal per kill: %s" %[skill_level*2]
+	return "heal yourself by killing\n\nheal per kill: %s\nskill level: %s" %[(skill_level+1)*2, skill_level]

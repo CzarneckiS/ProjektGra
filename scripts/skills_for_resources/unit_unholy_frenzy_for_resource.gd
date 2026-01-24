@@ -17,4 +17,4 @@ func _init() -> void:
 	unit_tags.append(Tags.UnitTag.ALLIED)
 	use_tags.append(Tags.UseTag.PASSIVE)
 func get_desc() -> String:
-	return "your units gain attack speed but they're slowly dying\n\nattack speed multiplier: %s" %attack_speed_multiplier
+	return "your units gain attack speed but they're slowly dying\n\nattack speed multiplier: %s\nskill level: %s" %[(1 + attack_speed_multiplier * (skill_level+1)), skill_level]

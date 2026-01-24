@@ -76,7 +76,6 @@ func _on_option_1_pressed() -> void:
 	hide()
 	pressed = true
 
-
 func _on_option_2_pressed() -> void:
 	$menu_click.play()
 	await $menu_click.finished

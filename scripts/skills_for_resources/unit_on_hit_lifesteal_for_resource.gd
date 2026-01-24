@@ -20,5 +20,5 @@ func _init() -> void:
 	unit_tags.append(Tags.UnitTag.ALLIED)
 	use_tags.append(Tags.UseTag.ON_HIT)
 func get_desc() -> String:
-	return "your units gain lifesteal\n\n heal per hit: %s" \
- %[skill_level*3]
+	return "your units gain lifesteal\n\nheal per hit: %s\nskill level: %s" \
+ %[(skill_level+1)*3, skill_level]

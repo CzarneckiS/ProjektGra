@@ -15,5 +15,5 @@ func _init() -> void:
 	unit_tags.append(Tags.UnitTag.ALLIED)
 	use_tags.append(Tags.UseTag.STAT_UP)
 func get_desc() -> String:
-	return "bones of your units are sturdier\n\n unit health: +%s" \
- %[skill_level * 20]
+	return "bones of your units are sturdier\n\nunit health: +%s\nskill level: %s" \
+ %[(skill_level+1) * 20, skill_level]

@@ -12,5 +12,5 @@ func _init() -> void:
 	unit_tags.append(Tags.UnitTag.ALLIED)
 	use_tags.append(Tags.UseTag.STAT_UP)
 func get_desc() -> String:
-	return "your units hit harder\n\n unit damage: +%s" \
- %[damage_bonus * skill_level]
+	return "your units hit harder\n\nunit damage: +%s\nskill level: %s" \
+ %[damage_bonus * (skill_level+1), skill_level]
