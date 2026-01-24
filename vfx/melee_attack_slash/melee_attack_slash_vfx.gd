@@ -1,7 +1,7 @@
 extends Node2D
 
 func _ready() -> void:
-	var timer = get_tree().create_timer(0.15)
+	var timer = get_tree().create_timer(0.15,false)
 	await timer.timeout
 	queue_free()
 
