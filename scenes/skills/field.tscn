@@ -96,12 +96,10 @@ animation = &"attack"
 frame_progress = 0.5880587
 
 [node name="field_collision" type="CollisionShape2D" parent="."]
-visible = false
 shape = ExtResource("11_hj32k")
 one_way_collision_margin = 0.0
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-visible = false
 modulate = Color(1, 1, 0.7921569, 1)
 emitting = false
 amount = 10

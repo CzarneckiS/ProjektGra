@@ -1,8 +1,8 @@
 extends Control
 
-@onready var name_1: Label = $Option1/Name
-@onready var name_2: Label = $Option2/Name
-@onready var name_3: Label = $Option3/Name
+@onready var name_1: RichTextLabel = $Option1/Name
+@onready var name_2: RichTextLabel = $Option2/Name
+@onready var name_3: RichTextLabel = $Option3/Name
 
 @onready var description_1: RichTextLabel = $Option1/Description
 @onready var description_2: RichTextLabel = $Option2/Description
@@ -54,7 +54,10 @@ func level_up():
 	#tak naprawde zmienia się tylko cyferka przy nazwie 
 	#żeby nie pisać  6*3 = 18 linijek jednakowego kodu
 	for i in range(skills_to_show.size()):
-		self.get("name_" + str(i + 1)).text = skills_to_show[i].skill_name
+		if skills_to_show[i].has_method("get_skill_name"):
+			self.get("name_" + str(i + 1)).text = skills_to_show[i].get_skill_name()
+		else:
+			self.get("name_" + str(i + 1)).text = skills_to_show[i].skill_name
 		self.get("texture_rect_" + str(i + 1)).texture = skills_to_show[i].icon
 		if skills_to_show[i].has_method("get_desc"):
 			self.get("description_" + str(i + 1)).text = skills_to_show[i].get_desc()

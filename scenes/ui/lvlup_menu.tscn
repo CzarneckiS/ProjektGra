@@ -129,14 +129,15 @@ offset_bottom = -268.0
 texture = ExtResource("7_mvsde")
 expand_mode = 3
 
-[node name="Name" type="Label" parent="Option1"]
+[node name="Name" type="RichTextLabel" parent="Option1"]
 layout_mode = 0
 offset_left = 90.000015
 offset_top = -367.0
 offset_right = 242.31502
 offset_bottom = -268.0
-theme_override_fonts/font = ExtResource("10_os4ja")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/normal_font = ExtResource("10_os4ja")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
 text = "NAME
 
 "
@@ -195,14 +196,15 @@ offset_bottom = -268.0
 texture = ExtResource("7_mvsde")
 expand_mode = 3
 
-[node name="Name" type="Label" parent="Option2"]
+[node name="Name" type="RichTextLabel" parent="Option2"]
 layout_mode = 0
 offset_left = 90.0
 offset_top = -367.0
 offset_right = 242.315
 offset_bottom = -268.0
-theme_override_fonts/font = ExtResource("10_os4ja")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/normal_font = ExtResource("10_os4ja")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
 text = "NAME
 
 "
@@ -263,14 +265,15 @@ offset_bottom = -268.0
 texture = ExtResource("7_mvsde")
 expand_mode = 3
 
-[node name="Name" type="Label" parent="Option3"]
+[node name="Name" type="RichTextLabel" parent="Option3"]
 layout_mode = 0
 offset_left = 90.0
 offset_top = -367.0
 offset_right = 242.315
 offset_bottom = -268.0
-theme_override_fonts/font = ExtResource("10_os4ja")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/normal_font = ExtResource("10_os4ja")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
 text = "NAME
 
 "
