@@ -6,8 +6,7 @@ extends Node2D
 @onready var ach_icons: Array = [
 	$AchIcon1, $AchIcon2, $AchIcon3, $AchIcon4, $AchIcon5,
 	$AchIcon6, $AchIcon7, $AchIcon8, $AchIcon9, $AchIcon10,
-	$AchIcon11, $AchIcon12, $AchIcon13, $AchIcon14, $AchIcon15,
-	$AchIcon16, $AchIcon17, $AchIcon18, $AchIcon19, $AchIcon20
+	$AchIcon11, $AchIcon12, $AchIcon13, $AchIcon14, $AchIcon15
 ]
 
 @onready var text_c: Label = $TextC
@@ -15,19 +14,21 @@ extends Node2D
 @onready var text_e: Label = $TextE
 @onready var spell_data_icon: TextureRect = $SpellDataIcon
 
-var EMPTY_ICON = preload("res://sprites/ui/EmptyIcon.png")
+var EMPTY_ICON = preload("res://sprites/icons/question mark.png")
 
 func _ready() -> void:
 	button_back_to_menu.pressed.connect(_on_button_backto_menu_pressed)
 	button_back_to_menu.focus_mode = Control.FOCUS_NONE
 	_setup_hover(button_back_to_menu, button_back_to_menu_highlight)
+	for icon: TextureRect in ach_icons:
+		icon.scale = Vector2(2.2,2.2)
 	
 	
 	await get_tree().process_frame
 	populate_skill_icons()
 	
 func _on_button_backto_menu_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
+	get_tree().call_deferred("change_scene_to_file","res://scenes/ui/main_menu.tscn")
 
 func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 	highlight.visible = false
@@ -76,22 +77,25 @@ func _on_icon_hover(icon_node: TextureRect) -> void:
 		spell_data_icon.texture = skill.icon
 		text_c.text = skill.skill_name
 		text_d.text = skill.skill_desc
-		text_e.text = "Odblokowano przez: TODO"
+		#text_e.text = Achievements.achievement_description_list[Achievements.skill_unlock_handler.skill_unlock_dictionary[skill]]
 	else:
 		spell_data_icon.texture = EMPTY_ICON
-		text_c.text = ""
-		text_d.text = ""
-		text_e.text = "Aby odblokować: TODO"
+		text_c.text = "???"
+		text_d.text = Achievements.achievement_description_list[Achievements.skill_unlock_handler.skill_unlock_dictionary[skill]]
+		#text_e.text = 
 
 	spell_data_icon.custom_minimum_size = Vector2(50, 50)
 	spell_data_icon.expand = true
 	spell_data_icon.stretch_mode = TextureRect.STRETCH_SCALE
 	spell_data_icon.update_minimum_size()
+	
 
+	
 
 
 func _clear_spell_data() -> void:
-	spell_data_icon.texture = preload("res://sprites/ui/EmptyIcon.png")
+	return
+	spell_data_icon.texture = null
 	text_c.text = ""
 	text_d.text = ""
 	text_e.text = ""

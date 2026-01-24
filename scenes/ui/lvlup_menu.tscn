@@ -100,6 +100,7 @@ offset_bottom = 641.0
 theme_override_styles/normal = SubResource("StyleBoxTexture_6pxxg")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_w0jd5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_mvsde")
+action_mode = 0
 text = "OPTION"
 
 [node name="Highlight" type="TextureRect" parent="Option1"]
@@ -167,6 +168,7 @@ offset_bottom = 641.0
 theme_override_styles/normal = SubResource("StyleBoxTexture_tj1gx")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_fssdh")
 theme_override_styles/hover = SubResource("StyleBoxTexture_h1lrv")
+action_mode = 0
 text = "OPTION"
 
 [node name="Highlight" type="TextureRect" parent="Option2"]
@@ -235,6 +237,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_iygms")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_1rptu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_poolv")
 theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_vuuuy")
+action_mode = 0
 text = "OPTION
 "
 

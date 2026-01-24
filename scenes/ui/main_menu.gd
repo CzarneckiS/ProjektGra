@@ -74,15 +74,15 @@ func _on_button_options_pressed() -> void:
 func _on_button_achievements_pressed() -> void:
 	$menu_click.play()
 	await $menu_click.finished
-	get_tree().change_scene_to_file("res://scenes/ui/achievements.tscn")
+	get_tree().call_deferred("change_scene_to_file","res://scenes/ui/achievements.tscn")
 
 func _on_button_exit_pressed() -> void:
 	$menu_click.play()
 	await $menu_click.finished
-	get_tree().quit()
+	get_tree().call_deferred("quit")
 
 func start_new_game():
 	Globals.reset_globals()
 	Skills.reset_skills()
 	Achievements.skill_unlock_handler.handle_unlocked_skills()
-	get_tree().change_scene_to_file("res://scenes/levels/level.tscn")
+	get_tree().call_deferred("change_scene_to_file","res://scenes/levels/level.tscn")
