@@ -16,4 +16,4 @@ func _init() -> void:
 	use_tags.append(Tags.UseTag.ON_HIT)
 func get_desc() -> String:
 	return "your melee units gain exceptionally sharp blades...\n\nbleed per second: %s\nskill level: %s" \
- %[skill_effect_data.base_damage/damage_interval, skill_level]
+ %[(3+(skill_level+1))/damage_interval, skill_level]
