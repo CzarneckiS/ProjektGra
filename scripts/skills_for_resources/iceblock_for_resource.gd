@@ -14,6 +14,21 @@ func use(player: CharacterBody2D, target_position: Vector2) -> void:
 func _init() -> void:
 	unit_tags.append(Tags.UnitTag.PLAYER)
 	use_tags.append(Tags.UseTag.ACTIVE)
+func upgrade_skill():
+	times_upgraded += 1
+	print("ile razy ulepszono: ", times_upgraded)
+	effect_damage.base_damage += 12
+	cooldown -= 0.1
+	if times_upgraded == 3:
+		effect_damage.base_damage += 5
+		effect_damage.damage_multiplier = 1.1
+		cooldown -= 0.1
+		print("cooldown fireballa: ", cooldown)
+	if times_upgraded == 5:
+		effect_damage.base_damage += 5
+		effect_damage.damage_multiplier = 1.15
+		cooldown -= 0.2
+		print("cooldown fireballa: ", cooldown)
 func get_desc() -> String:
 	return "[b][color=#dbc4a6]block the enemy path[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]damage multiplier: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
  %[effect_damage.base_damage, effect_damage.damage_multiplier, cooldown, skill_level]

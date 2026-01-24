@@ -58,6 +58,8 @@ func unlock_skill(skill):
 			unit.handle_skill_update(skill)
 	else:
 		skill.skill_level += 1
+		if skill.has_method("upgrade_skill"):
+			skill.upgrade_skill()
 
 func reset_skills():
 	active_skill_slots_limit_reached = false

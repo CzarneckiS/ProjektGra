@@ -75,7 +75,6 @@ scale = Vector2(0.53, 0.53)
 texture = ExtResource("4_oumkm")
 
 [node name="thunderbolt_collision" type="CollisionShape2D" parent="."]
-visible = false
 shape = ExtResource("6_8r461")
 
 [node name="thunderbolt_sfx" type="AudioStreamPlayer2D" parent="."]

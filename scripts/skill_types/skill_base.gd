@@ -8,5 +8,6 @@ class_name Skill
 @export var visual_effect : PackedScene
 @export var effects : Array[Effect] #czy to jest w ogole uzywane?
 @export var icon : CompressedTexture2D
+@export var times_upgraded: int = 0
 func _use() -> void:
 	print("Skill use() invoked.")
