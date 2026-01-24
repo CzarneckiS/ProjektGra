@@ -200,5 +200,5 @@ lifetime = 4.0
 explosiveness = 0.97
 process_material = SubResource("ParticleProcessMaterial_w4e6m")
 
-[node name="win_sfx" type="AudioStreamPlayer2D" parent="."]
+[node name="win_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_mi4sw")
