@@ -92,10 +92,8 @@ func _ready() -> void:
 	handle_skills()
 	handle_starting_skills()
 func _physics_process(_delta: float) -> void:
-	print("state")
-	print(state_machine.state)
-	print("command")
-	print(state_machine.command)
+	print(attack_speed_modifier)
+	print(damage)
 	#seek_enemies()
 	if !dying:
 		follow_player()
@@ -122,9 +120,11 @@ func handle_skill_update(skill):
 	for i in range(own_tags.size()):
 		if skill.unit_tags.has(own_tags[i]):
 			if skill.use_tags.has(Tags.UseTag.STAT_UP):
+				skills_stat_up.erase(skill)
 				skills_stat_up.append(skill)
 				skill.use(self)
 			if skill.use_tags.has(Tags.UseTag.PASSIVE):
+				skills_stat_up.erase(skill)
 				skills_passive.append(skill)
 				skill.use(self)
 			if skill.use_tags.has(Tags.UseTag.ON_HIT):

@@ -231,14 +231,17 @@ func handle_skill_update(skill):
 	for i in range(own_tags.size()):
 		if skill.unit_tags.has(own_tags[i]):
 			if skill.use_tags.has(Tags.UseTag.STAT_UP):
+				skills_stat_up.erase(skill)
 				skills_stat_up.append(skill)
 				skill.use(self)
 			if skill.use_tags.has(Tags.UseTag.PASSIVE):
+				skills_stat_up.erase(skill)
 				skills_passive.append(skill)
 				skill.use(self)
 			if skill.use_tags.has(Tags.UseTag.ACTIVE):
 				skills_active.append(skill)
 			if skill.use_tags.has(Tags.UseTag.SUMMON):
+				skills_stat_up.erase(skill)
 				skills_summon.append(skill)
 				skill.use(self)
 			if skill.use_tags.has(Tags.UseTag.UNIT_DEATH):
