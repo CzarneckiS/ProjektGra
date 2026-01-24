@@ -48,6 +48,7 @@ func _physics_process(_delta: float) -> void:
 	
 func _on_body_entered(player):
 	if player.is_in_group("Player") and !used:
+		Audio.play_audio($sfx_pickup)
 		apply_effect(player)
 		used = true
 		used_timer.start()
@@ -70,8 +71,13 @@ func apply_effect(_player):
 func _on_orb_collision_damage_area_entered(body):
 	if !body.is_in_group("Allied") and body.has_method("hit"):
 		body.hit(skill_resource.effect_damage.base_damage * skill_resource.effect_damage.damage_multiplier, self)
+
+var heal_triggered: bool = false
+
 func _on_orb_collision_heal_area_entered(_body):
-	heal_skill.call_deferred("use", self, global_position)
+	if !heal_triggered:
+		heal_triggered = true
+		heal_skill.call_deferred("use", self, global_position)
 	
 func _on_used_timer_timeout():
 	call_deferred("queue_free")

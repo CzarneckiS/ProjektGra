@@ -6,5 +6,5 @@
 
 [resource]
 script = ExtResource("3_0qcc8")
-skill_name = "Restless horde"
+skill_name = "Restless Horde"
 icon = ExtResource("2_kv8va")

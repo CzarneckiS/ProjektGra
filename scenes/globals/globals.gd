@@ -15,8 +15,9 @@ var opening_shown = false
 
 #statystyki głównej jednostki
 var player : CharacterBody2D
-var health : int = 100
-var max_health : int = health
+var base_health:int = 200
+var health : int = base_health
+var max_health : int = base_health
 var player_position: Vector2
 
 #exp i levelowanie
@@ -33,9 +34,16 @@ const allied_cursor = preload("res://sprites/cursors/KursorRekaSmallAllied.png")
 const target_cursor = preload("res://sprites/cursors/KursorTarget.png")
 var attack_move_input : bool = false
 
+var wave_count = 0
+signal wave_count_update()
+signal boss_appeared()
+signal boss_health_changed()
+var boss_current_health
+var boss_max_health
+
 func reset_globals():
-	health = 100
-	max_health = health
+	health = base_health
+	max_health = base_health
 	level = 1
 	accumulated_xp = 0
 	xp_to_level = 300

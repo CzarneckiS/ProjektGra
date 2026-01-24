@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cqnoo2277h8ds"]
+[gd_scene load_steps=13 format=3 uid="uid://cqnoo2277h8ds"]
 
 [ext_resource type="Script" uid="uid://tha8w2rmwcql" path="res://scenes/ui/achievements.gd" id="1_bblh1"]
 [ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="2_jml7r"]
@@ -6,25 +6,18 @@
 [ext_resource type="Texture2D" uid="uid://bpvowenbyhjyy" path="res://sprites/ui/Button_pressed.png" id="4_0a75a"]
 [ext_resource type="Texture2D" uid="uid://cvilxq7eyc1kj" path="res://sprites/ui/Button_highlight.png" id="4_5cnrf"]
 [ext_resource type="Texture2D" uid="uid://chy5d1g28au0x" path="res://sprites/ui/HUD_MenuTemplate.png" id="6_hlpig"]
+[ext_resource type="Texture2D" uid="uid://b53udvlsxsbkc" path="res://sprites/ui/Achievements window.png" id="7_svu7p"]
 [ext_resource type="Texture2D" uid="uid://csuu5qvhmmnvx" path="res://sprites/ui/HUD_MenuLine.png" id="8_2rfcd"]
-[ext_resource type="Texture2D" uid="uid://bs7lqp78ir5i5" path="res://sprites/ui/UnitEmptyIcon.png" id="8_hlpig"]
-
-[sub_resource type="FontVariation" id="FontVariation_2xc4j"]
-base_font = ExtResource("2_jml7r")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hlpig"]
-texture = ExtResource("2_ll4mt")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_svu7p"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jkn12"]
-texture = ExtResource("4_0a75a")
+[ext_resource type="Texture2D" uid="uid://csqsplgknw78l" path="res://sprites/icons/question mark.png" id="8_hlpig"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2rfcd"]
 texture = ExtResource("2_ll4mt")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rsoi0"]
 texture = ExtResource("4_0a75a")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jkn12"]
+texture = ExtResource("2_ll4mt")
 
 [node name="Achievements" type="Node2D"]
 script = ExtResource("1_bblh1")
@@ -35,32 +28,7 @@ offset_left = -6.0
 offset_top = -4.0
 offset_right = 1619.0
 offset_bottom = 920.0
-color = Color(0.18359044, 0.18359044, 0.18359044, 1)
-
-[node name="ButtonBackToMenu" type="Button" parent="."]
-z_index = 5
-offset_left = 1393.0
-offset_top = 834.0
-offset_right = 1515.0
-offset_bottom = 884.0
-theme_override_fonts/font = SubResource("FontVariation_2xc4j")
-theme_override_font_sizes/font_size = 19
-theme_override_styles/normal = SubResource("StyleBoxTexture_hlpig")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_svu7p")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jkn12")
-theme_override_styles/hover = SubResource("StyleBoxTexture_2rfcd")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_rsoi0")
-text = "BACK"
-
-[node name="Highlight" type="TextureRect" parent="ButtonBackToMenu"]
-visible = false
-layout_mode = 0
-offset_left = -1.0
-offset_top = -2.0
-offset_right = 829.0
-offset_bottom = 204.0
-scale = Vector2(0.149, 0.26)
-texture = ExtResource("4_5cnrf")
+color = Color(0.043039158, 0.04303915, 0.04303915, 1)
 
 [node name="SpellData" type="TextureRect" parent="."]
 offset_left = 1029.0
@@ -70,13 +38,12 @@ scale = Vector2(0.45, 0.56)
 texture = ExtResource("6_hlpig")
 
 [node name="ListOfSpells" type="TextureRect" parent="."]
-offset_left = 1120.0
-offset_top = -16.0
-offset_right = 2320.0
-offset_bottom = 1509.0
-rotation = -4.712389
-scale = Vector2(0.745, 0.73)
-texture = ExtResource("6_hlpig")
+offset_left = 33.0
+offset_top = 1.0
+offset_right = 1968.0
+offset_bottom = 1526.0
+scale = Vector2(0.555, 0.559)
+texture = ExtResource("7_svu7p")
 
 [node name="SpellDataIcon" type="TextureRect" parent="."]
 offset_left = 1216.0
@@ -94,6 +61,7 @@ scale = Vector2(0.46, 0.46)
 texture = ExtResource("8_2rfcd")
 
 [node name="StickOfTruth2" type="TextureRect" parent="."]
+visible = false
 offset_left = 1118.0
 offset_top = 622.0
 offset_right = 1877.0
@@ -109,6 +77,7 @@ offset_right = 257.0
 offset_bottom = 198.0
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="AchIcon2" type="TextureRect" parent="."]
 visible = false
@@ -118,6 +87,7 @@ offset_right = 416.39
 offset_bottom = 198.0
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="AchIcon3" type="TextureRect" parent="."]
 visible = false
@@ -127,6 +97,7 @@ offset_right = 575.78
 offset_bottom = 198.0
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="AchIcon4" type="TextureRect" parent="."]
 visible = false
@@ -136,6 +107,7 @@ offset_right = 735.17
 offset_bottom = 198.0
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="AchIcon5" type="TextureRect" parent="."]
 visible = false
@@ -145,6 +117,7 @@ offset_right = 894.55994
 offset_bottom = 198.0
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="AchIcon6" type="TextureRect" parent="."]
 visible = false
@@ -154,6 +127,7 @@ offset_right = 257.0
 offset_bottom = 386.39005
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="AchIcon7" type="TextureRect" parent="."]
 visible = false
@@ -163,6 +137,7 @@ offset_right = 416.39
 offset_bottom = 386.39005
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="AchIcon8" type="TextureRect" parent="."]
 visible = false
@@ -172,6 +147,7 @@ offset_right = 575.78
 offset_bottom = 386.39005
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="AchIcon9" type="TextureRect" parent="."]
 visible = false
@@ -181,6 +157,7 @@ offset_right = 735.17
 offset_bottom = 386.39005
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="AchIcon10" type="TextureRect" parent="."]
 visible = false
@@ -190,6 +167,7 @@ offset_right = 894.55994
 offset_bottom = 386.39005
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="AchIcon11" type="TextureRect" parent="."]
 visible = false
@@ -199,6 +177,7 @@ offset_right = 258.0
 offset_bottom = 574.78
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="AchIcon12" type="TextureRect" parent="."]
 visible = false
@@ -208,6 +187,7 @@ offset_right = 417.39
 offset_bottom = 574.78
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="AchIcon13" type="TextureRect" parent="."]
 visible = false
@@ -217,6 +197,7 @@ offset_right = 576.78
 offset_bottom = 574.78
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="AchIcon14" type="TextureRect" parent="."]
 visible = false
@@ -226,15 +207,16 @@ offset_right = 736.17
 offset_bottom = 574.78
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="AchIcon15" type="TextureRect" parent="."]
-visible = false
-offset_left = 845.55994
-offset_top = 524.7799
-offset_right = 895.55994
-offset_bottom = 574.78
+offset_left = 844.55994
+offset_top = 426.77997
+offset_right = 894.55994
+offset_bottom = 476.78003
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
+expand_mode = 2
 
 [node name="TextC" type="Label" parent="."]
 offset_left = 1129.0
@@ -248,14 +230,41 @@ theme_override_font_sizes/font_size = 22
 offset_left = 1132.0
 offset_top = 436.0
 offset_right = 1449.0
-offset_bottom = 605.0
+offset_bottom = 709.0
 theme_override_fonts/font = ExtResource("2_jml7r")
 theme_override_font_sizes/font_size = 21
+autowrap_mode = 3
 
 [node name="TextE" type="Label" parent="."]
+visible = false
 offset_left = 1131.0
 offset_top = 655.0
 offset_right = 1450.0
 offset_bottom = 720.0
 theme_override_fonts/font = ExtResource("2_jml7r")
 theme_override_font_sizes/font_size = 22
+autowrap_mode = 3
+
+[node name="ButtonBackToMenu" type="Button" parent="."]
+z_index = 110
+offset_left = 1272.0
+offset_top = 819.0
+offset_right = 1518.0
+offset_bottom = 866.0
+theme_override_fonts/font = ExtResource("2_jml7r")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxTexture_2rfcd")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rsoi0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jkn12")
+text = "BACK"
+
+[node name="Highlight" type="TextureRect" parent="ButtonBackToMenu"]
+visible = false
+z_index = 110
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 905.624
+offset_bottom = 204.0
+scale = Vector2(0.275, 0.25)
+texture = ExtResource("4_5cnrf")

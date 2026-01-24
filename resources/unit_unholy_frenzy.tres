@@ -7,6 +7,6 @@
 
 [resource]
 script = ExtResource("3_jclac")
-skill_name = "Death Timer"
+skill_name = "Unholy Frenzy"
 visual_effect = ExtResource("4_mcf3h")
 icon = ExtResource("2_6fb1d")

@@ -15,7 +15,7 @@ func _ready():
 	#to po prostu oznacza ze startujemy ze statem idle jak cos, call deferred wywoluje sie jako ostatni
 	#kiedy juz inne states sie ladnie dodadza do słownia
 	call_deferred("set_state", states.idle)
-
+	dying_state = states.dying
 #quick 'n' dirty 'n' nasty fix zeby jednostki mniej wibrowaly kiedy sa bodyblockowane
 #tutaj musi byc 0, zeby nie bylo delayu przy wydawaniu rozkazu
 var turn_left_timer = 0
@@ -84,15 +84,27 @@ func _state_logic(delta):
 func _enter_state(_new_state, _previous_state):
 		match state:
 			states.idle:
+				if animation_player.current_animation != "idle":
+					animation_player.play("RESET")
+					animation_player.seek(1,true)
 				animation_player.play("idle")
 			states.moving:
 				parent.reset_stuck_pathfinding_timer() #proper reset wszystkich zmiennych
+				if animation_player.current_animation != "walk":
+					animation_player.play("RESET")
+					animation_player.seek(1,true)
 				animation_player.play("walk")
 			states.engaging:
+				if animation_player.current_animation != "walk":
+					animation_player.play("RESET")
+					animation_player.seek(1,true)
 				animation_player.play("walk")
 			states.attacking:
 				pass
 			states.dying:
+				if animation_player.current_animation != "dying":
+					animation_player.play("RESET")
+					animation_player.seek(1,true)
 				animation_player.play("dying") #Kiedy wejdziesz w state, rozpocznij animację
 			states.push:
 				pass

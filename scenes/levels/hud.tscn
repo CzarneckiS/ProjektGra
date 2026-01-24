@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dow75ifqnaejo"]
+[gd_scene load_steps=30 format=3 uid="uid://dow75ifqnaejo"]
 
 [ext_resource type="Script" uid="uid://bh80at3wk5jxc" path="res://scenes/levels/hud.gd" id="1_h1s5m"]
 [ext_resource type="Texture2D" uid="uid://bvafebvu6h5ix" path="res://sprites/ui/HUD lifebar XP BAR purple.png" id="2_16vcj"]
@@ -6,13 +6,20 @@
 [ext_resource type="Texture2D" uid="uid://cfof88wjy0pfx" path="res://sprites/ui/HUD left corner.png" id="3_16vcj"]
 [ext_resource type="Texture2D" uid="uid://c7jajlc2ay5ur" path="res://sprites/ui/HUD_middle.png" id="5_0jkms"]
 [ext_resource type="Texture2D" uid="uid://p0fx2271621o" path="res://sprites/tornado/gem.bmp" id="5_862nl"]
+[ext_resource type="Texture2D" uid="uid://bd6ht1il4yaov" path="res://sprites/ui/Boss life bar full.png" id="4_0r4d6"]
+[ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="4_862nl"]
+[ext_resource type="Texture2D" uid="uid://brboeki7cx26e" path="res://sprites/ui/Boss life bar empty.png" id="5_70a1a"]
+[ext_resource type="Texture2D" uid="uid://c6a6cymtsl4cd" path="res://sprites/ui/EmptyIcon.png" id="5_x77mw"]
 [ext_resource type="Texture2D" uid="uid://bpcd50fq8syjh" path="res://sprites/ui/HUD right corner.png" id="6_xjlsw"]
+[ext_resource type="Texture2D" uid="uid://bnuq6bgwe7e7q" path="res://sprites/ui/HUD lifebar with level.png" id="7_36mnu"]
 [ext_resource type="Texture2D" uid="uid://b4oegmy842s8l" path="res://sprites/ui/attack icon.png" id="7_npjfx"]
 [ext_resource type="PackedScene" uid="uid://wgs8mba7xffy" path="res://scenes/ui/spell_slot.tscn" id="8_36mnu"]
 [ext_resource type="Texture2D" uid="uid://c1w42wxnnjnow" path="res://sprites/ui/hold icon.png" id="8_x77mw"]
 [ext_resource type="Texture2D" uid="uid://clj1o87ll6lr4" path="res://sprites/ui/move icon.png" id="9_862nl"]
 [ext_resource type="Texture2D" uid="uid://c3a1s8si78c2t" path="res://sprites/ui/stop icon.png" id="10_36mnu"]
 [ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="12_862nl"]
+[ext_resource type="Texture2D" uid="uid://bbertyc8ltri5" path="res://sprites/ui/wave counter.png" id="13_36mnu"]
+[ext_resource type="Texture2D" uid="uid://cy2g1dcu5ye10" path="res://sprites/units/human_warrior/human_warrior_head.png" id="16_70a1a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2y6e"]
 bg_color = Color(0.6, 0.6, 0.6, 0.039215688)
@@ -63,24 +70,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_h1s5m")
 
-[node name="HP" type="Label" parent="."]
-z_index = 103
-layout_mode = 0
-offset_left = 74.0
-offset_top = 40.0
-offset_right = 114.0
-offset_bottom = 63.0
-text = "HP"
-
-[node name="XP" type="Label" parent="."]
-z_index = 103
-layout_mode = 0
-offset_left = 73.0
-offset_top = 71.0
-offset_right = 113.0
-offset_bottom = 95.0
-text = "EXP"
-
 [node name="HealthBar" type="ProgressBar" parent="."]
 z_index = 4
 layout_mode = 1
@@ -89,9 +78,9 @@ anchor_left = 0.37777787
 anchor_top = 1.5238096
 anchor_right = 0.774192
 anchor_bottom = 1.6240602
-offset_left = 35.01999
+offset_left = 49.12393
 offset_top = -26.43
-offset_right = 329.4027
+offset_right = 343.50665
 offset_bottom = -3.1105118
 theme_override_styles/background = SubResource("StyleBoxFlat_f2y6e")
 theme_override_styles/fill = SubResource("StyleBoxTexture_f2y6e")
@@ -106,9 +95,9 @@ anchor_left = 0.37777787
 anchor_top = 1.5288221
 anchor_right = 0.6
 anchor_bottom = 1.6240602
-offset_left = 365.0
+offset_left = 379.10394
 offset_top = 1.7894745
-offset_right = 675.06
+offset_right = 689.16394
 offset_bottom = 25.824478
 rotation = 3.1415927
 theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
@@ -125,14 +114,27 @@ anchor_left = 0.5402777
 anchor_top = 0.71428573
 anchor_right = 1.2316359
 anchor_bottom = 0.79761904
-offset_left = 20.394993
+offset_left = 34.498936
 offset_top = 38.54001
-offset_right = 288.23276
+offset_right = 302.3367
 offset_bottom = 62.570007
 theme_override_styles/background = SubResource("StyleBoxFlat_0jkms")
 theme_override_styles/fill = SubResource("StyleBoxTexture_xjlsw")
 value = 100.0
 show_percentage = false
+
+[node name="BossHealthBar" type="TextureProgressBar" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -38.000008
+offset_top = -759.0
+offset_right = 955.0
+offset_bottom = -656.0
+scale = Vector2(0.46272215, 0.46272215)
+step = 0.01
+value = 100.0
+texture_under = ExtResource("5_70a1a")
+texture_progress = ExtResource("4_0r4d6")
 
 [node name="ExpGainBar" type="ProgressBar" parent="."]
 z_index = 4
@@ -142,9 +144,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 354.23535
+offset_left = 368.3393
 offset_top = 54.552116
-offset_right = 684.57465
+offset_right = 698.6786
 offset_bottom = 82.74084
 grow_horizontal = 2
 grow_vertical = 0
@@ -156,14 +158,17 @@ value = 8.43
 show_percentage = false
 
 [node name="LabelPlayerLevel" type="Label" parent="."]
+modulate = Color(1, 0.78039217, 0, 1)
 z_index = 4
 layout_mode = 0
-offset_left = 66.0
-offset_top = -67.0
-offset_right = 167.0
-offset_bottom = -17.0
-theme_override_font_sizes/font_size = 36
-text = "LVL: 0"
+offset_left = 32.0
+offset_top = 34.0
+offset_right = 182.75793
+offset_bottom = 206.0
+scale = Vector2(0.35818994, 0.35818994)
+theme_override_fonts/font = ExtResource("4_862nl")
+theme_override_font_sizes/font_size = 128
+text = "1"
 
 [node name="UnitsPanel" type="GridContainer" parent="."]
 z_index = 17
@@ -517,12 +522,12 @@ texture = ExtResource("5_862nl")
 
 [node name="HudMiddle" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = -11.0
+offset_left = -57.0
 offset_top = -27.0
-offset_right = 2428.0
+offset_right = 2684.0
 offset_bottom = 629.0
 scale = Vector2(0.201, 0.201)
-texture = ExtResource("5_0jkms")
+texture = ExtResource("7_36mnu")
 
 [node name="HudRightCorner" type="TextureRect" parent="."]
 layout_mode = 1
@@ -697,6 +702,75 @@ theme_override_fonts/font = SubResource("FontVariation_6sdlk")
 text = "000/000"
 
 [node name="PopUp" type="CanvasLayer" parent="."]
+
+[node name="WaveCounter" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -573.0
+offset_top = -752.0
+offset_right = 420.0
+offset_bottom = -649.0
+scale = Vector2(0.2603543, 0.30205294)
+texture = ExtResource("13_36mnu")
+
+[node name="WaveCounterLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = -563.0
+offset_top = -747.0
+offset_right = -365.0
+offset_bottom = -724.0
+scale = Vector2(1, 0.94743645)
+text = "Defeat waves of enemies "
+
+[node name="WaveCounterLabel2" type="Label" parent="."]
+modulate = Color(1, 0.78039217, 0, 1)
+layout_mode = 0
+offset_left = -366.0
+offset_top = -747.0
+offset_right = -323.0
+offset_bottom = -724.0
+scale = Vector2(1, 0.94743645)
+text = "0/20"
+
+[node name="WaveCounter2" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -573.0
+offset_top = -709.0
+offset_right = 420.0
+offset_bottom = -606.0
+scale = Vector2(0.2603543, 0.30205294)
+texture = ExtResource("13_36mnu")
+
+[node name="WaveCounterLabel3" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -563.0
+offset_top = -704.0
+offset_right = -365.0
+offset_bottom = -681.0
+scale = Vector2(1, 0.94743645)
+text = "Defeat the"
+
+[node name="WaveCounterLabel4" type="Label" parent="."]
+visible = false
+modulate = Color(1, 0.78039217, 0, 1)
+layout_mode = 0
+offset_left = -475.0
+offset_top = -704.0
+offset_right = -432.0
+offset_bottom = -681.0
+scale = Vector2(1, 0.94743645)
+text = "Boss!"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 124.0
+offset_top = -770.0
+offset_right = 1308.9966
+offset_bottom = 791.26025
+scale = Vector2(0.12276303, 0.12276303)
+texture = ExtResource("16_70a1a")
 
 [connection signal="pressed" from="UnitsPanel/Slot1" to="." method="_on_unit_slot_pressed"]
 [connection signal="pressed" from="UnitsPanel/Slot2" to="." method="_on_unit_slot_pressed"]

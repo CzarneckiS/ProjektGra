@@ -101,3 +101,6 @@ sprite_frames = SubResource("SpriteFrames_lrya3")
 position = Vector2(0, -2)
 scale = Vector2(0.25, 0.25)
 shape = SubResource("CapsuleShape2D_yxh1c")
+
+[node name="sfx_charge" type="AudioStreamPlayer2D" parent="."]
+bus = &"sfx"

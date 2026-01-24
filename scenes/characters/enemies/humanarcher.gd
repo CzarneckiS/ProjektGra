@@ -12,7 +12,7 @@ var own_tags : PackedInt32Array = []
 const experience_value = 20
 
 #movement
-var speed = 300
+var speed = 350
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position
@@ -76,6 +76,8 @@ func _ready() -> void:
 	#dodawanie shaderow to wszystkich spritow
 	for child in $Sprite2D.get_children():
 		child.use_parent_material = true
+		for child_deeper in child.get_children():
+			child_deeper.use_parent_material = true
 	for raycast in raycast_array:
 		raycast.set_collision_mask(0b100)
 #VISUALSY ===============================================================================
@@ -120,7 +122,8 @@ func move_to_target(delta,target_position): #CLOSE RANGE MOVEMENT
 				#print("im setting this stuff to true")
 				unit_stuck_boolean = true
 			else:
-				print("odleglosc byla wieksza niz epsilon")
+				pass
+				#print("odleglosc byla wieksza niz epsilon")
 		if unit_stuck_boolean:
 			pathfinding_raycast = send_out_raycasts(target_position)
 		last_position = global_position
@@ -174,6 +177,7 @@ func _on_navigation_timer_timeout() -> void:
 #COMBAT ===============================================================================
 func hit(damage_taken, damage_source) -> bool:
 	if health > 0:
+		Audio.play_audio($sfx_receive_dmg)
 		if damage_source not in status_effects_array:
 			$Sprite2D.material.set_shader_parameter(&'progress',1)
 			$Timers/HitFlashTimer.start()
@@ -209,6 +213,7 @@ func death():
 		skill.use(self)
 
 func attack():
+	Audio.play_audio($sfx_attack)
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		for skill in skills_on_hit:
 			skill.use(self, attack_target.get_ref())

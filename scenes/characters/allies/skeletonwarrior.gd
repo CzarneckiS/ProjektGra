@@ -8,14 +8,14 @@ var skills_on_hit : Array = [melee_attack_vfx]
 var skills_on_death : Array = []
 var own_tags: PackedInt32Array = [Tags.UnitTag.UNIT, Tags.UnitTag.ALLIED, Tags.UnitTag.SKELETON_WARRIOR]
 #movement
-var speed = 300
+var speed = 375
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position
 var next_path_position
 var can_navigate:bool = true
-var follow_distance_idle:int = 400
-var follow_distance_absolute:int = 1000
+var follow_distance_idle:int = 500
+var follow_distance_absolute:int = 1200
 var movement_order #rozkaz tworzony w levelu przy right clickowaniu
 #combat
 var base_damage = 15
@@ -38,7 +38,7 @@ var state_machine
 @onready var unstick_timer: Timer = $Timers/UnstickTimer
 
 func _ready() -> void:
-	unit_hud_order = 1
+	unit_hud_order = 2
 
 	icon_texture = "res://sprites/ui/skeleton warrior icon.png"
 
@@ -81,7 +81,8 @@ func _ready() -> void:
 	#dodawanie shaderow to wszystkich spritow
 	for child in $Sprite2D.get_children():
 		child.use_parent_material = true
-		
+		for child_deeper in child.get_children():
+			child_deeper.use_parent_material = true
 	#ustawianie maski dla raycastów
 	#1 znajduje sie na 6 bicie czyli collision mask = 6 (Allies)
 	#dodac normalne przeszkody??
@@ -117,9 +118,11 @@ func handle_skill_update(skill):
 	for i in range(own_tags.size()):
 		if skill.unit_tags.has(own_tags[i]):
 			if skill.use_tags.has(Tags.UseTag.STAT_UP):
+				skills_stat_up.erase(skill)
 				skills_stat_up.append(skill)
 				skill.use(self)
 			if skill.use_tags.has(Tags.UseTag.PASSIVE):
+				skills_stat_up.erase(skill)
 				skills_passive.append(skill)
 				skill.use(self)
 			if skill.use_tags.has(Tags.UseTag.ON_HIT):
@@ -264,26 +267,30 @@ func _on_navigation_timer_timeout() -> void:
 
 func follow_player() -> void:
 	if global_position.distance_to(Globals.player_position) > follow_distance_absolute:
-		state_machine.command = state_machine.commands.NONE
-		move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
-		state_machine.state = state_machine.states.moving
-		return
-	if state_machine.state == state_machine.states.idle: #powrót nawet podczas walki
+		global_position = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
+		attack_target = null
+		move_target = null
+		state_machine.state = state_machine.states.idle
+		#state_machine.command = state_machine.commands.FOLLOW_PLAYER
+		#move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
+		#state_machine.state = state_machine.states.moving
+	if state_machine.state == state_machine.states.idle:
 		if global_position.distance_to(Globals.player_position) > follow_distance_idle:
 			state_machine.command = state_machine.commands.FOLLOW_PLAYER
 			move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
 			state_machine.state = state_machine.states.moving
 	elif state_machine.command == state_machine.commands.FOLLOW_PLAYER:
 		move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
-
 #COMBAT ===============================================================================
 func hit(damage_taken, damage_source) -> bool:
 	if health > 0:
 		if damage_source not in status_effects_array:
 			$Sprite2D.material.set_shader_parameter(&'progress',1)
+			Audio.play_audio($sfx_receive_hit)
 			$Timers/HitFlashTimer.start()
 			$Particles/HitParticles.emitting = true
 			took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
+			
 	health_bar.visible = true
 	damage_bar.visible = true
 	
@@ -333,6 +340,7 @@ func heal(heal_amount):
 		tween.set_trans(Tween.TRANS_SINE)
 		tween.set_ease(Tween.EASE_OUT)
 func attack():
+	Audio.play_audio($sfx_attack)
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		#check czy cel nie odszedl za daleko
 		if global_position.distance_to(attack_target.get_ref().global_position) < 300:

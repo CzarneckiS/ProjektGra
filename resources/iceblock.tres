@@ -9,7 +9,6 @@
 
 [sub_resource type="Resource" id="Resource_sxjjv"]
 script = ExtResource("3_sxjjv")
-base_damage = 35
 metadata/_custom_type_script = "uid://dnv5i0eq6rlp7"
 
 [sub_resource type="Resource" id="Resource_3oprw"]
@@ -22,7 +21,7 @@ metadata/_custom_type_script = "uid://doefgekdmwu85"
 script = ExtResource("2_8vg0c")
 effect_damage = SubResource("Resource_sxjjv")
 effect_knockback = SubResource("Resource_3oprw")
-skill_name = "Glacial barrier"
+skill_name = "Glacial Barrier"
 skill_desc = "lodowy klocuch"
 cooldown = 3.5
 visual_effect = ExtResource("5_6v3ww")

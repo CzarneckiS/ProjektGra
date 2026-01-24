@@ -10,6 +10,7 @@ var melee_attack_vfx = preload("res://vfx/melee_attack_slash/boss_attack_slash_v
 var own_tags : PackedInt32Array = []
 #exp ktory daje warrior, wykorzystywany przekazywany do fsm w dying state
 const experience_value = 50
+signal boss_died()
 
 #movement
 var speed = 300
@@ -42,6 +43,8 @@ func _ready() -> void:
 	base_max_health = 600
 	max_health  = base_max_health
 	health = max_health
+	Globals.boss_max_health = max_health
+	Globals.health = max_health
 	health_bar.max_value = max_health
 	health_bar.value = max_health
 	health_bar.visible = false
@@ -166,7 +169,7 @@ func _on_navigation_timer_timeout() -> void:
 var chunk_size : int = 50
 var map_size : int = 1600
 @warning_ignore("integer_division")
-var half_map_size : int = map_size / 2
+var half_map_size = map_size / 2
 @warning_ignore("integer_division")
 var chunk_row_count : int = map_size / chunk_size
 var chunks : Array = []
@@ -176,9 +179,7 @@ func prepare_targeting_chunks() -> void:
 		for j in range(chunk_row_count):
 			chunks[i].append(0)
 func add_to_heatmap(target_position: Vector2):
-	@warning_ignore("narrowing_conversion")
 	var chunk_x : int = (target_position.x - global_position.x + half_map_size) / chunk_size
-	@warning_ignore("narrowing_conversion")
 	var chunk_y : int = (target_position.y - global_position.y + half_map_size) / chunk_size
 	if chunk_x in range(chunk_row_count) and chunk_y in range(chunk_row_count):
 		chunks[chunk_x][chunk_y] += 1
@@ -247,6 +248,7 @@ func clear_chunks():
 			chunks[i][j] = 0
 func hit(damage_taken, damage_source) -> bool:
 	if health > 0:
+		Audio.play_audio($sfx_receive_dmg)
 		if damage_source not in status_effects_array:
 			#to hitflash or not to hitflash
 			#$Sprite2D.material.set_shader_parameter(&'progress',1)
@@ -258,7 +260,8 @@ func hit(damage_taken, damage_source) -> bool:
 	
 	health -= damage_taken
 	health_bar.value = health
-	
+	Globals.boss_current_health = health
+	Globals.boss_health_changed.emit()
 	if damage_source is Area2D:
 		start_hit_flash(damage_source)
 	
@@ -277,7 +280,7 @@ func hit(damage_taken, damage_source) -> bool:
 	else:
 		return true #jednostka ma ponad 0hp więc wciąż żyje
 func death():
-	pass #koniec gry tutaj :p
+	boss_died.emit()
 var best_chunk_position: Vector2 #setowane w state machine bo potrzebna jest mi pozycja do obracania
 func cast_explosive_circle_single():
 	explosive_circle.use(self, best_chunk_position)
@@ -303,7 +306,7 @@ func cast_explosive_circle_single():
 func cast_homing_projectile(projectile_amount : int):
 	for i in range(projectile_amount):
 		homing_projectile.use(self, Globals.player)
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 
 func cast_fire_wave_single():
 	fire_wave.use(self, Globals.player_position)
@@ -324,6 +327,7 @@ func ranged_attack():
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		projectile.use(self, attack_target.get_ref())
 func melee_attack():
+	Audio.play_audio($sfx_slash)
 	melee_attack_vfx.use(self, attack_target.get_ref())
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		#check czy cel nie odszedl za daleko

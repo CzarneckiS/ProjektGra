@@ -16,31 +16,54 @@ var skeleton_mage = preload("res://scenes/characters/allies/skeletonmage.tscn")
 #var command_spells_hud = load("res://scenes/levels/hud.tscn").instantiate() 
 #var lvl_up_upgrades_menu = load("res://scenes/ui/lvlup_menu.tscn").instantiate()
 
+var first_ost_play: bool = true
+var wave_switch: bool = false
 
 func _ready():
-	var tween = create_tween()
-	tween.tween_property($BlackScreen,"modulate:a",0,2)
+	if first_ost_play:
+		first_ost_play = false
+		var music_tween = create_tween()
+		music_tween.tween_property($level_ost, "volume_db", -35.0, 0.0)
+		music_tween.tween_property($level_ost, "volume_db", 0.0, 6.0)
+	
+		music_tween.set_ease(Tween.EASE_IN)
+		$level_ost.play()
+	else:
+		$level_ost.play()
 	$Player.connect("summon_unit", on_summon_unit)
 	$Player.connect("took_damage", on_unit_damage_taken)
 	Globals.lvl_up_menu_requested.connect(show_lvl_up_menu)
 	hud.process_mode = Node.PROCESS_MODE_ALWAYS
 	#lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
-	$HudLayer.add_child(hud)
-	$Player/EnemySpawnArea/Timer.connect("timeout", _on_timer_timeout)
+	$HudLayer.add_child(stats_hud)
+	$Player.connect("player_died", _on_player_died)
 	add_child(timer_between_waves)
 	timer_between_waves.autostart = false
 	timer_between_waves.one_shot = true
 	timer_between_waves.wait_time = 1
 	timer_between_waves.timeout.connect(wave_logic)
+	add_child(force_wave_timer)
+	force_wave_timer.autostart = false
+	force_wave_timer.one_shot = true
+	force_wave_timer.wait_time = 10
+	force_wave_timer.timeout.connect(force_wave_logic)
+	var big_text = preload("res://scenes/ui/big_text_animation.tscn").instantiate()
+	await get_tree().create_timer(0.5,false).timeout
+	$HudLayer.add_child(big_text)
+	await get_tree().create_timer(3,false).timeout
+	var tween = create_tween()
+	tween.tween_property(big_text, "modulate:a", 0, 1)
 	await tween.finished
 	timer_between_waves.start()
+	force_wave_timer.start()
+	big_text.queue_free()
+	make_night()
 	
-
-#BARDZO TEMPORARY
-var starting_skill_chosen = true
-signal starting_skill()
 func _process(_delta: float) -> void:
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
+	if (enemies_defeated == enemies_spawned and wave_switch) or (force_wave and wave_switch):
+		wave_switch = false
+		timer_between_waves.start()
 	
 func show_lvl_up_menu():  
 	get_tree().paused = true
@@ -48,41 +71,108 @@ func show_lvl_up_menu():
 	lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	$LvlUpUpgradesLayer.add_child(lvl_up_upgrades_menu)
 
+func _on_player_died():
+	var lose_screen = preload("res://scenes/ui/lose_screen.tscn").instantiate()             
+	lose_screen.process_mode = Node.PROCESS_MODE_ALWAYS
+	$MenuLayer.add_child(lose_screen)
+	get_tree().paused = true
 
+func _on_boss_killed():
+	await get_tree().create_timer(0.5,false).timeout
+	var win_screen = preload("res://scenes/ui/win_screen.tscn").instantiate()          
+	win_screen.process_mode = Node.PROCESS_MODE_ALWAYS
+	$MenuLayer.add_child(win_screen)
+	get_tree().paused = true
 
 #SPAWNING JEDNOSTEK ================================================================
 var enemies_defeated: int = 0
 var enemies_spawned: int = 0
 var enemies_to_spawn: int = 0
 var wave_counter: int = 1
-var max_wave: int = 30
+var max_wave: int = 4
 var h_warriors_to_spawn: int = 2
-var h_mages_to_spawn: int = 1
-var h_archers_to_spawn: int = 1
+var h_mages_to_spawn: int = 0
+var h_archers_to_spawn: int = 0
 var timer_between_waves: Timer = Timer.new()
+var force_wave_timer: Timer = Timer.new()
+@warning_ignore("integer_division")
+var half_of_max_waves: int = max_wave/2
+
+var is_night: bool = false
+
+func make_night():
+	$StageLightingNight.visible = true
+	$StageLightingNight.energy = 0.0
+	var tween = create_tween()
+	tween.tween_property($StageLightingNight, "energy", 1.25, 5)
+	is_night = true
+	change_ost()
+	
+func make_day():
+	var tween = create_tween()
+	tween.tween_property($StageLightingNight, "energy", 0.0, 5)
+	$StageLightingNight.visible = false
+	is_night = false
+	change_ost()
+
+func change_ost():
+	if is_night:
+		$level_ost_night.play($level_ost.get_playback_position())
+		$level_ost_night.volume_db = -35.0
+		var tween = create_tween()
+		tween.parallel().tween_property($level_ost, "volume_db", -80, 3)
+		tween.parallel().tween_property($level_ost_night, "volume_db", 0, 3)
+		tween.chain().tween_callback($level_ost.stop)
+	elif !is_night:
+		$level_ost.play($level_ost_night.get_playback_position())
+		$level_ost.volume_db = -35.0
+		var tween_2 = create_tween()
+		tween_2.parallel().tween_property($level_ost_night, "volume_db", -80, 3)
+		tween_2.parallel().tween_property($level_ost, "volume_db", 0, 3)
+		tween_2.chain().tween_callback($level_ost_night.stop)
+
+var force_wave: bool = false
+func force_wave_logic():
+	force_wave = true
 
 func wave_logic():
+	print("przed:")
 	print("ile pokonano: ", enemies_defeated)
 	print("ile zespawniono: ", enemies_spawned)
 	print("ile ma byc zespawnione: ", enemies_to_spawn)
-	
+	if wave_counter == half_of_max_waves:
+		make_night()
 	if wave_counter == max_wave:
-		return
-	if enemies_defeated >= enemies_spawned:
+		wave_counter += 1
+		Globals.wave_count = wave_counter
+		Globals.wave_count_update.emit()
+		make_day()
+		spawn_enemy(boss)
+	if (enemies_defeated >= enemies_spawned and wave_counter < max_wave) or force_wave:
 		enemy_spawn_by_wave(wave_counter)
 		new_wave()
 		wave_counter += 1
-	timer_between_waves.call_deferred("start")
+		#stworzylem abominacje, may lord have mercy upon my soul
+		Globals.wave_count += 1
+		Globals.wave_count_update.emit()
+	print("po:")
+	print("ile pokonano: ", enemies_defeated)
+	print("ile zespawniono: ", enemies_spawned)
+	print("ile ma byc zespawnione: ", enemies_to_spawn)
+	force_wave_timer.wait_time += 1
+	wave_switch = true
+	force_wave = false
+	force_wave_timer.start()
 	
 func new_wave():
-	enemies_defeated = 0 #sygnał od unitów on_death aktualizuje zmienna
+	#enemies_defeated = 0 #sygnał od unitów on_death aktualizuje zmienna
 	for warriors in range(h_warriors_to_spawn):
 		spawn_enemy(human_warrior)
 	for mages in range(h_mages_to_spawn):
 		spawn_enemy(human_mage)
 	for archers in range(h_archers_to_spawn):
 		spawn_enemy(human_archer)
-	enemies_spawned = enemies_to_spawn
+	enemies_spawned += enemies_to_spawn
 	
 func enemy_spawn_by_wave(wave_number):
 	enemies_to_spawn = 0
@@ -95,9 +185,9 @@ func enemy_spawn_by_wave(wave_number):
 	if wave_number % 2 == 0:
 		h_warriors_to_spawn += h_warriors_spawn_increase
 	if wave_number % 3 == 0:
-		h_mages_to_spawn += h_mages_spawn_increase
-	if wave_number % 4 == 0:
 		h_archers_to_spawn += h_archers_spawn_increase
+	if wave_number % 4 == 0:
+		h_mages_to_spawn += h_mages_spawn_increase
 	
 	enemies_to_spawn = h_warriors_to_spawn + h_mages_to_spawn + h_archers_to_spawn
 	
@@ -111,13 +201,9 @@ func spawn_enemy(enemy_type): # EnemySpawnFollow bierzemy jako unique name
 	new_enemy.connect("target_clicked", _on_target_clicked)
 	new_enemy.connect("took_damage", on_unit_damage_taken)
 	new_enemy.connect("unit_died", on_unit_death)
-var test = 0
-#timer okresla co jaki czas bedzie respiony mob, feel free to change
-func _on_timer_timeout() -> void:
-	if test <= 300: #temporary, spawni mobki az nie bedzie ich 300
-		#spawn_enemy(enemy_type)
-		test += 1
-		#print(test)
+	if enemy_type == boss:
+		new_enemy.connect("boss_died", _on_boss_killed)
+		Globals.boss_appeared.emit()
 
 func on_summon_unit(unit):
 	match unit:
@@ -134,12 +220,12 @@ func on_unit_death(unit):
 				order.unit_array.erase(unit)
 	match unit:
 		Tags.UnitTag.SKELETON_MAGE:
-			await get_tree().create_timer(5.0 * $Player.summon_respawn_timer_modifier).timeout
+			await get_tree().create_timer(5.0 * $Player.summon_respawn_timer_modifier,false).timeout
 			summon_skeleton_mage()
 		Tags.UnitTag.SKELETON_WARRIOR:
 			print($Player.summon_respawn_timer_modifier)
 			print(5.0 * $Player.summon_respawn_timer_modifier)
-			await get_tree().create_timer(5.0 * $Player.summon_respawn_timer_modifier).timeout
+			await get_tree().create_timer(5.0 * $Player.summon_respawn_timer_modifier,false).timeout
 			summon_skeleton_warrior()
 		Tags.UnitTag.HUMAN_WARRIOR:
 			enemies_defeated += 1
@@ -302,6 +388,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		new_enemy.connect("target_clicked", _on_target_clicked)
 		new_enemy.connect("took_damage", on_unit_damage_taken)
 		new_enemy.connect("unit_died", on_unit_death)
+		new_enemy.connect("boss_died", _on_boss_killed)
+		Globals.boss_appeared.emit()
+
 
 #MOVEMENT ======================================================================================
 var movement_orders : Array = []
@@ -349,6 +438,8 @@ func on_unit_damage_taken(damage: int, unit):
 		color = "#F00"
 		if unit in get_tree().get_nodes_in_group("Player"):
 			damage_number.label_settings.font_size = 36
+	else: #jesli  
+		create_blood_splatter(unit.global_position)
 	damage_number.label_settings.font_color = color
 
 	damage_number.label_settings.outline_color = "#000"
@@ -362,6 +453,25 @@ func on_unit_damage_taken(damage: int, unit):
 	tween.tween_property(damage_number,"global_position:x",damage_number.global_position.x + randi_range(-20, 20), 0.5)
 	await tween.finished
 	damage_number.queue_free()
+func create_blood_splatter(unit_position: Vector2):
+	if randi_range(0,5) != 1: #20 procent szansy ze pojawi sie blood splatter
+		return
+	var blood_splatter_array: Array = [preload("res://sprites/terrain/blood_splatter1.png"),
+		preload("res://sprites/terrain/blood_splatter2.png"),
+		preload("res://sprites/terrain/blood_splatter3.png"),
+		preload("res://sprites/terrain/blood_splatter4.png"),
+		preload("res://sprites/terrain/blood_splatter5.png"),]
+	var blood_node:= Sprite2D.new()
+	blood_node.texture = blood_splatter_array[randi()%blood_splatter_array.size()]
+	blood_node.scale *= randf_range(0.15,0.25)
+	$Ground/BloodLayer.add_child(blood_node)
+	blood_node.global_position = unit_position
+	await get_tree().create_timer(5,false).timeout
+	var tween = create_tween()
+	tween.tween_property(blood_node,"modulate:a",0,0.5)
+	await tween.finished
+	blood_node.queue_free()
+	
 func _on_target_clicked(body): #Sygnał od human warriora, czy został kliknięty
 	for unit in get_tree().get_nodes_in_group("Selected"): #Jeśli jednostka jest zaznaczona
 		unit.attack_target = weakref(body) #wyślij do niej human warriora jako cel ataku

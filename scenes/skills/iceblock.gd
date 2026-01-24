@@ -4,6 +4,7 @@ class_name IceblockSpell
 var skill_resource: Iceblock
 const diagonal_threshold = 0.6
 var lifespan: Timer = Timer.new()
+var actual_orientation: String = ""
 @onready var opacity_area: Area2D = $pivotpoint/opacity_area
 @onready var damage_area: Area2D = $pivotpoint/damage_area
 @onready var knockback_area: Area2D = $pivotpoint/knockback_area
@@ -39,6 +40,8 @@ func _ready():
 	lifespan.timeout.connect(_on_lifespan_timeout)
 	
 	navigation_region_2d.call_deferred("bake_navigation_polygon")
+	
+	$pivotpoint/iceblock_sfx.play()
 
 func _on_lifespan_timeout():
 	call_deferred("queue_free")
@@ -71,9 +74,11 @@ func get_screen_region() -> String:
 	var abs_y = abs(offset.y)
 	
 	if abs_x > abs_y * (1.0 + diagonal_threshold):
-		return region.replace("Up", "").replace("Down", "")
-	if abs_y > abs_x * (1.0 + diagonal_threshold):
-		return region.replace("Right", "").replace("Left", "")
+		region = region.replace("Up", "").replace("Down", "")
+	elif abs_y > abs_x * (1.0 + diagonal_threshold):
+		region = region.replace("Right", "").replace("Left", "")
+	
+	actual_orientation = region
 	
 	return region
 	
@@ -100,6 +105,9 @@ func _get_iceblock_animation():
 
 func update_opacity_update(_body):
 	var opacity_tween = create_tween()
+	if broken:
+		opacity_tween.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.05)
+		return
 	if opacity_area.get_overlapping_bodies().is_empty():
 		opacity_tween.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.15) 
 	else:
@@ -112,3 +120,32 @@ func _on_iceblock_projectile_block_entered(projectile):
 		projectile.call_deferred("queue_free")
 	else:
 		return
+
+var broken: bool = false
+
+func change_sprite_to_broken():
+	broken = true
+	var opacity_tween = create_tween()
+	opacity_tween.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.15)
+	opacity_tween.set_trans(Tween.TRANS_SINE)
+	opacity_tween.set_ease(Tween.EASE_OUT)
+	$pivotpoint/iceblock_sprites.visible = false
+	match actual_orientation:
+		"Up":
+			$pivotpoint/broken_front.visible = true
+		"Down":
+			$pivotpoint/broken_front.visible = true
+		"Left":
+			$pivotpoint/broken_side.visible = true
+		"Right":
+			$pivotpoint/broken_side.visible = true
+		"RightUp":
+			pivotpoint.scale.x = -1
+			$pivotpoint/broken_diagonal.visible = true
+		"LeftUp":
+			$pivotpoint/broken_diagonal.visible = true
+		"RightDown":
+			$pivotpoint/broken_diagonal.visible = true
+		"LeftDown":
+			pivotpoint.scale.x = -1
+			$pivotpoint/broken_diagonal.visible = true

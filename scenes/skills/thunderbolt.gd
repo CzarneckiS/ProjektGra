@@ -23,13 +23,15 @@ func initialize(spawn_position: Vector2, skill_res: Thunderbolt):
 func _ready():
 	$thunderbolt_animation.play("default")
 	$thunderbolt_animation.animation_finished.connect(_on_animation_finished)
+	Audio.play_audio($thunderbolt_sfx)
+	$thunderbolt_sfx.finished.connect(_on_sfx_finished)
 	body_entered.connect(_on_body_entered)
 
 func _on_animation_finished():
 	#var mark = burn_mark.instantiate()
 	#get_parent().add_child(mark)
 	#mark.global_position = global_position
-	call_deferred("queue_free")
+	call_deferred("hide")
 	
 func _physics_process(_delta: float) -> void:
 	if skill_resource == null:
@@ -49,3 +51,6 @@ func is_point_on_map(target_point: Vector2) -> bool:
 		return true
 	else:
 		return false
+
+func _on_sfx_finished():
+	call_deferred("queue_free")

@@ -26,7 +26,7 @@ func check_if_can_stop(body : Node2D):
 						stop_body(body)
 						return
 			if body.state_machine.state != body.state_machine.states.idle:
-				await body.get_tree().create_timer(0.3).timeout
+				await body.get_tree().create_timer(0.3,false).timeout
 				if body:
 					check_if_can_stop(body)
 

@@ -9,6 +9,7 @@ func initialize(spawn_position: Vector2, skill_damage: int):
 	global_position = spawn_position
 
 func _ready():
+	Audio.play_audio($sfx_explosivecircle)
 	$AnimatedSprite2D.play("default")
 	$AnimatedSprite2D.animation_finished.connect(_on_animation_finished)
 	body_entered.connect(_on_body_entered)

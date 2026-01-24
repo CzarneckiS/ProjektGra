@@ -6,5 +6,5 @@
 
 [resource]
 script = ExtResource("2_dq7qi")
-skill_name = "skeleton_mage"
+skill_name = "Summon Mage"
 icon = ExtResource("2_eamg4")

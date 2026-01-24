@@ -14,10 +14,14 @@ extends Node2D
 @onready var text_e: Label = $TextE
 @onready var spell_data_icon: TextureRect = $SpellDataIcon
 
+var EMPTY_ICON = preload("res://sprites/icons/question mark.png")
+
 func _ready() -> void:
 	button_back_to_menu.pressed.connect(_on_button_backto_menu_pressed)
 	button_back_to_menu.focus_mode = Control.FOCUS_NONE
 	_setup_hover(button_back_to_menu, button_back_to_menu_highlight)
+	for icon: TextureRect in ach_icons:
+		icon.scale = Vector2(2.2,2.2)
 	
 	Achievements.achievement_unlocked.connect(_on_achievement_unlocked)
 	
@@ -27,7 +31,7 @@ func _ready() -> void:
 	#Achievements.unlock_achievement("mages_killed")
 	
 func _on_button_backto_menu_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
+	get_tree().call_deferred("change_scene_to_file","res://scenes/ui/main_menu.tscn")
 
 func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 	highlight.visible = false
@@ -87,23 +91,25 @@ func _on_icon_hover(icon_node: TextureRect) -> void:
 		spell_data_icon.visible = true
 		text_c.text = skill.skill_name
 		text_d.text = skill.skill_desc
-		text_e.text = Achievements.achievement_description_list.get(achievement_key, "")
+		#text_e.text = Achievements.achievement_description_list[Achievements.skill_unlock_handler.skill_unlock_dictionary[skill]]
 	else:
-		spell_data_icon.visible = false
-		text_c.text = ""
-		text_d.text = ""
-		text_e.text = "For unlock:\n" + Achievements.achievement_description_list.get(achievement_key, "")
-
+		spell_data_icon.texture = EMPTY_ICON
+		text_c.text = "???"
+		text_d.text = Achievements.achievement_description_list[Achievements.skill_unlock_handler.skill_unlock_dictionary[skill]]
+		#text_e.text = 
 
 	spell_data_icon.custom_minimum_size = Vector2(50, 50)
 	spell_data_icon.expand = true
 	spell_data_icon.stretch_mode = TextureRect.STRETCH_SCALE
 	spell_data_icon.update_minimum_size()
+	
 
+	
 
 
 func _clear_spell_data() -> void:
-	spell_data_icon.visible = false
+	return
+	spell_data_icon.texture = null
 	text_c.text = ""
 	text_d.text = ""
 	text_e.text = ""

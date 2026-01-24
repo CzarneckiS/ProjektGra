@@ -8,7 +8,7 @@ var skills_on_hit : Array = [projectile]
 var skills_on_death : Array = []
 var own_tags: PackedInt32Array = [Tags.UnitTag.UNIT, Tags.UnitTag.ALLIED, Tags.UnitTag.SKELETON_MAGE]
 #movement
-var speed = 300
+var speed = 350
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position = Vector2.ZERO #temporary, bedzie wymienione przy pathfindingu
@@ -40,7 +40,7 @@ var state_machine
 @onready var unstick_timer: Timer = $Timers/UnstickTimer
 
 func _ready() -> void:
-	unit_hud_order = 3
+	unit_hud_order = 1
 	icon_texture = "res://sprites/ui/skeleton mage icon.png"
 
 	base_max_health = 60
@@ -81,6 +81,8 @@ func _ready() -> void:
 	#dodawanie shaderow to wszystkich spritow
 	for child in $Sprite2D.get_children():
 		child.use_parent_material = true
+		for child_deeper in child.get_children():
+			child_deeper.use_parent_material = true
 	for raycast in raycast_array:
 		raycast.set_collision_mask(0b100000)
 	handle_skills()
@@ -113,9 +115,11 @@ func handle_skill_update(skill):
 	for i in range(own_tags.size()):
 		if skill.unit_tags.has(own_tags[i]):
 			if skill.use_tags.has(Tags.UseTag.STAT_UP):
+				skills_stat_up.erase(skill)
 				skills_stat_up.append(skill)
 				skill.use(self)
 			if skill.use_tags.has(Tags.UseTag.PASSIVE):
+				skills_stat_up.erase(skill)
 				skills_passive.append(skill)
 				skill.use(self)
 			if skill.use_tags.has(Tags.UseTag.ON_HIT):
@@ -257,10 +261,13 @@ func _on_navigation_timer_timeout() -> void:
 
 func follow_player() -> void:
 	if global_position.distance_to(Globals.player_position) > follow_distance_absolute:
-		state_machine.command = state_machine.commands.NONE
-		move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
-		state_machine.state = state_machine.states.moving
-		return
+		global_position = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
+		attack_target = null
+		move_target = null
+		state_machine.state = state_machine.states.idle
+		#state_machine.command = state_machine.commands.FOLLOW_PLAYER
+		#move_target = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
+		#state_machine.state = state_machine.states.moving
 	if state_machine.state == state_machine.states.idle: #powrót nawet podczas walki
 		if global_position.distance_to(Globals.player_position) > follow_distance_idle:
 			state_machine.command = state_machine.commands.FOLLOW_PLAYER
@@ -275,6 +282,7 @@ func hit(damage_taken, damage_source) -> bool:
 		if damage_source not in status_effects_array:
 			$Sprite2D.material.set_shader_parameter(&'progress',1)
 			$Timers/HitFlashTimer.start()
+			Audio.play_audio($sfx_receive_hit)
 			$Particles/HitParticles.emitting = true
 			took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
 	health_bar.visible = true
@@ -324,6 +332,7 @@ func heal(heal_amount):
 		tween.set_trans(Tween.TRANS_SINE)
 		tween.set_ease(Tween.EASE_OUT)
 func attack():
+	Audio.play_audio($sfx_projectile)
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		for skill in skills_on_hit:
 			skill.use(self, attack_target.get_ref())

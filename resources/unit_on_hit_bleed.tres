@@ -13,5 +13,5 @@ metadata/_custom_type_script = "uid://dnv5i0eq6rlp7"
 [resource]
 script = ExtResource("2_l6e7f")
 skill_effect_data = SubResource("Resource_rmfbc")
-skill_name = "on_hit_bleed"
+skill_name = "Ragged Blade"
 icon = ExtResource("1_f5ede")

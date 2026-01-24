@@ -73,7 +73,10 @@ func _ready() -> void:
 	Globals.ui_exp_update_requested.connect(update_exp_bar)
 	Globals.ui_unit_died.connect(_on_unit_died)
 	Globals.units_selection_changed.connect(update_units_panel)
-	
+	Globals.wave_count_update.connect(wave_count_update)
+	Globals.boss_appeared.connect(_on_boss_appeared)
+	Globals.boss_health_changed.connect(update_boss_health_bar)
+
 	# zapisanie slotów jednostek
 	for child in units_panel.get_children():
 		if child is TextureButton:
@@ -88,10 +91,9 @@ func _ready() -> void:
 	xp_gain_bar.value = Globals.xp_to_level
 	xp_gain_bar.visible = true
 
-	player_level.text = "LVL: %d" % Globals.level
+	player_level.text = "%d" % Globals.level
 	hp_value.text = "%d / %d" % [Globals.health, Globals.max_health]
 	xp_value.text = "%d / %d" % [Globals.accumulated_xp, Globals.xp_to_level]
-	
 	set_process_unhandled_input(true)  # aby działało _unhandled_input
 	
 	icon_page_1.visible = false
@@ -197,8 +199,27 @@ func update_exp_bar():
 	xp_tween.tween_property(xp_gain_bar, "value", Globals.xp_to_level - Globals.accumulated_xp, 0.5)
 	xp_tween.set_trans(Tween.TRANS_SINE)
 	xp_tween.set_ease(Tween.EASE_IN_OUT)
-	player_level.text = "LVL: %d" % Globals.level
+	player_level.text = "%d" % Globals.level
+	if Globals.level > 1:
+		player_level.position = Vector2(24,31)
 
+func update_boss_health_bar():
+	$BossHealthBar.value = Globals.boss_current_health
+	#var main_health_tween = create_tween()
+	#main_health_tween.tween_property($BossHealthBar, "value", normalized_boss_health, 0.5)
+	#main_health_tween.set_trans(Tween.TRANS_SINE)
+	#main_health_tween.set_ease(Tween.EASE_IN_OUT)
+
+func _on_boss_appeared():
+	$BossHealthBar.visible = true
+	$WaveCounter2.visible = true
+	$WaveCounterLabel3.visible = true
+	$WaveCounterLabel4.visible = true
+	$TextureRect.visible = true
+	$BossHealthBar.max_value = Globals.boss_max_health
+	$BossHealthBar.value = Globals.boss_max_health
+func wave_count_update():
+	$WaveCounterLabel2.text = "%d/20" %(Globals.wave_count-1)
 
 func update_units_panel(new_units: Array) -> void:
 	selected_units = new_units.filter(func(u): return is_instance_valid(u))
@@ -219,10 +240,8 @@ func update_units_panel(new_units: Array) -> void:
 	var start = (current_page - 1) * 12
 	var end = min(start + 12, selected_units.size())
 	var visible_units = []
-	
 	if start <= end:
 		visible_units = selected_units.slice(start, end)
-		
 
 		
 	# reset slotów

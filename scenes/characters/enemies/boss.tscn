@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://qs8u8j50ijce"]
+[gd_scene load_steps=37 format=3 uid="uid://qs8u8j50ijce"]
 
 [ext_resource type="PackedScene" uid="uid://bqhi1muo3obss" path="res://scenes/characters/unit.tscn" id="1_n0iwx"]
 [ext_resource type="Script" uid="uid://dr3jylvpelcvh" path="res://scenes/characters/enemies/boss.gd" id="2_n0iwx"]
@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://xt3gjhb8fma1" path="res://sprites/boss/boss_sword.png" id="11_6j5mq"]
 [ext_resource type="Script" uid="uid://b7lk7fxfrl8pm" path="res://scenes/characters/enemies/boss_state_machine.gd" id="11_ydrmd"]
 [ext_resource type="Texture2D" uid="uid://ch10vk2op32wv" path="res://sprites/boss/boss_papier.png" id="12_3ql06"]
+[ext_resource type="AudioStream" uid="uid://jacj6st0gs73" path="res://sfx/enemies/boss/enemy_boss_hit_received.ogg" id="16_7xbev"]
+[ext_resource type="AudioStream" uid="uid://cj6eqjymjxqry" path="res://sfx/enemies/boss/boss_sword_slash/boss_sword_slash.ogg" id="17_sfuxj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cw6kt"]
 resource_local_to_scene = true
@@ -1008,9 +1010,9 @@ shape = SubResource("CapsuleShape2D_o7qs6")
 [node name="DamageBar" parent="." index="6"]
 visible = false
 offset_left = -25.0
-offset_top = -78.0
+offset_top = -162.0
 offset_right = 25.0
-offset_bottom = -70.0
+offset_bottom = -154.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 libraries = {
@@ -1036,9 +1038,9 @@ neighbor_distance = 100.0
 [node name="HealthBar" parent="." index="11"]
 visible = false
 offset_left = -25.0
-offset_top = -78.0
+offset_top = -162.0
 offset_right = 25.0
-offset_bottom = -70.0
+offset_bottom = -154.0
 
 [node name="VisionArea" type="Area2D" parent="." index="12"]
 visible = false
@@ -1055,3 +1057,11 @@ wait_time = 0.5
 visible = false
 position = Vector2(0, -8)
 scale = Vector2(2.266412, 2.266412)
+
+[node name="sfx_receive_dmg" type="AudioStreamPlayer2D" parent="." index="16"]
+stream = ExtResource("16_7xbev")
+bus = &"sfx"
+
+[node name="sfx_slash" type="AudioStreamPlayer2D" parent="." index="17"]
+stream = ExtResource("17_sfuxj")
+bus = &"boss"

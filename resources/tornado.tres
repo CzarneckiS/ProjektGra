@@ -17,14 +17,13 @@ metadata/_custom_type_script = "uid://8g2g4sl8jw6l"
 
 [sub_resource type="Resource" id="Resource_l86aj"]
 script = ExtResource("2_5qvuc")
-damage_per_tick = 0
-ticks_per_second = 3.0
-duration = 8.0
+damage_per_tick = 2
+ticks_per_second = 5.0
+duration = 4.0
 metadata/_custom_type_script = "uid://eb2n0krmxsn8"
 
 [sub_resource type="Resource" id="Resource_tvegk"]
 script = ExtResource("3_ki3mb")
-base_heal = 50.0
 metadata/_custom_type_script = "uid://02kqq8hqw2mm"
 
 [sub_resource type="Resource" id="Resource_3q8t8"]
@@ -44,15 +43,16 @@ effect_dot = SubResource("Resource_l86aj")
 effect_pull = SubResource("Resource_y5duh")
 effect_knockback = SubResource("Resource_3q8t8")
 range_radius = 500.0
-speed = 700.0
-time_before_new_direction = 0.4
-transformation_thunderbolt_frequency = 0.4
-transformation_heal_frequency = 0.5
+speed = 500.0
+time_before_new_direction = 0.6
+transformation_thunderbolt_frequency = 0.5
+transformation_heal_frequency = 0.7
 effect_heal = SubResource("Resource_tvegk")
+amount = 2
 orb_spawn_frequency = 1
-skill_name = "tornado"
+skill_name = "Whirlwind"
 skill_desc = "omega destruction"
-cooldown = 0.1
+cooldown = 10.0
 visual_effect = ExtResource("6_5qvuc")
 icon = ExtResource("7_7wwsm")
 metadata/_custom_type_script = "uid://dvoy1kbe6clpy"

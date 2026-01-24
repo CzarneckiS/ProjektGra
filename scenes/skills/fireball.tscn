@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://sd5b0lkh7u0b"]
+[gd_scene load_steps=22 format=3 uid="uid://sd5b0lkh7u0b"]
 
 [ext_resource type="Script" uid="uid://bgvkjyasjxmxk" path="res://scenes/skills/fireball.gd" id="1_cj314"]
 [ext_resource type="Texture2D" uid="uid://bwl8vhyx664g3" path="res://sprites/fireball/FireballGreen4.png" id="2_mnj7k"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dlnhiy2fgpe1c" path="res://sprites/fireball/fireball_splash/fireball_splash_9.png" id="15_505u0"]
 [ext_resource type="Texture2D" uid="uid://cmep0j61qpf3u" path="res://sprites/fireball/fireball_splash/fireball_splash_10.png" id="16_gg4w2"]
 [ext_resource type="Texture2D" uid="uid://2pd6ciq5llqc" path="res://sprites/fireball/fireball_splash/fireball_splash_11.png" id="17_jspke"]
+[ext_resource type="AudioStream" uid="uid://cm5k8d8igp4bo" path="res://sfx/skills/fireball.ogg" id="19_x8v3f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lrya3"]
 animations = [{
@@ -109,3 +110,6 @@ sprite_frames = SubResource("SpriteFrames_lrya3")
 position = Vector2(20, 0)
 scale = Vector2(0.25, 0.25)
 shape = SubResource("CircleShape2D_cj314")
+
+[node name="fireball_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_x8v3f")

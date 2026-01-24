@@ -21,25 +21,43 @@ var skeleton_mage_count : int = 0
 var summon_respawn_timer_modifier : float = 1
 signal summon_unit()
 signal took_damage(damage, unit)
+signal player_died()
 
 var spell_damage_multiplier = 1
 
 var unit_collision_push_array : Array = []
 var direction : Vector2
 
+func cast_skill(skill_index: int):
+	if skill_index < skills_active.size():
+		var skill = skills_active[skill_index]
+		if skill == null:
+			return
+		match skill.skill_name:
+			fireball_skill.skill_name:
+				cast_fireball()
+			thunderbolt_skill.skill_name:
+				cast_thunderbolt()
+			heal_skill.skill_name:
+				cast_heal()
+			iceblock_skill.skill_name:
+				cast_iceblock()
+			field_skill.skill_name:
+				cast_field()
+			tornado_skill.skill_name:
+				cast_tornado()
+	else:
+		return
+
 func _unhandled_input(event):
-	if event.is_action_pressed("fireball_input"):
-		cast_fireball()
-	if event.is_action_pressed("thunderbolt_input"):
-		cast_thunderbolt()
-	if event.is_action_pressed("heal_input"):
-		cast_heal()
-	if event.is_action_pressed("iceblock_input"):
-		cast_iceblock()
-	if event.is_action_pressed("field_input"):
-		cast_field()
-	if event.is_action_pressed("tornado_input"):
-		cast_tornado()
+	if event.is_action_pressed("skill1"):
+		cast_skill(0)
+	if event.is_action_pressed("skill2"):
+		cast_skill(1)
+	if event.is_action_pressed("skill3"):
+		cast_skill(2)
+	if event.is_action_pressed("skill4"):
+		cast_skill(3)
 
 var fireball_skill: Resource = preload("res://resources/fireball.tres")
 var thunderbolt_skill: Resource = preload("res://resources/thunderbolt.tres")
@@ -63,8 +81,11 @@ func set_cooldown(skill: Resource):
 	skill_cooldowns[key] = current_time + skill.cooldown
 	
 func cast_fireball():
-	if !can_cast(fireball_skill):
+	if !skills_active.has(fireball_skill):
 		return
+	else:
+		if !can_cast(fireball_skill):
+			return
 	
 	set_cooldown(fireball_skill)
 	Globals.emit_skill_cast(fireball_skill)
@@ -74,8 +95,11 @@ func cast_fireball():
 		fireball_skill.use(self, target_pos)
 
 func cast_thunderbolt():
-	if !can_cast(thunderbolt_skill):
+	if !skills_active.has(thunderbolt_skill):
 		return
+	else:
+		if !can_cast(thunderbolt_skill):
+			return
 	
 	set_cooldown(thunderbolt_skill)
 	Globals.emit_skill_cast(thunderbolt_skill)
@@ -85,8 +109,11 @@ func cast_thunderbolt():
 		thunderbolt_skill.use(self, target_pos)
 		
 func cast_heal():
-	if !can_cast(heal_skill):
+	if !skills_active.has(heal_skill):
 		return
+	else:
+		if !can_cast(heal_skill):
+			return
 	
 	set_cooldown(heal_skill)
 	Globals.emit_skill_cast(heal_skill)
@@ -96,8 +123,11 @@ func cast_heal():
 		heal_skill.use(self, player_pos)
 		
 func cast_iceblock():
-	if !can_cast(iceblock_skill):
+	if !skills_active.has(iceblock_skill):
 		return
+	else:
+		if !can_cast(iceblock_skill):
+			return
 	
 	set_cooldown(iceblock_skill)
 	Globals.emit_skill_cast(iceblock_skill)
@@ -107,8 +137,11 @@ func cast_iceblock():
 		iceblock_skill.use(self, target_pos)
 		
 func cast_field():
-	if !can_cast(field_skill):
+	if !skills_active.has(field_skill):
 		return
+	else:
+		if !can_cast(field_skill):
+			return
 	
 	set_cooldown(field_skill)
 	Globals.emit_skill_cast(field_skill)
@@ -118,8 +151,11 @@ func cast_field():
 		field_skill.use(self, target_pos)
 
 func cast_tornado():
-	if !can_cast(tornado_skill):
+	if !skills_active.has(tornado_skill):
 		return
+	else:
+		if !can_cast(tornado_skill):
+			return
 	
 	set_cooldown(tornado_skill)
 	Globals.emit_skill_cast(tornado_skill)
@@ -202,14 +238,17 @@ func handle_skill_update(skill):
 	for i in range(own_tags.size()):
 		if skill.unit_tags.has(own_tags[i]):
 			if skill.use_tags.has(Tags.UseTag.STAT_UP):
+				skills_stat_up.erase(skill)
 				skills_stat_up.append(skill)
 				skill.use(self)
 			if skill.use_tags.has(Tags.UseTag.PASSIVE):
+				skills_stat_up.erase(skill)
 				skills_passive.append(skill)
 				skill.use(self)
 			if skill.use_tags.has(Tags.UseTag.ACTIVE):
 				skills_active.append(skill)
 			if skill.use_tags.has(Tags.UseTag.SUMMON):
+				skills_stat_up.erase(skill)
 				skills_summon.append(skill)
 				skill.use(self)
 			if skill.use_tags.has(Tags.UseTag.UNIT_DEATH):
@@ -226,6 +265,7 @@ func handle_starting_skills():
 
 func hit(damage_taken, _damage_source) -> void:
 	Globals.health -= damage_taken
+	Audio.play_audio($player_sfx)
 	took_damage.emit(damage_taken, self) #do wyswietlania damage numbers
 	$SpriteRoot.material.set_shader_parameter('progress',1)
 	$Timers/HitFlashTimer.start()
@@ -237,6 +277,10 @@ func hit(damage_taken, _damage_source) -> void:
 	health_tween.set_trans(Tween.TRANS_SINE)
 	health_tween.set_ease(Tween.EASE_OUT)
 	Globals.update_player_hp()
+	if Globals.health <= 0:
+		$AnimationPlayer.play("dying")
+		dying = true
+		player_died.emit()
 
 func heal(heal_amount) -> void:
 	#chowac pasek kiedy jest pelny?

@@ -43,22 +43,75 @@ var skill_rarity_table : Dictionary = {
 func add_skill(skill):
 	if skill not in all_skills:
 		all_skills.append(skill)
-		
+
+
 func unlock_skill(skill):
 	if !(skill in unlocked_skills):
 		unlocked_skills.append(skill)
-		print("*EMIT unlock:", skill.skill_name)
-		Globals.emit_skill_unlocked(skill)
+    Globals.emit_skill_unlocked(skill)
+		handle_skill_choice_limits()
+		if skill.skill_level == 0:
+			skill.skill_level = 1
+		for unit in get_tree().get_nodes_in_group("Allied"):
+			unit.handle_skill_update(skill)
 	else:
+		if skill.has_method("upgrade_skill"):
+			skill.upgrade_skill()
 		skill.skill_level += 1
+		if skill.use_tags.has(Tags.UseTag.PASSIVE) or skill.use_tags.has(Tags.UseTag.STAT_UP) or skill.use_tags.has(Tags.UseTag.SUMMON):
+			for unit in get_tree().get_nodes_in_group("Allied"):
+				unit.handle_skill_update(skill)
 
-		
-func reset_unlocked_skills():
+func reset_skills():
+	active_skill_slots_limit_reached = false
+	passive_skill_slots_limit_reached = false
 	for skill in unlocked_skills:
-		skill.skill_level = 1
+		skill.skill_level = 0
 	unlocked_skills = []
 
-#DODAC BOOL = CZY OSIAGNELISMY LIMIT SPELL SLOTOW ! ! ! 
+
+
+var active_skill_slots_limit: int = 4
+var passive_skill_slots_limit: int = 4
+var active_skill_slots_limit_reached: bool = false
+var passive_skill_slots_limit_reached: bool = false
+func handle_skill_choice_limits():
+	#jesli osiagniemy limit skilli to usuwamy dany typ z dostepnych skilli do wybrania(all_skills)
+	var active_skills_chosen: int = 0
+	var passive_skills_chosen: int = 0
+	if !active_skill_slots_limit_reached: #sprawdzamy ilosc aktywnych skilli
+		for skill in unlocked_skills:
+			if skill.use_tags.has(Tags.UseTag.ACTIVE):
+				active_skills_chosen += 1
+		if active_skills_chosen >= active_skill_slots_limit:
+			active_skill_slots_limit_reached = true
+			var skill_to_delete: Array = []
+			#usuwanie
+			for _skill in all_skills:
+				if _skill in unlocked_skills:
+					continue
+				if _skill.use_tags.has(Tags.UseTag.ACTIVE):
+					skill_to_delete.append(_skill)
+			for _skill in skill_to_delete:
+				all_skills.erase(_skill)
+	if !passive_skill_slots_limit_reached:
+		for skill in unlocked_skills:
+			if !skill.use_tags.has(Tags.UseTag.ACTIVE) and !skill.use_tags.has(Tags.UseTag.SUMMON):
+				passive_skills_chosen += 1
+		if passive_skills_chosen >= passive_skill_slots_limit:
+			passive_skill_slots_limit_reached = true
+			var skill_to_delete: Array = []
+			#usuwanie
+			for _skill in all_skills:
+				if _skill in unlocked_skills:
+					continue
+				if !_skill.use_tags.has(Tags.UseTag.ACTIVE) and !_skill.use_tags.has(Tags.UseTag.SUMMON):
+					skill_to_delete.append(_skill)
+			for _skill in skill_to_delete:
+				all_skills.erase(_skill)
+	print(all_skills.size())
+
+
 func get_skill() -> Array:
 	var total_weight = calculate_total_weight() #sprawdzamy laczna wage skilli
 	var available_skills: Dictionary = {}

@@ -10,6 +10,9 @@ extends Control
 @onready var highlight_3: TextureRect = $ButtonOptions/Highlight
 @onready var highlight_4: TextureRect = $ButtonExit/Highlight
 
+var screen_starting_pos
+var parallax_speed = 5
+
 func _ready() -> void:
 	#opening z czaszka na start
 	if !Globals.opening_shown:
@@ -22,9 +25,11 @@ func _ready() -> void:
 		tween2.tween_property($Skull,"modulate:a",0,0.5)
 		tween2.tween_property($BlackScreen,"modulate:a",0,0.5)
 		Globals.opening_shown = true
+		await get_tree().create_timer(0.7).timeout
+		Audio.play_main_menu()
 	else:
+		Audio.play_main_menu()
 		$BlackScreen.visible = false
-
 	$ButtonStart.pressed.connect(_on_button_start_pressed)
 	$ButtonExit.pressed.connect(_on_button_exit_pressed)
 	$ButtonAchievments.pressed.connect(_on_button_achievements_pressed)
@@ -34,12 +39,20 @@ func _ready() -> void:
 	button_options.focus_mode = Control.FOCUS_NONE
 	button_exit.focus_mode = Control.FOCUS_NONE
 	
+	screen_starting_pos = $Clouds.global_position
+	
 	#_setup_hover(button_start, highlight_1)
 	#_setup_hover(button_achievments, highlight_2)
 	#_setup_hover(button_options, highlight_3)
 	#_setup_hover(button_exit, highlight_4)
 
-	
+func _process(delta: float) -> void:
+	if screen_starting_pos:
+		var target_position: Vector2 = screen_starting_pos - (get_global_mouse_position()-get_viewport_rect().size)*0.01
+		var castle_target_position: Vector2 = screen_starting_pos - (get_global_mouse_position()-get_viewport_rect().size)*0.003
+		$Girl.global_position = $Girl.global_position.lerp(target_position, delta * parallax_speed)
+		$Skellington.global_position = $Skellington.global_position.lerp(target_position, delta * parallax_speed)
+		$Castle.global_position = $Castle.global_position.lerp(castle_target_position, delta * parallax_speed)
 func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 	highlight.visible = false
 	btn.mouse_entered.connect(func(): highlight.visible = true)
@@ -47,21 +60,29 @@ func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 
 	
 func _on_button_start_pressed() -> void:
+	$menu_click.play()
+	Audio.stop_main_menu()
+	await $menu_click.finished
 	start_new_game()
 
 
 func _on_button_options_pressed() -> void:
 	#get_tree().change_scene_to_file("ZAMIENIĆ NA LOKALIZACJE")
-	pass
+	$menu_click_deny.play()
+	await $menu_click_deny.finished
 	
 func _on_button_achievements_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/ui/achievements.tscn")
+	$menu_click.play()
+	await $menu_click.finished
+	get_tree().call_deferred("change_scene_to_file","res://scenes/ui/achievements.tscn")
 
 func _on_button_exit_pressed() -> void:
-	get_tree().quit()
+	$menu_click.play()
+	await $menu_click.finished
+	get_tree().call_deferred("quit")
 
 func start_new_game():
 	Globals.reset_globals()
-	Skills.reset_unlocked_skills()
+	Skills.reset_skills()
 	Achievements.skill_unlock_handler.handle_unlocked_skills()
-	get_tree().change_scene_to_file("res://scenes/first_skill_selection_screen.tscn")
+	get_tree().call_deferred("change_scene_to_file","res://scenes/levels/level.tscn")

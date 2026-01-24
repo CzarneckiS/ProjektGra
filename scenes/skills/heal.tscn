@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cfvsv4vtqn30m"]
+[gd_scene load_steps=10 format=3 uid="uid://cfvsv4vtqn30m"]
 
 [ext_resource type="Texture2D" uid="uid://bni3mreiwwfwy" path="res://sprites/heal/heal_0.png" id="1_0krdl"]
 [ext_resource type="Script" uid="uid://dv65krrfrjqcj" path="res://scenes/skills/heal.gd" id="1_yp8rh"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://brhvotngjwd0j" path="res://sprites/heal/heal_3.png" id="4_6fwmb"]
 [ext_resource type="Texture2D" uid="uid://j6dpju3isou0" path="res://sprites/heal/heal_4.png" id="5_2csfb"]
 [ext_resource type="Shape2D" uid="uid://cd6yeo1svgpvg" path="res://resources/heal_shape.tres" id="7_7hnho"]
+[ext_resource type="AudioStream" uid="uid://c01btswu83ipp" path="res://sfx/skills/heal.ogg" id="8_6fwmb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7hnho"]
 animations = [{
@@ -88,3 +89,6 @@ shape = ExtResource("7_7hnho")
 sprite_frames = SubResource("SpriteFrames_7hnho")
 frame = 8
 frame_progress = 1.0
+
+[node name="heal_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_6fwmb")

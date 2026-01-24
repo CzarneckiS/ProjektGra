@@ -12,7 +12,7 @@ class_name StateMachine
 var state = null #aktualny stan
 var previous_state = null #Tymczasowo niezbyt ważne ale niech zostanie
 var states = {} #nasz dictionary wszystkich dostępnych stanów
-
+var dying_state = null
 @onready var parent = get_parent()
 
 func _physics_process(delta: float) -> void:
@@ -28,6 +28,8 @@ func _get_transition(_delta):
 
 #Zmień aktualny state w inny
 func set_state(new_state):
+	if state == dying_state:
+		return
 	previous_state = state #Tymczasowo niezbyt ważne ale niech zostanie
 	state = new_state #Przejdź w nowy stan
 	

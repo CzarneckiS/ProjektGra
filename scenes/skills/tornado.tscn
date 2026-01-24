@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dmmwvpsouxvpv"]
+[gd_scene load_steps=39 format=3 uid="uid://dmmwvpsouxvpv"]
 
 [ext_resource type="Script" uid="uid://dxcuij1guk6e5" path="res://scenes/skills/tornado.gd" id="1_hymgt"]
 [ext_resource type="Texture2D" uid="uid://b5ppkdiinua5h" path="res://sprites/tornado/tornado_sprites/TornadoWhite9.png" id="2_i0487"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://byuaqtytd6pur" path="res://sprites/tornado/tornado_sprites/TornadoWhite6.png" id="16_xeyqw"]
 [ext_resource type="Texture2D" uid="uid://clq0qkwbleeit" path="res://sprites/tornado/tornado_sprites/TornadoWhite7.png" id="17_yqrrk"]
 [ext_resource type="Texture2D" uid="uid://ds4kyttrq20hd" path="res://sprites/tornado/tornado_sprites/TornadoWhite8.png" id="18_w522q"]
+[ext_resource type="AudioStream" uid="uid://cupoxm78cicr" path="res://sfx/skills/tornado.ogg" id="25_l6416"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2ibcm"]
 animations = [{
@@ -295,6 +296,7 @@ script = ExtResource("1_hymgt")
 position = Vector2(-2.7999992, -34)
 scale = Vector2(0.22418943, 0.22418942)
 sprite_frames = SubResource("SpriteFrames_2ibcm")
+animation = &"ending"
 
 [node name="tornado_collision_damage" type="CollisionShape2D" parent="."]
 position = Vector2(0, -27.999998)
@@ -374,3 +376,6 @@ disabled = true
 
 [node name="tornado_collision_iceblock_slow_area_animation" type="AnimatedSprite2D" parent="tornado_collision_iceblock_slow_area"]
 sprite_frames = SubResource("SpriteFrames_lrrw7")
+
+[node name="tornado_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("25_l6416")
