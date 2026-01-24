@@ -15,19 +15,29 @@ enum Event{
 
 var achievement_list : Dictionary = {
 	"default_unlock": true, #jako jedyny true bo odnosi sie do skilli odblokowanych na start
-	"mages_killed": true,
-	"skeletons_summoned": true,
-	"level_5_skill_unlocked": true,
-	"wave_10_reached": true,
-	"boss_wave_reached": true,
-	"boss_killed": true
+	"units_killed_50": false,
+	"units_killed_100": false,
+	"mages_killed": false,
+	"skeletons_summoned": false,
+	"army_size_reached": false,
+	"flowers_collected": false,
+	"level_3_skill_unlocked": false,
+	"wave_5_reached": false,
+	"wave_10_reached": false,
+	"boss_wave_reached": false,
+	"boss_killed": false
 }
 
 var achievement_description_list : Dictionary = {
 	"default_unlock": "",
-	"mages_killed": "Zabij 100 magów",
-	"skeletons_summoned": "Przyzwij jednocześnie 5 jednostek",
-	"level_5_skill_unlocked": "Ulepsz umiejętność do poziomu 5",
+	"units_killed_50": "Zabij 50 jednostek",
+	"units_killed_100": "Zabij 100 jednostek",
+	"mages_killed": "Zabij 50 magów",
+	"skeletons_summoned": "Przyzwij 25 jednostek",
+	"army_size_reached": "Przyzwij jednocześnie 5 jednostek",
+	"flowers_collected": "Podnieś 5 kwiatów",
+	"level_3_skill_unlocked": "Ulepsz umiejętność do poziomu 3",
+	"wave_5_reached": "Dotrzyj do fali 5",
 	"wave_10_reached": "Dotrzyj do fali 10",
 	"boss_wave_reached": "Dotrzyj do Bossa",
 	"boss_killed": "Pokonaj Bossa"
@@ -40,9 +50,10 @@ func _process(delta: float) -> void:
 	pass #do debuggowania
 
 func _ready() -> void:
+	for achiev in achievement_list: # UBER TEMPORARY
+		achievement_list[achiev] = true
 	save_game() #TEMPORARY, DO WYWALENIA
-	print("template")
-	print(OS.has_feature("template"))
+	print("template: %s" %OS.has_feature("template"))
 	create_save_directory() #jesli template:  build exportowany do pliku .exe
 	load_game()
 	skill_unlock_handler = SkillUnlockHandler.new()
