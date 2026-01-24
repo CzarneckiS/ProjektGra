@@ -12,4 +12,4 @@ func _init() -> void:
 	unit_tags.append(Tags.UnitTag.PLAYER)
 	use_tags.append(Tags.UseTag.SUMMON)
 func get_desc() -> String:
-	return "Raise the mage from the dead"
+	return "[b][color=#dbc4a6]Raise the mage from the dead[/color][/b]"

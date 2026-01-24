@@ -26,5 +26,5 @@ func _init() -> void:
 	use_tags.append(Tags.UseTag.ACTIVE)
 
 func get_desc() -> String:
-	return "other spells can bring its full potential\n\ndamage per second: %s\ndamage multiplier: %s\nduration: %s\ncooldown: %s\nskill level: %s" \
+	return "[b][color=#dbc4a6]other spells can bring its full potential[/color][/b]\n\n[table=2][cell]damage per second: [/cell][cell]%s[/cell]\n[cell]damage multiplier: [/cell][cell]%s[/cell]\n[cell]duration: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
  %[effect_dot.damage_per_tick*effect_dot.ticks_per_second, effect_dot.damage_multiplier, effect_dot.duration, cooldown, skill_level]

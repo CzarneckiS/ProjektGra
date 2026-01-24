@@ -4,9 +4,9 @@ extends Control
 @onready var name_2: Label = $Option2/Name
 @onready var name_3: Label = $Option3/Name
 
-@onready var description_1: Label = $Option1/Description
-@onready var description_2: Label = $Option2/Description
-@onready var description_3: Label = $Option3/Description
+@onready var description_1: RichTextLabel = $Option1/Description
+@onready var description_2: RichTextLabel = $Option2/Description
+@onready var description_3: RichTextLabel = $Option3/Description
 
 @onready var texture_rect_1: TextureRect = $Option1/Icon
 @onready var texture_rect_2: TextureRect = $Option2/Icon

@@ -15,5 +15,5 @@ func _init() -> void:
 	unit_tags.append(Tags.UnitTag.PLAYER)
 	use_tags.append(Tags.UseTag.ACTIVE)
 func get_desc() -> String:
-	return "block the enemy path\n\ndamage: %s\ndamage multiplier: %s\ncooldown: %s\nskill level: %s" \
+	return "[b][color=#dbc4a6]block the enemy path[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]damage multiplier: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
  %[effect_damage.base_damage, effect_damage.damage_multiplier, cooldown, skill_level]
