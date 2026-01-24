@@ -36,9 +36,7 @@ func _ready() -> void:
 	level_up()
 
 var pressed: bool = false
-func _process(_delta):
-	if pressed and sfx_finished:
-		queue_free()
+
 
 func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 	highlight.visible = false
@@ -75,6 +73,9 @@ func _on_option_1_pressed() -> void:
 		Skills.unlock_skill(skills_to_show[0])
 		Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[0])
 		hide()
+		if !sfx_finished:
+			await $sfx_lvlup.finished
+		queue_free()
 
 
 
@@ -87,6 +88,9 @@ func _on_option_2_pressed() -> void:
 		Skills.unlock_skill(skills_to_show[1])
 		Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[1])
 		hide()
+		if !sfx_finished:
+			await $sfx_lvlup.finished
+		queue_free()
 	
 func _on_option_3_pressed() -> void:
 	if !pressed:
@@ -97,6 +101,9 @@ func _on_option_3_pressed() -> void:
 		Skills.unlock_skill(skills_to_show[2])
 		Achievements.achievement_update(Achievements.Event.SKILL_UPDATED, skills_to_show[2])
 		hide()
+		if !sfx_finished:
+			await $sfx_lvlup.finished
+		queue_free()
 	
 var sfx_finished: bool = false
 
