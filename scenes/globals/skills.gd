@@ -43,7 +43,10 @@ var skill_rarity_table : Dictionary = {
 func add_skill(skill):
 	if skill not in all_skills:
 		all_skills.append(skill)
-
+func _physics_process(_delta: float) -> void:
+	print("skills:")
+	for skill in all_skills:
+		print(skill.skill_name)
 
 func unlock_skill(skill):
 	if !(skill in unlocked_skills):
