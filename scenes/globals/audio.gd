@@ -10,6 +10,7 @@ func _ready():
 	add_child(main_menu_ost)
 	main_menu_ost.stream = load("res://soundtrack/main_menu_normalized.ogg")
 	main_menu_ost.bus = "Master"
+	main_menu_ost.set("parameters/looping", true)
 
 func play_main_menu():
 	if not main_menu_ost.playing:

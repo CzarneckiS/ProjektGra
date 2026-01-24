@@ -57,9 +57,9 @@ func unlock_skill(skill):
 		for unit in get_tree().get_nodes_in_group("Allied"):
 			unit.handle_skill_update(skill)
 	else:
-		skill.skill_level += 1
 		if skill.has_method("upgrade_skill"):
 			skill.upgrade_skill()
+		skill.skill_level += 1
 
 func reset_skills():
 	active_skill_slots_limit_reached = false
