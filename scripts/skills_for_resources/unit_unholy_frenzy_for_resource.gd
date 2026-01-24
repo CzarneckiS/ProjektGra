@@ -4,7 +4,7 @@ class_name UnitUnholyFrenzy
 @export var unit_tags : PackedInt32Array = []
 @export var use_tags : PackedInt32Array = []
 @export var skill_tags : PackedInt32Array = []
-@export var attack_speed_multiplier = 0.5
+@export var attack_speed_multiplier = 0.15
 func use(unit: CharacterBody2D) -> void:
 	unit.attack_speed_modifier = 1 + attack_speed_multiplier * skill_level
 	var unholy_frenzy_status_effect = UnholyFrenzyStatusEffect.new()
