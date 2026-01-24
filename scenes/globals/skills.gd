@@ -53,6 +53,9 @@ func unlock_skill(skill):
 			unit.handle_skill_update(skill)
 	else:
 		skill.skill_level += 1
+		if skill.use_tags.has(Tags.UseTag.PASSIVE) or skill.use_tags.has(Tags.UseTag.STAT_UP) or skill.use_tags.has(Tags.UseTag.SUMMON):
+			for unit in get_tree().get_nodes_in_group("Allied"):
+				unit.handle_skill_update(skill)
 
 func reset_skills():
 	active_skill_slots_limit_reached = false
@@ -77,24 +80,31 @@ func handle_skill_choice_limits():
 				active_skills_chosen += 1
 		if active_skills_chosen >= active_skill_slots_limit:
 			active_skill_slots_limit_reached = true
+			var skill_to_delete: Array = []
 			#usuwanie
 			for _skill in all_skills:
 				if _skill in unlocked_skills:
 					continue
 				if _skill.use_tags.has(Tags.UseTag.ACTIVE):
-					all_skills.erase(_skill)
+					skill_to_delete.append(_skill)
+			for _skill in skill_to_delete:
+				all_skills.erase(_skill)
 	if !passive_skill_slots_limit_reached:
 		for skill in unlocked_skills:
 			if !skill.use_tags.has(Tags.UseTag.ACTIVE) and !skill.use_tags.has(Tags.UseTag.SUMMON):
 				passive_skills_chosen += 1
 		if passive_skills_chosen >= passive_skill_slots_limit:
 			passive_skill_slots_limit_reached = true
+			var skill_to_delete: Array = []
 			#usuwanie
 			for _skill in all_skills:
 				if _skill in unlocked_skills:
 					continue
 				if !_skill.use_tags.has(Tags.UseTag.ACTIVE) and !_skill.use_tags.has(Tags.UseTag.SUMMON):
-					all_skills.erase(_skill)
+					skill_to_delete.append(_skill)
+			for _skill in skill_to_delete:
+				all_skills.erase(_skill)
+	print(all_skills.size())
 
 
 func get_skill() -> Array:

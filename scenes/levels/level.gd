@@ -52,7 +52,7 @@ func _ready():
 	var tween = create_tween()
 	tween.tween_property(big_text, "modulate:a", 0, 1)
 	await tween.finished
-	timer_between_waves.start()
+	#timer_between_waves.start()
 	big_text.queue_free()
 	
 #BARDZO TEMPORARY
