@@ -21,7 +21,11 @@ func upgrade_skill():
 	cooldown = 6 - (0.4 * skill_level)
 func get_desc() -> String:
 	if skill_level > 0:
-		return "[b][color=#dbc4a6]strike the designated point[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]damage multiplier: [/cell][cell]%s[/cell]\n[cell]radius: [/cell][cell]%s[/cell]\n[cell]radius multiplier: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
- %[skill_effect_data.base_damage+7, skill_effect_data.damage_multiplier, skill_effect_data2.radius+10.0, skill_effect_data2.radius_multiplier, cooldown-0.5, skill_level]
-	return "[b][color=#dbc4a6]strike the designated point[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]damage multiplier: [/cell][cell]%s[/cell]\n[cell]radius: [/cell][cell]%s[/cell]\n[cell]radius multiplier: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
- %[skill_effect_data.base_damage, skill_effect_data.damage_multiplier, skill_effect_data2.radius, skill_effect_data2.radius_multiplier, cooldown, skill_level]
+		return "[b][color=#dbc4a6]strike the designated point[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]radius: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
+ %[skill_effect_data.base_damage+7, skill_effect_data2.radius+10.0, cooldown-0.5, skill_level]
+	return "[b][color=#dbc4a6]strike the designated point[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]radius: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
+ %[skill_effect_data.base_damage, skill_effect_data2.radius, cooldown, skill_level]
+
+func get_achievement_desc() -> String:
+	return "[b][color=#dbc4a6]strike the designated point[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]radius: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell][/table]" \
+ %[skill_effect_data.base_damage, skill_effect_data2.radius, cooldown]

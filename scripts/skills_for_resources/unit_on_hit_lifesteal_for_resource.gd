@@ -22,3 +22,6 @@ func _init() -> void:
 func get_desc() -> String:
 	return "[b][color=#dbc4a6]your units gain lifesteal[/color][/b]\n\n[table=2][cell]heal per hit: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
  %[(skill_level+1)*3, skill_level]
+func get_achievement_desc() -> String:
+	return "[b][color=#dbc4a6]your units gain lifesteal[/color][/b]\n\n[table=2][cell]heal per hit: [/cell][cell]%s[/cell][/table]" \
+ %[(skill_level+1)*3]

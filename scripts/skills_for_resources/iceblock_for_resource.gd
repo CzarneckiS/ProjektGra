@@ -20,7 +20,11 @@ func upgrade_skill():
 	cooldown = 7 - (0.2*skill_level)
 func get_desc() -> String:
 	if skill_level > 0:
-		return "[b][color=#dbc4a6]block the enemy path[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]damage multiplier: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
- %[effect_damage.base_damage+5, effect_damage.damage_multiplier+0.03, cooldown-0.2, skill_level]
-	return "[b][color=#dbc4a6]block the enemy path[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]damage multiplier: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
- %[effect_damage.base_damage, effect_damage.damage_multiplier, cooldown, skill_level]
+		return "[b][color=#dbc4a6]block the enemy path[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
+ %[(effect_damage.base_damage+5)*(effect_damage.damage_multiplier+0.03), cooldown-0.2, skill_level]
+	return "[b][color=#dbc4a6]block the enemy path[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
+ %[(effect_damage.base_damage * effect_damage.damage_multiplier), cooldown, skill_level]
+
+func get_achievement_desc() -> String:
+	return "[b][color=#dbc4a6]block the enemy path[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell][/table]" \
+ %[(effect_damage.base_damage * effect_damage.damage_multiplier), cooldown]

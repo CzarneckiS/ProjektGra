@@ -27,5 +27,9 @@ func get_desc() -> String:
 	return "[b][color=#dbc4a6]pull enemies inside and watch them die[/color][/b]\n\n[table=2][cell]damage per second: [/cell][cell]%s[/cell]\n[cell]radius: [/cell][cell]%s[/cell]\n[cell]duration: [/cell][cell]%s[/cell]\n\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
  %[dot_effect.damage_per_tick*dot_effect.ticks_per_second, aoe_effect.radius, dot_effect.duration, cooldown, skill_level]
 
+func get_achievement_desc() -> String:
+	return "[b][color=#dbc4a6]pull enemies inside and watch them die[/color][/b]\n\n[table=2][cell]damage per second: [/cell][cell]%s[/cell]\n[cell]radius: [/cell][cell]%s[/cell]\n[cell]duration: [/cell][cell]%s[/cell]\n\n[cell]cooldown: [/cell][cell]%s[/cell][/table]" \
+ %[dot_effect.damage_per_tick*dot_effect.ticks_per_second, aoe_effect.radius, dot_effect.duration, cooldown]
+
 func get_skill_name() -> String:
-	return "[shake rate=20.0 level=6 connected=0]Oblivion[/shake]"
+	return "[shake rate=20.0 level=6 connected=0][rainbow freq=2.0 sat=0.4 val=1.0 speed=0.5]Oblivion[/rainbow][/shake]"

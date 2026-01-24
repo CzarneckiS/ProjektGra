@@ -12,3 +12,5 @@ func _init() -> void:
 	use_tags.append(Tags.UseTag.UNIT_DEATH)
 func get_desc() -> String:
 	return "[b][color=#dbc4a6]heal yourself by killing[/color][/b]\n\n[table=2][cell]heal per kill: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" %[(skill_level+1)*2, skill_level]
+func get_achievement_desc() -> String:
+	return "[b][color=#dbc4a6]heal yourself by killing[/color][/b]\n\n[table=2][cell]heal per kill: [/cell][cell]%s[/cell][/table]" %[(skill_level+1)*2]

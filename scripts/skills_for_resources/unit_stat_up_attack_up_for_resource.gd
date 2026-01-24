@@ -14,3 +14,6 @@ func _init() -> void:
 func get_desc() -> String:
 	return "[b][color=#dbc4a6]your units hit harder[/color][/b]\n\n[table=2][cell]unit damage: [/cell][cell]+%s[/cell]\n[cell]skill level: %s[/cell][/table]" \
  %[damage_bonus * (skill_level+1), skill_level]
+func get_achievement_desc() -> String:
+	return "[b][color=#dbc4a6]your units hit harder[/color][/b]\n\n[table=2][cell]unit damage: [/cell][cell]+%s[/cell][/table]" \
+ %[damage_bonus * (skill_level+1)]

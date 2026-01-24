@@ -17,3 +17,6 @@ func _init() -> void:
 func get_desc() -> String:
 	return "[b][color=#dbc4a6]bones of your units are sturdier[/color][/b]\n\n[table=2][cell]unit health: [/cell][cell]+%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell]" \
  %[(skill_level+1) * 20, skill_level]
+func get_achievement_desc() -> String:
+	return "[b][color=#dbc4a6]bones of your units are sturdier[/color][/b]\n\n[table=2][cell]unit health: [/cell][cell]+%s[/cell]" \
+ %[(skill_level+1) * 20]
