@@ -97,7 +97,7 @@ var h_archers_to_spawn: int = 0
 var timer_between_waves: Timer = Timer.new()
 var force_wave_timer: Timer = Timer.new()
 @warning_ignore("integer_division")
-var half_of_waves: int = max_wave/2
+var half_of_max_waves: int = max_wave/2
 
 var is_night: bool = false
 
@@ -124,13 +124,13 @@ func change_ost():
 		tween.parallel().tween_property($level_ost, "volume_db", -80, 3)
 		tween.parallel().tween_property($level_ost_night, "volume_db", 0, 3)
 		tween.chain().tween_callback($level_ost.stop)
-	else:
+	elif !is_night:
 		$level_ost.play($level_ost_night.get_playback_position())
 		$level_ost.volume_db = -35.0
-		var tween = create_tween()
-		tween.parallel().tween_property($level_ost_night, "volume_db", -80, 3)
-		tween.parallel().tween_property($level_ost, "volume_db", 0, 3)
-		tween.chain().tween_callback($level_ost_night.stop)
+		var tween_2 = create_tween()
+		tween_2.parallel().tween_property($level_ost_night, "volume_db", -80, 3)
+		tween_2.parallel().tween_property($level_ost, "volume_db", 0, 3)
+		tween_2.chain().tween_callback($level_ost_night.stop)
 
 var force_wave: bool = false
 func force_wave_logic():
@@ -141,7 +141,7 @@ func wave_logic():
 	print("ile pokonano: ", enemies_defeated)
 	print("ile zespawniono: ", enemies_spawned)
 	print("ile ma byc zespawnione: ", enemies_to_spawn)
-	if wave_counter == half_of_waves:
+	if wave_counter == half_of_max_waves:
 		make_night()
 	if wave_counter == max_wave:
 		wave_counter += 1

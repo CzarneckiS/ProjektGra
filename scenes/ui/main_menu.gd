@@ -26,9 +26,9 @@ func _ready() -> void:
 		tween2.tween_property($BlackScreen,"modulate:a",0,0.5)
 		Globals.opening_shown = true
 		await get_tree().create_timer(0.7).timeout
-		$main_menu_ost.play()
+		Audio.play_main_menu()
 	else:
-		$main_menu_ost.play()
+		Audio.play_main_menu()
 		$BlackScreen.visible = false
 	$ButtonStart.pressed.connect(_on_button_start_pressed)
 	$ButtonExit.pressed.connect(_on_button_exit_pressed)
@@ -61,6 +61,7 @@ func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 	
 func _on_button_start_pressed() -> void:
 	$menu_click.play()
+	Audio.stop_main_menu()
 	await $menu_click.finished
 	start_new_game()
 

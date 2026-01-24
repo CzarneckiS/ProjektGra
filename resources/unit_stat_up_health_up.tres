@@ -6,5 +6,5 @@
 
 [resource]
 script = ExtResource("3_x8rr1")
-skill_name = "sum hp up"
+skill_name = "Health Upgrade"
 icon = ExtResource("2_dhful")

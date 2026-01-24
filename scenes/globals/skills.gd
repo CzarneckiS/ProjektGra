@@ -43,15 +43,22 @@ var skill_rarity_table : Dictionary = {
 func add_skill(skill):
 	if skill not in all_skills:
 		all_skills.append(skill)
-
+func _physics_process(_delta: float) -> void:
+	print("skills:")
+	for skill in all_skills:
+		print(skill.skill_name)
 
 func unlock_skill(skill):
 	if !(skill in unlocked_skills):
 		unlocked_skills.append(skill)
 		handle_skill_choice_limits()
+		if skill.skill_level == 0:
+			skill.skill_level = 1
 		for unit in get_tree().get_nodes_in_group("Allied"):
 			unit.handle_skill_update(skill)
 	else:
+		if skill.has_method("upgrade_skill"):
+			skill.upgrade_skill()
 		skill.skill_level += 1
 		if skill.use_tags.has(Tags.UseTag.PASSIVE) or skill.use_tags.has(Tags.UseTag.STAT_UP) or skill.use_tags.has(Tags.UseTag.SUMMON):
 			for unit in get_tree().get_nodes_in_group("Allied"):
@@ -61,7 +68,7 @@ func reset_skills():
 	active_skill_slots_limit_reached = false
 	passive_skill_slots_limit_reached = false
 	for skill in unlocked_skills:
-		skill.skill_level = 1
+		skill.skill_level = 0
 	unlocked_skills = []
 
 

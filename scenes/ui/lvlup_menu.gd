@@ -1,12 +1,12 @@
 extends Control
 
-@onready var name_1: Label = $Option1/Name
-@onready var name_2: Label = $Option2/Name
-@onready var name_3: Label = $Option3/Name
+@onready var name_1: RichTextLabel = $Option1/Name
+@onready var name_2: RichTextLabel = $Option2/Name
+@onready var name_3: RichTextLabel = $Option3/Name
 
-@onready var description_1: Label = $Option1/Description
-@onready var description_2: Label = $Option2/Description
-@onready var description_3: Label = $Option3/Description
+@onready var description_1: RichTextLabel = $Option1/Description
+@onready var description_2: RichTextLabel = $Option2/Description
+@onready var description_3: RichTextLabel = $Option3/Description
 
 @onready var texture_rect_1: TextureRect = $Option1/Icon
 @onready var texture_rect_2: TextureRect = $Option2/Icon
@@ -52,13 +52,17 @@ func level_up():
 	#tak naprawde zmienia się tylko cyferka przy nazwie 
 	#żeby nie pisać  6*3 = 18 linijek jednakowego kodu
 	for i in range(skills_to_show.size()):
-		self.get("name_" + str(i + 1)).text = skills_to_show[i].skill_name
+		if skills_to_show[i].has_method("get_skill_name"):
+			self.get("name_" + str(i + 1)).text = skills_to_show[i].get_skill_name()
+		else:
+			self.get("name_" + str(i + 1)).text = skills_to_show[i].skill_name
 		self.get("texture_rect_" + str(i + 1)).texture = skills_to_show[i].icon
-		self.get("description_" + str(i + 1)).text = skills_to_show[i].skill_desc
+		if skills_to_show[i].has_method("get_desc"):
+			self.get("description_" + str(i + 1)).text = skills_to_show[i].get_desc()
 		
 		# !!! TRZEBA PRZETESTOWAĆ !!!
 		#przetestowalem, nie dziala
-		if Skills.unlocked_skills.has(skills_to_show[i].skill_name):
+		if skills_to_show[i] in Skills.unlocked_skills:
 			self.get("option_" + str(i + 1)).text = "Upgrade skill"
 		else:
 			self.get("option_" + str(i + 1)).text = "Unlock skill"
@@ -76,7 +80,6 @@ func _on_option_1_pressed() -> void:
 		if !sfx_finished:
 			await $sfx_lvlup.finished
 		queue_free()
-
 
 
 func _on_option_2_pressed() -> void:

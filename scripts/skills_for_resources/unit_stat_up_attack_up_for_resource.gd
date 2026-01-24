@@ -11,3 +11,6 @@ func use(unit: CharacterBody2D):
 func _init() -> void:
 	unit_tags.append(Tags.UnitTag.ALLIED)
 	use_tags.append(Tags.UseTag.STAT_UP)
+func get_desc() -> String:
+	return "[b][color=#dbc4a6]your units hit harder[/color][/b]\n\n[table=2][cell]unit damage: [/cell][cell]+%s[/cell]\n[cell]skill level: %s[/cell][/table]" \
+ %[damage_bonus * (skill_level+1), skill_level]

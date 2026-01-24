@@ -6,5 +6,5 @@
 
 [resource]
 script = ExtResource("2_coygp")
-skill_name = "Essence drain"
+skill_name = "Essence Drain"
 icon = ExtResource("2_6q027")
