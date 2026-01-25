@@ -207,6 +207,8 @@ func death():
 		skill.use(self)
 
 func attack():
+	if !attack_target:
+		return
 	Audio.play_audio($sfx_attack)
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		#check czy cel nie odszedl za daleko

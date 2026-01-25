@@ -109,7 +109,6 @@ func handle_skill_choice_limits():
 					skill_to_delete.append(_skill)
 			for _skill in skill_to_delete:
 				all_skills.erase(_skill)
-	print(all_skills.size())
 
 
 func get_skill() -> Array:

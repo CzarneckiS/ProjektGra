@@ -4,14 +4,19 @@ extends Node
 var human_warrior_kill_count = 0
 var human_archer_kill_count = 0
 var human_mage_kill_count = 0
+var skeleton_warriors_summoned = 0
+var skeleton_mages_summoned = 0
+var flowers_collected = 0
 
 var skill_unlock_handler
 signal achievement_unlocked(achievement_key)
 
 enum Event{
 	ENTITY_DIED,
-	WAVE_CLEARED,
-	SKILL_UPDATED
+	WAVE_REACHED,
+	SKILL_UPDATED,
+	FLOWER_COLLECTED,
+	UNIT_SUMMONED
 }
 
 var achievement_list : Dictionary = {
@@ -31,17 +36,17 @@ var achievement_list : Dictionary = {
 
 var achievement_description_list : Dictionary = {
 	"default_unlock": "",
-	"units_killed_50": "Zabij 50 jednostek",
-	"units_killed_100": "Zabij 100 jednostek",
-	"mages_killed": "Zabij 50 magów",
-	"skeletons_summoned": "Przyzwij 25 jednostek",
-	"army_size_reached": "Przyzwij jednocześnie 5 jednostek",
-	"flowers_collected": "Podnieś 5 kwiatów",
-	"level_3_skill_unlocked": "Ulepsz umiejętność do poziomu 3",
-	"wave_5_reached": "Dotrzyj do fali 5",
-	"wave_10_reached": "Dotrzyj do fali 10",
-	"boss_wave_reached": "Dotrzyj do Bossa",
-	"boss_killed": "Pokonaj Bossa"
+	"units_killed_50": "Kill 50 enemies",
+	"units_killed_100": "Kill 100 enemies",
+	"mages_killed": "Kill 50 mages",
+	"skeletons_summoned": "Summon 25 units",
+	"army_size_reached": "Create an army of 5 units",
+	"flowers_collected": "Collect 5 flowers",
+	"level_3_skill_unlocked": "Upgrade a skill to level 3",
+	"wave_5_reached": "Reach the 5th wave",
+	"wave_10_reached": "Reach the 10th wave",
+	"boss_wave_reached": "Reach the Boss wave",
+	"boss_killed": "Defeat the Boss!"
 }
 
 func _process(delta: float) -> void:
@@ -52,7 +57,9 @@ func _process(delta: float) -> void:
 
 func _ready() -> void:
 	for achiev in achievement_list: # UBER TEMPORARY
-		achievement_list[achiev] = true
+		if achiev == "default_unlock":
+			continue
+		achievement_list[achiev] = false
 	save_game() #TEMPORARY, DO WYWALENIA
 	print("template: %s" %OS.has_feature("template"))
 	create_save_directory() #jesli template:  build exportowany do pliku .exe
@@ -64,6 +71,8 @@ func achievement_update(event : Event, entity) -> void :
 	match event:
 		Event.ENTITY_DIED:
 			match entity:
+				Tags.UnitTag.BOSS:
+					unlock_achievement("boss_killed")
 				Tags.UnitTag.HUMAN_WARRIOR:
 					human_warrior_kill_count += 1
 				Tags.UnitTag.HUMAN_ARCHER:
@@ -71,17 +80,39 @@ func achievement_update(event : Event, entity) -> void :
 				Tags.UnitTag.HUMAN_MAGE:
 					human_mage_kill_count += 1
 					if human_mage_kill_count >= 5:
-						Achievements.unlock_achievement("mages_killed")
-		Event.WAVE_CLEARED:
-			pass
+						unlock_achievement("mages_killed")
+			if human_archer_kill_count + human_mage_kill_count + human_warrior_kill_count >= 50:
+				unlock_achievement("units_killed_50")
+			if human_archer_kill_count + human_mage_kill_count + human_warrior_kill_count >= 100:
+				unlock_achievement("units_killed_100")
+		Event.WAVE_REACHED:
+			match entity:
+				5:
+					unlock_achievement("wave_5_reached")
+				10:
+					unlock_achievement("wave_10_reached")
+				20:
+					unlock_achievement("boss_wave_reached")
 		Event.SKILL_UPDATED:
+			if entity.skill_level >= 3:
+				unlock_achievement("level_3_skill_unlocked")
 			match entity.skill_name:
 				"skeleton_warrior":
-					if entity.skill_level >= 3:
-						Achievements.unlock_achievement("skeletons_summoned")
+					if entity.skill_level >= 5:
+						unlock_achievement("army_size_reached")
+		Event.FLOWER_COLLECTED:
+			flowers_collected += 1
+			if flowers_collected >= 5:
+				unlock_achievement("flowers_collected")
+		Event.UNIT_SUMMONED:
+			match entity:
+				Tags.UnitTag.SKELETON_WARRIOR:
+					skeleton_warriors_summoned += 1
+				Tags.UnitTag.SKELETON_MAGE:
+					skeleton_mages_summoned += 1
+			if skeleton_mages_summoned + skeleton_warriors_summoned >= 25:
+				unlock_achievement("skeletons_summoned")
 						
-						
-#na przyszlosc ladniejsza funkcja od unlockowania
 func unlock_achievement(achievement):
 	if !achievement_list.has(achievement):
 		print("Achievement doesnt exist: " + achievement)

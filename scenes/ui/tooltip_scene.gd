@@ -5,10 +5,10 @@ class_name SkillTooltip
 
 # Wewnątrz klasy SkillTooltip
 var descriptions = {
-	"Attack": "[A] Rozkazuje jednostkom atakować cele w zasięgu.",
-	"Hold": "[H] Jednostki stoją w miejscu i bronią pozycji.",
-	"Move": "[M] Przemieszcza jednostki do wskazanego punktu.",
-	"Stop": "[?] Przerywa wszystkie aktualne akcje.",
+	"Attack": "[Z] Rozkazuje jednostkom atakować cele w zasięgu.",
+	"Hold": "[X] Jednostki stoją w miejscu i bronią pozycji.",
+	"Move": "[RMB] Przemieszcza jednostki do wskazanego punktu.",
+	"Stop": "[C] Przerywa wszystkie aktualne akcje.",
 }
 
 func show_text(icon_name):

@@ -28,7 +28,6 @@ func _ready() -> void:
 	await get_tree().process_frame
 	populate_skill_icons()
 	await get_tree().create_timer(1.0).timeout
-	#Achievements.unlock_achievement("mages_killed")
 	
 func _on_button_backto_menu_pressed() -> void:
 	get_tree().call_deferred("change_scene_to_file","res://scenes/ui/main_menu.tscn")
