@@ -1,15 +1,12 @@
-[gd_scene load_steps=30 format=3 uid="uid://dow75ifqnaejo"]
+[gd_scene load_steps=27 format=3 uid="uid://dow75ifqnaejo"]
 
 [ext_resource type="Script" uid="uid://bh80at3wk5jxc" path="res://scenes/levels/hud.gd" id="1_h1s5m"]
 [ext_resource type="Texture2D" uid="uid://bvafebvu6h5ix" path="res://sprites/ui/HUD lifebar XP BAR purple.png" id="2_16vcj"]
 [ext_resource type="Texture2D" uid="uid://cegf2xnvik2q2" path="res://sprites/ui/HUD lifebar HP BAR.png" id="2_f2y6e"]
 [ext_resource type="Texture2D" uid="uid://cfof88wjy0pfx" path="res://sprites/ui/HUD left corner.png" id="3_16vcj"]
-[ext_resource type="Texture2D" uid="uid://c7jajlc2ay5ur" path="res://sprites/ui/HUD_middle.png" id="5_0jkms"]
-[ext_resource type="Texture2D" uid="uid://p0fx2271621o" path="res://sprites/tornado/gem.bmp" id="5_862nl"]
 [ext_resource type="Texture2D" uid="uid://bd6ht1il4yaov" path="res://sprites/ui/Boss life bar full.png" id="4_0r4d6"]
-[ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="4_862nl"]
 [ext_resource type="Texture2D" uid="uid://brboeki7cx26e" path="res://sprites/ui/Boss life bar empty.png" id="5_70a1a"]
-[ext_resource type="Texture2D" uid="uid://c6a6cymtsl4cd" path="res://sprites/ui/EmptyIcon.png" id="5_x77mw"]
+[ext_resource type="Texture2D" uid="uid://p0fx2271621o" path="res://sprites/tornado/gem.bmp" id="5_862nl"]
 [ext_resource type="Texture2D" uid="uid://bpcd50fq8syjh" path="res://sprites/ui/HUD right corner.png" id="6_xjlsw"]
 [ext_resource type="Texture2D" uid="uid://bnuq6bgwe7e7q" path="res://sprites/ui/HUD lifebar with level.png" id="7_36mnu"]
 [ext_resource type="Texture2D" uid="uid://b4oegmy842s8l" path="res://sprites/ui/attack icon.png" id="7_npjfx"]
@@ -166,7 +163,7 @@ offset_top = 34.0
 offset_right = 182.75793
 offset_bottom = 206.0
 scale = Vector2(0.35818994, 0.35818994)
-theme_override_fonts/font = ExtResource("4_862nl")
+theme_override_fonts/font = ExtResource("12_862nl")
 theme_override_font_sizes/font_size = 128
 text = "1"
 

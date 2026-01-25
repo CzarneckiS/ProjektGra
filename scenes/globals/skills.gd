@@ -48,7 +48,7 @@ func add_skill(skill):
 func unlock_skill(skill):
 	if !(skill in unlocked_skills):
 		unlocked_skills.append(skill)
-    Globals.emit_skill_unlocked(skill)
+		Globals.emit_skill_unlocked(skill)
 		handle_skill_choice_limits()
 		if skill.skill_level == 0:
 			skill.skill_level = 1

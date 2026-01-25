@@ -35,7 +35,7 @@ func _ready():
 	Globals.lvl_up_menu_requested.connect(show_lvl_up_menu)
 	hud.process_mode = Node.PROCESS_MODE_ALWAYS
 	#lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
-	$HudLayer.add_child(stats_hud)
+	$HudLayer.add_child(hud)
 	$Player.connect("player_died", _on_player_died)
 	add_child(timer_between_waves)
 	timer_between_waves.autostart = false
