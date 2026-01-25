@@ -212,10 +212,11 @@ texture = ExtResource("8_hlpig")
 expand_mode = 2
 
 [node name="AchIcon15" type="TextureRect" parent="."]
-offset_left = 844.55994
-offset_top = 426.77997
-offset_right = 894.55994
-offset_bottom = 476.78003
+visible = false
+offset_left = 844.56
+offset_top = 524.78
+offset_right = 894.56006
+offset_bottom = 574.7801
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
 expand_mode = 2
