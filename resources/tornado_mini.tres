@@ -16,8 +16,8 @@ metadata/_custom_type_script = "uid://8g2g4sl8jw6l"
 
 [sub_resource type="Resource" id="Resource_l86aj"]
 script = ExtResource("2_25l5a")
-damage_per_tick = 0
-ticks_per_second = 3.0
+damage_per_tick = 1
+ticks_per_second = 1.5
 duration = 8.0
 metadata/_custom_type_script = "uid://eb2n0krmxsn8"
 

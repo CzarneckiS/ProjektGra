@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dow75ifqnaejo"]
+[gd_scene load_steps=28 format=3 uid="uid://dow75ifqnaejo"]
 
 [ext_resource type="Script" uid="uid://bh80at3wk5jxc" path="res://scenes/levels/hud.gd" id="1_h1s5m"]
 [ext_resource type="Texture2D" uid="uid://bvafebvu6h5ix" path="res://sprites/ui/HUD lifebar XP BAR purple.png" id="2_16vcj"]
@@ -17,6 +17,7 @@
 [ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="12_862nl"]
 [ext_resource type="Texture2D" uid="uid://bbertyc8ltri5" path="res://sprites/ui/wave counter.png" id="13_36mnu"]
 [ext_resource type="Texture2D" uid="uid://cy2g1dcu5ye10" path="res://sprites/units/human_warrior/human_warrior_head.png" id="16_70a1a"]
+[ext_resource type="FontFile" uid="uid://bdn6824mbo1l3" path="res://sprites/ui/MADEAvenuePERSONALUSE-Regular.otf" id="17_1vhb4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2y6e"]
 bg_color = Color(0.6, 0.6, 0.6, 0.039215688)
@@ -711,21 +712,25 @@ texture = ExtResource("13_36mnu")
 
 [node name="WaveCounterLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = -563.0
+offset_left = -560.0
 offset_top = -747.0
-offset_right = -365.0
-offset_bottom = -724.0
+offset_right = -362.0
+offset_bottom = -722.72394
 scale = Vector2(1, 0.94743645)
+theme_override_fonts/font = ExtResource("17_1vhb4")
+theme_override_font_sizes/font_size = 19
 text = "Defeat waves of enemies "
 
 [node name="WaveCounterLabel2" type="Label" parent="."]
 modulate = Color(1, 0.78039217, 0, 1)
 layout_mode = 0
-offset_left = -366.0
+offset_left = -370.0
 offset_top = -747.0
-offset_right = -323.0
-offset_bottom = -724.0
+offset_right = -327.0
+offset_bottom = -722.7239
 scale = Vector2(1, 0.94743645)
+theme_override_fonts/font = ExtResource("17_1vhb4")
+theme_override_font_sizes/font_size = 19
 text = "0/20"
 
 [node name="WaveCounter2" type="TextureRect" parent="."]
@@ -741,22 +746,26 @@ texture = ExtResource("13_36mnu")
 [node name="WaveCounterLabel3" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = -563.0
+offset_left = -559.0
 offset_top = -704.0
-offset_right = -365.0
-offset_bottom = -681.0
+offset_right = -361.0
+offset_bottom = -680.0
 scale = Vector2(1, 0.94743645)
+theme_override_fonts/font = ExtResource("17_1vhb4")
+theme_override_font_sizes/font_size = 19
 text = "Defeat the"
 
 [node name="WaveCounterLabel4" type="Label" parent="."]
 visible = false
 modulate = Color(1, 0.78039217, 0, 1)
 layout_mode = 0
-offset_left = -475.0
+offset_left = -476.0
 offset_top = -704.0
-offset_right = -432.0
-offset_bottom = -681.0
+offset_right = -433.0
+offset_bottom = -680.0
 scale = Vector2(1, 0.94743645)
+theme_override_fonts/font = ExtResource("17_1vhb4")
+theme_override_font_sizes/font_size = 19
 text = "Boss!"
 
 [node name="TextureRect" type="TextureRect" parent="."]

@@ -8,7 +8,7 @@ var skills_on_hit : Array = [melee_attack_vfx]
 var skills_on_death : Array = []
 var own_tags: PackedInt32Array = [Tags.UnitTag.UNIT, Tags.UnitTag.ALLIED, Tags.UnitTag.SKELETON_WARRIOR]
 #movement
-var speed = 375
+var speed = 390
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position
@@ -43,7 +43,7 @@ func _ready() -> void:
 	icon_texture = "res://sprites/ui/skeleton warrior icon.png"
 
 
-	base_max_health = 60
+	base_max_health = 70
 	max_health  = base_max_health
 	health = max_health
 	health_bar.max_value = max_health
