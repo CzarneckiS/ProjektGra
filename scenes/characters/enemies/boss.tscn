@@ -1065,3 +1065,4 @@ bus = &"sfx"
 [node name="sfx_slash" type="AudioStreamPlayer2D" parent="." index="17"]
 stream = ExtResource("17_sfuxj")
 bus = &"boss"
+area_mask = 4

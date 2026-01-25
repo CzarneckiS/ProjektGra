@@ -92,7 +92,7 @@ animations = [{
 radius = 276.0
 height = 864.0
 
-[node name="FireWave" type="Area2D"]
+[node name="FireWave" type="Area2D" groups=["EnemyProjectile"]]
 collision_layer = 8
 collision_mask = 34
 script = ExtResource("1_3tfam")

@@ -14,6 +14,7 @@ metadata/_custom_type_script = "uid://8g2g4sl8jw6l"
 
 [sub_resource type="Resource" id="Resource_5t2vn"]
 script = ExtResource("6_2ds3q")
+base_damage = 7
 metadata/_custom_type_script = "uid://dnv5i0eq6rlp7"
 
 [sub_resource type="Resource" id="Resource_vfg75"]
@@ -31,9 +32,8 @@ effect_knockback = SubResource("Resource_rgbvj")
 effect_heal = SubResource("Resource_vfg75")
 effect_aoe = SubResource("Resource_rvqtk")
 give_exp_amount = 30.0
-orb_lifetime = 5.0
+orb_lifetime = 3.0
 skill_name = "orb"
 skill_desc = "orbisko"
 cooldown = 0.0
 visual_effect = ExtResource("3_qpvd0")
-metadata/_custom_type_script = "uid://ckknjesqjyf5u"

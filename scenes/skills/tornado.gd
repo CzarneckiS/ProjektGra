@@ -221,8 +221,8 @@ func transformation_iceblock(skill):
 	skill_resource.effect_knockback.knockback_speed = 0
 	skill_resource.effect_knockback.knockback_friction = 0
 	self.scale *= 2.5
-	damage_multiplier += 0.2
-	base_damage += 5
+	damage_multiplier += 0.05
+	base_damage += 1
 	
 func _on_tornado_collision_iceblock_slow_area_entered(body):
 	var overlapping_bodies = get_overlapping_bodies()

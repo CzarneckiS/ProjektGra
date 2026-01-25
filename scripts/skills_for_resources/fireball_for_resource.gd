@@ -19,13 +19,13 @@ func _init() -> void:
 	unit_tags.append(Tags.UnitTag.PLAYER)
 	use_tags.append(Tags.UseTag.ACTIVE)
 func upgrade_skill():
-	skill_effect_data.base_damage = 15+(3*skill_level)
-	cooldown = 4 - (0.1 * skill_level)
+	skill_effect_data.base_damage = 12+(3*skill_level)
+	cooldown = 3.2 - (0.3 * skill_level)
 
 func get_desc() -> String:
 		if skill_level > 0:
 			return "[b][color=#dbc4a6]cast a single projectile in a straight line[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
- %[skill_effect_data.base_damage+3, cooldown-0.1, skill_level]
+ %[skill_effect_data.base_damage+3, cooldown-0.3, skill_level]
 		return "[b][color=#dbc4a6]cast a single projectile in a straight line[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
  %[skill_effect_data.base_damage, cooldown, skill_level]
 

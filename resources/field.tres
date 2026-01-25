@@ -16,14 +16,14 @@ metadata/_custom_type_script = "uid://8g2g4sl8jw6l"
 [sub_resource type="Resource" id="Resource_jioq5"]
 script = ExtResource("1_v83ye")
 damage_per_tick = 7
-ticks_per_second = 2.0
+ticks_per_second = 1.5
 duration = 3.0
 metadata/_custom_type_script = "uid://eb2n0krmxsn8"
 
 [sub_resource type="Resource" id="Resource_v0y4w"]
 script = ExtResource("2_215y7")
-pull_friction = 7.0
-pull_speed = 2000.0
+pull_friction = 6.0
+pull_speed = 1800.0
 metadata/_custom_type_script = "uid://b8hvxjgf4wq4l"
 
 [resource]
@@ -33,7 +33,7 @@ aoe_effect = SubResource("Resource_l03n4")
 dot_effect = SubResource("Resource_jioq5")
 skill_name = "Oblivion"
 skill_desc = "dotsowe pole brr"
-cooldown = 8.0
+cooldown = 12.0
 visual_effect = ExtResource("4_215y7")
 icon = ExtResource("4_l03n4")
 metadata/_custom_type_script = "uid://chkhmaji4l68m"

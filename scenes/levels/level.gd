@@ -54,6 +54,7 @@ func _ready():
 	var tween = create_tween()
 	tween.tween_property(big_text, "modulate:a", 0, 1)
 	await tween.finished
+	summon_skeleton_warrior()
 	timer_between_waves.start()
 	force_wave_timer.start()
 	big_text.queue_free()
@@ -96,7 +97,7 @@ var h_archers_to_spawn: int = 0
 var timer_between_waves: Timer = Timer.new()
 var force_wave_timer: Timer = Timer.new()
 @warning_ignore("integer_division")
-var half_of_max_waves: int = max_wave/2
+var half_of_max_waves: int = 10
 
 var is_night: bool = false
 
@@ -144,6 +145,8 @@ func wave_logic():
 		Achievements.achievement_update(Achievements.Event.WAVE_REACHED, 20)
 	if wave_counter == half_of_max_waves:
 		make_night()
+		Globals.wave_count += 1
+		Globals.wave_count_update.emit()
 	if wave_counter == max_wave:
 		wave_counter += 1
 		Globals.wave_count = wave_counter
@@ -157,38 +160,42 @@ func wave_logic():
 		#stworzylem abominacje, may lord have mercy upon my soul
 		Globals.wave_count += 1
 		Globals.wave_count_update.emit()
-	force_wave_timer.wait_time += 1
+	print("po:")
+	print("ile pokonano: ", enemies_defeated)
+	print("ile zespawniono: ", enemies_spawned)
+	print("ile ma byc zespawnione: ", enemies_to_spawn)
+	force_wave_timer.wait_time += 2
 	wave_switch = true
 	force_wave = false
 	force_wave_timer.start()
 
 	
 func new_wave():
-	#enemies_defeated = 0 #sygnał od unitów on_death aktualizuje zmienna
+	enemies_defeated = 0 #sygnał od unitów on_death aktualizuje zmienna
 	for warriors in range(h_warriors_to_spawn):
 		spawn_enemy(human_warrior)
 	for mages in range(h_mages_to_spawn):
 		spawn_enemy(human_mage)
 	for archers in range(h_archers_to_spawn):
 		spawn_enemy(human_archer)
-	enemies_spawned += enemies_to_spawn
+	enemies_spawned = enemies_to_spawn
 	
 func enemy_spawn_by_wave(wave_number):
 	enemies_to_spawn = 0
 	wave_number = wave_counter
 	
-	var h_warriors_spawn_increase: int = 1
+	var h_warriors_spawn_increase: int = 2
 	var h_mages_spawn_increase: int = 1
 	var h_archers_spawn_increase: int = 1
 	
-	if wave_number % 2 == 0:
+	if wave_number % 3 == 0:
 		h_warriors_to_spawn += h_warriors_spawn_increase
 	if wave_number % 3 == 0:
 		h_archers_to_spawn += h_archers_spawn_increase
 	if wave_number % 4 == 0:
 		h_mages_to_spawn += h_mages_spawn_increase
 	
-	enemies_to_spawn = h_warriors_to_spawn + h_mages_to_spawn + h_archers_to_spawn
+	enemies_to_spawn += h_warriors_to_spawn + h_mages_to_spawn + h_archers_to_spawn
 	
 func spawn_enemy(enemy_type): # EnemySpawnFollow bierzemy jako unique name
 	var new_enemy = enemy_type.instantiate()

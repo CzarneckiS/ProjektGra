@@ -15,13 +15,20 @@ var opening_shown = false
 
 #statystyki głównej jednostki
 var player : CharacterBody2D
-var base_health:int = 200
-var health : int = base_health
+var base_health:int = 100
+var health : int = base_health:
+	set(value):
+		if value > max_health:
+			health = max_health
+		elif value < 0:
+			player.player_died.emit()
+		else:
+			health = value
 var max_health : int = base_health
 var player_position: Vector2
 
 #exp i levelowanie
-var xp_to_level : int = 300 #limit, ktory musimy dobic aby wbic lvl. placeholder value
+var xp_to_level : int = 100 #limit, ktory musimy dobic aby wbic lvl. placeholder value
 var level : int = 1 #startowy lvl
 var accumulated_xp : int = 0 #zebrany przez nas exp, startujemy bez expa
 
@@ -46,7 +53,7 @@ func reset_globals():
 	max_health = base_health
 	level = 1
 	accumulated_xp = 0
-	xp_to_level = 300
+	xp_to_level = 100
 	ui_hp_update_requested.emit()
 	lvl_up_menu_requested.emit()
 	ui_exp_update_requested.emit()
@@ -98,9 +105,9 @@ func remove_overlapping_allies():
 			Input.set_custom_mouse_cursor(evil_cursor)
 #funkcja, ktora obsluguje to, co sie dzieje z postacia po lvl upie
 func level_up():
-	max_health += 20 #placeholder wartosc na zwiekszanie max hp
+	max_health += 2+(2*level) #placeholder wartosc na zwiekszanie max hp
 	health = max_health
-	xp_to_level += 200 #placeholder wartosc na zwiekszanie limitu do uzyskania kolejnego lvla
+	xp_to_level += 3*(2*level) #placeholder wartosc na zwiekszanie limitu do uzyskania kolejnego lvla
 	level += 1 #nie było tego, dodałem, nie wiem czy coś innego myśleliście
 	
 	ui_hp_update_requested.emit()

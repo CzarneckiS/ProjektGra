@@ -3,7 +3,7 @@ extends CharacterBody2D
 #! ! ! 90% rzeczy tutaj jest temporary ! ! ! 
 #wiec nie bede tego komentować 
 
-var speed : int = 500
+var speed : int = 400
 var standing : bool = true
 var selected : bool = false
 var dying : bool = false
@@ -67,24 +67,26 @@ var field_skill: Resource = preload("res://resources/field.tres")
 var tornado_skill: Resource = preload("res://resources/tornado.tres")
 var skill_cooldowns: Dictionary = {}
 
-func can_cast(skill: Resource) -> bool:
-	var key = skill.resource_path
-	
-	if !skill_cooldowns.has(key):
-		return true
-	return Time.get_ticks_msec() / 1000.0 >= skill_cooldowns[key]
-
 func set_cooldown(skill: Resource):
-	var key = skill.resource_path
-	
-	var current_time = Time.get_ticks_msec() / 1000.0
-	skill_cooldowns[key] = current_time + skill.cooldown
+	if skill_cooldowns.has(skill):
+		return
+	var cooldown: Timer = Timer.new()
+	add_child(cooldown)
+	skill_cooldowns[skill] = cooldown
+	cooldown.wait_time = skill.cooldown
+	print("cooldown spella: ", cooldown.wait_time)
+	cooldown.start()
+	cooldown.one_shot = true
+	await cooldown.timeout
+	if skill_cooldowns.has(skill):
+		skill_cooldowns.erase(skill)
+	cooldown.call_deferred("queue_free")
 	
 func cast_fireball():
 	if !skills_active.has(fireball_skill):
 		return
 	else:
-		if !can_cast(fireball_skill):
+		if skill_cooldowns.has(fireball_skill):
 			return
 	
 	set_cooldown(fireball_skill)
@@ -98,7 +100,7 @@ func cast_thunderbolt():
 	if !skills_active.has(thunderbolt_skill):
 		return
 	else:
-		if !can_cast(thunderbolt_skill):
+		if skill_cooldowns.has(thunderbolt_skill):
 			return
 	
 	set_cooldown(thunderbolt_skill)
@@ -112,7 +114,7 @@ func cast_heal():
 	if !skills_active.has(heal_skill):
 		return
 	else:
-		if !can_cast(heal_skill):
+		if skill_cooldowns.has(heal_skill):
 			return
 	
 	set_cooldown(heal_skill)
@@ -126,7 +128,7 @@ func cast_iceblock():
 	if !skills_active.has(iceblock_skill):
 		return
 	else:
-		if !can_cast(iceblock_skill):
+		if skill_cooldowns.has(iceblock_skill):
 			return
 	
 	set_cooldown(iceblock_skill)
@@ -140,7 +142,7 @@ func cast_field():
 	if !skills_active.has(field_skill):
 		return
 	else:
-		if !can_cast(field_skill):
+		if skill_cooldowns.has(field_skill):
 			return
 	
 	set_cooldown(field_skill)
@@ -154,7 +156,7 @@ func cast_tornado():
 	if !skills_active.has(tornado_skill):
 		return
 	else:
-		if !can_cast(tornado_skill):
+		if skill_cooldowns.has(tornado_skill):
 			return
 	
 	set_cooldown(tornado_skill)
@@ -285,6 +287,10 @@ func hit(damage_taken, _damage_source) -> void:
 func heal(heal_amount) -> void:
 	#chowac pasek kiedy jest pelny?
 	Globals.health += heal_amount
+	if Globals.health >= Globals.max_health:
+		Globals.health = Globals.max_health
+		health_bar.visible = false
+		damage_bar.visible = false
 	health_bar.value = Globals.health
 	var health_tween = create_tween()
 	health_tween.tween_property(damage_bar, "value", Globals.health, 0.5)
