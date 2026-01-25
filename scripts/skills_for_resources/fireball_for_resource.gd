@@ -23,12 +23,16 @@ func upgrade_skill():
 	cooldown = 3.2 - (0.3 * skill_level)
 
 func get_desc() -> String:
-		if skill_level > 0:
-			return "[b][color=#dbc4a6]cast a single projectile in a straight line[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
- %[skill_effect_data.base_damage+3, cooldown-0.3, skill_level]
+	if skill_level > 0:
 		return "[b][color=#dbc4a6]cast a single projectile in a straight line[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
+ %[skill_effect_data.base_damage+3, cooldown-0.3, skill_level]
+	return "[b][color=#dbc4a6]cast a single projectile in a straight line[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
  %[skill_effect_data.base_damage, cooldown, skill_level]
 
 func get_achievement_desc() -> String:
 	return "[b][color=#dbc4a6]cast a single projectile in a straight line[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell][/table]" \
  %[skill_effect_data.base_damage, cooldown]
+
+func tooltip_desc():
+	return "[b][color=#dbc4a6]cast a single projectile in a straight line[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
+ %[skill_effect_data.base_damage, cooldown, skill_level]

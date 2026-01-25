@@ -1,7 +1,7 @@
 extends Control
 class_name SkillTooltip
 
-@onready var label: Label = $Text
+@onready var label: RichTextLabel = $Text
 
 var descriptions = {
 	"Attack": "[Z] Attack enemies in range.",
@@ -22,8 +22,11 @@ func show_text(icon_name):
 	label.text 	= icon_name + "\n" + descriptions.get(icon_name, "")
 	visible = true
 	
-func show_spell_text(_skill: Skill, _order_number = null):
-	label.text = descriptions.get(_order_number, "") + _skill.skill_name + "\n" + _skill.skill_desc
+func show_spell_text(skill: Skill, _order_number = null):
+	if skill.has_method("get_skill_name"):
+		label.text = descriptions.get(_order_number, "") + skill.get_skill_name() + "\n" + skill.tooltip_desc()
+	else:
+		label.text = descriptions.get(_order_number, "") + skill.skill_name + "\n" + skill.tooltip_desc()
 	visible = true
 		
 func show_bar_text(bar_name):

@@ -29,3 +29,7 @@ func get_desc() -> String:
 func get_achievement_desc() -> String:
 	return "[b][color=#dbc4a6]strike the designated point[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]radius: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell][/table]" \
  %[skill_effect_data.base_damage, skill_effect_data2.radius, cooldown]
+
+func tooltip_desc():
+	return "[b][color=#dbc4a6]strike the designated point[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]radius: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
+ %[skill_effect_data.base_damage, skill_effect_data2.radius, cooldown, skill_level]

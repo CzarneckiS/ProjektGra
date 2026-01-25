@@ -20,3 +20,7 @@ func get_desc() -> String:
 func get_achievement_desc() -> String:
 	return "[b][color=#dbc4a6]your melee units gain exceptionally sharp blades...[/color][/b]\n\n[table=2][cell]bleed per second: [/cell][cell]%s[/cell][/table]" \
  %[(3+(skill_level+1))/damage_interval]
+
+func tooltip_desc():
+	return "[b][color=#dbc4a6]your melee units gain exceptionally sharp blades...[/color][/b]\n\n[table=2][cell]bleed per second: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
+ %[(3+(skill_level))/damage_interval, skill_level]

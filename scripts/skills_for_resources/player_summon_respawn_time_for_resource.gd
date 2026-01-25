@@ -17,3 +17,7 @@ func get_desc() -> String:
 func get_achievement_desc() -> String:
 	return "[b][color=#dbc4a6]if your units die they come back faster[/color][/b]\n\n[table=2][cell]respawn timer: [/cell][cell]%s[/cell][/table]" \
  %[str(5 * snappedf((0.5 + 0.5/((skill_level+1)+1)), 0.01))]
+
+func tooltip_desc():
+	return "[b][color=#dbc4a6]if your units die they come back faster[/color][/b]\n\n[table=2][cell]respawn timer: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
+ %[str(5 * snappedf((0.5 + 0.5/((skill_level)+1)), 0.01)), skill_level]
