@@ -20,9 +20,11 @@ offset_bottom = 40.0
 scale = Vector2(0.13, 0.13)
 
 [node name="CooldownMask" type="ColorRect" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 65.0
 offset_bottom = 65.0
+mouse_filter = 2
 color = Color(0, 0, 0, 0.6)
 
 [node name="CooldownLabel" type="Label" parent="."]

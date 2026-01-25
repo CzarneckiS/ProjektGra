@@ -12,7 +12,6 @@ var remaining := 0.0
 signal hovered(skill: Skill)
 signal unhovered()
 
-
 func set_skill(_skill: Skill):
 	skill = _skill
 	if _skill.icon != null:
@@ -30,7 +29,7 @@ func set_skill(_skill: Skill):
 		mouse_exited.connect(_on_mouse_exited)
 
 
-	reset_cooldown()
+	#reset_cooldown()
 
 	
 func start_cooldown(time: float):
@@ -52,6 +51,11 @@ func _process(delta):
 
 	remaining -= delta
 	cooldown_label.text = str(snapped(remaining, 0.1))
+	print(delta)
+	print(remaining)
+	print(skill)
+	print(icon.texture)
+
 
 func clear():
 	skill = null
