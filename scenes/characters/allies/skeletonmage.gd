@@ -8,7 +8,7 @@ var skills_on_hit : Array = [projectile]
 var skills_on_death : Array = []
 var own_tags: PackedInt32Array = [Tags.UnitTag.UNIT, Tags.UnitTag.ALLIED, Tags.UnitTag.SKELETON_MAGE]
 #movement
-var speed = 270
+var speed = 280
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position = Vector2.ZERO #temporary, bedzie wymienione przy pathfindingu
@@ -19,7 +19,7 @@ var follow_distance_absolute:int = 1000
 var movement_order #rozkaz tworzony w levelu przy right clickowaniu
 
 #combat
-var base_damage = 10
+var base_damage = 15
 var damage = base_damage
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
@@ -43,7 +43,7 @@ func _ready() -> void:
 	unit_hud_order = 1
 	icon_texture = "res://sprites/ui/skeleton mage icon.png"
 
-	base_max_health = 60
+	base_max_health = 55
 	max_health  = base_max_health
 	health = max_health
 	health_bar.max_value = max_health
