@@ -32,10 +32,14 @@ func upgrade_skill():
 	cooldown = 10 - (0.7*skill_level)
 func get_desc() -> String:
 	if skill_level > 0:
-		return "[b][color=#dbc4a6]other spells can bring its full potential[/color][/b]\n\n[table=2][cell]damage per second: [/cell][cell]%s[/cell]\n[cell]damage multiplier: [/cell][cell]%s[/cell]\n[cell]duration: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
- %[(effect_dot.damage_per_tick+skill_level)*(effect_dot.ticks_per_second+0.5), effect_dot.damage_multiplier+0.05, effect_dot.duration+1.5, cooldown-0.7, skill_level]
-	return "[b][color=#dbc4a6]other spells can bring its full potential[/color][/b]\n\n[table=2][cell]damage per second: [/cell][cell]%s[/cell]\n[cell]damage multiplier: [/cell][cell]%s[/cell]\n[cell]duration: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
- %[effect_dot.damage_per_tick*effect_dot.ticks_per_second, effect_dot.damage_multiplier, effect_dot.duration, cooldown, skill_level]
+		return "[b][color=#dbc4a6]other spells can bring its full potential[/color][/b]\n\n[table=2][cell]damage per second: [/cell][cell]%s[/cell]\n[cell]duration: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
+ %[(effect_dot.damage_per_tick+skill_level)*(effect_dot.ticks_per_second+0.5)*(effect_dot.damage_multiplier+0.05), effect_dot.duration+1.5, cooldown-0.7, skill_level]
+	return "[b][color=#dbc4a6]other spells can bring its full potential[/color][/b]\n\n[table=2][cell]damage per second: [/cell][cell]%s[/cell]\n[cell]duration: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
+ %[effect_dot.damage_per_tick*effect_dot.ticks_per_second, effect_dot.duration, cooldown, skill_level]
 
 func get_skill_name() -> String:
-	return "[wave amp=20.0 freq=8.0 connected=0]Whirlwind[/wave]"
+	return "[wave amp=20.0 freq=8.0 connected=0][rainbow freq=2.0 sat=0.4 val=1.0 speed=0.5]Whirlwind[/rainbow][/wave]"
+
+func get_achievement_desc() -> String:
+	return "[b][color=#dbc4a6]other spells can bring its full potential[/color][/b]\n\n[table=2][cell]damage per second: [/cell][cell]%s[/cell]\n[cell]duration: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell][/table]" \
+ %[effect_dot.damage_per_tick*effect_dot.ticks_per_second, effect_dot.duration, cooldown]

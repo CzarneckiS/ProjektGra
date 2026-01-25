@@ -9,8 +9,8 @@ extends Node2D
 	$AchIcon11, $AchIcon12, $AchIcon13, $AchIcon14, $AchIcon15
 ]
 
-@onready var text_c: Label = $TextC
-@onready var text_d: Label = $TextD
+@onready var text_c: RichTextLabel = $TextC
+@onready var text_d: RichTextLabel = $TextD
 @onready var text_e: Label = $TextE
 @onready var spell_data_icon: TextureRect = $SpellDataIcon
 
@@ -89,8 +89,14 @@ func _on_icon_hover(icon_node: TextureRect) -> void:
 	if is_unlocked:
 		spell_data_icon.texture = skill.icon
 		spell_data_icon.visible = true
-		text_c.text = skill.skill_name
-		text_d.text = skill.skill_desc
+		if skill.has_method("get_skill_name"):
+			text_c.text = skill.get_skill_name()
+		else:
+			text_c.text = skill.skill_name
+		if skill.has_method("get_achievement_desc"):
+			text_d.text = skill.get_achievement_desc()
+		else:
+			text_d.text = skill.get_desc()
 		#text_e.text = Achievements.achievement_description_list[Achievements.skill_unlock_handler.skill_unlock_dictionary[skill]]
 	else:
 		spell_data_icon.texture = EMPTY_ICON
