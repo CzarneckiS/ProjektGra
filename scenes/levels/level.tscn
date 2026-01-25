@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://di31cuiaxvo7s"]
+[gd_scene load_steps=47 format=4 uid="uid://di31cuiaxvo7s"]
 
 [ext_resource type="PackedScene" uid="uid://cbodjjoib2qrn" path="res://scenes/characters/player.tscn" id="1_377w7"]
 [ext_resource type="Script" uid="uid://dek8k2fbphrnu" path="res://scenes/levels/level.gd" id="1_xb4v1"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://wvsdf8tuug6c" path="res://scenes/tree_with_collision.tscn" id="4_mbbpy"]
 [ext_resource type="Script" uid="uid://rkcfoq2ddkxw" path="res://scenes/levels/unit_selector.gd" id="4_xb4v1"]
 [ext_resource type="PackedScene" uid="uid://dx8bgx8t5os4i" path="res://scenes/ui/achievements_popup.tscn" id="8_icy5c"]
-[ext_resource type="Texture2D" uid="uid://bxuerlbo6xe3n" path="res://sprites/ui/black_screen.png" id="8_ouxo3"]
 [ext_resource type="AudioStream" uid="uid://bj0o5dple42pu" path="res://soundtrack/new_battle_theme_normalized.ogg" id="8_ouxo3"]
 [ext_resource type="AudioStream" uid="uid://2l5xuelebfrw" path="res://soundtrack/new_battle_theme_night_normalized.ogg" id="9_icy5c"]
 
@@ -1171,7 +1170,6 @@ cell_size = 10.0
 agent_radius = 30.0
 
 [node name="Level" type="Node2D"]
-z_index = 4090
 y_sort_enabled = true
 script = ExtResource("1_xb4v1")
 metadata/_edit_horizontal_guides_ = [-4008.0, 4004.0]
@@ -1330,7 +1328,6 @@ tile_set = SubResource("TileSet_5mi6g")
 metadata/_edit_lock_ = true
 
 [node name="CollisionTrees" type="Node2D" parent="." groups=["navigation"]]
-z_index = 4090
 y_sort_enabled = true
 position = Vector2(0, 130)
 
@@ -1983,7 +1980,7 @@ z_index = 4090
 position = Vector2(-1326, -3784)
 
 [node name="BGTrees" type="Node2D" parent="."]
-z_index = 4090
+z_index = 1
 y_sort_enabled = true
 position = Vector2(0, 130)
 
@@ -2512,7 +2509,6 @@ z_index = 4090
 position = Vector2(2723, -4185)
 
 [node name="XPFlowers" type="Node2D" parent="."]
-z_index = 4090
 y_sort_enabled = true
 position = Vector2(19, -181)
 
@@ -2541,7 +2537,6 @@ z_index = 4090
 position = Vector2(3575, 498)
 
 [node name="Player" parent="." instance=ExtResource("1_377w7")]
-z_index = 4090
 position = Vector2(80, -114)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -2583,23 +2578,20 @@ rotation = 0.032436967
 progress = 489.93872
 
 [node name="AlliedUnits" type="Node2D" parent="."]
-z_index = 4090
 y_sort_enabled = true
 position = Vector2(19, -181)
 
 [node name="EnemyUnits" type="Node2D" parent="."]
-z_index = 4090
 y_sort_enabled = true
 
 [node name="Projectiles" type="Node2D" parent="."]
-z_index = 4090
 
 [node name="UnitSelector" type="Node2D" parent="."]
-z_index = 4090
+z_index = 1
 script = ExtResource("4_xb4v1")
 
 [node name="MoveCursor" type="Node2D" parent="."]
-z_index = 4090
+z_index = 3
 
 [node name="StageLightingDay" type="DirectionalLight2D" parent="."]
 visible = false

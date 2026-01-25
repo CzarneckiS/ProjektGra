@@ -52,7 +52,7 @@ func _process(delta: float) -> void:
 
 func _ready() -> void:
 	for achiev in achievement_list: # UBER TEMPORARY
-		achievement_list[achiev] = true
+		achievement_list[achiev] = false
 	save_game() #TEMPORARY, DO WYWALENIA
 	print("template: %s" %OS.has_feature("template"))
 	create_save_directory() #jesli template:  build exportowany do pliku .exe
