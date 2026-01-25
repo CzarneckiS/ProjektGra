@@ -26,14 +26,14 @@ func _init() -> void:
 	use_tags.append(Tags.UseTag.ACTIVE)
 func upgrade_skill():
 	effect_dot.damage_per_tick = 2+skill_level
-	effect_dot.ticks_per_second = 5 + (0.5*skill_level)
+	effect_dot.ticks_per_second = 4 + (0.5*skill_level)
 	effect_dot.damage_multiplier = 1.0 + (0.05*skill_level)
-	effect_dot.duration = 4+(1.5*skill_level)
-	cooldown = 10 - (0.7*skill_level)
+	effect_dot.duration = 4+(1.2*skill_level)
+	cooldown = 14 - (0.5*skill_level)
 func get_desc() -> String:
 	if skill_level > 0:
 		return "[b][color=#dbc4a6]other spells can bring its full potential[/color][/b]\n\n[table=2][cell]damage per second: [/cell][cell]%s[/cell]\n[cell]duration: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
- %[(effect_dot.damage_per_tick+skill_level)*(effect_dot.ticks_per_second+0.5)*(effect_dot.damage_multiplier+0.05), effect_dot.duration+1.5, cooldown-0.7, skill_level]
+ %[(effect_dot.damage_per_tick+skill_level)*(effect_dot.ticks_per_second+0.5)*(effect_dot.damage_multiplier+0.05), effect_dot.duration+1.2, cooldown-0.5, skill_level]
 	return "[b][color=#dbc4a6]other spells can bring its full potential[/color][/b]\n\n[table=2][cell]damage per second: [/cell][cell]%s[/cell]\n[cell]duration: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
  %[effect_dot.damage_per_tick*effect_dot.ticks_per_second, effect_dot.duration, cooldown, skill_level]
 

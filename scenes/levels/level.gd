@@ -45,7 +45,7 @@ func _ready():
 	add_child(force_wave_timer)
 	force_wave_timer.autostart = false
 	force_wave_timer.one_shot = true
-	force_wave_timer.wait_time = 15
+	force_wave_timer.wait_time = 10
 	force_wave_timer.timeout.connect(force_wave_logic)
 	var big_text = preload("res://scenes/ui/big_text_animation.tscn").instantiate()
 	await get_tree().create_timer(0.5,false).timeout
@@ -159,37 +159,37 @@ func wave_logic():
 	print("ile pokonano: ", enemies_defeated)
 	print("ile zespawniono: ", enemies_spawned)
 	print("ile ma byc zespawnione: ", enemies_to_spawn)
-	force_wave_timer.wait_time += 5
+	force_wave_timer.wait_time += 2
 	wave_switch = true
 	force_wave = false
 	force_wave_timer.start()
 	
 func new_wave():
-	#enemies_defeated = 0 #sygnał od unitów on_death aktualizuje zmienna
+	enemies_defeated = 0 #sygnał od unitów on_death aktualizuje zmienna
 	for warriors in range(h_warriors_to_spawn):
 		spawn_enemy(human_warrior)
 	for mages in range(h_mages_to_spawn):
 		spawn_enemy(human_mage)
 	for archers in range(h_archers_to_spawn):
 		spawn_enemy(human_archer)
-	enemies_spawned += enemies_to_spawn
+	enemies_spawned = enemies_to_spawn
 	
 func enemy_spawn_by_wave(wave_number):
 	enemies_to_spawn = 0
 	wave_number = wave_counter
 	
-	var h_warriors_spawn_increase: int = 1
+	var h_warriors_spawn_increase: int = 2
 	var h_mages_spawn_increase: int = 1
 	var h_archers_spawn_increase: int = 1
 	
-	if wave_number % 2 == 0:
+	if wave_number % 3 == 0:
 		h_warriors_to_spawn += h_warriors_spawn_increase
 	if wave_number % 3 == 0:
 		h_archers_to_spawn += h_archers_spawn_increase
 	if wave_number % 4 == 0:
 		h_mages_to_spawn += h_mages_spawn_increase
 	
-	enemies_to_spawn = h_warriors_to_spawn + h_mages_to_spawn + h_archers_to_spawn
+	enemies_to_spawn += h_warriors_to_spawn + h_mages_to_spawn + h_archers_to_spawn
 	
 func spawn_enemy(enemy_type): # EnemySpawnFollow bierzemy jako unique name
 	var new_enemy = enemy_type.instantiate()

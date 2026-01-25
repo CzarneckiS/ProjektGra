@@ -16,7 +16,11 @@ var opening_shown = false
 #statystyki głównej jednostki
 var player : CharacterBody2D
 var base_health:int = 100
-var health : int = base_health
+var health : int = base_health:
+	set(value):
+		if health >= max_health:
+			health = max_health
+		health = value
 var max_health : int = base_health
 var player_position: Vector2
 
@@ -98,9 +102,9 @@ func remove_overlapping_allies():
 			Input.set_custom_mouse_cursor(evil_cursor)
 #funkcja, ktora obsluguje to, co sie dzieje z postacia po lvl upie
 func level_up():
-	max_health += 20+(5*level) #placeholder wartosc na zwiekszanie max hp
+	max_health += 2+(2*level) #placeholder wartosc na zwiekszanie max hp
 	health = max_health
-	xp_to_level += 10*(2*level) #placeholder wartosc na zwiekszanie limitu do uzyskania kolejnego lvla
+	xp_to_level += 5*(2*level) #placeholder wartosc na zwiekszanie limitu do uzyskania kolejnego lvla
 	level += 1 #nie było tego, dodałem, nie wiem czy coś innego myśleliście
 	
 	ui_hp_update_requested.emit()

@@ -9,10 +9,10 @@ var skills_on_hit : Array = [projectile]
 var skills_on_death : Array = []
 var own_tags : PackedInt32Array = []
 #exp ktory daje warrior, wykorzystywany przekazywany do fsm w dying state
-const experience_value = 10
+const experience_value = 50
 
 #movement
-var speed = 360
+var speed = 425
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position

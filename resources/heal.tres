@@ -9,6 +9,7 @@
 
 [sub_resource type="Resource" id="Resource_t64mn"]
 script = ExtResource("2_1wtui")
+base_heal = 18.0
 metadata/_custom_type_script = "uid://02kqq8hqw2mm"
 
 [sub_resource type="Resource" id="Resource_xcos8"]
@@ -22,6 +23,6 @@ skill_effect_data = SubResource("Resource_t64mn")
 skill_effect_data2 = SubResource("Resource_xcos8")
 skill_name = "Revitalize"
 skill_desc = "It healzzz"
-cooldown = 6.0
+cooldown = 9.0
 visual_effect = ExtResource("5_xcos8")
 icon = ExtResource("4_t64mn")
