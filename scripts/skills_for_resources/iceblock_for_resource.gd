@@ -28,3 +28,7 @@ func get_desc() -> String:
 func get_achievement_desc() -> String:
 	return "[b][color=#dbc4a6]block the enemy path[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell][/table]" \
  %[(effect_damage.base_damage * effect_damage.damage_multiplier), cooldown]
+
+func tooltip_desc():
+	return "[b][color=#dbc4a6]block the enemy path[/color][/b]\n\n[table=2][cell]damage: [/cell][cell]%s[/cell]\n[cell]cooldown: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" \
+ %[(effect_damage.base_damage * effect_damage.damage_multiplier), cooldown, skill_level]

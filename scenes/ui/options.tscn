@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://boik76mhix74e"]
+[gd_scene load_steps=16 format=3 uid="uid://bww5tsqr8lg2i"]
 
 [ext_resource type="Texture2D" uid="uid://b53udvlsxsbkc" path="res://sprites/ui/Achievements window.png" id="1_ad3a0"]
 [ext_resource type="Script" uid="uid://kes62y2fdaq7" path="res://scenes/ui/options.gd" id="1_lr2b1"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bpvowenbyhjyy" path="res://sprites/ui/Button_pressed.png" id="5_b0jeg"]
 [ext_resource type="Texture2D" uid="uid://cvilxq7eyc1kj" path="res://sprites/ui/Button_highlight.png" id="6_epl0h"]
 [ext_resource type="FontFile" uid="uid://bg81f0wdusbdp" path="res://sprites/ui/Warsuck.otf" id="7_gdfy8"]
+[ext_resource type="AudioStream" uid="uid://bgaj7l2ut0y5e" path="res://sfx/menu/menu_click.ogg" id="8_b0jeg"]
 
 [sub_resource type="FontVariation" id="FontVariation_pykmj"]
 base_font = ExtResource("3_pykmj")
@@ -470,3 +471,6 @@ offset_bottom = 718.0
 theme_override_fonts/font = SubResource("FontVariation_b0jeg")
 theme_override_font_sizes/font_size = 30
 text = "0 %"
+
+[node name="click_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_b0jeg")

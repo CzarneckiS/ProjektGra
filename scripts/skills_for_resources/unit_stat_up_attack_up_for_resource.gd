@@ -17,3 +17,7 @@ func get_desc() -> String:
 func get_achievement_desc() -> String:
 	return "[b][color=#dbc4a6]your units hit harder[/color][/b]\n\n[table=2][cell]unit damage: [/cell][cell]+%s[/cell][/table]" \
  %[damage_bonus * (skill_level+1)]
+
+func tooltip_desc():
+	return "[b][color=#dbc4a6]your units hit harder[/color][/b]\n\n[table=2][cell]unit damage: [/cell][cell]+%s[/cell]\n[cell]skill level: %s[/cell][/table]" \
+ %[damage_bonus * (skill_level), skill_level]

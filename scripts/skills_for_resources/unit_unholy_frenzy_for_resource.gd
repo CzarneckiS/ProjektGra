@@ -20,3 +20,6 @@ func get_desc() -> String:
 	return "[b][color=#dbc4a6]your units gain attack speed but they're slowly dying[/color][/b]\n\n[table=2][cell]attack speed multiplier: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" %[(1 + attack_speed_multiplier * (skill_level+1)), skill_level]
 func get_achievement_desc() -> String:
 	return "[b][color=#dbc4a6]your units gain attack speed but they're slowly dying[/color][/b]\n\n[table=2][cell]attack speed multiplier: [/cell][cell]%s[/cell][/table]" %[(1 + attack_speed_multiplier * (skill_level+1))]
+
+func tooltip_desc():
+	return "[b][color=#dbc4a6]your units gain attack speed but they're slowly dying[/color][/b]\n\n[table=2][cell]attack speed multiplier: [/cell][cell]%s[/cell]\n[cell]skill level: [/cell][cell]%s[/cell][/table]" %[(1 + attack_speed_multiplier * (skill_level)), skill_level]

@@ -63,8 +63,8 @@ func _on_button_start_pressed() -> void:
 
 
 func _on_button_options_pressed() -> void:
-	$menu_click_deny.play()
-	await $menu_click_deny.finished
+	$menu_click.play()
+	await $menu_click.finished
 	get_tree().change_scene_to_file("res://scenes/ui/options.tscn")
 	
 func _on_button_achievements_pressed() -> void:

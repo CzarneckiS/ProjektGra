@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bd1p8ix5gasyn"]
+[gd_scene load_steps=5 format=3 uid="uid://bd1p8ix5gasyn"]
 
 [ext_resource type="Script" uid="uid://mp8g0xxedtyy" path="res://scenes/ui/tooltip_scene.gd" id="1_jpgm5"]
 [ext_resource type="Texture2D" uid="uid://da88cxc0k68bf" path="res://sprites/ui/tooltip.png" id="2_xcq67"]
+[ext_resource type="FontFile" uid="uid://bdn6824mbo1l3" path="res://sprites/ui/MADEAvenuePERSONALUSE-Regular.otf" id="3_8y5a5"]
+[ext_resource type="FontFile" uid="uid://bg81f0wdusbdp" path="res://sprites/ui/Warsuck.otf" id="4_ro02c"]
 
 [node name="TooltipScene" type="Control"]
 z_index = 4
@@ -18,18 +20,22 @@ script = ExtResource("1_jpgm5")
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = 4
 layout_mode = 0
-offset_top = -88.0
+offset_top = -191.0
 offset_right = 1182.6086
-offset_bottom = 462.0
+offset_bottom = 1002.75
 scale = Vector2(0.23, 0.16)
 texture = ExtResource("2_xcq67")
 
-[node name="Text" type="Label" parent="."]
+[node name="Text" type="RichTextLabel" parent="."]
 z_index = 4
 layout_mode = 0
 offset_left = 14.0
-offset_top = -82.0
+offset_top = -180.0
 offset_right = 257.0
 offset_bottom = -15.0
 mouse_behavior_recursive = 1
-autowrap_mode = 3
+theme_override_fonts/normal_font = ExtResource("3_8y5a5")
+theme_override_fonts/bold_font = ExtResource("4_ro02c")
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
