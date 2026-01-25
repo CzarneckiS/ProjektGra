@@ -724,10 +724,10 @@ text = "Defeat waves of enemies "
 [node name="WaveCounterLabel2" type="Label" parent="."]
 modulate = Color(1, 0.78039217, 0, 1)
 layout_mode = 0
-offset_left = -369.0
-offset_top = -747.00006
-offset_right = -326.0
-offset_bottom = -722.72394
+offset_left = -370.0
+offset_top = -747.0
+offset_right = -327.0
+offset_bottom = -722.7239
 scale = Vector2(1, 0.94743645)
 theme_override_fonts/font = ExtResource("17_1vhb4")
 theme_override_font_sizes/font_size = 19
