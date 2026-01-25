@@ -326,6 +326,8 @@ func _push_units():
 			
 func push_units():
 	for body in unit_collision_push_array:
+		if !body.get_ref():
+			continue
 		if body.get_ref().state_machine.state == body.get_ref().state_machine.states.mid_animation:
 			remove_collision_exception_with(body.get_ref())
 			continue

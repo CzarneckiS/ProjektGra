@@ -190,7 +190,6 @@ func update_hp_bar():
 	main_health_tween.tween_property(main_damage_bar, "value", Globals.max_health - Globals.health, 0.5)
 	main_health_tween.set_trans(Tween.TRANS_SINE)
 	main_health_tween.set_ease(Tween.EASE_IN_OUT)
-	Achievements.unlock_achievement("mages_killed")
 	
 func update_exp_bar():
 	xp_gain_bar.value = Globals.xp_to_level - Globals.accumulated_xp
@@ -414,7 +413,7 @@ func update_spell_bar(_skill: Skill = null) -> void:
 
 		if i < active_spells.size():
 			slot.visible = true
-			slot.set_skill(active_spells[i])
+			slot.set_skill(active_spells[i], i+1)
 		else:
 			slot.visible = false
 			slot.clear()
@@ -438,8 +437,8 @@ func _on_skill_casted(skill: Skill, cooldown: float):
 
 
 
-func _on_spell_slot_hovered(skill: Skill) -> void:
-	skill_tooltip.show_spell_text(skill)
+func _on_spell_slot_hovered(skill: Skill, order_number) -> void:
+	skill_tooltip.show_spell_text(skill, order_number)
 
 func _on_spell_slot_unhovered() -> void:
 	skill_tooltip.hide_tooltip()

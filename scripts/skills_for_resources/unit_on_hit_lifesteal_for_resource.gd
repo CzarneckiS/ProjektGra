@@ -7,9 +7,7 @@ class_name UnitOnHitLifesteal
 @export var use_tags : PackedInt32Array = []
 @export var skill_tags : PackedInt32Array = []
 func use(unit: CharacterBody2D, target: CharacterBody2D) -> void:
-	print(unit.health)
 	unit.heal(skill_level*3)
-	print(unit.health)
 	var visuals = visual_effect.instantiate()
 	unit.add_child(visuals)
 	visuals.global_position = unit.global_position

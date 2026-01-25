@@ -1,24 +1,24 @@
 extends Control
 
-@onready var name_1: RichTextLabel = $Option1/Name
-@onready var name_2: RichTextLabel = $Option2/Name
-@onready var name_3: RichTextLabel = $Option3/Name
+@onready var name_1: RichTextLabel = $Name1
+@onready var name_2: RichTextLabel = $Name2
+@onready var name_3: RichTextLabel = $Name3
 
-@onready var description_1: RichTextLabel = $Option1/Description
-@onready var description_2: RichTextLabel = $Option2/Description
-@onready var description_3: RichTextLabel = $Option3/Description
+@onready var description_1: RichTextLabel = $Description1
+@onready var description_2: RichTextLabel = $Description2
+@onready var description_3: RichTextLabel = $Description3
 
-@onready var texture_rect_1: TextureRect = $Option1/Icon
-@onready var texture_rect_2: TextureRect = $Option2/Icon
-@onready var texture_rect_3: TextureRect = $Option3/Icon
+@onready var texture_rect_1: TextureRect = $Icon1
+@onready var texture_rect_2: TextureRect = $Icon2
+@onready var texture_rect_3: TextureRect = $Icon3
 
 @onready var option_1: Button = $Option1
 @onready var option_2: Button = $Option2
 @onready var option_3: Button = $Option3
 
-@onready var highlight_1: TextureRect = $Option1/Highlight
-@onready var highlight_2: TextureRect = $Option2/Highlight
-@onready var highlight_3: TextureRect = $Option3/Highlight
+@onready var highlight_1: TextureRect = $Highlight1
+@onready var highlight_2: TextureRect = $Highlight2
+@onready var highlight_3: TextureRect = $Highlight3
 
 var skills_to_show: Array
 

@@ -7,4 +7,5 @@ func _ready() -> void:
 	
 func _on_body_entered(_body):
 	Globals.update_player_exp(xp_value)
+	Achievements.achievement_update(Achievements.Event.FLOWER_COLLECTED, self)
 	queue_free()

@@ -78,6 +78,7 @@ func _on_player_died():
 	get_tree().paused = true
 
 func _on_boss_killed():
+	Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.BOSS)
 	await get_tree().create_timer(0.5,false).timeout
 	var win_screen = preload("res://scenes/ui/win_screen.tscn").instantiate()          
 	win_screen.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -136,10 +137,12 @@ func force_wave_logic():
 	force_wave = true
 
 func wave_logic():
-	print("przed:")
-	print("ile pokonano: ", enemies_defeated)
-	print("ile zespawniono: ", enemies_spawned)
-	print("ile ma byc zespawnione: ", enemies_to_spawn)
+	if wave_counter == 5:
+		Achievements.achievement_update(Achievements.Event.WAVE_REACHED, 5)
+	elif wave_counter == 10:
+		Achievements.achievement_update(Achievements.Event.WAVE_REACHED, 10)
+	elif wave_counter == max_wave:
+		Achievements.achievement_update(Achievements.Event.WAVE_REACHED, 20)
 	if wave_counter == half_of_max_waves:
 		make_night()
 		Globals.wave_count += 1
@@ -165,6 +168,7 @@ func wave_logic():
 	wave_switch = true
 	force_wave = false
 	force_wave_timer.start()
+
 	
 func new_wave():
 	enemies_defeated = 0 #sygnał od unitów on_death aktualizuje zmienna
@@ -215,7 +219,6 @@ func on_summon_unit(unit):
 			summon_skeleton_mage()
 			
 func on_unit_death(unit):
-	Achievements.unlock_achievement("mages_killed")
 	#narazie hardcoded 5 sekundowy timer
 	for order in movement_orders:
 			if unit in order.unit_array:
@@ -225,8 +228,6 @@ func on_unit_death(unit):
 			await get_tree().create_timer(5.0 * $Player.summon_respawn_timer_modifier,false).timeout
 			summon_skeleton_mage()
 		Tags.UnitTag.SKELETON_WARRIOR:
-			print($Player.summon_respawn_timer_modifier)
-			print(5.0 * $Player.summon_respawn_timer_modifier)
 			await get_tree().create_timer(5.0 * $Player.summon_respawn_timer_modifier,false).timeout
 			summon_skeleton_warrior()
 		Tags.UnitTag.HUMAN_WARRIOR:
@@ -261,6 +262,7 @@ func summon_skeleton_warrior():
 	new_skeleton_warrior.connect("unit_died", on_unit_death)
 	new_skeleton_warrior.connect("took_damage", on_unit_damage_taken)
 	on_allied_unit_spawn_animation(new_skeleton_warrior)
+	Achievements.achievement_update(Achievements.Event.UNIT_SUMMONED,Tags.UnitTag.SKELETON_WARRIOR)
 func summon_skeleton_mage():
 	var new_skeleton_mage = skeleton_mage.instantiate()
 	$AlliedUnits.add_child(new_skeleton_mage)
@@ -272,7 +274,7 @@ func summon_skeleton_mage():
 	new_skeleton_mage.connect("unit_died", on_unit_death)
 	new_skeleton_mage.connect("took_damage", on_unit_damage_taken)
 	on_allied_unit_spawn_animation(new_skeleton_mage)
-	Achievements.unlock_achievement("mages_killed")
+	Achievements.achievement_update(Achievements.Event.UNIT_SUMMONED,Tags.UnitTag.SKELETON_WARRIOR)
 func is_point_on_map(target_point: Vector2) -> bool:
 	var map = get_world_2d().navigation_map
 	var closest_point = NavigationServer2D.map_get_closest_point(map, target_point)
