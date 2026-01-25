@@ -2461,31 +2461,8 @@ metadata/_edit_use_anchors_ = true
 [node name="AchievmentsPopup" parent="HudLayer/HUD" instance=ExtResource("8_icy5c")]
 layout_mode = 1
 
-[node name="Label" type="Label" parent="HudLayer"]
-z_index = 4090
-anchors_preset = -1
-anchor_left = 0.84800005
-anchor_top = 0.34100002
-anchor_right = 1.0
-anchor_bottom = 0.48800004
-offset_left = 39.19995
-offset_top = -75.900024
-offset_bottom = 113.29996
-grow_horizontal = 0
-grow_vertical = 2
-text = "Z + left click = attack move
-X = stop
-C = hold position
-J = Spawn Warrior
-K = Spawn Mage
-L = Spawn Human Warrior
-N = Spawn Human Archer
-M = Spawn Human Mage
-; = Spawn Boss
-P = Level up"
-metadata/_edit_use_anchors_ = true
-
 [node name="Label2" type="Label" parent="HudLayer"]
+visible = false
 z_index = 4090
 anchors_preset = 1
 anchor_left = 1.0

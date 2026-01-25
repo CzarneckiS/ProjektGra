@@ -190,7 +190,6 @@ func update_hp_bar():
 	main_health_tween.tween_property(main_damage_bar, "value", Globals.max_health - Globals.health, 0.5)
 	main_health_tween.set_trans(Tween.TRANS_SINE)
 	main_health_tween.set_ease(Tween.EASE_IN_OUT)
-	Achievements.unlock_achievement("mages_killed")
 	
 func update_exp_bar():
 	xp_gain_bar.value = Globals.xp_to_level - Globals.accumulated_xp

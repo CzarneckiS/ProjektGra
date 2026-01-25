@@ -324,9 +324,13 @@ func cast_dash(unit, target_destination : Vector2):
 	state_machine.set_state(state_machine.states.moving)
 	move_target = 5#TODO
 func ranged_attack():
+	if !attack_target:
+		return
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		projectile.use(self, attack_target.get_ref())
 func melee_attack():
+	if !attack_target:
+		return
 	Audio.play_audio($sfx_slash)
 	melee_attack_vfx.use(self, attack_target.get_ref())
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:

@@ -53,10 +53,6 @@ func _process(delta):
 
 	remaining -= delta
 	cooldown_label.text = str(snapped(remaining, 0.1))
-	print(delta)
-	print(remaining)
-	print(skill)
-	print(icon.texture)
 
 
 func clear():

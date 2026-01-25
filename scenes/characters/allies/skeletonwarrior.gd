@@ -172,6 +172,8 @@ var unit_collision_push_array : Array = []
 
 func push_units():
 	for body in unit_collision_push_array:
+		if !body.get_ref():
+			continue
 		if body.get_ref().state_machine.state != body.get_ref().state_machine.states.idle:
 			continue
 		if movement_order and body.get_ref().movement_order:
@@ -181,11 +183,12 @@ func push_units():
 		if body.get_ref().state_machine.command == body.get_ref().state_machine.commands.HOLD:
 			continue
 			#ta liczba oznacza jak daleko ma sie odsunac odepchnieta jednostka
-		if angle_difference(global_position.angle_to_point(move_target), global_position.angle_to_point(body.get_ref().global_position)) < PI/2:
-			#print("im pushin p")
-			body.get_ref().move_target = body.get_ref().global_position + (global_position.direction_to(body.get_ref().global_position))
-			body.get_ref().state_machine.set_state(body.get_ref().state_machine.states.moving)
-			#body.get_ref().push_units()
+		if move_target:
+			if angle_difference(global_position.angle_to_point(move_target), global_position.angle_to_point(body.get_ref().global_position)) < PI/2:
+				#print("im pushin p")
+				body.get_ref().move_target = body.get_ref().global_position + (global_position.direction_to(body.get_ref().global_position))
+				body.get_ref().state_machine.set_state(body.get_ref().state_machine.states.moving)
+				#body.get_ref().push_units()
 
 func _on_movement_push_area_body_entered(body: Node2D) -> void:
 	unit_collision_push_array.append(weakref(body))
@@ -268,6 +271,8 @@ func _on_navigation_timer_timeout() -> void:
 func follow_player() -> void:
 	if global_position.distance_to(Globals.player_position) > follow_distance_absolute:
 		global_position = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
+		possible_targets = []
+		possible_targets = $VisionArea.get_overlapping_bodies()
 		attack_target = null
 		move_target = null
 		state_machine.state = state_machine.states.idle
@@ -340,6 +345,8 @@ func heal(heal_amount):
 		tween.set_trans(Tween.TRANS_SINE)
 		tween.set_ease(Tween.EASE_OUT)
 func attack():
+	if !attack_target:
+		return
 	Audio.play_audio($sfx_attack)
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		#check czy cel nie odszedl za daleko
