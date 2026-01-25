@@ -20,7 +20,7 @@ var next_path_position
 var can_navigate:bool = true
 
 #combat
-var damage = 12
+var damage = 14
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UŻYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
 var attack_range = 500

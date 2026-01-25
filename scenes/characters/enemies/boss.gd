@@ -40,7 +40,7 @@ var mouse_hovering : bool = false #sluzy do sprawdzania czy myszka jest w clicka
 @onready var unstick_timer: Timer = $Timers/UnstickTimer
 
 func _ready() -> void:
-	base_max_health = 9000
+	base_max_health = 8000
 	max_health  = base_max_health
 	health = max_health
 	Globals.boss_max_health = max_health

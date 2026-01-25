@@ -1,7 +1,7 @@
 extends RefCounted
 class_name UnholyFrenzyStatusEffect
 
-var damage = 3
+var damage = 3.5
 
 func initialize(unit):
 	unit.status_effects_array.append(self)

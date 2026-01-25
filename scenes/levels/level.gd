@@ -96,7 +96,7 @@ var h_archers_to_spawn: int = 0
 var timer_between_waves: Timer = Timer.new()
 var force_wave_timer: Timer = Timer.new()
 @warning_ignore("integer_division")
-var half_of_max_waves: int = max_wave/2
+var half_of_max_waves: int = 10
 
 var is_night: bool = false
 
@@ -142,6 +142,8 @@ func wave_logic():
 	print("ile ma byc zespawnione: ", enemies_to_spawn)
 	if wave_counter == half_of_max_waves:
 		make_night()
+		Globals.wave_count += 1
+		Globals.wave_count_update.emit()
 	if wave_counter == max_wave:
 		wave_counter += 1
 		Globals.wave_count = wave_counter
