@@ -4,10 +4,10 @@ class_name SkillTooltip
 @onready var label: Label = $Text
 
 var descriptions = {
-	"Attack": "Attack enemies in range.",
-	"Hold": "Hold position and defend.",
-	"Move": "Move to selected location.",
-	"Stop": "Stop all current actions.",
+	"Attack": "[A] Attack enemies in range.",
+	"Hold": "[C] Hold position and defend.",
+	"Move": "[RMB] Move to selected location.",
+	"Stop": "[X] Stop all current actions.",
 	"HPBar": "Health: If this reaches zero, you lose.",
 	"XPBar": "Experience: Collect to unlock new skills.",
 	"PlayerLvl": "Hero Level: Reflects your current strength. Higher levels unlock stronger abilities.",
