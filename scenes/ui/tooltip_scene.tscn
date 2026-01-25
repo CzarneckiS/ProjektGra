@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://bd1p8ix5gasyn"]
+
+[ext_resource type="Script" uid="uid://mp8g0xxedtyy" path="res://scenes/ui/tooltip_scene.gd" id="1_jpgm5"]
+
+[node name="TooltipScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+script = ExtResource("1_jpgm5")
+
+[node name="Text" type="Label" parent="."]
+z_index = 4
+layout_mode = 0
+offset_left = 5.0
+offset_top = -75.0
+offset_right = 224.0
+offset_bottom = -8.0
+mouse_behavior_recursive = 1
+autowrap_mode = 3
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_top = -80.0
+offset_right = 232.0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+color = Color(0, 0, 0, 0.41960785)

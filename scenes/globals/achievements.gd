@@ -6,6 +6,7 @@ var human_archer_kill_count = 0
 var human_mage_kill_count = 0
 
 var skill_unlock_handler
+signal achievement_unlocked(achievement_key)
 
 enum Event{
 	ENTITY_DIED,
@@ -70,24 +71,31 @@ func achievement_update(event : Event, entity) -> void :
 				Tags.UnitTag.HUMAN_MAGE:
 					human_mage_kill_count += 1
 					if human_mage_kill_count >= 5:
-						unlock_achievement("mages_killed")
+						Achievements.unlock_achievement("mages_killed")
 		Event.WAVE_CLEARED:
 			pass
 		Event.SKILL_UPDATED:
 			match entity.skill_name:
 				"skeleton_warrior":
 					if entity.skill_level >= 3:
-						unlock_achievement("skeletons_summoned")
+						Achievements.unlock_achievement("skeletons_summoned")
+						
+						
 #na przyszlosc ladniejsza funkcja od unlockowania
 func unlock_achievement(achievement):
-	print(achievement_list.get(achievement))
-	if !achievement_list.get(achievement):
-		print("unlocking skeleton mage")
-		achievement_list.set(achievement, true)
-		print(achievement_list.get(achievement))
-		print("im finding this key:")
-		print(skill_unlock_handler.skill_unlock_dictionary.find_key(achievement))
-		save_game()
+	if !achievement_list.has(achievement):
+		print("Achievement doesnt exist: " + achievement)
+		return
+		
+	if achievement_list[achievement]:
+		return
+		
+	achievement_list[achievement] = true
+	
+	
+	print("$EMITTING ACHIEVEMENT:", achievement)
+	emit_signal("achievement_unlocked", achievement)
+	save_game()
 		
 func create_save_directory():
 	if OS.has_feature("template"):

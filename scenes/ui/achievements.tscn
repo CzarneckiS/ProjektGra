@@ -23,6 +23,7 @@ texture = ExtResource("2_ll4mt")
 
 [node name="Achievements" type="Node2D"]
 script = ExtResource("1_bblh1")
+metadata/_edit_horizontal_guides_ = [276.0]
 
 [node name="Background" type="ColorRect" parent="."]
 offset_left = -6.0
@@ -71,6 +72,7 @@ scale = Vector2(0.46, 0.46)
 texture = ExtResource("8_2rfcd")
 
 [node name="AchIcon1" type="TextureRect" parent="."]
+visible = false
 offset_left = 207.0
 offset_top = 148.0
 offset_right = 257.0
@@ -80,6 +82,7 @@ texture = ExtResource("8_hlpig")
 expand_mode = 2
 
 [node name="AchIcon2" type="TextureRect" parent="."]
+visible = false
 offset_left = 366.39
 offset_top = 148.0
 offset_right = 416.39
@@ -89,6 +92,7 @@ texture = ExtResource("8_hlpig")
 expand_mode = 2
 
 [node name="AchIcon3" type="TextureRect" parent="."]
+visible = false
 offset_left = 525.77997
 offset_top = 148.0
 offset_right = 575.78
@@ -98,6 +102,7 @@ texture = ExtResource("8_hlpig")
 expand_mode = 2
 
 [node name="AchIcon4" type="TextureRect" parent="."]
+visible = false
 offset_left = 685.17
 offset_top = 148.0
 offset_right = 735.17
@@ -107,6 +112,7 @@ texture = ExtResource("8_hlpig")
 expand_mode = 2
 
 [node name="AchIcon5" type="TextureRect" parent="."]
+visible = false
 offset_left = 844.55994
 offset_top = 148.0
 offset_right = 894.55994
@@ -116,82 +122,91 @@ texture = ExtResource("8_hlpig")
 expand_mode = 2
 
 [node name="AchIcon6" type="TextureRect" parent="."]
-offset_left = 207.0
-offset_top = 287.39
+visible = false
+offset_left = 207.00002
+offset_top = 336.39005
 offset_right = 257.0
-offset_bottom = 337.39
+offset_bottom = 386.39005
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
 expand_mode = 2
 
 [node name="AchIcon7" type="TextureRect" parent="."]
+visible = false
 offset_left = 366.39
-offset_top = 287.39
+offset_top = 336.39005
 offset_right = 416.39
-offset_bottom = 337.39
+offset_bottom = 386.39005
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
 expand_mode = 2
 
 [node name="AchIcon8" type="TextureRect" parent="."]
+visible = false
 offset_left = 525.77997
-offset_top = 287.39
+offset_top = 336.39005
 offset_right = 575.78
-offset_bottom = 337.39
+offset_bottom = 386.39005
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
 expand_mode = 2
 
 [node name="AchIcon9" type="TextureRect" parent="."]
+visible = false
 offset_left = 685.17
-offset_top = 287.39
+offset_top = 336.39005
 offset_right = 735.17
-offset_bottom = 337.39
+offset_bottom = 386.39005
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
 expand_mode = 2
 
 [node name="AchIcon10" type="TextureRect" parent="."]
+visible = false
 offset_left = 844.55994
-offset_top = 287.39
+offset_top = 336.39005
 offset_right = 894.55994
-offset_bottom = 337.39
+offset_bottom = 386.39005
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
 expand_mode = 2
 
 [node name="AchIcon11" type="TextureRect" parent="."]
-offset_left = 207.0
-offset_top = 426.77997
-offset_right = 257.0
-offset_bottom = 476.78003
+visible = false
+offset_left = 208.00002
+offset_top = 524.7799
+offset_right = 258.0
+offset_bottom = 574.78
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
 expand_mode = 2
 
 [node name="AchIcon12" type="TextureRect" parent="."]
-offset_left = 366.39
-offset_top = 426.77997
-offset_right = 416.39
-offset_bottom = 476.78003
+visible = false
+offset_left = 367.39
+offset_top = 524.7799
+offset_right = 417.39
+offset_bottom = 574.78
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
 expand_mode = 2
 
 [node name="AchIcon13" type="TextureRect" parent="."]
-offset_left = 525.77997
-offset_top = 426.77997
-offset_right = 575.78
-offset_bottom = 476.78003
+visible = false
+offset_left = 526.77997
+offset_top = 524.7799
+offset_right = 576.78
+offset_bottom = 574.78
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
 expand_mode = 2
 
 [node name="AchIcon14" type="TextureRect" parent="."]
-offset_left = 685.17
-offset_top = 426.77997
-offset_right = 735.17
-offset_bottom = 476.78003
+visible = false
+offset_left = 686.17
+offset_top = 524.7799
+offset_right = 736.17
+offset_bottom = 574.78
 scale = Vector2(1.85, 1.85)
 texture = ExtResource("8_hlpig")
 expand_mode = 2

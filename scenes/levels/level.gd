@@ -11,9 +11,9 @@ var boss = preload("res://scenes/characters/enemies/boss.tscn")
 var skeleton_warrior = preload("res://scenes/characters/allies/skeletonwarrior.tscn")
 var skeleton_mage = preload("res://scenes/characters/allies/skeletonmage.tscn")
 
-var stats_hud = load("res://scenes/levels/hud.tscn").instantiate() 
-var minions_selections_hud = load("res://scenes/levels/hud.tscn").instantiate()
-var command_spells_hud = load("res://scenes/levels/hud.tscn").instantiate() 
+#var stats_hud = load("res://scenes/levels/hud.tscn").instantiate() 
+#var minions_selections_hud = load("res://scenes/levels/hud.tscn").instantiate()
+#var command_spells_hud = load("res://scenes/levels/hud.tscn").instantiate() 
 #var lvl_up_upgrades_menu = load("res://scenes/ui/lvlup_menu.tscn").instantiate()
 
 var first_ost_play: bool = true
@@ -32,12 +32,10 @@ func _ready():
 		$level_ost.play()
 	$Player.connect("summon_unit", on_summon_unit)
 	$Player.connect("took_damage", on_unit_damage_taken)
-	hud.process_mode = Node.PROCESS_MODE_ALWAYS
-	$HudLayer.add_child(hud)
 	Globals.lvl_up_menu_requested.connect(show_lvl_up_menu)
-	stats_hud.process_mode = Node.PROCESS_MODE_ALWAYS
+	hud.process_mode = Node.PROCESS_MODE_ALWAYS
 	#lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
-	$HudLayer.add_child(stats_hud)
+	$HudLayer.add_child(hud)
 	$Player.connect("player_died", _on_player_died)
 	add_child(timer_between_waves)
 	timer_between_waves.autostart = false
@@ -59,6 +57,7 @@ func _ready():
 	timer_between_waves.start()
 	force_wave_timer.start()
 	big_text.queue_free()
+	make_night()
 	
 func _process(_delta: float) -> void:
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
@@ -90,7 +89,7 @@ var enemies_defeated: int = 0
 var enemies_spawned: int = 0
 var enemies_to_spawn: int = 0
 var wave_counter: int = 1
-var max_wave: int = 20
+var max_wave: int = 4
 var h_warriors_to_spawn: int = 2
 var h_mages_to_spawn: int = 0
 var h_archers_to_spawn: int = 0
@@ -214,6 +213,7 @@ func on_summon_unit(unit):
 			summon_skeleton_mage()
 			
 func on_unit_death(unit):
+	Achievements.unlock_achievement("mages_killed")
 	#narazie hardcoded 5 sekundowy timer
 	for order in movement_orders:
 			if unit in order.unit_array:
@@ -270,7 +270,7 @@ func summon_skeleton_mage():
 	new_skeleton_mage.connect("unit_died", on_unit_death)
 	new_skeleton_mage.connect("took_damage", on_unit_damage_taken)
 	on_allied_unit_spawn_animation(new_skeleton_mage)
-
+	Achievements.unlock_achievement("mages_killed")
 func is_point_on_map(target_point: Vector2) -> bool:
 	var map = get_world_2d().navigation_map
 	var closest_point = NavigationServer2D.map_get_closest_point(map, target_point)

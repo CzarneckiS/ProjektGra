@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://so7ninglpdtm" path="res://scenes/tree.tscn" id="4_d4w6o"]
 [ext_resource type="PackedScene" uid="uid://wvsdf8tuug6c" path="res://scenes/tree_with_collision.tscn" id="4_mbbpy"]
 [ext_resource type="Script" uid="uid://rkcfoq2ddkxw" path="res://scenes/levels/unit_selector.gd" id="4_xb4v1"]
+[ext_resource type="PackedScene" uid="uid://dx8bgx8t5os4i" path="res://scenes/ui/achievements_popup.tscn" id="8_icy5c"]
+[ext_resource type="Texture2D" uid="uid://bxuerlbo6xe3n" path="res://sprites/ui/black_screen.png" id="8_ouxo3"]
 [ext_resource type="AudioStream" uid="uid://bj0o5dple42pu" path="res://soundtrack/new_battle_theme_normalized.ogg" id="8_ouxo3"]
 [ext_resource type="AudioStream" uid="uid://2l5xuelebfrw" path="res://soundtrack/new_battle_theme_night_normalized.ogg" id="9_icy5c"]
 
@@ -1169,6 +1171,7 @@ cell_size = 10.0
 agent_radius = 30.0
 
 [node name="Level" type="Node2D"]
+z_index = 4090
 y_sort_enabled = true
 script = ExtResource("1_xb4v1")
 metadata/_edit_horizontal_guides_ = [-4008.0, 4004.0]
@@ -1259,6 +1262,7 @@ metadata/_edit_lock_ = true
 [node name="BloodLayer" type="Node2D" parent="Ground"]
 
 [node name="ObstacleLayerHouse" type="TileMapLayer" parent="." groups=["navigation"]]
+z_index = 4090
 y_sort_enabled = true
 position = Vector2(-15, -29)
 tile_map_data = PackedByteArray("AAAAAPj/AQAAAA4AAAA=")
@@ -1326,919 +1330,1222 @@ tile_set = SubResource("TileSet_5mi6g")
 metadata/_edit_lock_ = true
 
 [node name="CollisionTrees" type="Node2D" parent="." groups=["navigation"]]
+z_index = 4090
 y_sort_enabled = true
 position = Vector2(0, 130)
 
 [node name="Tree" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3106, -1856)
 
 [node name="Tree12" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3032, -569)
 
 [node name="Tree2" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3241, -1606)
 
 [node name="Tree3" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3341, -1401)
 
 [node name="Tree4" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(389, -3680)
 
 [node name="Tree5" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1038, -1114)
 
 [node name="Tree6" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1605, 2324)
 
 [node name="Tree84" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2797, -313)
 
 [node name="Tree85" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1474, -243)
 
 [node name="Tree86" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1261, -136)
 
 [node name="Tree87" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-534, -3113)
 
 [node name="Tree92" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-747, -3373)
 
 [node name="Tree157" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1349, -2475)
 
 [node name="Tree158" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1900, -1503)
 
 [node name="Tree159" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1797, -1136)
 
 [node name="Tree93" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3100, -3278)
 
 [node name="Tree94" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2874, -3224)
 
 [node name="Tree96" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3350, -3086)
 
 [node name="Tree97" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3271, -2656)
 
 [node name="Tree98" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3271, -2656)
 
 [node name="Tree99" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3183, -2944)
 
 [node name="Tree100" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2736, -2322)
 
 [node name="Tree101" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3371, -2000)
 
 [node name="Tree102" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3375, -2326)
 
 [node name="Tree103" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2844, -1967)
 
 [node name="Tree106" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2727, -1796)
 
 [node name="Tree107" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2635, -2151)
 
 [node name="Tree108" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3458, -709)
 
 [node name="Tree109" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3516, -128)
 
 [node name="Tree110" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2093, -77)
 
 [node name="Tree160" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3132, -514)
 
 [node name="Tree111" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2786, -2871)
 
 [node name="Tree112" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2977, -2765)
 
 [node name="Tree113" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2813, -2625)
 
 [node name="Tree114" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3087, -2556)
 
 [node name="Tree115" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1848, -1922)
 
 [node name="Tree116" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(976, -2134)
 
 [node name="Tree117" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(972, -1211)
 
 [node name="Tree118" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(819, -1118)
 
 [node name="Tree119" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1694, -1515)
 
 [node name="Tree120" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2114, -1458)
 
 [node name="Tree153" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1927, -1700)
 
 [node name="Tree142" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1538, 921)
 
 [node name="Tree143" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1844, 36)
 
 [node name="Tree144" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2612, 926)
 
 [node name="Tree152" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2471, 735)
 
 [node name="Tree145" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2273, 144)
 
 [node name="Tree151" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2022, 295)
 
 [node name="Tree146" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(281, 728)
 
 [node name="Tree147" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(433, 935)
 
 [node name="Tree148" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(620, 638)
 
 [node name="Tree121" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3549, -21)
 
 [node name="Tree122" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3227, 321)
 
 [node name="Tree123" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3360, 439)
 
 [node name="Tree124" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2557, 2658)
 
 [node name="Tree125" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2764, 2887)
 
 [node name="Tree126" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3023, 2776)
 
 [node name="Tree127" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2512, 2939)
 
 [node name="Tree128" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3037, 2939)
 
 [node name="Tree129" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3215, 2628)
 
 [node name="Tree130" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1044, 3325)
 
 [node name="Tree131" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1273, 3199)
 
 [node name="Tree132" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1562, 3384)
 
 [node name="Tree133" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1798, 3229)
 
 [node name="Tree134" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1650, 3164)
 
 [node name="Tree135" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1206, 3362)
 
 [node name="Tree104" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3078, -1863)
 
 [node name="Tree105" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2151, -3425)
 
 [node name="Tree163" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1999, -3829)
 
 [node name="Tree164" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1958, -3996)
 
 [node name="Tree165" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1404, -3998)
 
 [node name="Tree95" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2632, -3337)
 
 [node name="Tree88" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(326, -1839)
 
 [node name="Tree89" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-205, -1539)
 
 [node name="Tree90" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-87, -1942)
 
 [node name="Tree91" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-519, -2238)
 
 [node name="Tree7" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-343, 2419)
 
 [node name="Tree13" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-90, 1783)
 
 [node name="Tree8" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3157, 1487)
 
 [node name="Tree9" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2585, -3736)
 
 [node name="Tree26" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3630, -3564)
 
 [node name="Tree27" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3356, -3566)
 
 [node name="Tree28" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3670, -3151)
 
 [node name="Tree29" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3659, -2346)
 
 [node name="Tree30" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3919, -2155)
 
 [node name="Tree31" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3485, -3513)
 
 [node name="Tree32" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-303, -3809)
 
 [node name="Tree33" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-828, -3789)
 
 [node name="Tree34" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1049, -3715)
 
 [node name="Tree35" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1702, -3769)
 
 [node name="Tree36" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1520, -3769)
 
 [node name="Tree37" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2623, -3809)
 
 [node name="Tree38" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2879, -3654)
 
 [node name="Tree39" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3491, -3627)
 
 [node name="Tree40" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2381, -3768)
 
 [node name="Tree41" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3686, -3385)
 
 [node name="Tree42" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3720, -3627)
 
 [node name="Tree43" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3720, -3055)
 
 [node name="Tree44" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3639, -2342)
 
 [node name="Tree45" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3666, -2140)
 
 [node name="Tree46" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3733, -929)
 
 [node name="Tree47" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3639, -1171)
 
 [node name="Tree48" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3726, -512)
 
 [node name="Tree49" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3804, 222)
 
 [node name="Tree50" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3743, 780)
 
 [node name="Tree51" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3756, 948)
 
 [node name="Tree52" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3736, 1701)
 
 [node name="Tree53" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3622, 3020)
 
 [node name="Tree54" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3652, 3474)
 
 [node name="Tree55" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3334, 3474)
 
 [node name="Tree56" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3610, 3417)
 
 [node name="Tree57" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3644, 3188)
 
 [node name="Tree58" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3557, 2751)
 
 [node name="Tree59" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3564, 2448)
 
 [node name="Tree60" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3557, 2038)
 
 [node name="Tree61" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3570, 1863)
 
 [node name="Tree62" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3661, 1231)
 
 [node name="Tree63" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3652, 1093)
 
 [node name="Tree64" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3647, 928)
 
 [node name="Tree65" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3831, -198)
 
 [node name="Tree66" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3826, -400)
 
 [node name="Tree67" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3821, -588)
 
 [node name="Tree68" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3738, -942)
 
 [node name="Tree69" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3660, -1213)
 
 [node name="Tree70" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3632, -2720)
 
 [node name="Tree71" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3621, -2548)
 
 [node name="Tree72" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3677, -2092)
 
 [node name="Tree10" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2369, -3822)
 
 [node name="Tree11" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1324, -3877)
 
 [node name="Tree16" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3751, -2810)
 
 [node name="Tree18" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3645, 2549)
 
 [node name="Tree19" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(3378, 2947)
 
 [node name="Tree20" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2809, 3265)
 
 [node name="Tree21" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1254, 1175)
 
 [node name="Tree150" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1050, 1037)
 
 [node name="Tree149" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(905, 1567)
 
 [node name="Tree136" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(909, -3354)
 
 [node name="Tree137" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(88, -3240)
 
 [node name="Tree156" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-101, -3124)
 
 [node name="Tree138" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2216, -3270)
 
 [node name="Tree154" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(2115, -3130)
 
 [node name="Tree155" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1960, -3288)
 
 [node name="Tree139" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(538, -3337)
 
 [node name="Tree140" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(636, -3606)
 
 [node name="Tree141" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1445, -3519)
 
 [node name="Tree22" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1911, 517)
 
 [node name="Tree161" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2998, 1361)
 
 [node name="Tree162" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-3170, 1618)
 
 [node name="Tree73" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-931, 1224)
 
 [node name="Tree74" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-789, 1521)
 
 [node name="Tree75" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-985, 1442)
 
 [node name="Tree76" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1234, 2389)
 
 [node name="Tree77" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(1009, 2247)
 
 [node name="Tree78" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-728, 2601)
 
 [node name="Tree79" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-907, 2679)
 
 [node name="Tree80" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2277, 2623)
 
 [node name="Tree81" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2535, 2608)
 
 [node name="Tree82" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2469, 2760)
 
 [node name="Tree83" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-2772, 2821)
 
 [node name="Tree23" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1158, -3798)
 
 [node name="Tree24" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-63, -3787)
 
 [node name="Tree25" parent="CollisionTrees" instance=ExtResource("4_mbbpy")]
+z_index = 4090
 position = Vector2(-1326, -3784)
 
 [node name="BGTrees" type="Node2D" parent="."]
-z_index = 1
+z_index = 4090
 y_sort_enabled = true
 position = Vector2(0, 130)
 
 [node name="Tree" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3924, 3077)
 
 [node name="Tree2" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4037, 2795)
 
 [node name="Tree3" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3810, 2839)
 
 [node name="Tree4" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3940, 3614)
 
 [node name="Tree5" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3704, 3614)
 
 [node name="Tree6" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3492, 3687)
 
 [node name="Tree7" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4046, 3734)
 
 [node name="Tree113" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4046, 3260)
 
 [node name="Tree8" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4030, 2413)
 
 [node name="Tree9" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3664, 3915)
 
 [node name="Tree10" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4037, 1991)
 
 [node name="Tree11" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-2741, 3730)
 
 [node name="Tree12" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-2806, 4095)
 
 [node name="Tree45" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3037, 4137)
 
 [node name="Tree133" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3188, 3971)
 
 [node name="Tree48" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3849, 3879)
 
 [node name="Tree56" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4023, 3457)
 
 [node name="Tree94" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3922, 2674)
 
 [node name="Tree102" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4020, 521)
 
 [node name="Tree103" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3949, -161)
 
 [node name="Tree122" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3862, -1309)
 
 [node name="Tree54" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3383, 3895)
 
 [node name="Tree55" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3383, 3895)
 
 [node name="Tree110" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3429, 4104)
 
 [node name="Tree111" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3816, 4087)
 
 [node name="Tree112" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4054, 3983)
 
 [node name="Tree13" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-1646, 4020)
 
 [node name="Tree14" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-1511, 3664)
 
 [node name="Tree15" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-1134, 3753)
 
 [node name="Tree16" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-621, 3810)
 
 [node name="Tree18" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(362, 3809)
 
 [node name="Tree19" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(991, 3794)
 
 [node name="Tree20" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(1756, 3753)
 
 [node name="Tree21" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(2270, 3824)
 
 [node name="Tree22" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3124, 3696)
 
 [node name="Tree23" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3488, 3741)
 
 [node name="Tree24" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(4048, 3027)
 
 [node name="Tree25" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(2893, 3979)
 
 [node name="Tree26" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(2464, 4009)
 
 [node name="Tree27" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(4037, 1521)
 
 [node name="Tree28" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(1683, 4058)
 
 [node name="Tree29" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(4037, -21)
 
 [node name="Tree30" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3994, 874)
 
 [node name="Tree31" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(4034, -2743)
 
 [node name="Tree32" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(4060, -3032)
 
 [node name="Tree33" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3980, -4038)
 
 [node name="Tree34" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3194, -4033)
 
 [node name="Tree35" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(4039, -3619)
 
 [node name="Tree36" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3973, -3479)
 
 [node name="Tree37" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(2410, -4190)
 
 [node name="Tree38" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(1488, -4176)
 
 [node name="Tree39" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(825, -4065)
 
 [node name="Tree40" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(394, -4114)
 
 [node name="Tree41" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-672, -4155)
 
 [node name="Tree43" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-2985, -4016)
 
 [node name="Tree44" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3711, -4059)
 
 [node name="Tree46" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4020, -2689)
 
 [node name="Tree47" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3466, -4116)
 
 [node name="Tree49" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3865, -4095)
 
 [node name="Tree50" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3311, -3973)
 
 [node name="Tree51" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3788, -3442)
 
 [node name="Tree52" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4046, -3070)
 
 [node name="Tree53" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-2796, -4181)
 
 [node name="Tree57" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-439, -4143)
 
 [node name="Tree58" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-964, -4190)
 
 [node name="Tree59" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-68, -4199)
 
 [node name="Tree60" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(1183, -4192)
 
 [node name="Tree61" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(2138, -4185)
 
 [node name="Tree62" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3421, -4149)
 
 [node name="Tree63" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3819, -4159)
 
 [node name="Tree64" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(4053, 365)
 
 [node name="Tree65" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(4047, -600)
 
 [node name="Tree66" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(4010, -2315)
 
 [node name="Tree67" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3934, -1513)
 
 [node name="Tree68" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(4081, -963)
 
 [node name="Tree69" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3992, -386)
 
 [node name="Tree70" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(4018, 1139)
 
 [node name="Tree71" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3989, 2572)
 
 [node name="Tree123" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(4003, 2203)
 
 [node name="Tree72" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(4019, 1931)
 
 [node name="Tree73" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3994, 3120)
 
 [node name="Tree124" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3893, 3584)
 
 [node name="Tree125" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3299, 3915)
 
 [node name="Tree126" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3092, 3942)
 
 [node name="Tree127" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(2685, 3870)
 
 [node name="Tree128" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(2825, 3789)
 
 [node name="Tree129" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(1981, 3838)
 
 [node name="Tree74" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3997, 3706)
 
 [node name="Tree75" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(3665, 3877)
 
 [node name="Tree76" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(2096, 4020)
 
 [node name="Tree77" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(1229, 4073)
 
 [node name="Tree78" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(697, 3985)
 
 [node name="Tree91" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(853, 4115)
 
 [node name="Tree97" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(1513, 4120)
 
 [node name="Tree98" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(1355, 3733)
 
 [node name="Tree99" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(1190, 3853)
 
 [node name="Tree100" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(650, 3775)
 
 [node name="Tree101" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(228, 4056)
 
 [node name="Tree104" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-501, 4016)
 
 [node name="Tree105" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-902, 3929)
 
 [node name="Tree79" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-1193, 4072)
 
 [node name="Tree106" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-1412, 3982)
 
 [node name="Tree80" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-2061, 3859)
 
 [node name="Tree107" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-1894, 4147)
 
 [node name="Tree132" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-1855, 3898)
 
 [node name="Tree108" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-2259, 4119)
 
 [node name="Tree130" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-2259, 4119)
 
 [node name="Tree131" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-2278, 3949)
 
 [node name="Tree109" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-2450, 3954)
 
 [node name="Tree81" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-2985, 3774)
 
 [node name="Tree82" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3771, 2508)
 
 [node name="Tree83" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3779, 1904)
 
 [node name="Tree114" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4079, 1689)
 
 [node name="Tree115" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3933, 1578)
 
 [node name="Tree116" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4065, 1333)
 
 [node name="Tree117" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3945, 1180)
 
 [node name="Tree84" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4066, -395)
 
 [node name="Tree85" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4053, 824)
 
 [node name="Tree118" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3876, 694)
 
 [node name="Tree86" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4069, 335)
 
 [node name="Tree119" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3918, 168)
 
 [node name="Tree120" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4048, -39)
 
 [node name="Tree121" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4072, -671)
 
 [node name="Tree87" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4037, -1031)
 
 [node name="Tree88" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4044, -3452)
 
 [node name="Tree89" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4035, -3945)
 
 [node name="Tree90" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-4047, -1479)
 
 [node name="Tree92" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-3915, -3693)
 
 [node name="Tree93" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(-2555, -4158)
 
 [node name="Tree95" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(515, -4195)
 
 [node name="Tree96" parent="BGTrees" instance=ExtResource("4_d4w6o")]
+z_index = 4090
 position = Vector2(2723, -4185)
 
 [node name="XPFlowers" type="Node2D" parent="."]
+z_index = 4090
 y_sort_enabled = true
 position = Vector2(19, -181)
 
 [node name="XPFlower" parent="XPFlowers" instance=ExtResource("3_urvlt")]
+z_index = 4090
 position = Vector2(1473, 275)
 
 [node name="XPFlower2" parent="XPFlowers" instance=ExtResource("3_urvlt")]
+z_index = 4090
 position = Vector2(2138, 3391)
 
 [node name="XPFlower3" parent="XPFlowers" instance=ExtResource("3_urvlt")]
+z_index = 4090
 position = Vector2(-3168, -2063)
 
 [node name="XPFlower4" parent="XPFlowers" instance=ExtResource("3_urvlt")]
+z_index = 4090
 position = Vector2(1911, -3561)
 
 [node name="XPFlower5" parent="XPFlowers" instance=ExtResource("3_urvlt")]
+z_index = 4090
 position = Vector2(-2027, 3616)
 
 [node name="XPFlower6" parent="XPFlowers" instance=ExtResource("3_urvlt")]
+z_index = 4090
 position = Vector2(3575, 498)
 
 [node name="Player" parent="." instance=ExtResource("1_377w7")]
+z_index = 4090
 position = Vector2(80, -114)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+z_index = 4090
 zoom = Vector2(0.845, 0.845)
 limit_left = -4000
 limit_top = -4000
@@ -2247,13 +2554,17 @@ limit_bottom = 4000
 limit_smoothed = true
 position_smoothing_enabled = true
 
+[node name="Popup" type="CanvasLayer" parent="Player/Camera2D"]
+
 [node name="EnemySpawnArea" type="Path2D" parent="Player"]
+z_index = 4090
 position = Vector2(8.406794, 6.915554)
 scale = Vector2(1.2, 1.198)
 curve = SubResource("Curve2D_urvlt")
 
 [node name="EnemySpawnFollow" type="PathFollow2D" parent="Player/EnemySpawnArea"]
 unique_name_in_owner = true
+z_index = 4090
 position = Vector2(-980.6046, -588.09875)
 rotation = -0.005737672
 
@@ -2272,20 +2583,23 @@ rotation = 0.032436967
 progress = 489.93872
 
 [node name="AlliedUnits" type="Node2D" parent="."]
+z_index = 4090
 y_sort_enabled = true
 position = Vector2(19, -181)
 
 [node name="EnemyUnits" type="Node2D" parent="."]
+z_index = 4090
 y_sort_enabled = true
 
 [node name="Projectiles" type="Node2D" parent="."]
+z_index = 4090
 
 [node name="UnitSelector" type="Node2D" parent="."]
-z_index = 1
+z_index = 4090
 script = ExtResource("4_xb4v1")
 
 [node name="MoveCursor" type="Node2D" parent="."]
-z_index = 3
+z_index = 4090
 
 [node name="StageLightingDay" type="DirectionalLight2D" parent="."]
 visible = false
@@ -2306,15 +2620,20 @@ navigation_polygon = SubResource("NavigationPolygon_urvlt")
 [node name="HudLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" type="Control" parent="HudLayer"]
-z_index = 100
+z_index = 4090
 layout_mode = 3
 anchors_preset = 0
 offset_left = -801.0
 offset_top = 356.0
 offset_right = -372.0
 offset_bottom = 450.0
+metadata/_edit_use_anchors_ = true
+
+[node name="AchievmentsPopup" parent="HudLayer/HUD" instance=ExtResource("8_icy5c")]
+layout_mode = 1
 
 [node name="Label" type="Label" parent="HudLayer"]
+z_index = 4090
 anchors_preset = -1
 anchor_left = 0.84800005
 anchor_top = 0.34100002
@@ -2335,14 +2654,17 @@ N = Spawn Human Archer
 M = Spawn Human Mage
 ; = Spawn Boss
 P = Level up"
+metadata/_edit_use_anchors_ = true
 
 [node name="Label2" type="Label" parent="HudLayer"]
+z_index = 4090
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -40.0
 offset_bottom = 23.0
 grow_horizontal = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]
 

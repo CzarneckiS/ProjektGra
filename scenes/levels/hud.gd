@@ -1,5 +1,7 @@
 extends Control
 
+@onready var hp_value: Label = $HPValue
+@onready var xp_value: Label = $XPValue
 @onready var main_damage_bar: ProgressBar = $DamageBar
 @onready var xp_gain_bar: ProgressBar = $ExpGainBar
 @onready var player_level: Label = $LabelPlayerLevel
@@ -7,7 +9,30 @@ extends Control
 @onready var icon_page_1: TextureRect = $HudLeftCorner/IconPage1
 @onready var icon_page_2: TextureRect = $HudLeftCorner/IconPage2
 @onready var icon_page_3: TextureRect = $HudLeftCorner/IconPage3
+@onready var spell_bar: Control = $HudRightCorner
+@export var popup_scene: PackedScene = preload("res://scenes/ui/achievements_popup.tscn")
+@export var spell_slot_scene: PackedScene = preload("res://scenes/ui/spell_slot.tscn")
+@onready var scena_spell_slot_1: SpellSlot = $"ScenaSpellSlot1"
+@onready var scena_spell_slot_2: SpellSlot = $"ScenaSpellSlot2"
+@onready var scena_spell_slot_3: SpellSlot = $"ScenaSpellSlot3"
+@onready var scena_spell_slot_4: SpellSlot = $"ScenaSpellSlot4"
+@onready var scena_passive_slot_1: SpellSlot = $ScenaPassiveSlot1
+@onready var scena_passive_slot_2: SpellSlot = $ScenaPassiveSlot2
+@onready var scena_passive_slot_3: SpellSlot = $ScenaPassiveSlot3
+@onready var scena_passive_slot_4: SpellSlot = $ScenaPassiveSlot4
+@export var skill_tooltip_scene: PackedScene = preload("res://scenes/ui/tooltip_scene.tscn")
+@onready var attack_icon: TextureRect = $AttackIcon
+@onready var hold_icon: TextureRect = $HoldIcon
+@onready var move_icon: TextureRect = $MoveIcon
+@onready var stop_icon: TextureRect = $StopIcon
 
+
+
+var skill_tooltip: SkillTooltip
+var spell_slots: Array[SpellSlot] = []
+var passive_slots: Array[SpellSlot] = []
+var action_slots: Array[SpellSlot] = []
+var max_spell_slots := 4
 var hp_bar_style = StyleBoxFlat.new()
 var xp_bar_style = StyleBoxFlat.new()
 var unit_slots: Array = []
@@ -19,7 +44,30 @@ var current_group_index = -1
 var current_page = 1
 var total_pages = 1
 
+const SPELL_SLOT_POSITIONS := [
+	Vector2(708, 27),
+	Vector2(774, 27),
+	Vector2(840, 27),
+	Vector2(905, 27)
+]
+
+const PASSIVE_SLOT_POSITIONS := [
+	Vector2(708, -38),
+	Vector2(774, -38),
+	Vector2(840, -38),
+	Vector2(905, -38)
+]
+
+const ACTION_SLOT_POSITIONS := [
+	Vector2(708, -104),
+	Vector2(774, -104),
+	Vector2(840, -104),
+	Vector2(905, -104)
+]
+
 func _ready() -> void:
+	print("~HUD READY", self)
+
 	# połączenie z globalnymi sygnałami
 	Globals.ui_hp_update_requested.connect(update_hp_bar)
 	Globals.ui_exp_update_requested.connect(update_exp_bar)
@@ -44,14 +92,70 @@ func _ready() -> void:
 	xp_gain_bar.visible = true
 
 	player_level.text = "%d" % Globals.level
-
+	hp_value.text = "%d / %d" % [Globals.health, Globals.max_health]
+	xp_value.text = "%d / %d" % [Globals.accumulated_xp, Globals.xp_to_level]
 	set_process_unhandled_input(true)  # aby działało _unhandled_input
 	
-	icon_page_1.visible = false 
-	icon_page_2.visible = false 
-	icon_page_3.visible = false 
+	icon_page_1.visible = false
+	icon_page_2.visible = false
+	icon_page_3.visible = false
 	
+	spell_slots = [
+		scena_spell_slot_1,
+		scena_spell_slot_2,
+		scena_spell_slot_3,
+		scena_spell_slot_4
+	]
 	
+	passive_slots = [
+		scena_passive_slot_1,
+		scena_passive_slot_2,
+		scena_passive_slot_3,
+		scena_passive_slot_4
+	]	
+	
+	for i in range(spell_slots.size()):
+		var slot := spell_slots[i]
+		slot.position = SPELL_SLOT_POSITIONS[i]
+		slot.visible = false
+		slot.clear()
+		slot.hovered.connect(_on_spell_slot_hovered)
+		slot.unhovered.connect(_on_spell_slot_unhovered)
+	
+	for i in range(passive_slots.size()):
+		var slot := passive_slots[i]
+		slot.position = PASSIVE_SLOT_POSITIONS[i]
+		slot.visible = false
+		slot.clear()
+		slot.hovered.connect(_on_spell_slot_hovered)
+		slot.unhovered.connect(_on_spell_slot_unhovered)
+	
+
+	Globals.skill_casted.connect(_on_skill_casted)
+	Globals.skill_unlocked.connect(update_spell_bar)
+
+	update_spell_bar()
+
+	skill_tooltip = skill_tooltip_scene.instantiate()
+	add_child(skill_tooltip)
+	skill_tooltip.visible = false
+	skill_tooltip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	skill_tooltip.position = Vector2(690, -155)
+
+
+	attack_icon.mouse_entered.connect(_on_action_icon_hovered.bind("Attack"))
+	hold_icon.mouse_entered.connect(_on_action_icon_hovered.bind("Hold"))
+	move_icon.mouse_entered.connect(_on_action_icon_hovered.bind("Move"))
+	stop_icon.mouse_entered.connect(_on_action_icon_hovered.bind("Stop"))
+	
+	attack_icon.mouse_exited.connect(_on_action_icon_unhovered)
+	hold_icon.mouse_exited.connect(_on_action_icon_unhovered)
+	move_icon.mouse_exited.connect(_on_action_icon_unhovered)
+	stop_icon.mouse_exited.connect(_on_action_icon_unhovered)
+
+
+	Achievements.achievement_unlocked.connect(_on_achievement_unlocked)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select_next_group"):
 		_cycle_unit_group()
@@ -76,16 +180,21 @@ func _unhandled_input(event: InputEvent) -> void:
 		for unit in selected_units:
 			unit.select()
 		return
+		
+
 
 func update_hp_bar():
 	main_damage_bar.value = Globals.max_health - Globals.health 
+	hp_value.text = "%d / %d" % [Globals.health, Globals.max_health]
 	var main_health_tween = create_tween()
 	main_health_tween.tween_property(main_damage_bar, "value", Globals.max_health - Globals.health, 0.5)
 	main_health_tween.set_trans(Tween.TRANS_SINE)
 	main_health_tween.set_ease(Tween.EASE_IN_OUT)
-
+	Achievements.unlock_achievement("mages_killed")
+	
 func update_exp_bar():
 	xp_gain_bar.value = Globals.xp_to_level - Globals.accumulated_xp
+	xp_value.text = "%d / %d" % [Globals.accumulated_xp, Globals.xp_to_level]
 	var xp_tween = create_tween()
 	xp_tween.tween_property(xp_gain_bar, "value", Globals.xp_to_level - Globals.accumulated_xp, 0.5)
 	xp_tween.set_trans(Tween.TRANS_SINE)
@@ -273,3 +382,73 @@ func _refresh_visible_borders() -> void:
 			var unit = slot.get_meta("unit_ref")
 			border.visible = true
 			border.modulate = Color("dcdcdc") if unit in groups_in_selection else Color(1.0, 1.0, 1.0, 0.004)
+
+func _on_achievement_unlocked(achievement_key: String) -> void:
+	var skill = Achievements.skill_unlock_handler.skill_unlock_dictionary.find_key(achievement_key)
+	if skill == null:
+		return
+
+	var desc = Achievements.achievement_description_list.get(achievement_key, "")
+
+	var popup = popup_scene.instantiate()
+	add_child(popup)
+	popup.show_popup(skill, desc)
+
+
+func update_spell_bar(_skill: Skill = null) -> void:
+	# patrzymy na unlocked_skills i filtrujemy tylko ACTIVE
+	var active_spells: Array = Skills.unlocked_skills.filter(func(s):
+		return s.use_tags.has(Tags.UseTag.ACTIVE)
+	)
+	# tu tylko PASIVE
+	var passive_spells: Array = Skills.unlocked_skills.filter(func(s):
+		return !s.use_tags.has(Tags.UseTag.ACTIVE) and !s.use_tags.has(Tags.UseTag.SUMMON)
+	)
+	
+
+	print("*Active spells:", active_spells.map(func(s): return s.skill_name))
+	print("*Passive spells:", passive_spells.map(func(s): return s.skill_name))
+
+	for i in range(spell_slots.size()):
+		var slot := spell_slots[i]
+
+		if i < active_spells.size():
+			slot.visible = true
+			slot.set_skill(active_spells[i])
+		else:
+			slot.visible = false
+			slot.clear()
+
+
+	for i in range(passive_slots.size()):
+		var slot := passive_slots[i]
+
+		if i < passive_spells.size():
+			slot.visible = true
+			slot.set_skill(passive_spells[i])
+		else:
+			slot.visible = false
+			slot.clear()
+
+
+func _on_skill_casted(skill: Skill, cooldown: float):
+	for slot in spell_slots:
+		if slot.skill == skill:
+			slot.start_cooldown(cooldown)
+
+
+
+func _on_spell_slot_hovered(skill: Skill) -> void:
+	skill_tooltip.show_spell_text(skill)
+
+func _on_spell_slot_unhovered() -> void:
+	skill_tooltip.hide_tooltip()
+
+
+func _on_action_icon_hovered(icon_name: String) -> void:
+	skill_tooltip.show_text(icon_name)
+
+
+func _on_action_icon_unhovered() -> void:
+	skill_tooltip.hide_tooltip()
+	
