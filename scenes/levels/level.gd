@@ -267,7 +267,7 @@ func summon_skeleton_mage():
 	new_skeleton_mage.connect("unit_died", on_unit_death)
 	new_skeleton_mage.connect("took_damage", on_unit_damage_taken)
 	on_allied_unit_spawn_animation(new_skeleton_mage)
-	Achievements.achievement_update(Achievements.Event.UNIT_SUMMONED,Tags.UnitTag.SKELETON_WARRIOR)
+	Achievements.achievement_update(Achievements.Event.UNIT_SUMMONED,Tags.UnitTag.SKELETON_MAGE)
 func is_point_on_map(target_point: Vector2) -> bool:
 	var map = get_world_2d().navigation_map
 	var closest_point = NavigationServer2D.map_get_closest_point(map, target_point)

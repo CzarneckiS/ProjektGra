@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://i4sw7xlogaxm"]
 
 [ext_resource type="Texture2D" uid="uid://dmvbul5digdpo" path="res://sprites/ui/text light.png" id="1_3seih"]
-[ext_resource type="Script" path="res://scenes/ui/big_text_animation.gd" id="1_cc78j"]
-[ext_resource type="Texture2D" uid="uid://bxuerlbo6xe3n" path="res://sprites/ui/black_screen.png" id="2_u7cs3"]
-[ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="4_1orku"]
+[ext_resource type="Script" uid="uid://wkq6s0amcrxo" path="res://scenes/ui/big_text_animation.gd" id="1_cc78j"]
+[ext_resource type="Texture2D" uid="uid://yiycfgr4d1he" path="res://sprites/ui/blackrectangle for big napis.png" id="2_1orku"]
+[ext_resource type="FontFile" uid="uid://bg81f0wdusbdp" path="res://sprites/ui/Warsuck.otf" id="4_1orku"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cc78j"]
 particle_flag_disable_z = true
@@ -53,7 +53,7 @@ offset_bottom = 1230.0
 scale = Vector2(0.564, 0.20000061)
 step = 0.01
 fill_mode = 2
-texture_progress = ExtResource("2_u7cs3")
+texture_progress = ExtResource("2_1orku")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 layout_mode = 0
