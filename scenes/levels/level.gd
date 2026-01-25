@@ -33,7 +33,7 @@ func _ready():
 	$Player.connect("summon_unit", on_summon_unit)
 	$Player.connect("took_damage", on_unit_damage_taken)
 	Globals.lvl_up_menu_requested.connect(show_lvl_up_menu)
-	hud.process_mode = Node.PROCESS_MODE_ALWAYS
+	#hud.process_mode = Node.PROCESS_MODE_ALWAYS
 	#lvl_up_upgrades_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	$HudLayer.add_child(hud)
 	$Player.connect("player_died", _on_player_died)

@@ -30,7 +30,7 @@ func set_skill(_skill: Skill):
 		mouse_exited.connect(_on_mouse_exited)
 
 
-	reset_cooldown()
+	#reset_cooldown()
 
 	
 func start_cooldown(time: float):
