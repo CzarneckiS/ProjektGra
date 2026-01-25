@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dmvbul5digdpo" path="res://sprites/ui/text light.png" id="1_3seih"]
 [ext_resource type="Script" path="res://scenes/ui/big_text_animation.gd" id="1_cc78j"]
 [ext_resource type="Texture2D" uid="uid://bxuerlbo6xe3n" path="res://sprites/ui/black_screen.png" id="2_u7cs3"]
-[ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="4_1orku"]
+[ext_resource type="FontFile" uid="uid://bg81f0wdusbdp" path="res://sprites/ui/Warsuck.otf" id="4_1orku"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cc78j"]
 particle_flag_disable_z = true
@@ -122,11 +122,13 @@ process_material = SubResource("ParticleProcessMaterial_u7cs3")
 [node name="Label" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 250.00002
-offset_top = 225.0
-offset_right = 1365.0
-offset_bottom = 308.0
+offset_left = 94.00001
+offset_top = 218.0
+offset_right = 1209.0
+offset_bottom = 301.0
 scale = Vector2(1.2032458, 1.2032458)
 theme_override_fonts/font = ExtResource("4_1orku")
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 45
 text = "DEFEAT 20 WAVES OF ENEMIES"
+horizontal_alignment = 1
+vertical_alignment = 1
