@@ -5,11 +5,6 @@ extends Control
 @onready var button_options: Button = $ButtonOptions
 @onready var button_exit: Button = $ButtonExit
 
-@onready var highlight_1: TextureRect = $ButtonStart/Highlight
-@onready var highlight_2: TextureRect = $ButtonAchievments/Highlight
-@onready var highlight_3: TextureRect = $ButtonOptions/Highlight
-@onready var highlight_4: TextureRect = $ButtonExit/Highlight
-
 var screen_starting_pos
 var parallax_speed = 5
 
@@ -30,9 +25,13 @@ func _ready() -> void:
 	else:
 		Audio.play_main_menu()
 		$BlackScreen.visible = false
-	$ButtonStart.pressed.connect(_on_button_start_pressed)
-	$ButtonExit.pressed.connect(_on_button_exit_pressed)
-	$ButtonAchievments.pressed.connect(_on_button_achievements_pressed)
+		
+		
+		
+	button_start.pressed.connect(_on_button_start_pressed)
+	button_exit.pressed.connect(_on_button_exit_pressed)
+	button_achievments.pressed.connect(_on_button_achievements_pressed)
+	button_options.pressed.connect(_on_button_options_pressed)
 	
 	button_start.focus_mode = Control.FOCUS_NONE
 	button_achievments.focus_mode = Control.FOCUS_NONE
@@ -41,11 +40,7 @@ func _ready() -> void:
 	
 	screen_starting_pos = $Clouds.global_position
 	
-	#_setup_hover(button_start, highlight_1)
-	#_setup_hover(button_achievments, highlight_2)
-	#_setup_hover(button_options, highlight_3)
-	#_setup_hover(button_exit, highlight_4)
-
+	
 func _process(delta: float) -> void:
 	if screen_starting_pos:
 		var target_position: Vector2 = screen_starting_pos - (get_global_mouse_position()-get_viewport_rect().size)*0.01
@@ -53,6 +48,7 @@ func _process(delta: float) -> void:
 		$Girl.global_position = $Girl.global_position.lerp(target_position, delta * parallax_speed)
 		$Skellington.global_position = $Skellington.global_position.lerp(target_position, delta * parallax_speed)
 		$Castle.global_position = $Castle.global_position.lerp(castle_target_position, delta * parallax_speed)
+
 func _setup_hover(btn: Button, highlight: TextureRect) -> void:
 	highlight.visible = false
 	btn.mouse_entered.connect(func(): highlight.visible = true)
@@ -67,9 +63,9 @@ func _on_button_start_pressed() -> void:
 
 
 func _on_button_options_pressed() -> void:
-	#get_tree().change_scene_to_file("ZAMIENIĆ NA LOKALIZACJE")
 	$menu_click_deny.play()
 	await $menu_click_deny.finished
+	get_tree().change_scene_to_file("res://scenes/ui/options.tscn")
 	
 func _on_button_achievements_pressed() -> void:
 	$menu_click.play()

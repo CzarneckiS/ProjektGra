@@ -3,12 +3,15 @@ class_name SkillTooltip
 
 @onready var label: Label = $Text
 
-# Wewnątrz klasy SkillTooltip
 var descriptions = {
-	"Attack": "[Z] Rozkazuje jednostkom atakować cele w zasięgu.",
-	"Hold": "[C] Jednostki stoją w miejscu i bronią pozycji.",
-	"Move": "[RMB Przemieszcza jednostki do wskazanego punktu.",
-	"Stop": "[X] Przerywa wszystkie aktualne akcje.",
+	"Attack": "[Z] Attack enemies in range.",
+	"Hold": "[C] Hold position and defend.",
+	"Move": "[RMB] Move to selected location.",
+	"Stop": "[X] Stop all current actions.",
+	"HPBar": "Health: If this reaches zero, you lose.",
+	"XPBar": "Experience: Collect to unlock new skills.",
+	"PlayerLvl": "Hero Level: Reflects your current strength. Higher levels unlock stronger abilities.",
+	
 	1: "[Q] ",
 	2: "[E] ",
 	3: "[R] ",
@@ -23,5 +26,13 @@ func show_spell_text(_skill: Skill, _order_number = null):
 	label.text = descriptions.get(_order_number, "") + _skill.skill_name + "\n" + _skill.skill_desc
 	visible = true
 		
+func show_bar_text(bar_name):
+	label.text 	= descriptions.get(bar_name, "")
+	visible = true
+	
+func show_player_lvl_text():
+	label.text 	= descriptions.get("PlayerLvl", "")
+	visible = true
+	
 func hide_tooltip():
 	visible = false
