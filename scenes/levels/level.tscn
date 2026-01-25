@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://so7ninglpdtm" path="res://scenes/tree.tscn" id="4_d4w6o"]
 [ext_resource type="PackedScene" uid="uid://wvsdf8tuug6c" path="res://scenes/tree_with_collision.tscn" id="4_mbbpy"]
 [ext_resource type="Script" uid="uid://rkcfoq2ddkxw" path="res://scenes/levels/unit_selector.gd" id="4_xb4v1"]
-[ext_resource type="PackedScene" uid="uid://dx8bgx8t5os4i" path="res://scenes/ui/achievements_popup.tscn" id="8_icy5c"]
+[ext_resource type="PackedScene" path="res://scenes/ui/achievements_popup.tscn" id="8_icy5c"]
 [ext_resource type="AudioStream" uid="uid://bj0o5dple42pu" path="res://soundtrack/new_battle_theme_normalized.ogg" id="8_ouxo3"]
 [ext_resource type="AudioStream" uid="uid://2l5xuelebfrw" path="res://soundtrack/new_battle_theme_night_normalized.ogg" id="9_icy5c"]
 
@@ -1260,7 +1260,6 @@ metadata/_edit_lock_ = true
 [node name="BloodLayer" type="Node2D" parent="Ground"]
 
 [node name="ObstacleLayerHouse" type="TileMapLayer" parent="." groups=["navigation"]]
-z_index = 4090
 y_sort_enabled = true
 position = Vector2(-15, -29)
 tile_map_data = PackedByteArray("AAAAAPj/AQAAAA4AAAA=")
