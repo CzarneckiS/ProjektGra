@@ -45,7 +45,7 @@ func _ready():
 	add_child(force_wave_timer)
 	force_wave_timer.autostart = false
 	force_wave_timer.one_shot = true
-	force_wave_timer.wait_time = 10
+	force_wave_timer.wait_time = 15
 	force_wave_timer.timeout.connect(force_wave_logic)
 	var big_text = preload("res://scenes/ui/big_text_animation.tscn").instantiate()
 	await get_tree().create_timer(0.5,false).timeout
@@ -159,7 +159,7 @@ func wave_logic():
 	print("ile pokonano: ", enemies_defeated)
 	print("ile zespawniono: ", enemies_spawned)
 	print("ile ma byc zespawnione: ", enemies_to_spawn)
-	force_wave_timer.wait_time += 1
+	force_wave_timer.wait_time += 5
 	wave_switch = true
 	force_wave = false
 	force_wave_timer.start()
