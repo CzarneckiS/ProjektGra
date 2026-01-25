@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dx8bgx8t5os4i"]
 
-[ext_resource type="Script" uid="uid://bxeg2wayge3t7" path="res://scenes/ui/achievements_popup.gd" id="1_ps2io"]
+[ext_resource type="Script" path="res://scenes/ui/achievements_popup.gd" id="1_ps2io"]
 [ext_resource type="Texture2D" uid="uid://c6a6cymtsl4cd" path="res://sprites/ui/EmptyIcon.png" id="2_0c61n"]
 [ext_resource type="FontFile" uid="uid://c7eg3ms3bo8qv" path="res://sprites/ui/UncialAntiqua-Regular.ttf" id="3_804wp"]
 
@@ -24,7 +24,7 @@ script = ExtResource("1_ps2io")
 z_index = 4096
 layout_mode = 0
 offset_right = 268.0
-offset_bottom = 91.0
+offset_bottom = 105.0
 color = Color(0, 0, 0, 1)
 
 [node name="Icon" type="TextureRect" parent="."]
@@ -51,7 +51,8 @@ z_index = 4096
 layout_mode = 0
 offset_left = 89.0
 offset_top = 49.0
-offset_right = 178.0
-offset_bottom = 72.0
+offset_right = 261.0
+offset_bottom = 89.0
 theme_override_fonts/font = SubResource("FontVariation_3hn0m")
 text = "Description"
+autowrap_mode = 3

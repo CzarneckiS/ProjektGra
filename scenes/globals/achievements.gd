@@ -1,13 +1,15 @@
 extends Node
 
-#moze w przyszlosci zmienic na dictionary
-var human_warrior_kill_count = 0
-var human_archer_kill_count = 0
-var human_mage_kill_count = 0
-var skeleton_warriors_summoned = 0
-var skeleton_mages_summoned = 0
-var flowers_collected = 0
 
+
+var player_stats: Dictionary = {
+	"human_warrior_kill_count": 0,
+	"human_archer_kill_count": 0,
+	"human_mage_kill_count": 0,
+	"skeleton_warriors_summoned": 0,
+	"skeleton_mages_summoned": 0,
+	"flowers_collected": 0
+}
 var skill_unlock_handler
 signal achievement_unlocked(achievement_key)
 
@@ -50,17 +52,14 @@ var achievement_description_list : Dictionary = {
 }
 
 func _process(delta: float) -> void:
+	print(player_stats["skeleton_mages_summoned"])
 	#print(achievement_description_list.get("skeletons_summoned"))
 	#for skill in skill_unlock_handler.skill_unlock_dictionary:
 		#print(skill_unlock_handler.skill_unlock_dictionary[skill])
 	pass #do debuggowania
 
 func _ready() -> void:
-	for achiev in achievement_list: # UBER TEMPORARY
-		if achiev == "default_unlock":
-			continue
-		achievement_list[achiev] = false
-	save_game() #TEMPORARY, DO WYWALENIA
+	#save_game() #TEMPORARY, DO WYWALENIA
 	print("template: %s" %OS.has_feature("template"))
 	create_save_directory() #jesli template:  build exportowany do pliku .exe
 	load_game()
@@ -74,16 +73,16 @@ func achievement_update(event : Event, entity) -> void :
 				Tags.UnitTag.BOSS:
 					unlock_achievement("boss_killed")
 				Tags.UnitTag.HUMAN_WARRIOR:
-					human_warrior_kill_count += 1
+					player_stats["human_warrior_kill_count"] += 1
 				Tags.UnitTag.HUMAN_ARCHER:
-					human_archer_kill_count += 1
+					player_stats["human_archer_kill_count"] += 1
 				Tags.UnitTag.HUMAN_MAGE:
-					human_mage_kill_count += 1
-					if human_mage_kill_count >= 5:
+					player_stats["human_mage_kill_count"] += 1
+					if player_stats["human_mage_kill_count"] >= 5:
 						unlock_achievement("mages_killed")
-			if human_archer_kill_count + human_mage_kill_count + human_warrior_kill_count >= 50:
+			if player_stats["human_archer_kill_count"] + player_stats["human_mage_kill_count"] + player_stats["human_warrior_kill_count"] >= 50:
 				unlock_achievement("units_killed_50")
-			if human_archer_kill_count + human_mage_kill_count + human_warrior_kill_count >= 100:
+			if player_stats["human_archer_kill_count"] + player_stats["human_mage_kill_count"] + player_stats["human_warrior_kill_count"] >= 100:
 				unlock_achievement("units_killed_100")
 		Event.WAVE_REACHED:
 			match entity:
@@ -101,16 +100,16 @@ func achievement_update(event : Event, entity) -> void :
 					if entity.skill_level >= 5:
 						unlock_achievement("army_size_reached")
 		Event.FLOWER_COLLECTED:
-			flowers_collected += 1
-			if flowers_collected >= 5:
+			player_stats["flowers_collected"] += 1
+			if player_stats["flowers_collected"] >= 5:
 				unlock_achievement("flowers_collected")
 		Event.UNIT_SUMMONED:
 			match entity:
 				Tags.UnitTag.SKELETON_WARRIOR:
-					skeleton_warriors_summoned += 1
+					player_stats["skeleton_warriors_summoned"] += 1
 				Tags.UnitTag.SKELETON_MAGE:
-					skeleton_mages_summoned += 1
-			if skeleton_mages_summoned + skeleton_warriors_summoned >= 25:
+					player_stats["skeleton_mages_summoned"] += 1
+			if player_stats["skeleton_mages_summoned"] + player_stats["skeleton_warriors_summoned"] >= 25:
 				unlock_achievement("skeletons_summoned")
 						
 func unlock_achievement(achievement):
@@ -147,10 +146,17 @@ func load_game():
 	var json_string = save_file.get_line()
 	var json = JSON.new()
 	var _parse_result = json.parse(json_string)
-	achievement_list = json.data
+	var save_data = json.data
+	achievement_list = save_data.get("achievement_list_dict", achievement_list)
+	player_stats = save_data.get("player_stats_dict", player_stats)
+	
 	
 func save_game(): #potencjalnie do przeniesienia do osobnej klasy / zrobienia oddzielnej funkcji dla achievementow
 	var path
+	var save_data: Dictionary = {
+	"achievement_list_dict" : achievement_list,
+	"player_stats_dict": player_stats
+	}
 	if OS.has_feature("template"):
 		path = OS.get_executable_path().get_base_dir().path_join("saves/savegame.json")
 	else:
@@ -158,6 +164,6 @@ func save_game(): #potencjalnie do przeniesienia do osobnej klasy / zrobienia od
 	print("path")
 	print(path)
 	var save_file = FileAccess.open(path, FileAccess.WRITE)
-	var json_string = JSON.stringify(achievement_list)
+	var json_string = JSON.stringify(save_data)
 	save_file.store_line(json_string)
 	print(save_file)
