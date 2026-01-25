@@ -285,6 +285,10 @@ func hit(damage_taken, _damage_source) -> void:
 func heal(heal_amount) -> void:
 	#chowac pasek kiedy jest pelny?
 	Globals.health += heal_amount
+	if Globals.health >= Globals.max_health:
+		Globals.health = Globals.max_health
+		health_bar.visible = false
+		damage_bar.visible = false
 	health_bar.value = Globals.health
 	var health_tween = create_tween()
 	health_tween.tween_property(damage_bar, "value", Globals.health, 0.5)

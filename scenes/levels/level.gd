@@ -54,10 +54,10 @@ func _ready():
 	var tween = create_tween()
 	tween.tween_property(big_text, "modulate:a", 0, 1)
 	await tween.finished
+	summon_skeleton_warrior()
 	timer_between_waves.start()
 	force_wave_timer.start()
 	big_text.queue_free()
-	make_night()
 	
 func _process(_delta: float) -> void:
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
@@ -89,7 +89,7 @@ var enemies_defeated: int = 0
 var enemies_spawned: int = 0
 var enemies_to_spawn: int = 0
 var wave_counter: int = 1
-var max_wave: int = 4
+var max_wave: int = 20
 var h_warriors_to_spawn: int = 2
 var h_mages_to_spawn: int = 0
 var h_archers_to_spawn: int = 0

@@ -64,7 +64,7 @@ func level_up():
 		if skills_to_show[i] in Skills.unlocked_skills:
 			self.get("option_" + str(i + 1)).text = "Upgrade skill"
 		else:
-			self.get("option_" + str(i + 1)).text = "Unlock"
+			self.get("option_" + str(i + 1)).text = "Unlock skill"
 
 
 func _on_option_1_pressed() -> void:

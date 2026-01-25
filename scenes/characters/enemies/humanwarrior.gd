@@ -9,7 +9,7 @@ var skills_on_hit : Array = [melee_attack_vfx]
 var skills_on_death : Array = []
 var own_tags : PackedInt32Array = []
 #exp ktory daje warrior, wykorzystywany przekazywany do fsm w dying state
-const experience_value = 15
+const experience_value = 200
 
 #movement
 var speed = 375

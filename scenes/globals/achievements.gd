@@ -51,8 +51,9 @@ func _process(delta: float) -> void:
 	pass #do debuggowania
 
 func _ready() -> void:
-	for achiev in achievement_list: # UBER TEMPORARY
-		achievement_list[achiev] = true
+	for achiev in achievement_list:
+		#if achiev != "default_unlock": # UBER TEMPORARY
+			achievement_list[achiev] = true
 	save_game() #TEMPORARY, DO WYWALENIA
 	print("template: %s" %OS.has_feature("template"))
 	create_save_directory() #jesli template:  build exportowany do pliku .exe

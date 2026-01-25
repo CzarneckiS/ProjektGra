@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://di31cuiaxvo7s"]
+[gd_scene load_steps=47 format=4 uid="uid://di31cuiaxvo7s"]
 
 [ext_resource type="PackedScene" uid="uid://cbodjjoib2qrn" path="res://scenes/characters/player.tscn" id="1_377w7"]
 [ext_resource type="Script" uid="uid://dek8k2fbphrnu" path="res://scenes/levels/level.gd" id="1_xb4v1"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://wvsdf8tuug6c" path="res://scenes/tree_with_collision.tscn" id="4_mbbpy"]
 [ext_resource type="Script" uid="uid://rkcfoq2ddkxw" path="res://scenes/levels/unit_selector.gd" id="4_xb4v1"]
 [ext_resource type="PackedScene" uid="uid://dx8bgx8t5os4i" path="res://scenes/ui/achievements_popup.tscn" id="8_icy5c"]
-[ext_resource type="Texture2D" uid="uid://bxuerlbo6xe3n" path="res://sprites/ui/black_screen.png" id="8_ouxo3"]
 [ext_resource type="AudioStream" uid="uid://bj0o5dple42pu" path="res://soundtrack/new_battle_theme_normalized.ogg" id="8_ouxo3"]
 [ext_resource type="AudioStream" uid="uid://2l5xuelebfrw" path="res://soundtrack/new_battle_theme_night_normalized.ogg" id="9_icy5c"]
 
