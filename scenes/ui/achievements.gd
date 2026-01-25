@@ -30,6 +30,8 @@ func _ready() -> void:
 	await get_tree().create_timer(1.0).timeout
 	
 func _on_button_backto_menu_pressed() -> void:
+	$click_sfx.play()
+	await $click_sfx.finished
 	get_tree().call_deferred("change_scene_to_file","res://scenes/ui/main_menu.tscn")
 
 func _setup_hover(btn: Button, highlight: TextureRect) -> void:

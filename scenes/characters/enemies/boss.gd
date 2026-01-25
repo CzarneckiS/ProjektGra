@@ -21,7 +21,7 @@ var next_path_position
 var can_navigate:bool = true
 
 #combat
-var damage = 20
+var damage = 45
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UŻYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
 var attack_range = 230
@@ -40,7 +40,7 @@ var mouse_hovering : bool = false #sluzy do sprawdzania czy myszka jest w clicka
 @onready var unstick_timer: Timer = $Timers/UnstickTimer
 
 func _ready() -> void:
-	base_max_health = 600
+	base_max_health = 8000
 	max_health  = base_max_health
 	health = max_health
 	Globals.boss_max_health = max_health
@@ -324,9 +324,13 @@ func cast_dash(unit, target_destination : Vector2):
 	state_machine.set_state(state_machine.states.moving)
 	move_target = 5#TODO
 func ranged_attack():
+	if !attack_target:
+		return
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		projectile.use(self, attack_target.get_ref())
 func melee_attack():
+	if !attack_target:
+		return
 	Audio.play_audio($sfx_slash)
 	melee_attack_vfx.use(self, attack_target.get_ref())
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:

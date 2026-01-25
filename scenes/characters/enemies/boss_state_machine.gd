@@ -104,7 +104,6 @@ func choose_action():
 		set_state(states.mid_animation)
 	else:
 		choose_action()
-	print(previous_action)
 
 func is_point_on_map(target_point: Vector2) -> bool:
 	var map = parent.get_world_2d().navigation_map

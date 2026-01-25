@@ -7,5 +7,5 @@
 [resource]
 script = ExtResource("2_0a5or")
 max_range = 700.0
-speed = 1200.0
+speed = 1700.0
 visual_effect = ExtResource("3_0ypdq")

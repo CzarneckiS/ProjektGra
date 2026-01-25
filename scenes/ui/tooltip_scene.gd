@@ -4,7 +4,7 @@ class_name SkillTooltip
 @onready var label: Label = $Text
 
 var descriptions = {
-	"Attack": "[A] Attack enemies in range.",
+	"Attack": "[Z] Attack enemies in range.",
 	"Hold": "[C] Hold position and defend.",
 	"Move": "[RMB] Move to selected location.",
 	"Stop": "[X] Stop all current actions.",

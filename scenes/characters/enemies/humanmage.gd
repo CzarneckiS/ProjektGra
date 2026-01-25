@@ -9,10 +9,10 @@ var skills_on_hit : Array = [projectile]
 var skills_on_death : Array = []
 var own_tags : PackedInt32Array = []
 #exp ktory daje warrior, wykorzystywany przekazywany do fsm w dying state
-const experience_value = 50
+const experience_value = 65
 
 #movement
-var speed = 350
+var speed = 370
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position
@@ -20,11 +20,11 @@ var next_path_position
 var can_navigate:bool = true
 
 #combat
-var damage = 10
+var damage = 14
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UŻYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
-var attack_range = 400
-var vision_range = 400
+var attack_range = 500
+var vision_range = 500
 var dying : bool = false
 var attack_time = 1 #czas pomiędzy atakami
 #clicking
@@ -39,7 +39,7 @@ var mouse_hovering : bool = false #sluzy do sprawdzania czy myszka jest w clicka
 @onready var unstick_timer: Timer = $Timers/UnstickTimer
 
 func _ready() -> void:
-	base_max_health = 60
+	base_max_health = 40
 	max_health  = base_max_health
 	health = max_health
 	health_bar.max_value = max_health
@@ -201,6 +201,8 @@ func death():
 		skill.use(self)
 
 func attack():
+	if !attack_target:
+		return
 	Audio.play_audio($sfx_attack)
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		for skill in skills_on_hit:

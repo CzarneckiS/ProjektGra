@@ -9,10 +9,10 @@ var skills_on_hit : Array = [melee_attack_vfx]
 var skills_on_death : Array = []
 var own_tags : PackedInt32Array = []
 #exp ktory daje warrior, wykorzystywany przekazywany do fsm w dying state
-const experience_value = 15
+const experience_value = 40
 
 #movement
-var speed = 375
+var speed = 415
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position
@@ -20,7 +20,7 @@ var next_path_position
 var can_navigate:bool = true
 
 #combat
-var damage = 10
+var damage = 3.2
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UŻYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
 var attack_range = 100
@@ -45,7 +45,7 @@ var mouse_hovering : bool = false #sluzy do sprawdzania czy myszka jest w clicka
 	#state_machine.set_state(state_machine.states.knockback)
 	
 func _ready() -> void:
-	base_max_health = 60
+	base_max_health = 65
 	max_health  = base_max_health
 	health = max_health
 	health_bar.max_value = max_health
@@ -207,6 +207,8 @@ func death():
 		skill.use(self)
 
 func attack():
+	if !attack_target:
+		return
 	Audio.play_audio($sfx_attack)
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		#check czy cel nie odszedl za daleko

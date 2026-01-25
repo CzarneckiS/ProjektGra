@@ -54,10 +54,10 @@ func _ready():
 	var tween = create_tween()
 	tween.tween_property(big_text, "modulate:a", 0, 1)
 	await tween.finished
+	summon_skeleton_warrior()
 	timer_between_waves.start()
 	force_wave_timer.start()
 	big_text.queue_free()
-	make_night()
 	
 func _process(_delta: float) -> void:
 	$HudLayer/Label2.text = "fps: " + str(Engine.get_frames_per_second())
@@ -78,6 +78,7 @@ func _on_player_died():
 	get_tree().paused = true
 
 func _on_boss_killed():
+	Achievements.achievement_update(Achievements.Event.ENTITY_DIED, Tags.UnitTag.BOSS)
 	await get_tree().create_timer(0.5,false).timeout
 	var win_screen = preload("res://scenes/ui/win_screen.tscn").instantiate()          
 	win_screen.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -89,14 +90,14 @@ var enemies_defeated: int = 0
 var enemies_spawned: int = 0
 var enemies_to_spawn: int = 0
 var wave_counter: int = 1
-var max_wave: int = 4
+var max_wave: int = 20
 var h_warriors_to_spawn: int = 2
 var h_mages_to_spawn: int = 0
 var h_archers_to_spawn: int = 0
 var timer_between_waves: Timer = Timer.new()
 var force_wave_timer: Timer = Timer.new()
 @warning_ignore("integer_division")
-var half_of_max_waves: int = max_wave/2
+var half_of_max_waves: int = 10
 
 var is_night: bool = false
 
@@ -136,12 +137,16 @@ func force_wave_logic():
 	force_wave = true
 
 func wave_logic():
-	print("przed:")
-	print("ile pokonano: ", enemies_defeated)
-	print("ile zespawniono: ", enemies_spawned)
-	print("ile ma byc zespawnione: ", enemies_to_spawn)
+	if wave_counter == 5:
+		Achievements.achievement_update(Achievements.Event.WAVE_REACHED, 5)
+	elif wave_counter == 10:
+		Achievements.achievement_update(Achievements.Event.WAVE_REACHED, 10)
+	elif wave_counter == max_wave:
+		Achievements.achievement_update(Achievements.Event.WAVE_REACHED, 20)
 	if wave_counter == half_of_max_waves:
 		make_night()
+		Globals.wave_count += 1
+		Globals.wave_count_update.emit()
 	if wave_counter == max_wave:
 		wave_counter += 1
 		Globals.wave_count = wave_counter
@@ -159,37 +164,38 @@ func wave_logic():
 	print("ile pokonano: ", enemies_defeated)
 	print("ile zespawniono: ", enemies_spawned)
 	print("ile ma byc zespawnione: ", enemies_to_spawn)
-	force_wave_timer.wait_time += 1
+	force_wave_timer.wait_time += 2
 	wave_switch = true
 	force_wave = false
 	force_wave_timer.start()
+
 	
 func new_wave():
-	#enemies_defeated = 0 #sygnał od unitów on_death aktualizuje zmienna
+	enemies_defeated = 0 #sygnał od unitów on_death aktualizuje zmienna
 	for warriors in range(h_warriors_to_spawn):
 		spawn_enemy(human_warrior)
 	for mages in range(h_mages_to_spawn):
 		spawn_enemy(human_mage)
 	for archers in range(h_archers_to_spawn):
 		spawn_enemy(human_archer)
-	enemies_spawned += enemies_to_spawn
+	enemies_spawned = enemies_to_spawn
 	
 func enemy_spawn_by_wave(wave_number):
 	enemies_to_spawn = 0
 	wave_number = wave_counter
 	
-	var h_warriors_spawn_increase: int = 1
+	var h_warriors_spawn_increase: int = 2
 	var h_mages_spawn_increase: int = 1
 	var h_archers_spawn_increase: int = 1
 	
-	if wave_number % 2 == 0:
+	if wave_number % 3 == 0:
 		h_warriors_to_spawn += h_warriors_spawn_increase
 	if wave_number % 3 == 0:
 		h_archers_to_spawn += h_archers_spawn_increase
 	if wave_number % 4 == 0:
 		h_mages_to_spawn += h_mages_spawn_increase
 	
-	enemies_to_spawn = h_warriors_to_spawn + h_mages_to_spawn + h_archers_to_spawn
+	enemies_to_spawn += h_warriors_to_spawn + h_mages_to_spawn + h_archers_to_spawn
 	
 func spawn_enemy(enemy_type): # EnemySpawnFollow bierzemy jako unique name
 	var new_enemy = enemy_type.instantiate()
@@ -213,7 +219,6 @@ func on_summon_unit(unit):
 			summon_skeleton_mage()
 			
 func on_unit_death(unit):
-	Achievements.unlock_achievement("mages_killed")
 	#narazie hardcoded 5 sekundowy timer
 	for order in movement_orders:
 			if unit in order.unit_array:
@@ -223,8 +228,6 @@ func on_unit_death(unit):
 			await get_tree().create_timer(5.0 * $Player.summon_respawn_timer_modifier,false).timeout
 			summon_skeleton_mage()
 		Tags.UnitTag.SKELETON_WARRIOR:
-			print($Player.summon_respawn_timer_modifier)
-			print(5.0 * $Player.summon_respawn_timer_modifier)
 			await get_tree().create_timer(5.0 * $Player.summon_respawn_timer_modifier,false).timeout
 			summon_skeleton_warrior()
 		Tags.UnitTag.HUMAN_WARRIOR:
@@ -259,6 +262,7 @@ func summon_skeleton_warrior():
 	new_skeleton_warrior.connect("unit_died", on_unit_death)
 	new_skeleton_warrior.connect("took_damage", on_unit_damage_taken)
 	on_allied_unit_spawn_animation(new_skeleton_warrior)
+	Achievements.achievement_update(Achievements.Event.UNIT_SUMMONED,Tags.UnitTag.SKELETON_WARRIOR)
 func summon_skeleton_mage():
 	var new_skeleton_mage = skeleton_mage.instantiate()
 	$AlliedUnits.add_child(new_skeleton_mage)
@@ -270,7 +274,7 @@ func summon_skeleton_mage():
 	new_skeleton_mage.connect("unit_died", on_unit_death)
 	new_skeleton_mage.connect("took_damage", on_unit_damage_taken)
 	on_allied_unit_spawn_animation(new_skeleton_mage)
-	Achievements.unlock_achievement("mages_killed")
+	Achievements.achievement_update(Achievements.Event.UNIT_SUMMONED,Tags.UnitTag.SKELETON_WARRIOR)
 func is_point_on_map(target_point: Vector2) -> bool:
 	var map = get_world_2d().navigation_map
 	var closest_point = NavigationServer2D.map_get_closest_point(map, target_point)

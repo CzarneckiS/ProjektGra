@@ -8,7 +8,7 @@ var skills_on_hit : Array = [projectile]
 var skills_on_death : Array = []
 var own_tags: PackedInt32Array = [Tags.UnitTag.UNIT, Tags.UnitTag.ALLIED, Tags.UnitTag.SKELETON_MAGE]
 #movement
-var speed = 350
+var speed = 355
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position = Vector2.ZERO #temporary, bedzie wymienione przy pathfindingu
@@ -19,7 +19,7 @@ var follow_distance_absolute:int = 1000
 var movement_order #rozkaz tworzony w levelu przy right clickowaniu
 
 #combat
-var base_damage = 20
+var base_damage = 15
 var damage = base_damage
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea
@@ -43,7 +43,7 @@ func _ready() -> void:
 	unit_hud_order = 1
 	icon_texture = "res://sprites/ui/skeleton mage icon.png"
 
-	base_max_health = 60
+	base_max_health = 55
 	max_health  = base_max_health
 	health = max_health
 	health_bar.max_value = max_health
@@ -90,7 +90,6 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	#seek_enemies()
 	if !dying:
-		return #TEMPORARY
 		follow_player()
 	#for unit in possible_targets:
 		#if unit == null:
@@ -168,18 +167,23 @@ func _move_to_target(_delta,target_position):
 var unit_collision_push_array : Array = []
 func push_units():
 	for body in unit_collision_push_array:
+		if !body.get_ref():
+			continue
 		if body.get_ref().state_machine.state != body.get_ref().state_machine.states.idle:
 			continue
-		if body.get_ref().movement_order == movement_order:
-			continue
+		if movement_order and body.get_ref().movement_order:
+			if body.get_ref().movement_order.get_ref() == movement_order.get_ref():
+				if self not in movement_order.get_ref().units_inside:
+					continue
 		if body.get_ref().state_machine.command == body.get_ref().state_machine.commands.HOLD:
 			continue
 			#ta liczba oznacza jak daleko ma sie odsunac odepchnieta jednostka
-		if angle_difference(global_position.angle_to_point(move_target), global_position.angle_to_point(body.get_ref().global_position)) < PI/2:
-			#print("im pushin p")
-			body.get_ref().move_target = body.get_ref().global_position + (global_position.direction_to(body.get_ref().global_position))
-			body.get_ref().state_machine.set_state(body.get_ref().state_machine.states.moving)
-			#body.get_ref().push_units()
+		if move_target:
+			if angle_difference(global_position.angle_to_point(move_target), global_position.angle_to_point(body.get_ref().global_position)) < PI/2:
+				#print("im pushin p")
+				body.get_ref().move_target = body.get_ref().global_position + (global_position.direction_to(body.get_ref().global_position))
+				body.get_ref().state_machine.set_state(body.get_ref().state_machine.states.moving)
+				#body.get_ref().push_units()
 
 func _on_movement_push_area_body_entered(body: Node2D) -> void:
 	unit_collision_push_array.append(weakref(body))
@@ -262,6 +266,8 @@ func _on_navigation_timer_timeout() -> void:
 func follow_player() -> void:
 	if global_position.distance_to(Globals.player_position) > follow_distance_absolute:
 		global_position = (Globals.player_position - global_position.direction_to(Globals.player_position) * 100)
+		possible_targets = []
+		possible_targets = $VisionArea.get_overlapping_bodies()
 		attack_target = null
 		move_target = null
 		state_machine.state = state_machine.states.idle
@@ -332,6 +338,8 @@ func heal(heal_amount):
 		tween.set_trans(Tween.TRANS_SINE)
 		tween.set_ease(Tween.EASE_OUT)
 func attack():
+	if !attack_target:
+		return
 	Audio.play_audio($sfx_projectile)
 	if attack_target.get_ref(): #jeśli nasz cel wciąż istnieje:
 		for skill in skills_on_hit:
