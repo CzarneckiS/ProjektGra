@@ -21,14 +21,19 @@ extends Control
 @onready var scena_passive_slot_3: SpellSlot = $ScenaPassiveSlot3
 @onready var scena_passive_slot_4: SpellSlot = $ScenaPassiveSlot4
 @export var skill_tooltip_scene: PackedScene = preload("res://scenes/ui/tooltip_scene.tscn")
+@export var bars_tooltip_scene: PackedScene = preload("res://scenes/ui/tooltip_scene.tscn")
 @onready var attack_icon: TextureRect = $AttackIcon
 @onready var hold_icon: TextureRect = $HoldIcon
 @onready var move_icon: TextureRect = $MoveIcon
 @onready var stop_icon: TextureRect = $StopIcon
+@onready var hp_tooltip_area: ColorRect = $HPTooltipArea
+@onready var xp_tooltip_area: ColorRect = $XPTooltipArea
+@onready var player_lvl_tooltip_area: ColorRect = $PlayerLvlTooltipArea
 
 
 
 var skill_tooltip: SkillTooltip
+var bars_tooltip: SkillTooltip
 var spell_slots: Array[SpellSlot] = []
 var passive_slots: Array[SpellSlot] = []
 var action_slots: Array[SpellSlot] = []
@@ -94,7 +99,7 @@ func _ready() -> void:
 	player_level.text = "%d" % Globals.level
 	hp_value.text = "%d / %d" % [Globals.health, Globals.max_health]
 	xp_value.text = "%d / %d" % [Globals.accumulated_xp, Globals.xp_to_level]
-	set_process_unhandled_input(true)  # aby działało _unhandled_input
+	set_process_unhandled_input(true)  
 	
 	icon_page_1.visible = false
 	icon_page_2.visible = false
@@ -141,7 +146,16 @@ func _ready() -> void:
 	skill_tooltip.visible = false
 	skill_tooltip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	skill_tooltip.position = Vector2(690, -155)
+	
+	hp_tooltip_area.mouse_entered.connect(_on_hp_bar_hovered)
+	hp_tooltip_area.mouse_exited.connect(_on_action_bars_unhovered)
 
+	xp_tooltip_area.mouse_entered.connect(_on_xp_bar_hovered)
+	xp_tooltip_area.mouse_exited.connect(_on_action_bars_unhovered)
+	
+	player_lvl_tooltip_area.mouse_entered.connect(_on_player_lvl_hovered)
+	player_lvl_tooltip_area.mouse_exited.connect(_on_action_bars_unhovered)
+	
 
 	attack_icon.mouse_entered.connect(_on_action_icon_hovered.bind("Attack"))
 	hold_icon.mouse_entered.connect(_on_action_icon_hovered.bind("Hold"))
@@ -149,11 +163,19 @@ func _ready() -> void:
 	stop_icon.mouse_entered.connect(_on_action_icon_hovered.bind("Stop"))
 	
 	attack_icon.mouse_exited.connect(_on_action_icon_unhovered)
+	#attack_icon.mouse_entered.connect(_on_hp_bar_hovered)
 	hold_icon.mouse_exited.connect(_on_action_icon_unhovered)
 	move_icon.mouse_exited.connect(_on_action_icon_unhovered)
 	stop_icon.mouse_exited.connect(_on_action_icon_unhovered)
 
-
+	bars_tooltip = bars_tooltip_scene.instantiate()
+	add_child(bars_tooltip)
+	bars_tooltip.visible = false
+	bars_tooltip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bars_tooltip.position = Vector2(16, -4)
+	
+	
+	
 	Achievements.achievement_unlocked.connect(_on_achievement_unlocked)
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -452,3 +474,18 @@ func _on_action_icon_hovered(icon_name: String) -> void:
 func _on_action_icon_unhovered() -> void:
 	skill_tooltip.hide_tooltip()
 	
+func _on_action_bars_unhovered() -> void:
+	bars_tooltip.hide_tooltip()
+	
+func _on_hp_bar_hovered() -> void:
+	print("+Mysz weszła na HP Bar!")
+	if bars_tooltip:
+		bars_tooltip.show_bar_text("HPBar")
+
+func _on_xp_bar_hovered() -> void:
+	if bars_tooltip:
+		bars_tooltip.show_bar_text("XPBar")
+	
+func _on_player_lvl_hovered() -> void:
+	if bars_tooltip:
+		bars_tooltip.show_player_lvl_text()

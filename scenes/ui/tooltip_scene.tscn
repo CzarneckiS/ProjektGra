@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://da88cxc0k68bf" path="res://sprites/ui/tooltip.png" id="2_xcq67"]
 
 [node name="TooltipScene" type="Control"]
+z_index = 4
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,29 +15,21 @@ mouse_filter = 2
 mouse_behavior_recursive = 1
 script = ExtResource("1_jpgm5")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = 4
+layout_mode = 0
+offset_top = -88.0
+offset_right = 1182.6086
+offset_bottom = 462.0
+scale = Vector2(0.23, 0.16)
+texture = ExtResource("2_xcq67")
+
 [node name="Text" type="Label" parent="."]
 z_index = 4
 layout_mode = 0
-offset_left = 13.0
-offset_top = -73.0
-offset_right = 216.0
-offset_bottom = -6.0
+offset_left = 14.0
+offset_top = -82.0
+offset_right = 257.0
+offset_bottom = -15.0
 mouse_behavior_recursive = 1
 autowrap_mode = 3
-
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-layout_mode = 0
-offset_top = -80.0
-offset_right = 232.0
-mouse_filter = 2
-mouse_behavior_recursive = 1
-color = Color(0, 0, 0, 0.41960785)
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_top = -80.0
-offset_right = 997.0
-offset_bottom = 420.0
-scale = Vector2(0.23, 0.16)
-texture = ExtResource("2_xcq67")
