@@ -86,7 +86,7 @@ animations = [{
 radius = 16.0
 height = 160.0
 
-[node name="BossCharge" type="Area2D"]
+[node name="BossCharge" type="Area2D" groups=["EnemyProjectile"]]
 collision_layer = 8
 collision_mask = 34
 script = ExtResource("1_1i15n")

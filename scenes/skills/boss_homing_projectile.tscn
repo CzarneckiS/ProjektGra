@@ -37,7 +37,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_cj314"]
 radius = 119.01681
 
-[node name="HomingProjectile" type="Area2D"]
+[node name="HomingProjectile" type="Area2D" groups=["EnemyProjectile"]]
 collision_layer = 8
 collision_mask = 34
 script = ExtResource("1_hf2nh")

@@ -26,7 +26,7 @@ func _init() -> void:
 	use_tags.append(Tags.UseTag.ACTIVE)
 func upgrade_skill():
 	effect_dot.damage_per_tick = 2+skill_level
-	effect_dot.ticks_per_second = 4 + (0.5*skill_level)
+	effect_dot.ticks_per_second = 3 + (0.5*skill_level)
 	effect_dot.damage_multiplier = 1.0 + (0.05*skill_level)
 	effect_dot.duration = 4+(1.2*skill_level)
 	cooldown = 14 - (0.5*skill_level)
