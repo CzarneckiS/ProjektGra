@@ -8,7 +8,7 @@ var skills_on_hit : Array = [projectile]
 var skills_on_death : Array = []
 var own_tags: PackedInt32Array = [Tags.UnitTag.UNIT, Tags.UnitTag.ALLIED, Tags.UnitTag.SKELETON_MAGE]
 #movement
-var speed = 350
+var speed = 270
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position = Vector2.ZERO #temporary, bedzie wymienione przy pathfindingu
@@ -19,7 +19,7 @@ var follow_distance_absolute:int = 1000
 var movement_order #rozkaz tworzony w levelu przy right clickowaniu
 
 #combat
-var base_damage = 20
+var base_damage = 10
 var damage = base_damage
 var attack_target #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea

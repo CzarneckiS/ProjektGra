@@ -8,7 +8,7 @@ var skills_on_hit : Array = [melee_attack_vfx]
 var skills_on_death : Array = []
 var own_tags: PackedInt32Array = [Tags.UnitTag.UNIT, Tags.UnitTag.ALLIED, Tags.UnitTag.SKELETON_WARRIOR]
 #movement
-var speed = 375
+var speed = 320
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position
@@ -18,7 +18,7 @@ var follow_distance_idle:int = 500
 var follow_distance_absolute:int = 1200
 var movement_order #rozkaz tworzony w levelu przy right clickowaniu
 #combat
-var base_damage = 15
+var base_damage = 5
 var damage = base_damage
 var attack_target : WeakRef #ZAWSZE ALE TO ZAWSZE PRZY ATTACK_TARGET UZYWAJCIE .get_ref()
 var possible_targets = [] #jednostki ktore wejda w VisionArea

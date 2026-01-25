@@ -9,10 +9,10 @@ var skills_on_hit : Array = [melee_attack_vfx]
 var skills_on_death : Array = []
 var own_tags : PackedInt32Array = []
 #exp ktory daje warrior, wykorzystywany przekazywany do fsm w dying state
-const experience_value = 200
+const experience_value = 20
 
 #movement
-var speed = 375
+var speed = 370
 var stop_distance = 30 #jak daleko ma sie zatrzymywac od swojego celu (state == moving)
 const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position

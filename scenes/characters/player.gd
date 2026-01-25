@@ -3,7 +3,7 @@ extends CharacterBody2D
 #! ! ! 90% rzeczy tutaj jest temporary ! ! ! 
 #wiec nie bede tego komentować 
 
-var speed : int = 450
+var speed : int = 420
 var standing : bool = true
 var selected : bool = false
 var dying : bool = false
