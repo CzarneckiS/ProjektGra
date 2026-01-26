@@ -14,8 +14,8 @@ const move_treshold = 0.5 #temporary, bedzie wymienione przy pathfindingu
 var last_position = Vector2.ZERO #temporary, bedzie wymienione przy pathfindingu
 var next_path_position
 var can_navigate:bool = true
-var follow_distance_idle:int = 400
-var follow_distance_absolute:int = 1000
+var follow_distance_idle:int = 700
+var follow_distance_absolute:int = 1200
 var movement_order #rozkaz tworzony w levelu przy right clickowaniu
 
 #combat

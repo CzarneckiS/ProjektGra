@@ -683,6 +683,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="HPValue" type="Label" parent="."]
+visible = false
 z_index = 5
 layout_mode = 0
 offset_left = 205.0
@@ -693,6 +694,7 @@ theme_override_fonts/font = SubResource("FontVariation_36mnu")
 text = "000/000"
 
 [node name="XPValue" type="Label" parent="."]
+visible = false
 z_index = 5
 layout_mode = 0
 offset_left = 205.0
