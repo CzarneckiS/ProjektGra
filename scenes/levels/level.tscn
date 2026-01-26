@@ -1259,6 +1259,28 @@ metadata/_edit_lock_ = true
 
 [node name="BloodLayer" type="Node2D" parent="Ground"]
 
+[node name="XPFlowers" type="Node2D" parent="Ground"]
+y_sort_enabled = true
+position = Vector2(19, -181)
+
+[node name="XPFlower" parent="Ground/XPFlowers" instance=ExtResource("3_urvlt")]
+position = Vector2(1473, 275)
+
+[node name="XPFlower2" parent="Ground/XPFlowers" instance=ExtResource("3_urvlt")]
+position = Vector2(2138, 3391)
+
+[node name="XPFlower3" parent="Ground/XPFlowers" instance=ExtResource("3_urvlt")]
+position = Vector2(-3168, -2063)
+
+[node name="XPFlower4" parent="Ground/XPFlowers" instance=ExtResource("3_urvlt")]
+position = Vector2(1911, -3561)
+
+[node name="XPFlower5" parent="Ground/XPFlowers" instance=ExtResource("3_urvlt")]
+position = Vector2(-2027, 3616)
+
+[node name="XPFlower6" parent="Ground/XPFlowers" instance=ExtResource("3_urvlt")]
+position = Vector2(3575, 498)
+
 [node name="ObstacleLayerHouse" type="TileMapLayer" parent="." groups=["navigation"]]
 y_sort_enabled = true
 position = Vector2(-15, -29)
@@ -2344,34 +2366,6 @@ position = Vector2(515, -4195)
 [node name="Tree96" parent="BGTrees" instance=ExtResource("4_d4w6o")]
 z_index = 4090
 position = Vector2(2723, -4185)
-
-[node name="XPFlowers" type="Node2D" parent="."]
-y_sort_enabled = true
-position = Vector2(19, -181)
-
-[node name="XPFlower" parent="XPFlowers" instance=ExtResource("3_urvlt")]
-z_index = 4090
-position = Vector2(1473, 275)
-
-[node name="XPFlower2" parent="XPFlowers" instance=ExtResource("3_urvlt")]
-z_index = 4090
-position = Vector2(2138, 3391)
-
-[node name="XPFlower3" parent="XPFlowers" instance=ExtResource("3_urvlt")]
-z_index = 4090
-position = Vector2(-3168, -2063)
-
-[node name="XPFlower4" parent="XPFlowers" instance=ExtResource("3_urvlt")]
-z_index = 4090
-position = Vector2(1911, -3561)
-
-[node name="XPFlower5" parent="XPFlowers" instance=ExtResource("3_urvlt")]
-z_index = 4090
-position = Vector2(-2027, 3616)
-
-[node name="XPFlower6" parent="XPFlowers" instance=ExtResource("3_urvlt")]
-z_index = 4090
-position = Vector2(3575, 498)
 
 [node name="Player" parent="." instance=ExtResource("1_377w7")]
 position = Vector2(80, -114)
