@@ -104,6 +104,7 @@ func remove_overlapping_allies():
 		else:
 			Input.set_custom_mouse_cursor(evil_cursor)
 #funkcja, ktora obsluguje to, co sie dzieje z postacia po lvl upie
+signal update_small_lifebar()
 func level_up():
 	max_health += 2+(2*level) #placeholder wartosc na zwiekszanie max hp
 	health = max_health
@@ -112,6 +113,7 @@ func level_up():
 	
 	ui_hp_update_requested.emit()
 	lvl_up_menu_requested.emit()
+	update_small_lifebar.emit()
 
 func update_player_hp():
 	ui_hp_update_requested.emit()

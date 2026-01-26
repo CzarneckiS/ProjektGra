@@ -183,7 +183,7 @@ func _ready() -> void:
 	damage_bar.visible = false
 	
 	
-	hp_bar_style.bg_color = Color("ba0098ff")
+	hp_bar_style.bg_color = Color("10bf00ff")
 	hp_bar_style.border_width_left = 2
 	hp_bar_style.border_width_top = 2
 	hp_bar_style.border_width_bottom = 2
@@ -198,6 +198,7 @@ func _ready() -> void:
 	$MovementPushArea.connect("body_entered", _on_movement_push_area_body_entered)
 	$MovementPushArea.connect("body_exited", _on_movement_push_area_body_exited)
 	Globals.player = self
+	Globals.connect("update_small_lifebar", _on_update_small_lifebar)
 func _physics_process(_delta: float) -> void:
 	if standing:
 		$AnimationPlayer.play("stand")
@@ -264,6 +265,14 @@ func handle_starting_skills():
 		skill.use(self)
 	for skill in skills_summon:
 		skill.use(self)
+
+func _on_update_small_lifebar():
+	health_bar.max_value = Globals.health
+	health_bar.value = Globals.health
+	health_bar.visible = false
+	damage_bar.max_value = Globals.health
+	damage_bar.value = Globals.health
+	damage_bar.visible = false
 
 func hit(damage_taken, _damage_source) -> void:
 	Globals.health -= damage_taken

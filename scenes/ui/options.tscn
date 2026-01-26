@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bww5tsqr8lg2i"]
+[gd_scene load_steps=17 format=3 uid="uid://cw6p5h6aa443p"]
 
 [ext_resource type="Texture2D" uid="uid://b53udvlsxsbkc" path="res://sprites/ui/Achievements window.png" id="1_ad3a0"]
 [ext_resource type="Script" uid="uid://kes62y2fdaq7" path="res://scenes/ui/options.gd" id="1_lr2b1"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dphc21aqf5r1m" path="res://sprites/ui/Button_neutral.png" id="4_gdfy8"]
 [ext_resource type="Texture2D" uid="uid://bpvowenbyhjyy" path="res://sprites/ui/Button_pressed.png" id="5_b0jeg"]
 [ext_resource type="Texture2D" uid="uid://cvilxq7eyc1kj" path="res://sprites/ui/Button_highlight.png" id="6_epl0h"]
+[ext_resource type="FontFile" uid="uid://bdn6824mbo1l3" path="res://sprites/ui/MADEAvenuePERSONALUSE-Regular.otf" id="7_epl0h"]
 [ext_resource type="FontFile" uid="uid://bg81f0wdusbdp" path="res://sprites/ui/Warsuck.otf" id="7_gdfy8"]
 [ext_resource type="AudioStream" uid="uid://bgaj7l2ut0y5e" path="res://sfx/menu/menu_click.ogg" id="8_b0jeg"]
 
@@ -349,11 +350,11 @@ scale = Vector2(0.07, 0.31)
 texture_normal = ExtResource("4_gdfy8")
 
 [node name="Label15" type="Label" parent="."]
-offset_left = 1242.0
-offset_top = 461.0
-offset_right = 1372.0
-offset_bottom = 508.0
-theme_override_fonts/font = SubResource("FontVariation_pykmj")
+offset_left = 1250.0
+offset_top = 464.0
+offset_right = 1380.0
+offset_bottom = 511.0
+theme_override_fonts/font = ExtResource("7_epl0h")
 theme_override_font_sizes/font_size = 17
 text = "RMB"
 
@@ -362,7 +363,7 @@ offset_left = 1253.0
 offset_top = 372.0
 offset_right = 1383.0
 offset_bottom = 419.0
-theme_override_fonts/font = SubResource("FontVariation_pykmj")
+theme_override_fonts/font = ExtResource("7_epl0h")
 theme_override_font_sizes/font_size = 29
 text = "C"
 
@@ -371,7 +372,7 @@ offset_left = 1254.0
 offset_top = 290.0
 offset_right = 1384.0
 offset_bottom = 337.0
-theme_override_fonts/font = SubResource("FontVariation_pykmj")
+theme_override_fonts/font = ExtResource("7_epl0h")
 theme_override_font_sizes/font_size = 29
 text = "X"
 
@@ -380,7 +381,7 @@ offset_left = 1254.0
 offset_top = 209.99998
 offset_right = 1384.0
 offset_bottom = 257.0
-theme_override_fonts/font = SubResource("FontVariation_pykmj")
+theme_override_fonts/font = ExtResource("7_epl0h")
 theme_override_font_sizes/font_size = 29
 text = "Z"
 
@@ -389,7 +390,7 @@ offset_left = 797.0
 offset_top = 451.0
 offset_right = 927.0
 offset_bottom = 498.0
-theme_override_fonts/font = SubResource("FontVariation_pykmj")
+theme_override_fonts/font = ExtResource("7_epl0h")
 theme_override_font_sizes/font_size = 29
 text = "F"
 
@@ -398,7 +399,7 @@ offset_left = 796.0
 offset_top = 371.0
 offset_right = 926.0
 offset_bottom = 418.0
-theme_override_fonts/font = SubResource("FontVariation_pykmj")
+theme_override_fonts/font = ExtResource("7_epl0h")
 theme_override_font_sizes/font_size = 29
 text = "R"
 
@@ -407,7 +408,7 @@ offset_left = 795.0
 offset_top = 290.0
 offset_right = 925.0
 offset_bottom = 337.0
-theme_override_fonts/font = SubResource("FontVariation_pykmj")
+theme_override_fonts/font = ExtResource("7_epl0h")
 theme_override_font_sizes/font_size = 29
 text = "E"
 
@@ -416,7 +417,7 @@ offset_left = 793.0
 offset_top = 206.99998
 offset_right = 923.0
 offset_bottom = 253.99998
-theme_override_fonts/font = SubResource("FontVariation_pykmj")
+theme_override_fonts/font = ExtResource("7_epl0h")
 theme_override_font_sizes/font_size = 29
 text = "Q"
 
@@ -425,7 +426,7 @@ offset_left = 325.0
 offset_top = 455.0
 offset_right = 455.0
 offset_bottom = 502.0
-theme_override_fonts/font = SubResource("FontVariation_pykmj")
+theme_override_fonts/font = ExtResource("7_epl0h")
 theme_override_font_sizes/font_size = 29
 text = "D"
 
@@ -434,7 +435,7 @@ offset_left = 326.0
 offset_top = 369.0
 offset_right = 456.0
 offset_bottom = 416.0
-theme_override_fonts/font = SubResource("FontVariation_pykmj")
+theme_override_fonts/font = ExtResource("7_epl0h")
 theme_override_font_sizes/font_size = 29
 text = "A"
 
@@ -443,7 +444,7 @@ offset_left = 327.0
 offset_top = 290.0
 offset_right = 457.0
 offset_bottom = 337.0
-theme_override_fonts/font = SubResource("FontVariation_pykmj")
+theme_override_fonts/font = ExtResource("7_epl0h")
 theme_override_font_sizes/font_size = 29
 text = "S"
 
@@ -452,7 +453,7 @@ offset_left = 323.0
 offset_top = 208.99998
 offset_right = 453.0
 offset_bottom = 255.99998
-theme_override_fonts/font = SubResource("FontVariation_pykmj")
+theme_override_fonts/font = ExtResource("7_epl0h")
 theme_override_font_sizes/font_size = 29
 text = "W"
 

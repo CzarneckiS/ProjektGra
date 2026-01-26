@@ -52,7 +52,6 @@ var achievement_description_list : Dictionary = {
 }
 
 func _process(delta: float) -> void:
-	print(player_stats["skeleton_mages_summoned"])
 	#print(achievement_description_list.get("skeletons_summoned"))
 	#for skill in skill_unlock_handler.skill_unlock_dictionary:
 		#print(skill_unlock_handler.skill_unlock_dictionary[skill])

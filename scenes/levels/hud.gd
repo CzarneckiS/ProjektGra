@@ -208,21 +208,19 @@ func _unhandled_input(event: InputEvent) -> void:
 func update_hp_bar():
 	main_damage_bar.value = Globals.max_health - Globals.health 
 	hp_value.text = "%d / %d" % [Globals.health, Globals.max_health]
-	var main_health_tween = create_tween()
-	main_health_tween.tween_property(main_damage_bar, "value", Globals.max_health - Globals.health, 0.5)
-	main_health_tween.set_trans(Tween.TRANS_SINE)
-	main_health_tween.set_ease(Tween.EASE_IN_OUT)
+	#var main_health_tween = create_tween()
+	#main_health_tween.tween_property(main_damage_bar, "value", Globals.max_health - Globals.health, 0.5)
+	#main_health_tween.set_trans(Tween.TRANS_SINE)
+	#main_health_tween.set_ease(Tween.EASE_IN_OUT)
 	
 func update_exp_bar():
 	xp_gain_bar.value = Globals.xp_to_level - Globals.accumulated_xp
 	xp_value.text = "%d / %d" % [Globals.accumulated_xp, Globals.xp_to_level]
-	var xp_tween = create_tween()
-	xp_tween.tween_property(xp_gain_bar, "value", Globals.xp_to_level - Globals.accumulated_xp, 0.5)
-	xp_tween.set_trans(Tween.TRANS_SINE)
-	xp_tween.set_ease(Tween.EASE_IN_OUT)
+	#var xp_tween = create_tween()
+	#xp_tween.tween_property(xp_gain_bar, "value", Globals.xp_to_level - Globals.accumulated_xp, 0.5)
+	#xp_tween.set_trans(Tween.TRANS_SINE)
+	#xp_tween.set_ease(Tween.EASE_IN_OUT)
 	player_level.text = "%d" % Globals.level
-	if Globals.level > 1:
-		player_level.position = Vector2(24,31)
 
 func update_boss_health_bar():
 	$BossHealthBar.value = Globals.boss_current_health
